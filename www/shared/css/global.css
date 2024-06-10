@@ -1,0 +1,37 @@
+/* 
+*/ 
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+ADMIN/VISU: CSS
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+@font-face {
+	font-family:'EDOMIfont';
+	font-style:normal;
+	font-weight:normal;
+	src:url('edomifont-1-400.ttf') format('truetype');
+}
+
+@font-face {
+	font-family:'EDOMIfont';
+	font-style:normal;
+	font-weight:bold;
+	src:url('edomifont-1-500.ttf') format('truetype');
+}
+
+@font-face {
+	font-family:'EDOMIfontMono';
+	font-style:normal;
+	font-weight:normal;
+	src:url('edomifont-2-400.ttf') format('truetype');
+}
+
+.svgIcon {
+	position:relative;
+	left:0;
+	top:0.15em;
+	width:1em;
+	height:1em;
+	display:inline-block;
+}
