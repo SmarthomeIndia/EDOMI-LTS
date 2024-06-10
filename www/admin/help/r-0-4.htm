@@ -1,0 +1,340 @@
+<h1><path>Logikbausteine (allgemein)***r-0</path><path>Entwicklung von Logikbausteinen***r-0-0</path>Beispiele</h1>
+
+<h2>Einfacher LBS (UND-Gatter)</h2>
+Wenn Eingang 1 und/oder 2 getriggert (refreshed) wurde... 
+if ($E[1]['refresh']==1 || $E[2]['refresh']==1) { 
+
+...soll die eigentliche UND-Verknüpfung der Werte an Eingang 1 bzw. 2 erfolgen:
+if (($E[1]['value']!=0) && ($E[2]['value']!=0)) {
+
+ Mit anderen Worten: Sobald mindestens einer der beiden Eingänge getriggert wird, wird der Baustein seine Arbeit verrichten.
+
+Sind nun an beiden Eingängen die Werte ungleich 0, ist die UND-Bedingung erfüllt und der Ausgang 1 wird auf 1 gesetzt:
+logic_setOutput($id,1,1);
+
+Andernfalls wird der Ausgang 1 auf 0 gesetzt:
+logic_setOutput($id,1,0);
+
+
+Und-Gatter mit 2 Eingängen (14000020):
+<pre>
+###[DEF]###
+[name=UND-Gatter 2xEingänge]
+
+[e#1=A #init=0]
+[e#2=B #init=0]
+
+[a#1=0/1]
+###[/DEF]###
+
+###[HELP]###
+(Hilfetext)
+###[/HELP]###
+
+###[LBS]###
+<?
+function LB_LBSID($id) {
+
+	if ($E=logic_getInputs($id)) {	//Daten aller Eingänge holen
+
+		if ($E[1]['refresh']==1 || $E[2]['refresh']==1) {	//neues Telegramm?
+
+			if (($E[1]['value']!=0) && ($E[2]['value']!=0)) {	//UND-Verknüpfung
+
+				logic_setOutput($id,1,1);	//Ausgang 1 auf 1 setzen
+
+			} else {
+
+				logic_setOutput($id,1,0);	//Ausgang 1 auf 0 setzen
+
+			}
+
+		}
+	}
+}
+?>
+###[/LBS]###
+
+###[EXEC]###
+<?
+?>
+###[/EXEC]###
+</pre>
+
+
+<h2>Komplexer LBS (Timer)</h2>
+Dieses Beispiel soll die grundlegende Funktionsweise eines LBS vermitteln, der nicht nur einmalig sequentiell abgearbeitet wird, sondern quasi "im Hintergrund" seine Arbeit verrichtet.
+
+Der LBS bildet einen Timer nach, d.h. der LBS wird mit einem neuen Telegramm an E1 gestartet, Ausgang A1 wird auf 1 gesetzt und nach Ablauf der Zeit an E2 wird der Ausgang A1 auf 0 gesetzt. Während der Timer "läuft", kann dieser mit einem neuen Telegramm an E1 erneut gestartet werden (retriggern).
+
+Im Unterschied zu einem einfachen LBS (z.B. UND-Gatter) wird die LBS-Funktion LB_LBSID($id) nach dem ersten Aufruf intern immer wieder aufgerufen, ohne(!) dass der LBS von einem seiner Eingänge getriggert werden muss. Der LBS "läuft" also nach einem initialen Trigger solange, bis sein Status entsprechend zurückgesetzt wird:
+
+Die Funktion logic_setState($id,1) startet den LBS, setzt also seinen Status auf "läuft". Dadurch wird der LBS von der Logik-Engine immer wieder aufgerufen, d.h. der Code des LBS wird viele Male pro Sekunde(!) ausgeführt. Dadurch kann der LBS z.B. überprüfen, ob bestimmte Bedingungen erfüllt sind - ohne das der LBS durch einen seiner Eingänge getriggert wird.
+
+Mit der Funktion logic_setState($id,0) wird der LBS wieder gestoppt und wird erst durch einen erneuten Trigger wieder gestartet.
+
+Mit der Funktion logic_getState($id) kann der aktuelle Status des LBS (s.o.) abgefragt werden.
+
+In diesem Beispiel werden zwei Zustände des LBS unterschieden: 
+
+1. Ist der LBS-Status = 0 (LBS läuft nicht), wartet der LBS (z.B. wie ein einfaches Gatter) auf einen Trigger. Hier wartet der LBS auf einen neuen Wert ungleich 0 an E1. Sobald diese Bedingung erfüllt ist, wird der LBS gestartet, der Ausgang A1 auf 1 gesetzt und die Variable 1 erhält den aktuellen Timestamp zuzüglich des Wertes an E2.
+
+2. Der LBS ist nun gestartet ("läuft") und läuft solange, bis der aktuelle Timestamp größer/gleich dem gespeicherten Wert (Variable 1) ist. Ist diese Bedingung erfüllt, wird A1 auf 0 gesetzt und der Baustein gestoppt. Unabhängig davon kann der Timer durch ein neues Telegramm ungleich 0 an E1 retriggert werden, d.h. die Variable 1 erhält erneut den aktuellen Timestamp zuzüglich des Wertes an E2.
+
+Hinweis:
+Die Funktion getMicrotime() liefert den aktuellen Unix-Timestamp in Sekunden und Millisekunden als FLOAT, z.B. 10000.12345 (also 10000 Sekunden und 12345 Millisekunden). Mit Hilfe dieser Funktion sind sehr präzise (i.d.R. relative) Zeitmessungen möglich. Für absolute Zeitfunktionen (Datum/Uhrzeit) stehen in PHP zahlreiche Funktionen zu Verfügung.
+<pre>
+###[DEF]###
+[name=Timer]
+
+[e#1=Trigger]
+[e#2=Dauer (s) #init=10]
+
+[a#1=0/1]
+
+[v#1=0]
+###[/DEF]###
+
+###[HELP]###
+###[/HELP]###
+
+###[LBS]###
+<?
+function LB_LBSID($id) {
+	if ($E=logic_getInputs($id)) {
+
+		if (logic_getState($id)==0) {	//LBS läuft nicht?
+
+			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
+				logic_setVar($id,1,(getMicrotime()+$E[2]['value']));	//Timestamp + E2
+				logic_setOutput($id,1,1);	//A1=1 setzen
+				logic_setState($id,1);	//LBS "starten"
+			}
+
+		} else {
+
+			//Retriggern?
+			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
+				logic_setVar($id,1,(getMicrotime()+$E[2]['value']));	//Timestamp + E2
+			}
+
+			//Zeit abgelaufen?
+			if (getMicrotime()>=logic_getVar($id,1)) { 
+				logic_setOutput($id,1,0);	//A1=0 setzen
+				logic_setState($id,0);	//LBS "stoppen"
+			}
+
+		}
+
+	}
+
+}
+?>
+###[/LBS]###
+
+###[EXEC]###
+<?
+?>
+###[/EXEC]###
+</pre>
+
+
+<h2>Einfacher LBS mit EXEC-Script</h2>
+Es können alle grundlegenden Logikfunktionen genutzt werden (z.B. Variablen setzen, Ausgänge setzen, Eingänge lesen, etc.).
+
+Sobald an Eingang 1 ein neues Telegramm ungleich 0 eintrifft, wird der LBS Ausgang 1 auf 0 setzen und das EXEC-Script starten. Der LBS wartet nach dem Aufruf des EXEC-Scripts nicht(!) auf dessen Ausführung, d.h. das EXEC-Script kann u.U. mehrfach ausgeführt werden. 
+
+Das EXEC-Script wartet 60s (dies soll z.B. eine HTTP-Abfrage repräsentieren) und setzt dann Ausgang 1 auf 1.
+<pre>
+###[DEF]###
+[name=Beispiel: LBS mit EXEC-Script]
+[e#1=Trigger]
+[a#1=Test]
+###[/DEF]###
+
+###[HELP]###
+###[/HELP]###
+
+###[LBS]###
+<?
+function LB_LBSID($id) {
+
+	if ($E=logic_getInputs($id)) {
+
+		if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
+			logic_setOutput($id,1,0);		//A1=0
+			logic_callExec(LBSID,$id,true);	//EXEC-Script starten, ggf. auch mehrfach
+		}
+
+	}
+
+}
+?>
+###[/LBS]###
+
+###[EXEC]###
+<?
+require(dirname(__FILE__)."/../../../../main/include/php/incl_lbsexec.php");
+sql_connect();
+
+//-------------------------------------------------------------------------------------
+
+sleep(60);	//z.B. eine HTTP-Abfrage
+logic_setOutput($id,1,1);	//A1=1
+
+//-------------------------------------------------------------------------------------
+
+sql_disconnect();
+?>
+###[/EXEC]###
+</pre>
+
+
+<h2>Komplexer LBS mit EXEC-Script</h2>
+In diesem Beispiel wird ein EXEC-Script verwendet, um über einem externen "Webdienst" die aktuelle WAN-IP-Adresse des EDOMI-Rechners zu ermitteln (dieser Webdienst liefert beim Aufruf einer URL die reine IP-Adresse zurück).
+
+Der LBS wird mit einem neuen Telegramm ungleich 0 an E1 gestartet, ruft dann das EXEC-Script auf und "wartet" solange, bis das EXEC-Script seine Arbeit verrichtet hat. Während das EXEC-Script versucht den Webdienst abzufragen, kann der LBS das EXEC-Script nicht erneut ausführen. 
+
+Ist die Abfrage erfolgreich, wird A1 auf die IP-Adresse gesetzt, andernfalls wird A2 auf 1 (Fehler) gesetzt und A1 bleibt unverändert.
+
+Dieses Beispiel demonstriert eine Möglichkeit der korrekten Implementierung eines EXEC-Scripts: Würde der LBS nicht auf das Ergebnis des EXEC-Scripts "warten" (wie im Beispiel zuvor), könnte der LBS noch während der Laufzeit des EXEC-Scripts erneut getriggert werden. Das EXEC-Script würde dann entsprechend mehrfach gestartet werden und u.U. in zahlreichen Instanzen den Webdienst überstrapazieren. 
+<pre>
+###[DEF]###
+[name=Beispiel: LBS mit EXEC-Script]
+
+[e#1=Trigger]
+
+[a#1=IP]
+[a#2=Fehler]
+###[/DEF]###
+
+###[HELP]###
+###[/HELP]###
+
+###[LBS]###
+<?
+function LB_LBSID($id) {
+
+	if ($E=logic_getInputs($id)) {
+
+		if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
+			if (logic_getStateExec($id)==0) {	//EXEC-Script läuft noch nicht
+				logic_setOutput($id,2,0);		//A2=0: Fehler-Status zurücksetzen
+				logic_callExec(LBSID,$id);		//EXEC-Script starten
+			}
+		}
+
+	}
+
+}
+?>
+###[/LBS]###
+
+###[EXEC]###
+<?
+require(dirname(__FILE__)."/../../../../main/include/php/incl_lbsexec.php");
+sql_connect();
+
+//-------------------------------------------------------------------------------------
+
+$ctx=stream_context_create(array('http' => array('timeout' => 30 ))); 	//30 Sekunden Timeout
+$ip=file_get_contents('http://ipecho.net/plain',null,$ctx,0,15);		//HTTP-Request (max. 15 Zeichen lesen)
+
+if (filter_var($ip,FILTER_VALIDATE_IP)!==false) {	//Gültige IP4-Adresse?
+	logic_setOutput($id,1,$ip);	//A1 = IP-Adresse
+} else {
+	logic_setOutput($id,2,1);	//A2 = 1 (Fehler)
+}
+
+//-------------------------------------------------------------------------------------
+
+sql_disconnect();
+?>
+###[/EXEC]###
+</pre>
+
+
+<h2>EXEC-Script als Dämon und Nutzung der EXEC-Queue</h2>
+Dieses Beispiel demonstriert eine korrekte Implementierung eines EXEC-Scripts, dass beim EDOMI-Start einmalig und automatisch gestartet wird, dann endlos durchläuft und beim Beenden/Neustart von EDOMI ordnungsgemäß beendet wird. Zudem wird die Verwendung der EXEC-Queue erläutert, diese ermöglicht es dem EXEC-Script die Eingangswerte asnchron abzurufen und somit ein "Verschlucken" von Eingangswerten zu vermeiden.
+
+Der LBS wird durch den Initalwert an E1 beim EDOMI-Start automatisch gestartet. Das Verbindungen von E1 mit einem KO oder einem anderen LBS ist nicht erforderlich.
+
+Sofern das EXEC-Script nicht bereits ausgeführt wird (z.B. bei einem erneuten Triggern von E1), werden die Eingangsdaten $E in der Queue gespeichert und das EXEC-Script gestartet. 
+Wurde das EXEC-Script bereits ausgeführt, werden nur die Eingangsdaten $E in der Queue gespeichert.
+
+Das EXEC-Script läuft nun in einer Schleife solange, bis EDOMI beendet oder neugestartet wird:
+Es wird zu Demonstrationszwecken ein Individual-Log angelegt und mit dem Wert an E2 gefüllt, bei jedem Hinzufügen eines Log-Eintrags wird A1=1 gesetzt.
+Jedes Triggern von E2 führt im LBS-Abschnitt zu einem Speichern der Eingangsdaten in der Queue.
+Das EXEC-Script fragt die Queue zyklisch ab und schreibt den Wert von E2 bei einem "refresh" von E2 in das Log. Die Abfrage der Refresh-Eigenschaft ist hier sinnvoll, da ansonsten bei einem Refresh von E1(!) der unveränderte Wert an E2 erneut geloggt werden würde.
+
+Das Beenden/Neustarten von EDOMI wird mittels der Funktion logic_getEdomiState() überwacht. Diese Funktion liefert den Wert 1 zurück, solange EDOMI normal läuft. Sobald EDOMI beendet oder neugestartet wird, liefert diese Funktion den Wert 0 zurück. Jetzt bleiben dem Script ca. 3 Sekunden Zeit, um sich selbst ordnungsgemäß zu beenden (z.B. Sockets zu schließen, etc.). Aber Achtung: In diesem Moment stehen keine Logikfunktionen (Eingangswerte, etc.) mehr zu Verfügung!
+
+Achtung:
+Die Eingänge könnten im EXEC-Script <i>ohne</i> die Verwendung der Queue nicht zuverlässig abgefragt werden, da das Script asynchron (nicht im Kontext der Logik-Engine) ausgeführt wird.
+<pre>
+###[DEF]###
+[name		=	Dämon-Test ]
+
+[e#1		=	Autostart #init=1	] 
+[e#2		=	Wert				] 
+
+[a#1		=	Status				] 
+###[/DEF]###
+
+###[HELP]###
+###[/HELP]###
+
+###[LBS]###
+<?
+function LB_LBSID($id) {
+
+	if ($E=logic_getInputs($id)) {
+
+		if (logic_getStateExec($id)==0) {	//EXEC-Script läuft noch nicht
+			logic_setInputsQueued($id,$E);	//Eingangsdaten $E in der Queue speichern
+			logic_callExec(LBSID,$id);		//Exec-Script starten
+			
+		} else {							//EXEC-Script wird bereits ausgeführt
+			logic_setInputsQueued($id,$E);	//Eingangsdaten $E in der Queue speichern
+		}
+
+	}
+
+}
+?>
+###[/LBS]###
+
+###[EXEC]###
+<?
+require(dirname(__FILE__)."/../../../../main/include/php/incl_lbsexec.php");
+
+set_time_limit(0);	//Wichtig! Script soll endlos laufen
+
+sql_connect();
+
+writeToCustomLog('TEST_LBS_'.$id,'','EXEC-Script gestartet');
+
+while (logic_getEdomiState()==1) {	//Hauptschleife (wird beim Beenden oder Neustart von EDOMI verlassen)
+//Wichtig: logic_getEdomiState() sorgt zudem dafür, dass die Datenbank-Verbindung aufrechterhalten wird!
+
+	//eigener Programm-Code...
+	if ($E=logic_getInputsQueued($id)) {	//Eingangsdaten aus der Queue holen(!)
+
+		if ($E[2]['refresh']==1) {	//nur bei einem Refresh von E2 loggen (prinzipiell könnte lediglich E1 refreshed worden sein)
+			writeToCustomLog('TEST_LBS_'.$id,'','E2 (aus der Queue): '.$E[2]['value']);
+			logic_setOutput($id,1,1);	//A1=1: Log-Eintrag hinzugefügt
+		}
+	}
+
+	usleep(1000*10);	//z.B. 10ms warten - wichtig, um die CPU-Last zu begrenzen!
+}
+
+writeToCustomLog('TEST_LBS_'.$id,'','EXEC-Script beendet.');
+
+sql_disconnect();
+?>
+###[/EXEC]###
+</pre>
+
+
+

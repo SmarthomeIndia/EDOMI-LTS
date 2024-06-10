@@ -1,0 +1,1133 @@
+<h1><path>Entwicklung von Visuelementen***r-3-0</path>Funktionsreferenz</h1>
+Die nachfolgend aufgeführten Funktionen stehen nur in den jeweils angegeben Abschnitten zu Verfügung.
+
+<h2>JS-Konstanten und -Funktionen für die Abschnitte [VISU.JS/PHP], [EDITOR.JS/PHP] und [SHARED.JS]</h2>
+Konstanten:
+<ul>
+	<li>visu_indiColor: Indikatorfarbe</li>
+	<li>visu_indiColorText: Eingabefarbe</li>
+</ul>
+
+<table class="tableHelp">
+	<tr>
+		<td width='30%'>Funktion</td>
+		<td width='70%'>Erläuterung</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Scrollen</b></td>
+	</tr>
+	<tr>
+		<td>scrollToTop(objId)<br>scrollToEnd(objId)</td>
+		<td>
+			Scrollt den Inhalt eines DOM-Elements an den Anfang bzw. an das Ende.
+			
+			objId: die ID des DOM-Elements
+		</td>
+	</tr>
+	<tr>
+		<td>scrollUp(objId)<br>scrollDown(objId)</td>
+		<td>
+			Scrollt den Inhalt eines DOM-Elements um den Betrag der Höhe des Elements nach oben bzw. nach unten ("Blättern").
+			
+			objId: die ID des DOM-Elements
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>CSS-Eigenschaften</b><br>
+			<b>Wichtig:</b>
+			Die nachfolgenden Funktionen rufen intern CSS-Variablen ab, die dem VE von der Visu-Engine zugewiesen wurden.
+			Die Variablen können (und sollten ggf.) direkt verwendet werden:
+			<ul>
+				<li>im Abschnitt [EDITOR.JS] spielt es keine Rolle, ob die Funktion oder die Variable verwendet wird</li>
+				<li>
+					im Abschnitt [VISU.JS] ist bezüglich der Funktion "VSE_VSEID_CONSTRUCT()" zu unterscheiden, ob der entsprechende Wert potentiell dynamisch (KO1-gesteuert) ist oder nicht:
+					<ul>
+						<li>bei potentiell dynamischen Werten ist die CSS-Variable zu bevorzugen, da die Funktion nur einmalig aufgerufen wird (die CSS-Variable passt sich automatisch an)</li>
+						<li>bei statischen Werten spielt es keine Rolle, ob die Funktion oder die Variable verwendet wird</li>
+					</ul>
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getFgColor(ve, id)</td>
+		<td>
+			Liefert eine der 3 möglichen Vordergrundfarben (aus dem "Design") eines VE zurück. Der Rückgabewert ist ggf. bereits mit dem KO1-Wert verrechnet, gibt also den tatsächlichen gerenderten Wert an.
+
+			ve: das VE-Objekt
+			id: (optional) (leer)/0=Vordergrundfarbe, 1/2=Zusatzvordergrundfarbe 1/2
+			
+			Return: Farbwert (z.B. "#ff0000"), oder die Default-Visu-Vordergrundfarbe
+
+			Hinweis:
+			Die Farbwerte stehen zudem als CSS-Variablen "--fgc0", "--fgc1" und "--fgc2" zu Verfügung.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getBgColor(ve, id)</td>
+		<td>
+			Liefert eine der 3 möglichen Hintergrundfarben (aus dem "Design") eines VE zurück. Der Rückgabewert ist ggf. bereits mit dem KO1-Wert verrechnet, gibt also den tatsächlichen gerenderten Wert an.
+
+			ve: das VE-Objekt
+			id: (optional) (leer)/0=Hintergrundfarbe, 1/2=Zusatzhintergrundfarbe 1/2
+			
+			Return: Farbwert (z.B. "#ff0000"), oder "none"
+
+			Hinweis:
+			Die Farbwerte stehen zudem als CSS-Variablen "--bgc0", "--bgc1" und "--bgc2" zu Verfügung.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getImageUrl(ve, id)</td>
+		<td>
+			Liefert eine der 3 möglichen Bild-URLs (aus dem "Design") eines VE zurück.
+
+			ve: das VE-Objekt
+			id: (optional) (leer)/0=Hintergrundbild, 1/2=Zusatzbild 1/2
+			
+			Return: Bild-URL, oder "" (leer)
+			
+			Hinweis:
+			Die Bild-URLs stehen zudem als CSS-Variablen "--img0", "--img1" und "--img2" zu Verfügung.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getAngle(ve)</td>
+		<td>
+			Liefert den Rotationswinkel (aus dem "Design") eines VE zurück. Der Rückgabewert ist ggf. bereits mit dem KO1-Wert verrechnet, gibt also den tatsächlichen gerenderten Wert an.
+
+			ve: das VE-Objekt
+			
+			Return: Winkel (ggf. "0", falls keine Rotation angegeben wurde)
+			
+			Hinweis:
+			Der Rotationswinkel steht zudem als CSS-Variable "--rt" zu Verfügung.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getOffset(ve, xy)</td>
+		<td>
+			Liefert die relative Positionierung (aus dem "Design") eines VE zurück. Der Rückgabewert ist ggf. bereits mit dem KO1-Wert verrechnet, gibt also den tatsächlichen gerenderten Wert an.
+
+			ve: das VE-Objekt
+			xy: 0=X-Richtung, 1=Y-Richtung
+		
+			Return: relative Positionierung in Pixeln (ggf. "0", falls keine relative Positionierung angegeben wurde)
+			
+			Hinweis:
+			Die relative Positionierung steht zudem als CSS-Variable "--dx" bzw. "--dy" zu Verfügung.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getScale(ve, xy)</td>
+		<td>
+			Liefert die relative Skalierung (aus dem "Design") eines VE zurück. Der Rückgabewert ist ggf. bereits mit dem KO1-Wert verrechnet, gibt also den tatsächlichen gerenderten Wert an.
+
+			ve: das VE-Objekt
+			xy: 0=Breite, 1=Höhe
+		
+			Return: relative Skalierung in Pixeln (ggf. "0", falls keine relative Skalierung angegeben wurde)
+			
+			Hinweis:
+			Die relative Skalierung steht zudem als CSS-Variable "--sx" bzw. "--sy" zu Verfügung.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getVarProperty(ve, varId)</td>
+		<td>
+			Liefert ggf. den Wert der Variablen "var1..20" mit der Eigenschaft "#root" (siehe Abschnitt [DEF] bzw. [PROPERTIES]) eines VE zurück.
+
+			<b>Wichtig:</b>
+			Diese Funktion liefert nur Werte für per "#root=..." verknüpfte Fonts, Animationen, Bilder, Sounds und Farben zurück!
+			<ul>
+				<li>bei Fonts: Font-Name, z.B. "font123" (die eigentliche Deklaration wird im HTML-Header automatisch eingefügt)</li>
+				<li>bei Animationen: CSS mit einer Dauer=1s und Zyklus=1 (die Keyframes werden HTML-Header automatisch eingefügt)</li>
+				<li>bei Bildern/Sounds: URL</li>
+				<li>bei Farben: CSS, z.B. "#ff0000"</li>
+			</ul>
+
+			ve: das VE-Objekt
+			varId: ID der Variable (1..20)
+		
+			Return: ggf. der Wert der Variable "var1..20" (s.o.), oder false
+
+			Hinweis:
+			Die Werte stehen ggf. zudem als CSS-Variablen "--var1..20" zu Verfügung.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getCssProperty(ve, property, defaultValue)</td>
+		<td>
+			Liefert eine beliebige CSS-Eigenschaft eines VE zurück. Der Rückgabewert ist ggf. bereits mit dem KO1-Wert verrechnet, gibt also den tatsächlichen gerenderten Wert an.
+
+			ve: das VE-Objekt
+			property: CSS-Eigenschaft (z.B. "padding-left")
+			defaultValue: dieser Wert wird zurückgegeben, wenn die CSS-Eigenschaft nicht vorhanden ist
+		
+			Return: Wert der CSS-Eigenschaft, oder defaultValue
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Sonstige</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_parseString(string, koValue)</td>
+		<td>
+			Wendet einen KO-Wert (bzw. beliebigen Wert) im Kontext von "<link>Variablen, Funktionen und Formeln***r-3</link>" auf einen beliebigen String an.
+			
+			string: beliebiger String, z.B. die "Beschriftung" eines VE
+			koValue: beliebiger Wert (typischer Weise der KO1-Wert eines VE)
+			
+			Return: String (z.B. wird "es ist {#} Grad" in "es ist 34 Grad" konvertiert) 
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_centerAndAspect(ve, obj, scale)</td>
+		<td>
+			Zentriert ein untergeordnetes Element in einem VE und setzt das Seitenverhältniss des Elements auf 1:1.
+
+			ve: das VE-Objekt
+			obj: das untergeordnete Element
+			scale: (optional) Größe des Elements in Prozent
+
+			Return: {x,y,w,h}
+			x/y: Position des Elements
+			w/h: Breite/Höhe des Elements
+		</td>
+	</tr>
+	<tr>
+		<td>canvasScale(canvas, w, h)</td>
+		<td>
+			Skaliert ein Canvas-Element derart, dass die interne Auflösung z.B. für Retina-Displays hochgerechnet wird und liefert den Canvas-2D-Kontext zurück.
+			
+			canvas: das Canvas-Objekt
+			w/h: gewünschte Breite/Höhe des Canvas in Pixeln
+
+			Return: Canvas-2D-Kontext, oder false
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Mathematische Funktionen</b></td>
+	</tr>
+	<tr>
+		<td>math_mapValue(value, min1, max1, min2, max2)</td>
+		<td>
+			Rechnet einen Wert innerhalb eines bestimmten Wertebereichs auf einen anderen Wertebereich um.
+			
+			value: der umzurechnende Wert
+			min1/max1: der umzurechnende Wertebereich
+			min2/max2: Ziel-Wertebereich
+
+			Return: der umgerechnete Wert, oder min2 bzw. max2 falls value ungültig ist (z.B. ausserhalb des Wertebereichs liegt)
+		</td>
+	</tr>
+	<tr>
+		<td>math_polarToXY(mx, my, angle, radius)</td>
+		<td>
+			Rechnet eine "polare Koordinate" in eine kartesische Koordinate um.
+			
+			mx/my: Mittelpunkt
+			angle: Winkel
+			radius: Radius
+			
+			Return: {x,y}
+			x/y: kartesische Koordinaten
+		</td>
+	</tr>
+	<tr>
+		<td>math_rotatePoint(mx, my, x, y, angle, offsetX, offsetY)</td>
+		<td>
+			Rotiert einen Punkt in einem kartesischen Koordinatensystem.
+			
+			mx/my: Rotationszentrum
+			x/y: Koordinate des Punktes
+			angle: Rotationswinkel
+			offsetX/offsetY: Translation nach der Rotation (ggf. 0/0)
+			
+			Return {x,y}
+			x/y: rotierte Koordinaten des Punktes
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Farben konvertieren</b></td>
+	</tr>
+	<tr>
+		<td>RGBtoHSV(r, g, b)</td>
+		<td>
+			Wandelt RGB-Werte in HSV-Werte um.
+
+			r/g/b: RGB-Einzelwerte im Bereich 0..255
+
+			Return: [h,s,v] oder false
+		</td>
+	</tr>
+	<tr>
+		<td>RGBtoRGBHEX(r, g, b)</td>
+		<td>
+			Wandelt RGB-Werte in einen RGB-Hex-Wert um.
+
+			r/g/b: RGB-Einzelwerte im Bereich 0..255
+
+			Return: RGB-Hex-String, oder false
+		</td>
+	</tr>
+	<tr>
+		<td>RGBHEXtoHSV(rgbHex)</td>
+		<td>
+			Wandelt einen RGB-Hex-Wert in HSV-Werte um.
+
+			rgbHex: RGB-Wert als String im Hex-Format (z.B. "00ff88")
+
+			Return: [h,s,v] oder false
+		</td>
+	</tr>
+	<tr>
+		<td>RGBHEXtoRGB(rgbHex)</td>
+		<td>
+			Wandelt einen RGB-Hex-Wert in RGB-Werte um.
+
+			hsvHex: RGB-Wert als String im Hex-Format (z.B. "00ff88")
+
+			Return: [r,g,b] oder false
+		</td>
+	</tr>
+	<tr>
+		<td>RGBHEXtoRGBA(rgbHex)</td>
+		<td>
+			Wandelt einen RGB-Hex-Wert in RGBA-Werte um. Die Transparenz (A) wird dabei in Abhängigkeit von der "Helligkeit" des Farbwertes berechnet.
+
+			rgbHex: RGB-Wert als String im Hex-Format (z.B. "00ff88")
+
+			Return: [r,g,b,a] oder [0,0,0,0]
+		</td>
+	</tr>
+	<tr>
+		<td>RGBtoGREYSCALE(r, g, b)</td>
+		<td>
+			Wandelt RGB-Werte in einen Helligkeitswert um.
+
+			r/g/b: RGB-Einzelwerte im Bereich 0..255
+
+			Return: Helligkeit 0..255 oder false
+		</td>
+	</tr>
+	<tr>
+		<td>HSVtoRGB(h, s, v)</td>
+		<td>
+			Wandelt HSV-Werte in RGB-Werte um.
+
+			h/s/v: HSV-Einzelwerte im Bereich 0..255
+
+			Return: [r,g,b] oder false
+		</td>
+	</tr>
+	<tr>
+		<td>HSVtoHSVHEX(h, s, v)</td>
+		<td>
+			Wandelt HSV-Werte in einen HSV-Hex-Wert um.
+
+			h/s/v: HSV-Einzelwerte im Bereich 0..255
+
+			Return: HSV-Hex-String, oder false
+		</td>
+	</tr>
+	<tr>
+		<td>HSVtoRGBHEX(h, s, v)</td>
+		<td>
+			Wandelt HSV-Werte in einen RGB-Hex-Wert um.
+
+			h/s/v: HSV-Einzelwerte im Bereich 0..255
+
+			Return: RGB-Hex-String, oder false
+		</td>
+	</tr>
+	<tr>
+		<td>HSVtoRGBA(h, s, v)</td>
+		<td>
+			Wandelt HSV-Werte in RGBA-Werte um. Die Transparenz (A) wird dabei in Abhängigkeit von der "Helligkeit" des Farbwertes berechnet.
+
+			h/s/v: HSV-Einzelwerte im Bereich 0..255
+
+			Return: [r,g,b,a] oder [0,0,0,0]
+		</td>
+	</tr>
+	<tr>
+		<td>HSVHEXtoHSV(hsvHex)</td>
+		<td>
+			Wandelt einen HSV-Hex-Wert in HSV-Werte um.
+
+			hsvHex: HSV-Wert als String im Hex-Format (z.B. "00ff88")
+
+			Return: [h,s,v] oder false
+		</td>
+	</tr>
+	<tr>
+		<td>HSVHEXtoRGBHEX(hsvHex)</td>
+		<td>
+			Wandelt einen HSV-Hex-Wert in einen RGB-Hex-Wert um.
+
+			hsvHex: HSV-Wert als String im Hex-Format (z.B. "00ff88")
+
+			Return: RGB-Hex-String, oder false
+		</td>
+	</tr>
+</table>
+
+
+<h2>Zusätzliche JS-Konstanten und -Funktionen für die Abschnitte [VISU.JS/PHP]</h2>
+Diese Konstanten und Funktionen stehen <i>nicht</i> für die Abschnitte [EDITOR.JS/PHP] und [SHARED.JS] zu Verfügung!
+
+Konstanten:
+<ul>
+	<li>visu_visuid: ID der aktuellen Visu</li>
+	<li>visu_startPageId: ID der aktuellen Startseite</li>
+	<li>visu_sspageid: ID der aktuellen Bildschirmschoner-Seite</li>
+	<li>visu_sstimeout: Zeitpunkt der Aktivierung des Bildschirmschoners in Minuten</li>
+	<li>visu_touchMode: true=Touch-Bedienung, false=Maus-Bedienung</li>
+</ul>
+
+<table class="tableHelp">
+	<tr>
+		<td width='30%'>Funktion</td>
+		<td width='70%'>Erläuterung</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Eigenschaften</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_hasKo(veId, koId)</td>
+		<td>
+			Ermittelt, ob dem VE ein KO1..3 zugewiesen wurde:
+			
+			veId: die ID des VE
+			koId: 1..3 (für KO1/KO2/KO3 des VE - <i>nicht</i> die KO-ID aus der Datenbank!)
+			
+			Return:
+			true=dem VE wurde das KO1..3 zugewiesen, false=kein KO1..3 zugewiesen
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_hasCommands(veId)</td>
+		<td>
+			Ermittelt, ob dem VE Seitensteuerungen/Befehle zugewiesen wurden:
+
+			veId: die ID des VE
+
+			Return:
+			true=dem VE wurden Seitensteuerungen/Befehle zugewiesen, false=keine Seitensteuerungen/Befehle zugewiesen
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getText(veId)</td>
+		<td>
+			Liefert die Eigenschaft "Beschriftung" des VE zurück:
+
+			veId: die ID des VE
+
+			Return:
+			(String)=Beschriftung des VE
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getCaption(veId)</td>
+		<td>
+			Liefert die Eigenschaft "Beschriftung" des VE in reduzierter Form zurück: Es wird nur das erste Vorkommen von {...} zurückgegeben (z.B. während der Bedienung eines Drehreglers). Ist in Beschriftung keine Angabe {...} vorhanden, wird die gesamte Beschriftung zurückgegeben.
+			
+			Beispiel: bei "Temperatur {#*1} Grad {#*2}" wird lediglich "{#*1}" zurückgegeben.
+
+			veId: die ID des VE
+
+			Return:
+			(String)=reduzierte Beschriftung des VE (oder gesamte Beschriftung)
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Klick-Funktionen</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_onClick(obj, functionShort, [indicateShort, functionLong, indicateLong, animationLong, forceDownEvent])</td>
+		<td>
+			Registriert einen Klick- und/oder Langklick-Handler für ein beliebiges Element eines VE:
+
+			obj: Element (eines VE), das auf einen Klick reagieren soll
+			functionShort: die aufzurufende Funktion bei ShortClick in der Form: funktion(ve_Id,obj_Id){...} (oder false, wenn nicht beötigt)
+
+			Optional:
+			indicateShort: true=Klick-Indikator einblenden bei ShortClick, false=nicht einblenden (default=true)
+			functionLong: die aufzurufende Funktion bei LongClick in der Form: funktion(ve_Id,obj_Id){...}
+			indicateLong: true=Klick-Indikator einblenden bei LongClick, false=nicht einblenden (default=true)
+			animationLong: true=LongClick-Animation einblenden, false=nicht einblenden (default=true)
+		
+			Hinweis: 
+			Die Parameter "ve_Id" und "obj_Id" (VE-ID und ID des angeklickten Elements) werden den Funktionen functionShort/functionLong automatisch übergeben und können dann in der entsprechenden Funktion ausgewertet werden.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_onDown(obj, functionShort, indicateShort)</td>
+		<td>
+			Wie "visuElement_onClick()", jedoch nur für ShortClick und es wird stets das Down-Event (nicht Klick-Event) registriert (unabhängig von der Visuaccount-Einstellung "Klickmodus").
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Drag-Funktionen</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_onDrag(obj, koIdInit, koId, interval)</td>
+		<td>
+			Registriert einen Drag-Handler (Down-Event) für ein beliebiges Element "obj" eines VE:
+
+			koIdInit: 
+			1/2=der Wert des VE-KO1/2 dient als Initialwert (z.B. bei relativer Eingabe)
+			0=kein Initial-Wert (z.B. bei absoluter Eingabe)
+
+			koId: 
+			1/2=das VE-KO1/2 wird am Ende des Dragvorgangs (ggf. auch zyklisch) gesetzt
+			0: kein KO, d.h. keine Live-Vorschau, kein (zyklisches) Setzen - es wird nur die Drag-Funktionalität bereitgestellt (für eigene Implementierungen) 
+			Hinweis: Als Live-Vorschauwert-Provider für dieses und andere Visuelemente wird stets das VE-KO1 verwendet, sofern "koId" =1 oder =2 ist.
+
+			interval: zyklisches Setzen von KO1/2
+			-1=deaktiviert, 0=aktiviert (schnellstmöglich), 1..oo=aktiviert (alle x Millisekunden)
+			Hinweis: wenn das zyklisches Setzen aktiviert ist, wird keine Live-Vorschau erzeugt
+			
+			<b>Wichtig:</b>
+			Der Drag-Handler erwartet diverse Funktionen (siehe <link>Abschnitt [VISU.JS] / Drag-Operationen***r-3-2</link>)!
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_dragStart(obj, koIdInit, koId, interval)</td>
+		<td>
+			Wie "visuElement_onDrag()", jedoch wird kein Down-Event registriert.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_mapDragValue(pos, koValue, format, coord, modus, minX, maxX, minY, maxY, minA, maxA, vlist, vstep, vsnap)</td>
+		<td>
+			Ermittelt die aktuellen Werte und Cursor-Koordinaten einer Drag-Operation.
+	
+			pos: {x,y,w,h} relative Mausposition bezogen auf das Drag-Element und Breite/Höhe des Drag-Elements
+			koValue: Default-KO-Wert (nur bei modus=1/2 sinnvoll)
+			format: KO-Format: 0="X,Y" bzw. "Winkel,Radius", 1=nur "X" bzw. "Winkel", 2=nur "Y" bzw. "Radius"
+			coord: Koordinatensystem: 0=kartesisch, 1=polar
+			modus: Absolute oder realtive Wertänderung: 0=absolut, 1=relativ, 2=Inkrementalgeber (nur wenn format=1 und coord=1)
+			minX/maxX: Wertebereich X: null/leer=VE-Größe in Pixeln, -&infin;..&infin;=Wertebereich
+			minY/maxY: Wertebereich Y: null/leer=VE-Größe in Pixeln, -&infin;..&infin;=Wertebereich
+			minA/maxA: Winkelbereich bei coord=1 (jeweils 0..360 Grad, min&lt;max)
+			vlist: Anzahl der Nachkommastellen des Wertes: null/leer=beliebig
+			vstep: der Wert wird auf einen Wert mit dieser "Schrittweite" umgerechnet
+			vsnap: (nur bei Inkrementalgeber) Anzahl der Rastungen (360 muss restlos durch vsnap teilbar sein)
+
+			Return: {valuex,valuey,cursorx,cursory} oder false (Fehler)
+			valuex/y: X/Y-Koordinaten bzw. Winkel/Radius
+			cursorx/y: Cursor-Position (kartesisch oder polar)
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_mapDragValueReset(koValue)</td>
+		<td>
+			Parsed intern den KO-Wert beim Start einer Drag-Operation und speichert die Mausposition (z.B. bei relativer Eingabe). Diese Funktion wird u.U. für die Funktion "visuElement_mapDragValue()" benötigt.
+			
+			koValue: KO-Wert
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getDragKoValue()</td>
+		<td>
+			Ermittelt den aktuellen (interen) Wert einer Drag-Operation.
+			Hinweis: Normalerweise ist dies nicht erforderlich, jedoch kann auf diese Weise der aktuelle interne Wert einer Drag-Operation ausgelesen werden.
+
+			Return:
+			der aktuelle interne Wert (ggf. wird ein leerer String zurückgegeben, falls kein aktueller Wert ermittelt werden kann)
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_setDragKoValue(koValue)</td>
+		<td>
+			Setzt den aktuellen (interen) Wert einer Drag-Operation.
+			Hinweis: Normalerweise ist dies nicht erforderlich, jedoch kann auf diese Weise der aktuelle interne Wert einer Drag-Operation beeinflusst werden.
+			
+			Return:
+			true=erfolgreich, false=Fehler
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>KO setzen/lesen</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_setKoValue(veId, koId, koValue)</td>
+		<td>
+			Setzt das KO1..3 eines VEs auf einen Wert (asynchron):
+			
+			veId: die ID des VE
+			koId: 1..3 (für KO1/KO2/KO3 des VE - <i>nicht</i> die KO-ID aus der Datenbank!)
+			koValue: KO-Wert
+			
+			Return:
+			true=prinzipiell erfolgreich (jedoch nicht garantiert, da asynchron), false=Fehler (z.B. KO ist nicht zugewiesen)
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getKoValue(veId, koId)</td>
+		<td>
+			Ermittelt den Wert von KO1..3 eines VEs:
+			
+			veId: die ID des VE
+			koId: 1..3 (für KO1/KO2/KO3 des VE - <i>nicht</i> die KO-ID aus der Datenbank!)
+			
+			Return:
+			der aktuelle KO-Wert (ggf. wird ein leerer String zurückgegeben, z.B. falls das entsprechende KO nicht zugewiesen wurde)
+		</td>
+	</tr>
+	<tr>
+		<td>setKoValue(koId, koValue)</td>
+		<td>
+			Setzt ein beliebiges KO auf einen Wert (asynchron):
+			
+			koId: KO-ID aus der Datenbank
+			koValue: KO-Wert
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Timer-Funktionen</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_setTimeout(veId, timerId, timeout, func)</td>
+		<td>
+			Setzt einen Timeout für ein VE (nach Ablauf des Timers wird eine Funktion aufgerufen):
+
+			veId: die ID des VE
+			timerId: für dieses VE eindeutige ID im Bereich 1..&infin; (ein VE kann beliebig viele Timer verwalten)
+			timeout: Zeit in Millisekunden
+			func: anonyme Funktion in der Form: function(ve_Id,timer_Id){...}
+
+			Hinweis: 
+			Die Parameter "ve_Id" und "timer_Id" (veId und ID des Timers) werden der anonymen Funktion "func" automatisch übergeben und können dann in der entsprechenden Funktion ausgewertet werden.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_clearTimeout(veId, timerId)</td>
+		<td>
+			Löschen (und abbrechen) eines zuvor mittels "visuElement_setTimeout()" definierten Timeouts:
+
+			veId: die ID des VE
+			timerId: die in "visuElement_setTimeout()" definierte ID des Timers
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Ajax</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_callPhp(cmd, [json1, json2])</td>
+		<td>
+			Ruft die PHP-Funktion "PHP_VSE_VSEID()" im Abschnitt [VISU.PHP] per "Ajax" (asynchron) auf, dabei können ggf. JSON-Daten übergeben werden.
+			Die Parameter json1/2 werden ggf. in PHP als Array in der Form $json1/2['&lt;Name&gt;'] bzw. $json1/2[&lt;ID&gt;] bereitgestellt.
+
+			cmd: (String) dieser String wird an die PHP-Funktion "PHP_VSE_VSEID()" im Abschnitt [VISU.PHP] als "$cmd" übergeben
+			json1/2: (Array oder Object) diese Daten werden ggf. an die PHP-Funktion "PHP_VSE_VSEID()" im Abschnitt [VISU.PHP] als "$json1/2" übergeben
+			
+			Hinweis:
+			Intern wird die Funktion beim Einlesen der VSE-Datei um einen Parameter (VSEID) erweitert (dies legt quasi den "Sender" fest).
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Globale Variablen</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_newGlobal(veId, obj)</td>
+		<td>
+			Erstellt ein globales JS-Objekt für eine VE-Instanz, z.B. um eigene JS-Variablen zu deklarieren. Das globale Objekt ist dann für alle JS-Funktionen im Abschnitt [VISU.JS] verfügbar (für die entsprechende VE-Instanz).
+
+			Wichtig:
+			Pro VE ist nur das Erstellen <i>eines</i> globalen Objektes möglich! Das Erstellen eines globalen Objektes sollte daher ggf. in der Funktion "VSE_VSEID_CONSTRUCT()" im Abschnitt [VISU.JS] erfolgen.
+			
+			veId: die ID des VE
+			obj: JS-Objekt in der Form {x:1,y:"EDOMI",z:3,...}
+			
+			Hinweis:
+			Ein Entfernen/Löschen von globalen Objekten ist nicht erforderlich - die Visu-Engine verwaltet globale Objekte automatisch.
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getGlobal(veId)</td>
+		<td>
+			Liefert das mittels "visuElement_newGlobal()" erstellte globale Objekt zurück, so dass dieses verwendet oder modifziert werden kann.
+			
+			veId: die ID des VE
+			return: das globale JS-Objekt (by-reference), oder false=nicht vorhanden
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Formulare</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_formNewInput(veId, id, len, style)</td>
+		<td>
+			Generiert (als String) ein Input-Control innerhalb eines VE.
+		
+			veId: die ID des VE
+			id: die gewünschte (i.d.R. fortlaufende) ID des Control-Elements in der Form "0..&infin;" (erzeugt wird eine ID in der Form "e-&lt;veId&gt;-formobj&lt;id&gt;")
+			len: maximale Anzahl an Zeichen
+			style: ggf. CSS-Eigenschaften
+			
+			Return: (String)
+			zurückgegeben wird ein String mit dem entsprechenden HTML-Code
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_formNewCheck(veId, id, style)</td>
+		<td>
+			Generiert (als String) ein Checkbox-Control innerhalb eines VE.
+
+			veId: die ID des VE
+			id: die gewünschte (i.d.R. fortlaufende) ID des Control-Elements in der Form "0..&infin;" (erzeugt wird eine ID in der Form "e-&lt;veId&gt;-formobj&lt;id&gt;")
+			style: ggf. CSS-Eigenschaften
+			
+			Return: (String)
+			zurückgegeben wird ein String mit dem entsprechenden HTML-Code
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_formNewCheckmulti(veId, id, style)</td>
+		<td>
+			Generiert (als String) ein Checkbox-Control mit mehreren Optionen innerhalb eines VE.
+		
+			veId: die ID des VE
+			id: die gewünschte (i.d.R. fortlaufende) ID des Control-Elements in der Form "0..&infin;" (erzeugt wird eine ID in der Form "e-&lt;veId&gt;-formobj&lt;id&gt;")
+			style: ggf. CSS-Eigenschaften
+			
+			Return: (String)
+			zurückgegeben wird ein String mit dem entsprechenden HTML-Code
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_formNewSelect(veId, id, style)</td>
+		<td>
+			Generiert (als String) ein Selectbox-Control innerhalb eines VE.
+		
+			veId: die ID des VE
+			id: die gewünschte (i.d.R. fortlaufende) ID des Control-Elements in der Form "0..&infin;" (erzeugt wird eine ID in der Form "e-&lt;veId&gt;-formobj&lt;id&gt;")
+			style: ggf. CSS-Eigenschaften
+			
+			Return: (String)
+			zurückgegeben wird ein String mit dem entsprechenden HTML-Code
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_formSetControl(veId, id, option, value)</td>
+		<td>
+			Setzt ein erzeugtes Control (s.o.) auf einen Defaultwert und initialisiert das Control ggf. mit diversen Optionen.
+		
+			<b>Wichtig:</b>
+			Diese Funktion inititalisiert das Control und muss daher stets nach dem Erzeugen eines Control und vor der Nutzung des Formulars aufgerufen werden.		
+
+			veId: die ID des VE
+			id: die ID des Control-Elements
+			value: Defaultwert
+			
+			option: je nach Typ des Controls werden folgende Optionen erwartet (z.B. "Werteingabe")
+			<ul>
+				<li>Input-Control: legt einen Platzhalter-Text fest, der innerhalb des Eingabefeldes angezeigt wird</li>
+				
+				<li>
+					Checkbox-Control: Bezeichnung der Option, dessen Wert stets auf 0 oder 1 gesetzt wird (z.B. "Aktivieren")
+					<ul>
+						<li>wenn die Checkbox aktiviert ist, wird die Option grün hinterlegt und der Wert auf 1 gesetzt</li>
+						<li>wenn die Checkbox deaktiviert ist, wird die Option grau hinterlegt und der Wert auf 0 gesetzt</li>
+					</ul>
+				</li>
+				
+				<li>
+					Checkbox-Control (mit mehreren Optionen): Liste aus Bezeichnungen der Optionen in der Form "(Bezeichnung)|(Bezeichnung)|(Bezeichnung)|..." (z.B. "deaktiviert|aktiviert1|aktiviert2")
+					<ul>
+						<li>die erste Option entspricht dem Wert 0 und wird grau hinterlegt</li>
+						<li>alle weiteren Optionen entsprechen dem Wert 1..&infin; und werden grün hinterlegt</li>
+						<li>bei jedem Anklicken wird die nachfolgende Option ausgewählt, am Ende der Optionsliste wird am Anfang fortgesetzt</li>
+					</ul>
+				</li>
+
+				<li>
+					Selectbox-Control: Liste aus Werten und Bezeichnungen in der Form "(Wert)#(Bezeichnung)|(Wert)#(Bezeichnung)|..."
+					<ul>
+						<li>z.B. "0#A|1#B|2#C|EDOMI#D" führt zu 0=A, 1=B, 2=C, EDOMI=D</li>
+						<li>der Wert wird je nach Auswahl (A,B,C,D) auf den Wert 0,1,2,EDOMI gesetzt</li>
+					</ul>
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_formGetValues(veId)</td>
+		<td>
+			Liefert ein Array aus den Werten sämtlicher Controls (s.o.) eines VE zurück. Dieses Array kann z.B. mittels der Funktion "visuElement_callPhp()" an PHP zur Auswertung übermittelt werden.
+
+			Hinweis:
+			Es werden stets die Values <i>sämtlicher</i> vorhandener Controls eines VEs in ein Array konvertiert.
+
+			veId: die ID des VE
+
+			Return: Array, die ID (key) des Arrays entspricht der ID des jeweiligen Controls
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>SVG-Grafik</b></td>
+	</tr>
+	<tr>
+		<td>graphics_svg_icon(iconId)</td>
+		<td>
+			Generiert ein SVG-Symbol als String. Die Größe des Symbols beträgt stets 1em (das Symbol wird also mit der Font-Größe skaliert).
+			
+			Wichtig:
+			Die Symbole können u.U. in zukünftigen Versionen erweitert/verändert werden!
+
+			iconId:
+			0="Aus"
+			1="Ein"
+			2="Hinzufügen"
+			3="Abspielen"
+			4="Aufnehmen"
+
+			Return: String mit SVG-Anweisungen und SVG-Tag(!)
+		</td>
+	</tr>
+	<tr>
+		<td>graphics_svg_centerCircle(fgcolor, w, h, para)</td>
+		<td>
+			Generiert einen SVG-Kreis im Zentrum einer gedachten Boundingbox.
+			
+			fgcolor: Farbe der Kontur (der Kreis wird nicht gefüllt, die Konturbreite beträgt stets 1px)
+			w/h: Größe der gedachten Boundingbox in Pixeln (der Kreis wird stets im Zentrum der Boundingbox gerendert)
+			para: (Objekt)
+			<ul>
+				<li>para.size: Durchmesser in Prozent</li>
+				<li>para.solid: true=Kontur wird durchgängig gerendert, false=Kontur wird gepunkted gerendert</li>
+			</ul>
+			
+			Return: String mit SVG-Anweisungen (jedoch ohne SVG-Tag)
+		</td>
+	</tr>
+	<tr>
+		<td>graphics_svg_centerArc(fgcolor, w, h, a1, a2, para)</td>
+		<td>
+			Generiert einen SVG-Kreisbogen im Zentrum einer gedachten Boundingbox.
+			
+			fgcolor: Farbe der Kontur (der Kreisbogen wird nicht gefüllt, die Konturbreite beträgt stets 1px)
+			w/h: Größe der gedachten Boundingbox in Pixeln (der Kreisbogen wird stets im Zentrum der Boundingbox gerendert)
+			a1/a2: Start- und Endwinkel des Kreisbogens
+			para: (Objekt)
+			<ul>
+				<li>para.size: Durchmesser in Prozent</li>
+				<li>para.solid: true=Kontur wird durchgängig gerendert, false=Kontur wird gepunkted gerendert</li>
+			</ul>
+			
+			Return: String mit SVG-Anweisungen (jedoch ohne SVG-Tag)
+		</td>
+	</tr>
+	<tr>
+		<td>graphics_svg_centerLine(fgcolor, w, h, para)</td>
+		<td>
+			Generiert eine SVG-Linie im Zentrum einer gedachten Boundingbox.
+			
+			fgcolor: Farbe der Linie (die Liniendicke beträgt stets 1px)
+			w/h: Größe der gedachten Boundingbox in Pixeln (die Linie wird stets im Zentrum der Boundingbox gerendert, je nach Seitenverhältnis vertikal oder horizontal)
+			para: (Objekt)
+			<ul>
+				<li>para.offset: Abstand der Linie vom Rand der Boundingbox in Prozent (bezogen auf den Mittelpunkt)</li>
+				<li>para.solid: true=Linie wird durchgängig gerendert, false=Linie wird gepunkted gerendert</li>
+			</ul>
+			
+			Return: String mit SVG-Anweisungen (jedoch ohne SVG-Tag)
+		</td>
+	</tr>
+	<tr>
+		<td>graphics_svg_clock(fgcolor, w, h, para, koValue)</td>
+		<td>
+			Generiert eine SVG-Analoguhr. Details sind z.B. dem VSE 17 zu entnehmen.
+			
+			Return: String mit SVG-Anweisungen (jedoch ohne SVG-Tag)
+		</td>
+	</tr>
+	<tr>
+		<td>graphics_svg_gauge(fgcolor, w, h, para, koValue)</td>
+		<td>
+			Generiert eine SVG-Wertanzeige. Details sind z.B. dem VSE 27 zu entnehmen.
+
+			Return: String mit SVG-Anweisungen (jedoch ohne SVG-Tag)
+		</td>
+	</tr>
+	<tr>
+		<td>graphics_svg_scale(fgcolor, w, h, para)</td>
+		<td>
+			Generiert eine SVG-Skala. Details sind z.B. dem VSE 35 zu entnehmen.
+
+			Return: String mit SVG-Anweisungen (jedoch ohne SVG-Tag)
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Sonstige</b></td>
+	</tr>
+	<tr>
+		<td>visuElement_modify(veId, data)</td>
+		<td>
+			Ruft eine anonyme Funktion eines VE auf, nachdem <i>sämtliche</i> VEs aufgebaut (gerendert) wurden. Dies ermöglicht z.B. die Modifizierung der Position eines VE in Abhängigkeit von der Position anderer VEs (denn deren Position liegt ggf. erst nach dem Rendern endgültig fest).
+
+			veId: die ID des VE
+			data: {para,func}
+			<ul>
+				<li>para: beliebige Parameter (i.d.R. JS-Objekt) für die u.g. Funktion (z.B. Positionsangaben für den "Knopf")</li>
+				<li>
+					func: anonyme Funktion in der Form "func(obj,para)", die aufgerufen wird sobald alle VEs gerendert wurden
+					<ul>
+						<li>obj: das VE-Objekt (wird beim Aufruf automatisch ermittelt und gesetzt - "obj" ist hier also nur ein Platzhalter!)</li>
+						<li>para: die o.g. Parameter</li>
+					</ul>
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_doCommands(veId, [modeCmd,modePage,modePopup,modeCurPopup])</td>
+		<td>
+			Führt die einem VE ggf. zugewiesenen Seitensteuerungen/Befehle aus.
+
+			veId: die ID des VE
+			
+			Optional kann festgelegt werden, welche Seitensteuerungen/Befehle im Einzelnen ausgeführt werden sollen:
+			modeCmd: true=Befehle ausführen, false=deaktiviert
+			modePage: true=Seite aufrufen, false=deaktiviert
+			modePopup: true=Popup schließen, false=deaktiviert
+			modeCurPopup: true=aktuelles Popup schließen, false=deaktiviert
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_openPage(veId, pageId)</td>
+		<td>
+			Öffnet eine beliebige Visuseite.
+
+			veId: die ID des VE
+			pageId: die ID der zu öffnenden Visuseite
+			
+			<b>Achtung:</b>
+			Diese Funktion prüft nicht, ob die Visuseite zu der aktuell angezeigten Visu gehört!
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_indicate(obj)</td>
+		<td>
+			Blendet einen Klick-Indikator (für 200 Millisekunden) für ein VE bzw. ein untergeordnetes DOM-Element eines VE ein.
+
+			obj: VE-Objekt bzw. untergeordnetes DOM-Element eines VE (das DOM-Element muss über eine eindeutige ID verfügen)
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getMousePosition(ve, obj, flip)</td>
+		<td>
+			Ermittelt die relativen Mauskoordinaten eines untergeordneten DOM-Elements eines VE.
+			
+			Hinweis:
+			Eine Rotation des VE wird ggf. berücksichtigt.
+			
+			ve: das VE-Objekt
+			obj: untergeordnetes DOM-Element des VE (die Mauskoordinaten beziehen sich auf dieses Element)
+			flip: optional können die ermittelten Mauskoordinaten invertiert zurückgegeben werden (0=ohne, 1=nur X, 2=nur Y, 3=X+Y)
+		
+			Return: (Object) {x,y,w,h,a}
+			x/y: Mauskoordinaten (ggf. invertiert)
+			w/h: Breite/Höhe von obj (in Pixeln)
+			a: Rotations-Winkel des VE
+		</td>
+	</tr>
+	<tr>
+		<td>visuElement_getAbsoluteChildPosition(ve, obj)</td>
+		<td>
+			Ermittelt die <i>absoluten</i> Koordinaten eines untergeordneten DOM-Elements eines VE.
+
+			Hinweis:
+			Eine Rotation des VE wird ggf. berücksichtigt.
+
+			ve: das VE-Objekt
+			obj: untergeordnetes DOM-Element des VE (die Koordinaten beziehen sich auf dieses Element)
+
+			Return: {x0,y0,xm,ym}
+			x0/y0: linke-obere Ecke
+			xm/ym: Mittelpunkt
+		</td>
+	</tr>
+</table>
+
+
+
+
+<h2>PHP-Konstanten und -Funktionen für die Abschnitte [VISU.PHP], [EDITOR.PHP] und [ACTIVATION.PHP]</h2>
+<b>Hinweis:</b>
+Dies ist nur ein Auszug der wichtigsten Konstanten und Funktionen.
+
+Konstanten: (ggf. mit "global &lt;Name&gt;" deklarieren)
+<ul>
+	<li>$global_weekdays: (Array[0..6]) Wochentage "Montag..Sonntag"</li>
+	<li>$global_months: (Array[0..11]) Monate "Januar..Dezember"</li>
+</ul>
+
+<table class="tableHelp">
+	<tr>
+		<td width='30%'>Funktion</td>
+		<td width='70%'>Erläuterung</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Datenbank (SQL)</b></td>
+	</tr>
+	<tr>
+		<td>sql_call($cmd)</td>
+		<td>
+			Führt ein Datenbank-Kommando aus (bildet die PHP-Funktion "mysqli_query()" ab).
+			
+			$cmd: Kommando (z.B. "SELECT * FROM edomiLive.email" oder "UPDATE/INSERT/DELETE...")
+
+			Return: 
+			mysqli_result-Objekt (für "SELECT/SHOW/etc.")
+			oder true (bei "UPDATE/INSERT/etc.")
+			oder false (bei Fehler)
+		</td>
+	</tr>
+	<tr>
+		<td>sql_result($sql)</td>
+		<td>
+			Ließt einen Datensatz aus einem Abfrageergebnis und bewegt den internen Zeiger auf den nächsten Datensatz (bildet die PHP-Funktion "mysqli_fetch_assoc()" ab).
+			
+			$sql: mysqli_result-Objekt (Ergebnis der Abfrage durch "sql_call()")
+			
+			Return: Array (assoziativ), oder false (z.B. wenn keine weiteren Datensätze vorhanden sind)
+		</td>
+	</tr>
+	<tr>
+		<td>sql_close($sql)</td>
+		<td>
+			Gibt das Ergebnis einer Datenbank-Anfrage frei (bildet die PHP-Funktion "mysqli_free_result()" ab).
+
+			$sql: mysqli_result-Objekt
+		</td>
+	</tr>
+	<tr>
+		<td>sql_save($db, $condition, $arr)</td>
+		<td>
+			Speichert einen Datensatz in einer Tabelle. Je nach Parametern wird der Datensatz überschrieben und hinzugefügt.
+			
+			Hinweis:
+			Alternativ kann ein Datensatz auch wie üblich (UPDATE/INSERT) mittels der Funktion "sql_call()" modifiziert/hinzugefügt werden.
+			
+			$db: Datenbank- und Tabellenname (z.B. "edomiLive.email")
+			$condition:
+			<ul>
+				<li>leer/null=Datensatz wird per INSERT eingefügt</li>
+				<li>nummerischer Wert=Datensatz wird per UPDATE überschrieben, $condition wird dabei als ID angenommen ("UPDATE...WHERE id=$condition")</li>
+				<li>String=Datensatz wird per UPDATE überschrieben, $condition wird dabei für die WHERE-Klausel eingesetzt ("UPDATE...WHERE $condition")</li>
+			</ul>
+			$arr: Array (assoziativ), das den Datensatz repräsentiert (z.B. ['column1'=>'EDOMI','column2'=>1234,...]
+			
+			Return:
+			bei INSERT: ggf. die ID des eingefügten Datensatzen, oder false
+			bei UPDATE: die ID des Datensatzes (falls $condition ein nummerischer Wert ist), oder true (falls $condition ein String ist), oder false		
+		</td>
+	</tr>
+	<tr>
+		<td>sql_getCount($db, $condition)</td>
+		<td>
+			Ermittelt die Anzahl der Datensätze in einer Tabelle.
+			
+			$db: Datenbank- und Tabellenname (z.B. "edomiLive.email")
+			$condition: WHERE-Klausel ("SELECT...WHERE $condition")
+			
+			Return: Anzahl, ggf. "0"
+		</td>
+	</tr>
+	<tr>
+		<td>sql_getValue($db, $column, $condition)</td>
+		<td>
+			Gibt den Wert genau einer Tabellenspalte eines Datensatzes zurück (es wird nur der erste Treffer berücksichtigt).
+
+			$db: Datenbank- und Tabellenname (z.B. "edomiLive.email")
+			$column: Name der Tabellenspalte (z.B. "column1")
+			$condition: WHERE-Klausel ("SELECT...WHERE $condition")
+			
+			Return: Wert, oder NULL
+		</td>
+	</tr>
+	<tr>
+		<td>sql_getValues($db, $columns, $condition)</td>
+		<td>
+			Gibt die Werte mehrerer Tabellenspalten eines Datensatzes zurück (es wird nur der erste Treffer berücksichtigt).
+
+			$db: Datenbank- und Tabellenname (z.B. "edomiLive.email")
+			$columns: Namen der Tabellenspalten (z.B. "column1,column2,column3")
+			$condition: WHERE-Klausel ("SELECT...WHERE $condition")
+			
+			Return: Array (assoziativ), oder false
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Konvertierung</b></td>
+	</tr>
+	<tr>
+		<td>escapeString($string, [$mode])</td>
+		<td>
+			Konvertiert einen String zur Ausgabe per HTML/Ajax. Anführungszeichen, Backslashes und Tabulatoren werden escaped.
+
+			$string: der zu konvertierende String
+			$mode: (optional) ggf. weitere Sonderzeichen escapen/konvertieren
+			<ul>
+				<li>1=HTML-Tags escapen (z.B. "Kursiv: <i>&euro;</i>" wird zu "Kursiv: &lt;i&gt;&euro;&lt;/i&gt;")</li>
+				<li>2=HTML-Tags und HTML-Enities escapen (z.B. "Kursiv: <i>&euro;</i>" wird zu "Kursiv: &lt;i&gt;&amp;euro;&lt;/i&gt;")</li>
+				<li>4=CR/LF in "&lt;br&gt;" konvertieren</li>
+				<li>5=HTML-Tags escapen und CR/LF in "&lt;br&gt;" konvertieren</li>
+				<li>6=HTML-Tags und HTML-Enities escapen und CR/LF in "&lt;br&gt;" konvertieren</li>
+			</ul>
+
+			Return: konvertierter String
+		</td>
+	</tr>
+	<tr>
+		<td>sql_encodeString($string, [$mode])</td>
+		<td>
+			Konvertiert einen String zum Schreiben in eine Datenbank. Anführungszeichen, Backslashes, Tabulatoren und CR/LF werden escaped, sowie einige Sonderzeichen entfernt.
+
+			Hinweis:
+			Je nach Modus wird entweder wie gewohnt ein String zurückgegeben, oder ein mit einfachen Anführungzeichen (nicht escaped) umschlossener String, oder der String "NULL".
+
+			$string: der zu konvertierende String
+			$mode: (optional)
+			<ul>
+				<li>
+					leer/false (Default)=gibt einen String zurück
+					<ul>
+						<li>$string&ne;leer/null: zurückgegeben wird $string (konvertiert)</li>
+						<li>$string=leer/null: zurückgegeben wird "" (leerer String)</li>
+					</ul>
+				</li>
+				<li>
+					true=gibt einen von einfachen Anführungszeichen umschlossenen String zurück (z.B. "'EDOMI'"), oder NULL
+					<ul>
+						<li>$string&ne;leer/null: zurückgegeben wird '$string' (konvertiert, die einfachen Anführungszeichen werden nicht escaped)</li>
+						<li>$string=leer/null: zurückgegeben wird "NULL" (als String)</li>
+					</ul>
+				</li>
+			</ul>
+
+			Return: String (ggf. mit einfachen Anführungszeichen umschlossen), oder NULL (als String)		
+		</td>
+	</tr>
+	<tr>
+		<td>sql_nearestNumber($value, $list)</td>
+		<td>
+			Ermittelt einen <i>nummerischen</i> Wert aus eine Liste, der dem angegebenen Wert am nächsten kommt.
+			
+			$value: Wert
+			$list: kommaseparierte Liste aus Werten (z.B. "0,1,2,3,10,20,30")
+
+			Return: der am nächsten gelegene Wert aus $list, oder der erste Wert aus $list (z.B. falls der Wert nicht nummerisch ist)		
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+		</td>
+	</tr>
+</table>
+

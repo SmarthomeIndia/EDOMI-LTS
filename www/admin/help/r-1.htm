@@ -1,0 +1,128 @@
+<h1>Logiken</h1>
+Mit Hilfe von Logiken können einfache oder auch komplexe Funktionalitäten bereitgestellt werden: Beispielsweise kann erreicht werden, dass eine Leuchte nur unter bestimmten Bedinungen (Dunkelheit) eingeschaltet wird. Eine komplexere Logik könnte z.B. eine komplette "Alarmanlage" abbilden.
+
+Logiken werden mit Hilfe des <link>Logikeditors***1</link> aus einzelnen <link>Logikbausteinen***r-0</link> zusammengesetzt. Diese Logikbausteine können miteinander verbunden werden, so dass durch eine Verkettung von Bedinungen oder Berechnungen eine Gesamtfunktionalität entsteht.
+
+Bei Bedarf (z.B. zur Fehlersuche) kann der <link>Logikmonitor***a-7</link> zur Protokollierung von Logikabläufen aktiviert werden.
+
+
+<h2>Allgemeines</h2>
+Logiken werden in EDOMI nicht(!) sequentiell (d.h. wie ein Computerprogramm) abgearbeitet, sondern arbeiten stets Ereignis-gesteuert. Dies bedeutet, dass jedes "Ereignis" (z.B. ein eintreffendes KNX-Telegramm oder das Ergebnis einer Berechnung eines Logikbausteins) ggf. einen oder mehrere Eingänge eines Logikbausteins "triggert" und somit eine entsprechende Reaktion bewirkt.
+
+Der Zustand (z.B. der Wert an einem Eingang eines Logikbausteins) bleibt dabei solange erhalten, bis ein weiteres Ereignis diesen Zustand neu definiert.
+
+
+<h2>Logikbausteine</h2>
+Logikbausteine stellen die kleinste funktionale Einheit einer Logik dar. Jeder <link>Logikbaustein***r-0</link> verfügt i.d.R. mindestens über einen Eingang und einen Ausgang. Durch die Verbindung mehrerer Logikbausteine untereinander kann eine komplexe Gesamtfunktionalität bereitgestellt werden.
+
+<h3>Eingänge</h3>
+Über einen Eingang erhält der Logikbaustein einen Wert, der in der bereitgestellten Funktionalität des Logikbausteins wie eine Variable verarbeitet wird. Sobald ein beliebiger Eingang auf einen Wert gesetzt wird, beginnt der Logikbaustein zu arbeiten - er wird "getriggert".
+
+Jeder Eingang kann auf unterschiedliche Weise mit Werten belegt werden:
+
+<ul>
+	<li>
+		Zuweisung eines Initial- bzw. Fixwertes:
+		<ul>
+			<li>der Eingang wird beim Start von EDOMI auf diesen Initialwert gesetzt und der Logikbaustein wird "getriggert"</li>
+			<li>ist der Eingang <i>ausschließlich</i> mit diesem Initialwert belegt, entspricht dieser Wert einem konstanten Fixwert</li>
+			<li>ist der Eingang zusätzlich mit einem Kommunikationsobjekt belegt oder mit einem Ausgang verbunden, wird der Initialwert ignoriert sobald ein gültiger Wert eines KOs bzw. Ausgangs anliegt</li>
+		</ul>
+	</li>
+
+	<li>
+		Zuweisung eines <link>Kommunikationsobjektes***1000-30</link>:
+		<ul>
+			<li>sobald das zugewiesene KO auf einen beliebigen Wert gesetzt wird ("Telegramm"), liegt dieser Wert an dem Eingang an und der Logikbaustein wird "getriggert"</li>
+			<li>Hinweis: Kommunikationsobjekte haben Priorität gegenüber dem Initialwert (s.o.).</li>
+		</ul>
+	</li>
+
+	<li>
+		Verbindung mit einem Ausgangs eines anderen Logikbausteins:
+		<ul>
+			<li>sobald der verbundene Ausgang auf einen beliebigen Wert gesetzt wird ("Telegramm"), liegt dieser Wert an dem Eingang an und der Logikbaustein wird "getriggert"</li>
+			<li>Hinweis: Verbindungen haben Priorität gegenüber dem Initialwert (s.o.).</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Wichtig:</b>
+Ein Eingang kann nur mit einem Kommunikationsobjekt oder(!) einer Verbindung belegt werden.
+
+
+<h3>Verhalten der Eingängen beim Start</h3>
+Beim Start oder Neustart von EDOMI werden während der Initialisierungsphase i.d.R. alle Logikbausteine in Abhängigkeit von der Belegung der Eingänge wie folgt initialisiert:
+
+<ul>
+	<li>jeder Initial-/Fixwert &ne;[leer] triggert den Logikbaustein</li>
+	<li>jeder KO-Wert &ne;[leer] triggert den Logikbaustein, ein Initialwert wird dann ignoriert</li>
+	<li>jede Verbindung triggert ggf. den Logikbaustein, ein Initialwert wird dann ignoriert</li>
+	
+	<li>ist ein Eingang unbelegt (kein Initialwert, kein KO, keine Verbindung) oder ist keine der o.g. Bedingungen erfüllt, wird <i>dieser</i> Eingang nicht zu einem Triggern des Logikbausteins führen</li>
+
+	<li>
+		sind sämtliche Eingänge unbelegt oder sind keine der o.g. Bedingungen erfüllt, wird der Logikbaustein nicht getriggert und somit nicht initialisiert
+		<ul>
+			<li>Hinweis: Dieses Verhalten ergibt sich ggf. aus dem Gesamtaufbau der Logik und ist i.d.R. nicht weiter von Bedeutung.</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Wichtig:</b>
+Jeder Logikbaustein wird dabei nur <i>einmalig</i> getriggert: Sämtliche Werte an den Eingängen werden intern zusammengefasst und führen dann ggf. gemeinsam zu einem Triggern des Logikbausteins.
+
+
+<h3>Logikbaustein: Eingangsbox</h3>
+<link>Eingangsboxen***lbs_12000001</link> können optional(!) verwendet werden, um die Eingänge eines Logikbausteins mit Kommunikationsobjekten zu belegen. 
+
+Eingangsboxen sind im Grunde nicht erforderlich, da jeder Eingang auch direkt mit einem KO belegt werden kann. Jedoch kann die Verwendung einer Eingangsbox zu einer Steigerung der Übersichtlichkeit führen, zudem können Eingangsboxen die Umbelegung vieler gleichartiger Eingänge beim Bearbeiten einer Logik erleichtern.
+
+<b>Hinweis:</b>
+Eingangsboxen werden bei einer <link>Projektaktivierung***103-13</link> intern entfernt, d.h. die Verwendung von Eingangsboxen beeinflusst nicht das Verhalten einer Logik im Vergleich zum direkten Belegen eines Eingangs mit einem KO.
+
+
+<h3>Ausgänge</h3>
+An den Ausgängen eines Logikbausteins liegen ggf. die Ergebnisse der bereitgestellten Funktionalität des Logikbausteins an. Sobald ein Ausgang auf einen Wert gesetzt wird, werden alle Eingänge anderer Logikbausteine, die mit diesem Ausgang verbunden sind auf diesen Wert gesetzt (und werden "getriggert").
+
+
+<h3>Logikbaustein: Ausgangsbox</h3>
+<link>Ausgangsboxen***lbs_12000010</link> verfügen über keinerlei Ausgänge, sondern erfüllen eine besondere Funktion: Ausgangsboxen repräsentieren i.d.R. das Ende einer Verkettung von Logikbausteinen und ermöglichen das Ausführen von <link>Befehlen***1007</link>. Eine Ausgangsbox sorgt i.d.R. dafür, dass die Ergebnisse einer Logik zu einer entsprechenden Aktion führen (z.B. Schalten einer Leuchte, Abrufen einer Szene, uvm.).
+
+
+<h2>Technische Informationen (Logik-Engine)</h2>
+Die "Logik-Engine" bezeichnet einen EDOMI-Prozess, der u.a. für die Verarbeitung von Logiken zuständig ist. Die Logik-Engine bildet in Etwa das Verhalten einer SPS (Speicherprogrammierbare Steuerung) ab, d.h. Logikfunktionen werden in einzelne Einheiten zerlegt (Logikbausteine) und ggf. zyklisch aufgerufen. Im Detail werden einzelne Logikfunktionen demnach sequentiell verarbeitet, im Gesamtkontext arbeitet die Logik-Engine jedoch Ereignis-gesteuert.
+
+<b>Hinweis:</b>
+Aufgrund der Ereignis-gesteuerten Arbeitsweise existiert keine definierte Reihenfolge bezüglich der Abarbeitung einzelner Logikfunktionen.
+
+<h3>Funktionsprinzip</h3>
+Die Logik-Engine arbeitet grundsätzlich "getaktet", d.h. sämtliche Ein- und Ausgaben werden zyklisch überwacht bzw. erzeugt (etwa 100 mal pro Sekunde). Ein "Durchlauf" eines solchen Zyklus wird nachfolgend ansatzweise erläutert:
+
+<ul>
+	<li>genau 1 KO wird ggf. aus einer Queue gelesen und verarbeitet (z.B. triggert dieses KO einen Eingang eines Logikbausteins)</li>
+	<li>
+		liegt an mindestens einem Eingang eines Logikbausteins ein neuer Wert an, wird dieser Logikbaustein aufgerufen (der Code des Logikbausteins wird ausgeführt)
+		<ul>
+			<li>getriggert wird ein Eingang entweder von einem KO oder von einem Ausgang eines anderen Logikbausteins (Initialwerte triggern den Logikbaustein ausschließlich beim Start von EDOMI in der Initialisierungsphase)</li>
+			<li>Hinweis: Es werden zu diesem Zeitpunkt stets alle(!) getriggerten Logikbausteine aufgerufen und deren Ausführung abgewartet.</li>
+		</ul>
+	</li>
+	<li>Logikbausteine die zyklische ausgeführt werden sollen (z.B. Timer), werden unabhängig von einem Trigger (Eingang) in Abhängigkeit vom angegebenen Intervall aufgerufen</li>
+	<li>zusätzlich werden viele weitere Ereignisse an dieser Stelle überwacht (z.B. Visu-Interaktionen, Zeitschaltuhren, Sequenzen, uvm.)</li>
+</ul>
+
+
+<h3>Logikbausteine</h3>
+Der Code eines <link>Logikbausteins***r-0</link> wird wie oben erläutert bei jedem Vorliegen eines neuen Wertes an einem seiner Eingänge ausgeführt, zudem wird der Code ggf. zyklisch ausgeführt (sofern dies im Code des Logikbausteins durch einen entsprechenden <link>Funktionsaufruf***r-0-3</link> gefordert wurde).
+
+Werden verschiedene Eingänge ein und desselben Logikbausteins von unterschiedlichen(!) Ereignissen getriggert, wird der Logikbaustein u.U. mehrfach aufgerufen (abhängig von der zeitlichen Nähe der Ereignisse).
+
+Bei jeder Ausführung werden ggf. die Ausgänge des Logikbausteins auf einen Wert gesetzt, d.h. intern werden die Eingänge der mit dem entsprechenden Ausgang verbundenen Logikbausteine auf einen Wert gesetzt (Ausgänge existieren intern nicht).
+
+Die mit dem entsprechenden Ausgang verbundenen Logikbausteine werden zu diesem Zeitpunkt jedoch noch nicht(!) getriggert, vielmehr wird zunächst die Ausführung des gesamten Codes des Logikbausteins abgewartet. 
+
+Erst nach vollständiger Ausführung des Codes werden die entsprechenden Eingänge der verbundenen Logikbausteine getriggert (dies erfolgt erst im nächsten Zyklus der Logik-Engine), ausserdem werden alle Eingänge des aktuell abgearbeiteten Logikbausteins hinsichtlich ihrer "refresh"-Eigenschaft zurückgesetzt.
+
+<b>Hinweis:</b>
+Der Code im <link>EXEC-Abschnitt***r-0-2</link> eines Logikbausteins wird - einmal gestartet - vollkommen unabhängig von der Logik-Engine ausgeführt (EXEC-Scripte werden als eigentständiger PHP-Prozess ausgeführt). Das Setzen eines Ausgangs innerhalb dieses Codes wird demnach zu einem willkürlichen Zeitpunkt erfolgen und ist nicht vorhersehbar.

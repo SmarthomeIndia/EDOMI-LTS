@@ -1,0 +1,147 @@
+<h1>Datentypen</h1>
+Jedem Kommunikationsobjekt muss ein Datentyp zugewiesen werden, um den Typ und das Format des KO-Werts zu definieren.
+
+Interne KOs sollten i.d.R. vom Typ "Variant" sein, KNX-GAs müssen einen zur KNX-Parametrierung passenden "DPT" erhalten.
+
+<table class="tableHelp">
+	<tr>
+		<td>Name</td>
+		<td>Länge, Datentyp</td>
+		<td>Wertebereich/Format</td>
+		<td>Beschreibung</td>
+	</tr>
+	<tr>
+		<td>Variant</td>
+		<td>10.000 Byte, String</td>
+		<td>10.000 ASCII-Zeichen</td>
+		<td>
+			Dieser Datentyp steht ausschließlich für interne KOs zu Verfügung und kann beliebige Zahlenwerte oder Strings repräsentieren.
+			Hinweis: Es sind nur ASCII-Zeichen ohne Steuerzeichen (mit Ausnahme von TAB, CR und LF) erlaubt.
+		</td>
+	</tr>
+	<tr>
+		<td>DPT 1</td>
+		<td>1 Bit</td>
+		<td>0..1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 2</td>
+		<td>2 Bit</td>
+		<td>0..3</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 3</td>
+		<td>4 Bit</td>
+		<td>0..15</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 4</td>
+		<td>1 Byte, Char</td>
+		<td>1 ASCII-Zeichen</td>
+		<td>Hinweis: Es sind nur ASCII-Zeichen ohne Steuerzeichen (mit Ausnahme von TAB, CR und LF) erlaubt.</td>
+	</tr>
+	<tr>
+		<td>DPT 5</td>
+		<td>1 Byte, Integer</td>
+		<td>0..255</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 6</td>
+		<td>1 Byte, Integer</td>
+		<td>-128..127</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 7</td>
+		<td>2 Byte, Integer</td>
+		<td>0..65535</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 8</td>
+		<td>2 Byte, Integer</td>
+		<td>-32767..32767</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 9</td>
+		<td>2 Byte, Float</td>
+		<td>-671088,64..670760,96</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 10</td>
+		<td>3 Byte, Wochentag und Uhrzeit</td>
+		<td>"T.HH:MM:SS"</td>
+		<td>
+			Hinweis: Intern wird ein String im Format "T.HH:MM:SS" erwartet bzw. beim Empfang gesetzt (T: Wochentag (1..7=Montag..Sonntag), HH: Stunden, MM: Minuten, SS: Sekunden).
+		</td>
+	</tr>
+	<tr>
+		<td>DPT 11</td>
+		<td>3 Byte, Datum</td>
+		<td>"JJJJ-MM-TT"</td>
+		<td>
+			Hinweis: Intern wird ein String im Format "JJJJ-MM-TT" erwartet bzw. beim Empfang gesetzt (JJJJ: Jahr, MM: Monat, TT: Tag).
+		</td>
+	</tr>
+	<tr>
+		<td>DPT 12</td>
+		<td>4 Byte, Integer</td>
+		<td>0..4294967295</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 13</td>
+		<td>4 Byte, Integer</td>
+		<td>-2147483647..2147483647</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DPT 14</td>
+		<td>4 Byte, Float</td>
+		<td>-&infin;..&infin;</td>
+		<td>Hinweis: Der Wertebereich hängt von der Anzahl der Nachkommastellen ab und ist daher nicht genau definierbar.</td>
+	</tr>
+	<tr>
+		<td>DPT 16</td>
+		<td>14 Byte, String</td>
+		<td>14 ASCII-Zeichen</td>
+		<td>Hinweis: Es sind nur ASCII-Zeichen ohne Steuerzeichen (mit Ausnahme von TAB, CR und LF) erlaubt.</td>
+	</tr>
+	<tr>
+		<td>DPT 232</td>
+		<td>3 Byte, 3x Integer (Hex-String)</td>
+		<td>"AABBCC"</td>
+		<td>
+			Hinweis: Intern wird ein String im Format "AABBCC" erwartet bzw. beim Empfang gesetzt (AA: Hex-Wert 00..ff, BB: Hex-Wert 00..ff, CC: Hex-Wert 00..ff).
+		</td>
+	</tr>
+	<tr>
+		<td>KNX-Rohdaten</td>
+		<td>1.000 Byte, 333x Integer (Hex-String)</td>
+		<td>"AA,BB,CC,..."</td>
+		<td>
+			Dieser Datentyp kann in besonderen Fällen z.B. in Kombination mit entsprechenden Logikbausteinen verwendet werden:
+			<ul>
+				<li>die Rohdaten sind stets als <i>2-stellige</i> Hex-Werte (separiert durch ein Komma) anzugeben, z.B. "00,A1,b2,C3,d4,Ff"</li>
+				<li>beim Empfang von Rohdaten sind diese ebenso formatiert</li>
+				<li>das 1. Byte (Hexwert) ist immer(!) für Bit-DPTs reserviert (00..07)</li>
+				<li>bei allen anderen DPTs muss(!) das 1. Byte als Wert 00 jedoch stets mit angegeben werden!</li>
+				<li>die Rohdaten können maximal 1000 Zeichen lang sein, dies entspricht etwa 333 Hex-Werten</li>
+				<li>Beispiele:</li>
+				<li>DPT1 senden: "00"=Aus, "01"=Ein</li>
+				<li>DPT5 senden: "00,00"=0, "00,01"=1, "00,FF"=255</li>
+				<li>DPT16 senden: "00,41,42,43,44,45,46,47,48,49,4a,4b,4c,4d,4e"=ABCDEFGHIJKLMN</li>
+			</ul>
+			
+			<b>Achtung:</b>
+			Das Senden von fehlerhaften Rohdaten auf den KNX-Bus kann zu massiven Problemen führen! Die Daten werden vor dem Senden <i>nicht</i> überprüft!
+		</td>
+	</tr>
+</table>
+

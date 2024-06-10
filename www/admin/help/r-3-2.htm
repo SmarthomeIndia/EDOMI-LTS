@@ -1,0 +1,798 @@
+<h1><path>Entwicklung von Visuelementen***r-3-0</path>Quelltext</h1>
+Das Grundgerüst eines Visuelements (VSE) besteht aus folgenden Abschnitten (die Reihenfolge der einzelnen Abschnitte ist unerheblich):
+
+<ul>
+	<li>[DEF]: Deklarationen (z.B. Name, diverse Defaultparameter, etc.)</li>
+	<li>[PROPERTIES]: Definition des Eigenschaften-Dialogs zur Bearbeitung der Parameter im Visueditor</li>
+
+	<li>[ACTIVATION.PHP]: optionales Script (PHP), das bei der Projekt- oder Visuaktivierung angewendet wird</li>
+
+	<li>[EDITOR.JS]: Script (JS ) für die Darstellung des Visuelements im Visueditor</li>
+	<li>[EDITOR.PHP]: optionales Script (PHP) zur Ermittlung diverser Parameter im Visueditor (z.B. Name einer Zeitschaltuhr)</li>
+
+	<li>[VISU.JS]: Script (JS) für die Darstellung/Funktionalität des Visuelements in der Visualisierung</li>
+	<li>[VISU.PHP]: Script (PHP) für die Darstellung/Funktionalität des Visuelements in der Visualisierung</li>
+
+	<li>[SHARED.JS]: optionales Script (JS) für die Verwendung im Visueditor und(!) in der Visualisierung (ähnlich einer Inklude-Datei)</li>
+
+	<li>[HELP]: Hilfe</li>
+</ul>
+
+<b>Hinweis:</b>
+Die vollständige Syntax zur Definition eines Abschnitts folgt dabei diesem Schema: z.B. ###[DEF]### ... ###[/DEF]### 
+
+<b>Wichtig:</b>
+<ul>
+	<li>Sämtliche Inhalte (insb. Scripte) müssen mit größter Sorgfalt implementiert werden, es erfolgt <i>keine</i> Überprüfung auf eine korrekte Syntax! Fehlerhafte Scripte können den Visueditor oder die Visualisierung zum Absturz bringen!</li>
+	<li>Der String "VSEID" (Platzhalter, nur Großbuchstaben) wird in der <i>gesamten</i> VSE-Datei durch die tatsächliche ID des Visuelements (definiert durch den Dateinamen) ersetzt und darf daher nicht willkürlich verwendet werden.</li>
+</ul>
+
+
+<h2>Abschnitt [DEF]</h2>
+Hier werden der Name des VSE und sämtliche Parameter bzw. Eigenschaften definiert.
+
+Die folgenden Eigenschaften repräsentieren einige Parameter in der linken Spalte des Dialogs <link>Visuelement bearbeiten***1002</link> (allgemeine und spezifische Eigenschaften):
+<ul>
+	<li>name: Name des VSE (zwingend erforderlich, max. 40 Zeichen)</li>
+	<li>(folderid: nur für System-VSE erforderlich und zulässig)</li>
+	<li>xsize/ysize: Defaultgröße in Pixeln</li>
+	<li>text: Defaulttext für "Beschriftung" (sofern "flagText"=1 ist (s.u.), ansonsten wird diese Angabe ignoriert)</li>
+	<li>
+		var1..20: Defaultwerte für die "Spezifischen Eigenschaften"
+		<ul>
+			<li>jedes Visuelement verfügt über max. 20 individuelle Parameter (var1..20), die jeweils max. 1000 Zeichen enthalten können</li>
+			<li>diese Parameter können ggf. im Abschnitt [PROPERTIES] vom Nutzer angepasst werden (z.B. eine bestimmte Eigenschaft oder die Auswahl einer konfigurierten Zeitschaltuhr)</li>
+			<li>Wichtig: Jeder <i>genutzte</i> Parameter (var1..20) muss deklariert werden, ansonsten kann es zu unvorhersehbaren Problemen kommen!</li>
+			<li>
+				ggf. ist zusätzlich die Angabe einer ID in der Form "#root=..." erforderlich:
+				<ul>
+					<li>diese ID repräsentiert einen Datensatz in der DB "edomiProject.editRoot"</li>
+					<li>die ID muss prinzipiell im Bereich 1..999 liegen und definiert die Datenbank-Tabelle auf die der Parameter (var1..20) referenziert ist</li>
+					<li>
+						Beispiel:
+						<ul>
+							<li>der Nutzer soll im Dialog "Visuelement bearbeiten" eine konfigurierte Zeitschaltuhr auswählen können</li>
+							<li>"var1" soll die ID der vom Nutzer ausgewählten konfigurierten Zeitschaltuhr repräsentieren</li>
+							<li>damit diverse interne Funktionen (z.B. "Verweise") erkennen können, dass "var1" einen Link zu einer ZSU repräsentiert, ist dies durch den Zusatz "#root=..." zu ermöglichen</li>
+							<li>"100" ist die ID der konfigurierten ZSUs aus der DB "edomiProject.editRoot" (namedb="editTimer"), also muss "#root=100" ergänzt werden</li>
+							<li>Hinweis: diese ID wird zudem im Abschnitt [PROPERTIES] benötigt (s.u.)</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+Diese Eigenschaften aktivieren/deaktivieren bzw. definieren die Eigenschaften in der rechten Spalte des Dialogs <link>Visuelement bearbeiten***1002</link> (Beschriftung, Designs, Kommunikationsobjekte, etc.):
+<ul>
+	<li>flagText: 1="Beschriftung" erlauben</li>
+	<li>captionText: (String, max. 100 Zeichen)=wird ggf. bei "Beschriftung" und "dynamische Designs" informativ angezeigt, wenn im Feld "Beschriftung" spezielle Angaben erforderlich sind (z.B. eine URL im Visuelement "Sprachausgabe")</li>
+
+	<li>flagKo1: 0=KO1 deaktiviert, 1=KO1 ist vom Nutzer auswählbar, 2=KO1 ist vorgegeben (muss im Abschnitt [ACTIVATION.PHP] gesetzt werden, z.B. ZSU-Steuerungs-KO)</li>
+	<li>
+		captionKo1: (String, max. 100 Zeichen)=informative Bezeichnung des entsprechenden KO-Auswahlfeldes (Sonderfall: ist flagKo1=2 wird <i>innerhalb</i> des KO-Auswahlfelds der Hinweis "(wird bei Aktivierung eingefügt)" angezeigt und das Auswahlfeld ist deaktiviert)
+		<ul>
+			<li>Hinweis: wird diese Eigenschaft nicht definiert wird per Default "Steuerung" angezeigt</li>
+		</ul>
+	</li>
+
+	<li>flagKo2: 0=KO2 deaktiviert, 1=KO2 ist vom Nutzer auswählbar</li>
+	<li>
+		captionKo2: (String, max. 100 Zeichen)=informative Bezeichnung des entsprechenden KO-Auswahlfeldes
+		<ul>
+			<li>Hinweis: wird diese Eigenschaft nicht definiert wird per Default "Wert setzen" angezeigt</li>
+		</ul>
+	</li>
+
+	<li>flagKo3: 0=KO3 deaktiviert, 1=KO3 ist vom Nutzer auswählbar (KO3 dient stets der optionalen Steuerung von dynamischen Designs)</li>
+
+	<li>flagPage: 1="Seitensteuerung" erlauben</li>
+	<li>flagCmd: 1="Befehle" erlauben</li>
+	<li>flagDesign: 1="Design" erlauben</li>
+	<li>flagDynDesign: 1="dynamische Designs" erlauben</li>
+</ul>
+
+Die folgenden (optionalen) Eigenschaften sind erforderlich, sofern das Visuelement eine Ton- oder Sprachausgabe bereitstellt:
+<ul>
+	<li>flagSound: 1=VSE nutzt Soundausgabe (mp3)</li>
+	<li>flagSpeech: 1=VSE nutzt Sprachausgabe (Text-To-Speech)</li>
+</ul>
+
+
+Beispiel:<pre>
+###[DEF]###
+[name = Beispiel-Visuelement]
+
+[xsize	=100]
+[ysize	=50]
+[text	=KO1-Wert: {#}]
+
+[var1 = 0 #root=100] (var1 verweist auf die DB "edomiProject.editTimer")
+[var2 = 123]
+[var3 = 0]
+[var4 = 1]
+[var5 = 0]
+
+[flagText		=1]
+[flagKo1		=1]
+[flagKo2		=0]
+[flagPage		=1]
+[flagCmd		=1]
+[flagDesign		=1]
+[flagDynDesign	=1]
+
+[captionKo1		=Steuerung des Designs]
+###[/DEF]###
+</pre>
+"Whitespace" (Leerzeichen) innerhalb der Deklaration wird ignoriert: [name=(Name)] führt zum gleichen Ergebnis wie [  name = (Name)  ].
+
+Im Anschluss an eine Deklaration kann bei Bedarf ein Hilfetext angegeben werden:<pre>
+###[DEF]###
+...
+[var1 = A] Hinweis: var1 wird auf den Defaultwert "A" gesetzt
+...
+###[/DEF]###
+</pre>
+Der Hinweistext darf keine eckigen Klammern enthalten!
+
+<b>Wichtig:</b>
+Eine Deklaration darf keine eckigen Klammern oder HTML-Tags enthalten, z.B. wäre [var1 = [Test]] keine gültige Deklaration, [var1 = Test] wäre hingegen gültig. Bei Bedarf müssen HTML-Entities/Unicode-Symbole verwendet werden.
+
+
+<h2>Abschnitt [PROPERTIES]</h2>
+Dieser Abschnitt definiert die "spezifischen Eigenschaften" im Dialog <link>Visuelement bearbeiten***1002</link> mittels einer speziellen Syntax. Der Nutzer hat hier ggf. die Möglichkeit die Parameter var1..20 entsprechend anzupassen.
+
+<b>Wichtig:</b>
+Die Syntax und die Reihenfolge ist präzise einzuhalten (wie nachfolgend beschrieben)!
+
+<ul>
+	<li>
+		columns: Breite (und Anzahl) der Tabellenspalten in Prozent (Komma-separiert)
+		<ul>
+			<li>[columns=25,25,50]: generiert 3 Spalten mit 25%, 25% und 50% Breite</li>
+			<li>[columns=100]: generiert 1 Spalte mit 100% Breite</li>
+			<li>Wichtig: Diese Angabe muss stets vorhanden sein und vor allen weiteren Parametern angegeben werden!</li>
+		</ul>
+	</li>
+
+	<li>
+		row: fügt eine neue Tabellenzeile ein, ggf. wird eine Zwischenüberschrift angezeigt:
+		<ul>
+			<li>[row]: fügt nur eine neue Zeile ein</li>
+			<li>[row=Titel]: fügt eine neue Zeile mit der Überschrift "Titel" ein</li>
+			<li>Wichtig: Tabellenzeilen müssen stets eingefügt werden, sobald neue Spalten (s.u.) definiert werden - dies geschieht <i>nicht</i> automatisch!</li>
+		</ul>
+	</li>
+
+	<li>
+		var1..20: fügt ein Eingabeelement in eine (oder mehrere) neue Tabellenspalte ein - die Eingabe/Auswahl des Nutzer wird var1..20 zugewiesen:
+		<ul>
+			<li>Wichtig: Bei allen Angaben sind ggf. <i>einfache</i> Anführungszeichen zu verwenden!</li>
+			
+			<li>
+				[var1..20=text,(Anzahl der Spalten),'(Bezeichnung)','(Platzhalter-Text)']: generiert ein Eingabefeld (Tastatureingabe)
+				<ul>
+					<li>Anzahl der Spalten: legt fest, wieviele Tabellenspalten das Element für sich beanspruchen soll (colspan)</li>
+					<li>Bezeichnung: Titel des Elements, ''=ohne, '&amp;nbsp;'=ohne (jedoch mit Zeilenumbruch)</li>
+					<li>Platzhalter-Text: dieser Text wird ggf. innerhalb des Eingabefelds angezeigt (placeholder)</li>
+				</ul>
+			</li>
+
+			<li>
+				[var1..20=select,(Anzahl der Spalten),'(Bezeichnung)','(Wertliste)']: generiert ein Auswahlfeld (Select-Box)
+				<ul>
+					<li>Anzahl der Spalten: legt fest, wieviele Tabellenspalten das Element für sich beanspruchen soll (colspan)</li>
+					<li>Bezeichnung: Titel des Elements, ''=ohne, '&amp;nbsp;'=ohne (jedoch mit Zeilenumbruch)</li>
+					<li>
+						Wertliste: Liste aus Werten und Bezeichnungen in der Form "(Wert)#(Bezeichnung)|(Wert)#(Bezeichnung)|...":
+						<ul>
+							<li>z.B. "0#A|1#B|2#C|EDOMI#D" führt zu 0=A, 1=B, 2=C, EDOMI=D</li>
+							<li>var1..20 wird je nach Auswahl (A,B,C,D) auf den Wert 0,1,2,EDOMI gesetzt</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+
+			<li>
+				[var1..20=check,(Anzahl der Spalten),'(Bezeichnung)','(Option)']: generiert ein Optionsfeld (Check-Box)
+				<ul>
+					<li>Anzahl der Spalten: legt fest, wieviele Tabellenspalten das Element für sich beanspruchen soll (colspan)</li>
+					<li>Bezeichnung: Titel des Elements, ''=ohne, '&amp;nbsp;'=ohne (jedoch mit Zeilenumbruch)</li>
+					<li>
+						Option: Bezeichnung der Option, dessen Wert stets auf 0 oder 1 gesetzt wird
+						<ul>
+							<li>wenn das Optionsfeld aktiviert ist, wird die Option grün hinterlegt und der Wert auf 1 gesetzt</li>
+							<li>wenn das Optionsfeld deaktiviert ist, wird die Option grau hinterlegt und der Wert auf 0 gesetzt</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+
+			<li>
+				[var1..20=checkmulti,(Anzahl der Spalten),'(Bezeichnung)','(Optionsliste)']: generiert ein Optionsfeld mit mehreren Optionen (Check-Box)
+				<ul>
+					<li>Anzahl der Spalten: legt fest, wieviele Tabellenspalten das Element für sich beanspruchen soll (colspan)</li>
+					<li>Bezeichnung: Titel des Elements, ''=ohne, '&amp;nbsp;'=ohne (jedoch mit Zeilenumbruch)</li>
+					<li>
+						Optionsliste: Liste aus Bezeichnungen der Optionen in der Form "(Bezeichnung)|(Bezeichnung)|(Bezeichnung)|...":
+						<ul>
+							<li>die erste Option entspricht dem Wert 0 und wird grau hinterlegt</li>
+							<li>alle weiteren Optionen entsprechen dem Wert 1..&infin; und werden grün hinterlegt</li>
+							<li>bei jedem Anklicken wird die nachfolgende Option ausgewählt, am Ende der Optionsliste wird am Anfang fortgesetzt</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+
+			<li>
+				[var1..20=root,(Anzahl der Spalten),'(Bezeichnung)','(root-ID)']: generiert ein Auswahlfeld für ein Datenbank-Element (z.B. eine konfigurierte Zeitschaltuhr)
+				<ul>
+					<li>Anzahl der Spalten: legt fest, wieviele Tabellenspalten das Element für sich beanspruchen soll (colspan)</li>
+					<li>Bezeichnung: Titel des Elements, ''=ohne, '&amp;nbsp;'=ohne (jedoch mit Zeilenumbruch)</li>
+					<li>
+						root-ID: diese ID repräsentiert einen Datensatz in der DB "edomiProject.editRoot" (siehe Abschnitt [DEF])
+						<ul>
+							<li>beim Anklicken wird der entsprechende Auswahldialog geöffnet (z.B. "Zeitschaltuhren") und ermöglicht die Auswahl eines entsprechenden Datensatzes</li>
+							<li>der Wert von var1..20 wird ggf. auf die ID des ausgewählten Datensatzes gesetzt</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+Beispiel:<pre>
+###[PROPERTIES]###
+	[columns=50,50]
+
+	[row]
+	[var1 = root,2,'Zeitschaltuhr-Auswahl',100]
+
+	[row=Titel 1]
+	[var2 = text,1,'Eingabefeld','(placeholder)']
+	[var3 = select,1,'Selectbox','0#A|1#B|2#C|EDOMI#D']
+
+	[row=Titel 2]
+	[var4 = check,1,'Checkbox','Wert 0 oder 1']
+	[var5 = checkmulti,1,'Checkbox mit mehreren Werten','Wert 0|Wert 1|Wert 2|Wert 3']
+###[/PROPERTIES]###
+</pre>
+
+
+<h2>Abschnitt [ACTIVATION.PHP]</h2>
+In diesem (optionalen) Abschnitt kann ein PHP-Script hinterlegt werden, das bei der Projekt- oder Visuaktivierung ausgeführt wird (z.B. um bestimmte Parameter zu überprüfen oder zu modifizieren). Typischer Weise werden ausschließlich SQL-Operationen angewendet.
+
+<b>Wichtig:</b>
+In diesem Abschnitt sind keine Funktionen/Klassen/etc. erlaubt (der Code wird intern bereits in einer Funktion gekapselt)!
+
+<b>Achtung:</b>
+Es ist unbedingt zu bedenken, dass dieser Code im Kontext des Aktivierungsprozesses ausgeführt wird - ein fehlerhaftes Script kann daher EDOMI zum Absturz bringen!
+
+<ul>
+	<li>$item[]: (assoziatives Array) repräsentiert den gesamten Datensatz der Visuelement-Instanz aus der DB "edomiLive.visuElement" (diese DB wird zuvor während der Aktivierung erstellt)</li>
+</ul>
+
+Beispiel:
+Das Steuerungs-KO der ZSU (edomiProject.editTimer.gaid) soll bei einer Aktivierung als KO1 der Visuelement-Instanz (edomiLive.visuElement.gaid) festgelegt werden. $item['var1'] repräsentiert den Parameter "var1" der Visuelement-Instanz, in dem o.g. Beispiel (siehe [DEF] bzw. [PROPERTIES]) also die ID der ausgewählten ZSU.
+<pre>
+###[ACTIVATION.PHP]###
+<?
+$tmp=sql_getValues('edomiProject.editTimer','gaid','id='.$item['var1']);
+if ($tmp!==false) {
+	sql_call("UPDATE edomiLive.visuElement SET gaid=".$tmp['gaid']." WHERE id=".$item['id']);
+}
+?>
+###[/ACTIVATION.PHP]###
+</pre>
+
+
+<h2>Abschnitt [EDITOR.JS]</h2>
+Dieser Abschnitt definiert mittels einer vorgegebenen JS-Funktion die Darstellung des Visuelements im Visueditor. Der Aufruf erfolgt nach(!) der Zuweisung von CSS-Eigenschaften ("Design" bzw. "dynamische Designs"), daher können diese Eigenschaften bei Bedarf "übersteuert" werden (siehe Beispiel).
+
+<b>Wichtig:</b>
+<ul>
+	<li>
+		eigene Javascript-Funktionen müssen stets in dieser Form deklariert werden:
+		<ul>
+			<li><b>VSE_VSEID_Funktionsname = function (...) {...}</b></li>
+		</ul>
+	</li>
+</ul>
+
+Die nachfolgende Funktion ist zwingend erforderlich und wird vom Visueditor beim Seitenaufbau aufgerufen:
+
+<ul>
+	<li>
+		<b>VSE_VSEID=function(elementId,obj,meta,property,isPreview,koValue) {...}</b>
+		<ul>
+			<li>elementId: die ID der Visuelement-Instanz (z.B. "123")</li>
+
+			<li>
+				obj: (JS-Objekt) repräsentiert das Visuelement im Visueditor
+				<ul>
+					<li>obj.id: ID des Visuelement-Objekts im Visueditor (eigene HTML-Elemente müssen ggf. "Childs" dieser ID sein, z.B. n+="&lt;div id='"+obj.id+"-dummy1'"&gt;)</li>
+					<li>obj.dataset.var1..20: repräsentiert die Parameter var1..20 aus dem Abschnitt [DEF] bzw. [PROPERTIES]</li>
+				</ul>
+			</li>
+
+			<li>
+				meta: (JS-Objekt) diverse Metadaten, aktuell sind dies:
+				<ul>
+					<li>meta.itemText: repräsentiert die Angabe unter "Beschriftung" im Dialog zur Bearbeitung eines Visuelements</li>
+				</ul>
+			</li>
+
+			<li>
+				property: (JS-Array[0,1,2,3,...])
+				<ul>
+					<li>Eigenschaften:</li>
+					<li>dieses Array kann (optional) im Abschnitt [EDITOR.PHP] mittels eines PHP-Scripts deklariert werden (z.B. der Name einer Zeitschaltuhr)</li>
+				</ul>
+			</li>
+
+			<li>
+				isPreview: Vorschaumodus im Visueditor
+				<ul>
+					<li>true: Vorschau aktiviert</li>
+					<li>false: Vorschau deaktiviert</li>
+				</ul>
+			</li>
+
+			<li>
+				koValue: Vorschau-KO1-Wert
+				<ul>
+					<li>wenn die Vorschau deaktiviert ist (isPreview=false), wird koValue="" (leer) gesetzt</li>
+				</ul>
+			</li>
+
+			<li>
+				return (optional): in der Seitenleiste (Visueditor) wird der entsprechende Eintrag ggf. mit diesem String ergänzt
+				<ul>
+					<li>false (oder kein return): der Einrag wird nicht weiter ergänzt</li>
+					<li>true: der Einrag wird mit der "Beschriftung" des Visuelements ergänzt</li>
+					<li>(String): der Eintrag wird mit diesem String ergänzt (z.B. aus property[], s.o.)</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+Beispiel:
+<pre>
+###[EDITOR.JS]###
+VSE_VSEID=function(elementId,obj,meta,property,isPreview,koValue) {
+	var n="";
+	n+="<table cellpadding='0' cellspacing='0' border='0' style='left:0; top:0; width:100%; height:100%;'>";
+
+		//Name der ausgewählten Zeitschaltuhr (wird im Abschnitt [EDITOR.PHP] ermittelt, s.u.):
+		n+="<tr><td>"+property[0]+"</td></tr>";
+
+		//"Beschriftung" nur anzeigen, wenn var4=1 ist:
+		if (obj.dataset.var4==1) {
+			n+="<tr><td>"+meta.itemText+"</td></tr>";
+		}
+		
+	n+="</table>";
+
+	//HTML-Code dem Visuelement zuweisen
+	obj.innerHTML=n;
+
+	//CSS-Anpassungen: Text immer zentrieren, kein Padding erlauben (die entsprechenden Design-Einstellungen werden hier übersteuert)
+	obj.style.textAlign="center";
+	obj.style.padding="0";
+	
+	//Rückgabe des ZSU-Namens zur Anzeige in der Seitenleiste
+	return property[0];
+}
+###[/EDITOR.JS]###
+</pre>
+
+
+<h2>Abschnitt [EDITOR.PHP]</h2>
+In diesem (optionalen) Abschnitt kann ein PHP-Script zur Deklaration des Arrays "$property[]" angegeben werden. Dieses Array wird im Abschnitt [EDITOR.JS] als JS-Funktionsparameter "property" der Funktion "VSE_VSEID" (s.o.) übernommen.
+Beispielsweise kann der Name einer vom Nutzer ausgewählten Zeitschaltuhr ermittelt und übergeben werden, damit dieser innerhalb des Visuelements und/oder in der Seitenleiste angezeigt werden kann.
+
+<ul>
+	<li>$item[]: (assoziatives Array) repräsentiert den gesamten Datensatz der Visuelement-Instanz aus der DB "edomiProject.editVisuElement"</li>
+	<li>$property[0,1,2,3,...]: (Array) wird intern an die Funktion "VSE_VSEID" im Abschnitt [EDITOR.JS] übergeben</li>
+</ul>
+
+<b>Wichtig:</b>
+In diesem Abschnitt sind keine Funktionen/Klassen/etc. erlaubt (der Code wird intern bereits in einer Funktion gekapselt)!
+
+Beispiel:
+<pre>
+###[EDITOR.PHP]###
+<?
+	//Name der Zeitschaltuhr ermitteln ($item['var1'] repräsentiert den Parameter "var1" der Visuelement-Instanz):
+	$tmp=sql_getValue('edomiProject.editTimer','name','id='.$item['var1']);
+
+	//Rückgabe-Array auf den ermittelten Namen setzen:
+	$property[0]=$tmp;
+?>
+###[/EDITOR.PHP]###
+</pre>
+
+
+<h2>Abschnitt [VISU.JS]</h2>
+Dieser Abschnitt implementiert mittels vorgegebener JS-Funktionen die Darstellung und die Funktionalität des Visuelements in der Visualsierung auf dem Endgerät.
+
+<b>Wichtig:</b>
+<ul>
+	<li>
+		eigene Javascript-Funktionen müssen stets in dieser Form deklariert werden:
+		<ul>
+			<li><b>VSE_VSEID_Funktionsname = function (...) {...}</b></li>
+		</ul>
+	</li>
+</ul>
+
+Die nachfolgende Funktion ist zwingend erforderlich und wird von der Visualisierung beim Seitenaufbau aufgerufen. Der Aufruf erfolgt nur einmalig(!) beim Seitenaufbau und nach(!) der Zuweisung von CSS-Eigenschaften ("Design" bzw. "dynamische Designs"):
+
+<ul>
+	<li>
+		<b>VSE_VSEID_CONSTRUCT=function(elementId,obj) {...}</b>
+		<ul>
+			<li>elementId: die ID der Visuelement-Instanz (z.B. "123")</li>
+
+			<li>
+				obj: (JS-Objekt) repräsentiert das Visuelement in der Visualisierung
+				<ul>
+					<li>obj.id: die ID des DOM-Elements (DIV) der Visuelement-Instanz (z.B. "e-123")</li>
+					<li>obj.dataset.id: die ID der Visuelement-Instanz (z.B. "123")</li>
+					<li>obj.dataset.linkid: repräsentiert ggf. die ID einer verbundenen Visuelement-Instanz (z.B. "123", oder "0" wenn keine Verbindung besteht)</li>
+					<li>obj.dataset.var1..20: repräsentiert die Parameter var1..20 aus dem Abschnitt [DEF] bzw. [PROPERTIES]</li>
+					<li>Hinweis: Ggf. können eigene dataset-Variablen definiert werden, diese stehen dann global für diese Visuelement-Instanz zu Verfügung.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+Die nachfolgende Funktion ist zwingend erforderlich und wird von der Visualisierung beim Seitenaufbau nach der Funktion controlVSEID_constructControl() aufgerufen. Anschließend wird die Funktion bei jedem "refresh" (z.B. Änderung eines relevanten KO-Wertes) und während einer Drag-Operation (bei Nutzung der entsprechenden Funktionen) aufgerufen:
+
+<ul>
+	<li>
+		<b>VSE_VSEID_REFRESH=function(elementId,obj,isInit,isRefresh,isLive,isActive,koValue) {...}</b>
+		<ul>
+			<li>elementId: die ID der Visuelement-Instanz (z.B. "123")</li>
+
+			<li>
+				obj: (JS-Objekt) repräsentiert das Visuelement in der Visualisierung (siehe "VSE_VSEID_CONSTRUCT")
+			</li>
+
+			<li>
+				isInit: (Bool)
+				<ul>
+					<li>true: der Aufruf erfolgte beim Seitenaufbau nach dem Aufruf der Funktion "VSE_VSEID_CONSTRUCT"</li>
+					<li>false: der Aufruf erfolgte aufgrund eines "refreshs" (z.B. KO-Wertänderung)</li>
+				</ul>
+			</li>
+
+			<li>
+				isRefresh: (Bool)
+				<ul>
+					<li>true: Refresh erfolgte durch die Visu-Engine, d.h. alle KOs (auch koValue) wurden von der Visu-Engine gesetzt</li>
+					<li>false: der Refresh erfolgte auf Client-Ebene, z.B. durch die "Live-Vorschau"-Funktionalität (KO)</li>
+				</ul>
+			</li>
+
+			<li>
+				isLive: (Bool)
+				<ul>
+					<li>true: "koValue" repräsentiert einen "Live-Vorschau"-Wert (ggf. auch während der Haltezeit)</li>
+					<li>false: "koValue" repräsentiert den tatsächlichen KO-Wert</li>
+				</ul>
+			</li>
+
+			<li>
+				isActive: (Bool)
+				<ul>
+					<li>true: das Visuelement ist aktuell das aktive Drag-Objekt (bei Live-Vorschau oder zyklischem Setzen)</li>
+					<li>false: der Aufruf erfolgte aufgrund eines "refreshs" (z.B. KO-Wertänderung)</li>
+				</ul>
+			</li>
+
+			<li>
+				koValue: KO1-Wert (der tatsächliche Wert oder der "Live-Vorschau"-Wert)
+			</li>
+		</ul>
+	</li>
+</ul>
+
+Beispiel:
+<pre>
+###[VISU.JS]###
+VSE_VSEID_CONSTRUCT=function(elementId,obj) {
+	var n="";
+
+	//hier wird eine Tabelle erzeugt und (nachfolgend) mit der "Beschriftung" des Visuelements gefüllt:
+	n+="<table cellpadding='0' cellspacing='0' border='0' style='width:100%; height:100%;'>";
+		n+="<tr><td><span id='e-"+elementId+"-text'></span></td></tr>";
+	n+="</table>";
+
+	obj.innerHTML=n;
+
+	//falls Seitensteuerung/Befehle angegeben wurden: Klick-Event auswerten
+	if (visuElement_hasCommands(elementId)) {
+		visuElement_onClick(obj,function(veId,objId){visuElement_doCommands(veId);});
+	}
+}
+
+VSE_VSEID_REFRESH=function(elementId,obj,isInit,isRefresh,isLive,isActive,koValue) {	
+	//falls keine Seitensteuerung/Befehle angegeben wurden: Visuelement ist "klicktranparent"
+	if (!visuElement_hasCommands(elementId)) {
+		obj.style.pointerEvents="none";
+	}
+
+	//ggf. individuelle CSS-Styles festlegen (hier wurde das "Design/dynamische Design" bereits angewendet und kann nun ggf. "übersteuert" werden):
+	if (obj.dataset.var2==1) {
+		obj.style.background="#ff0000";
+	}
+
+	//Visuelement beschriften (der KO-Wert wird mittels visuElement_parseString() geparsed):
+	document.getElementById("e-"+elementId+"-text").innerHTML=visuElement_parseString(visuElement_getText(elementId),koValue);
+}
+###[/VISU.JS]###
+</pre>
+		
+
+Die nachfolgende (optionale) Funktion wird von der Visualisierung immer dann aufgerufen, <i>bevor</i> ein Seitenwechsel erfolgt (auch beim Öffnen bzw. Schließen eines Popups). Das Visuelement kann somit ggf. darauf reagieren, dass es in Kürze z.B. unbedienbar wird (z.B. weil ein modales Popup geöffnet wird) bzw. nicht mehr existieren wird. Dies ist z.B. sinnvoll, wenn ein Eingabefeld den Fokus hat und während dessen ein modales Popup geöffnet wird.
+Bei Drag-Objekten (falls durch die Funktion "visuElement_onDrag()" definiert) ist keine individuelle Reaktion/Funktion erforderlich, da die Drag-Operation automatisch beendet wird (der aktuell durch die Drag-Operation eingestellte KO-Wert wird dann übernommen).
+
+<ul>
+	<li>
+		<b>VSE_VSEID_CANCEL=function(elementId) {...}</b>
+		<ul>
+			<li>elementId: die ID der Visuelement-Instanz (z.B. "123")</li>
+		</ul>
+	</li>
+</ul>
+
+Beispiel:
+<pre>
+###[VISU.JS]###
+VSE_VSEID_CANCEL=function(elementId) {
+	//hier könnte z.B. eine Tastatureingabe in einem Input-Field abgesendet werden, bevor das Visuelement den Fokus verliert
+}
+###[/VISU.JS]###
+</pre>
+
+
+
+<h3>Drag-Operationen</h3>
+Bei Bedarf können spezielle Funktionen zur Bereitstellung einer Drag-Funktionalität genutzt werden (z.B. zur Implementierung eines Schiebereglers o.d.G.).
+
+Die Registrierung des Drag-Objekts muss dabei mittels der Funktion visuElement_onDrag() erfolgen. Die nachfolgenden Funktionen sind dann zwingend erforderlich (diese werden während einer Drag-Operation aufgerufen):
+
+<ul>
+	<li>
+		<b>VSE_VSEID_DRAGSTART=function(elementId,dragObj) {...}</b>
+		<ul>
+			<li>diese Funktion wird vor(!) jedem Start einer Drag-Operation aufgerufen (Maustaste wurde gedrückt)</li>
+			
+			<li>elementId: die ID der Visuelement-Instanz (z.B. "123")</li>
+
+			<li>dragObj: das Drag-Objekt</li>
+
+			<li>
+				return: Rückgabe des KO-Initialwerts (optional)
+				<ul>
+					<li>(kein return): als KO-Initialwert wird der KO-Wert des Parameters "koIdInit" der Registrierungs-Funktion visuElement_onDrag() übernommen</li>
+					<li>false: die gesamte Drag-Operation wird abgebrochen (ohne Änderungen vorzunehmen)</li>
+					<li>(Wert): dieser Wert wird als KO-Initialwert übernommen und <i>fortlaufend ergänzt</i> (concat) - dies ist ein Sonderfall, z.B. für das VSE 18</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+<ul>
+	<li>
+		<b>VSE_VSEID_DRAGMOVE=function(elementId,dragObj) {...}</b>
+		<ul>
+			<li>diese Funktion wird wird bei jedem MouseMove-Event (Mausbewegung mit gedrückter Maustaste) aufgerufen und einmalig unmittelbar nach der Initialisierung mittels "VSE_VSEID_DRAGSTART"</li>
+
+			<li>elementId: die ID der Visuelement-Instanz (z.B. "123")</li>
+
+			<li>dragObj: das Drag-Objekt</li>
+
+			<li>
+				return: Rückgabe des KO-Wertes (optional)
+				<ul>
+					<li>(Wert): dieser Wert wird als KO-Wert übernommen</li>
+					<li>false: die gesamte Drag-Operation wird abgebrochen, zuvor gesetzte KO-Werte wurden jedoch übernommen</li>
+					<li>(kein return): der KO-Wert wird nicht verändert (z.B. für eigene Implementierungen)</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+<ul>
+	<li>
+		<b>VSE_VSEID_DRAGEND=function(elementId,dragObj,dragValue) {...}</b>
+		<ul>
+			<li>diese Funktion wird beim MouseUp-Event (Loslassen der Maustaste) aufgerufen und beendet somit die Drag-Operation</li>
+
+			<li>elementId: die ID der Visuelement-Instanz (z.B. "123")</li>
+
+			<li>dragObj: das Drag-Objekt</li>
+
+			<li>
+				dragValue:
+				<ul>
+					<li>(Wert): der letzte (aktuellste) KO-Wert, der durch die Drag-Operation gesetzt worden ist</li>
+					<li>false: die Drag-Operation wurde abgebrochen (z.B. von der Visu-Engine oder vom Visuelement selbst)</li>
+				</ul>
+			</li>
+
+			<li>
+				return: Rückgabe des KO-Wertes (optional)
+				<ul>
+					<li>(Wert): dieser Wert wird ggf. abschließend als KO-Wert übernommen</li>
+					<li>(kein return): der KO-Wert wird weiter nicht verändert (als KO-Wert wird der letzte Rückgabewert der Funktion "VSE_VSEID_DRAGMOVE" übernommen)</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+Beispiel:
+<pre>
+###[VISU.JS]###
+VSE_VSEID_CONSTRUCT=function(elementId,obj) {
+	var n="<div id='e-"+elementId+"-drag' style='display:block; position:absolute; left:0; top:0; width:100%; height:100%;'>(Drag-Bereich)</div>";
+	obj.innerHTML=n;
+
+	//Drag-Objekt registrieren (KO2 wird per Drag absolut gesetzt, kein zyklisches Setzen):
+	visuElement_onDrag(document.getElementById("e-"+elementId+"-drag"),0,2,-1);
+}
+
+...
+
+VSE_VSEID_DRAGSTART=function(elementId,dragObj) {
+	//keine besonderen Maßnahmen erforderlich
+}
+
+VSE_VSEID_DRAGMOVE=function(elementId,dragObj) {
+	var obj=document.getElementById("e-"+elementId);
+	if (obj) {
+		//Mausposition ermitteln (bezogen auf dragObj)
+		var tmp=visuElement_getMousePosition(obj,dragObj,0);
+
+		//KO2-Wert auf X-Position setzen
+		return tmp.x;
+	}
+}
+
+VSE_VSEID_DRAGEND=function(elementId,dragObj,dragValue) {
+	//keine besonderen Maßnahmen erforderlich
+}
+###[/VISU.JS]###
+</pre>
+
+
+<h2>Abschnitt [VISU.PHP]</h2>
+In diesem (optionalen) Abschnitt können prinzipiell beliebige PHP-Funktionen/-Klassen deklariert werden. 
+
+<b>Wichtig:</b>
+<ul>
+	<li>
+		eigene PHP-Funktionen/-Klassen müssen stets in dieser Form deklariert werden:
+		<ul>
+			<li><b>function PHP_VSE_VSEID_Funktionsname (...) {...}</b></li>
+			<li><b>class PHP_VSE_VSEID_Klassenname (...) {...}</b></li>
+		</ul>
+	</li>
+</ul>
+
+Mit Hilfe der JS-Funktion "visuElement_callPhp()" (im Abschnitt [VISU.JS] oder [SHARED.JS]) wird zunächst die PHP-Funktion "PHP_VSE_VSEID()" (per "Ajax") aufgerufen, diese Funktion kann dann ggf. in eigene Implementierungen verzweigen:
+
+<ul>
+	<li>
+		<b>function PHP_VSE_VSEID($cmd,$json1,$json2) {...}</b>
+		<ul>
+			<li>diese Funktion wird mit Hilfe der JS-Funktion "visuElement_callPhp()" aufgerufen (asynchron per "Ajax"), dabei können ggf. Parameter oder Formulardaten im JSON-Format übermittelt werden</li>
+			
+			<li>$cmd: der Parameter "cmd" der JS-Funktion "visuElement_callPhp()", dieser String repräsentiert typischer Weise einen Befehl o.d.G.</li>
+
+			<li>
+				$json1/$json2: (Array) ggf. die übergebenen JSON-Daten der JS-Funktion "visuElement_callPhp()"
+				<ul>
+					<li>Beispiel: visuElement_callPhp("test",{para1:111, para2:"EDOMI"},{para1:222, para2:"KNX"})</li>
+					<li>$json1: ['para1'=>111, 'para2'=>'EDOMI']</li>
+					<li>$json2: ['para1'=>222, 'para2'=>'KNX']</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+Beispiel:
+<pre>
+###[VISU.JS]###
+VSE_VSEID_Beispiel=function(value) {
+	visuElement_callPhp("test",{Wert:value},null);
+}
+
+...
+
+###[/VISU.JS]###
+
+###[VISU.PHP]###
+<?
+function PHP_VSE_VSEID($cmd,$json1,$json2) {
+	if ($cmd=='test') {
+		//der Inhalt der JS-Variable "value" steht nun als PHP-Variable "$json1['Wert']" zu Verfügung:
+		if ($json1['Wert']>100) {
+			PHP_VSE_VSEID_eigeneFunktion($json1['Wert']);
+		}
+	}
+}
+
+function PHP_VSE_VSEID_eigeneFunktion(n) {
+	...
+}
+?>
+###[/VISU.PHP]###
+</pre>
+
+
+<h2>Abschnitt [SHARED.JS]</h2>
+In diesem (optionalen) Abschnitt können JS-Funktionen hinterlegt werden, die sowohl im Abschnitt [EDITOR.JS] als auch im Abschnitt [VISU.JS] zu Verfügung stehen.
+
+<b>Wichtig:</b>
+<ul>
+	<li>Für den Abschnitt [EDITOR.JS] stehen nicht alle EDOMI-Funktionen zu Verfügung, die im Abschnitt [VISU.JS] verfügbar sind!</li>
+
+	<li>
+		eigene Javascript-Funktionen müssen stets in dieser Form deklariert werden:
+		<ul>
+			<li><b>VSE_VSEID_Funktionsname = function (...) {...}</b></li>
+		</ul>
+	</li>
+</ul>
+
+Beispiel:
+<pre>
+###[SHARED.JS]###
+VSE_VSEID_beispiel=function(obj) {
+	if (obj) {
+		console.log("VSE_VSEID_beispiel() von ID "+obj.id+" aufgerufen");
+	}
+}
+###[/SHARED.JS]###
+</pre>
+
+Diese Funktion kann dann sowohl im Abschnitt [EDITOR.JS] als auch im Abschnitt [VISU.JS] aufgerufen werden, beispielsweise wie folgt:
+<pre>
+###[EDITOR.JS]###
+VSE_VSEID=function(elementId,obj,meta,property,isPreview,koValue) {
+	...
+	VSE_VSEID_beispiel(obj);
+	...	
+}
+###[/EDITOR.JS]###
+
+###[VISU.JS]###
+VSE_VSEID_CONSTRUCT=function(elementId,obj) {
+	...
+	VSE_VSEID_beispiel(obj);
+	...	
+}
+###[/VISU.JS]###
+</pre>
+
+
+<h2>Abschnitt [HELP]</h2>
+Hier sollte das VSE kurz beschrieben werden, sowie die Bedeutungen der Parameter var1..20 erläutert werden. Der Hilfetext kann HTML-Tags enthalten (z.B. Tabellen oder Listen). 
+
+Beispiel:<pre>
+###[HELP]###
+(Hilfetext)
+###[/HELP]###
+</pre>

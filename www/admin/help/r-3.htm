@@ -1,0 +1,424 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Variablen, Funktionen und Formeln</h1>
+In allen <span style="background:#e0ffe0;">hellgrün hinterlegten Eingabefeldern</span> der folgenden Einstellungen können Variablen, Funktionen und Formeln auf der Grundlage des dem Visu-Element zugewiesenen <span style="background:#e0ffe0;">KO1 (hellgrün hinterlegt)</span> zugewiesen werden:
+
+<ul>
+	<li><link>Visuelemente***1002</link></li>
+	<li><link>Designs***1003</link></li>
+	<li><link>Designvorlagen***1000-24</link></li>
+	<li><link>Farben (Hintergrund)***1000-25</link></li>
+	<li><link>Farben (Vordergrund)***1000-26</link></li>
+</ul>
+
+Variablen, Funktionen und Formeln müssen von geschweiften Klammern umschlossen werden. Beispielsweise repräsentiert die Angabe "{#}" den KO-Wert, die Angabe "{round(12.34)}" repräsentiert den Aufruf der Funktion round(12.34) und die Angabe "{round(#)}" repräsentiert den gerundeten KO-Wert.
+
+Innerhalb einer Eigenschaft können beliebig viele Variablen, Funktionen und Formeln genutzt werden, z.B. "{#} ist stets ungleich {round(#*2)}". Auch ein Verschachteln ist möglich, z.B. "{#} ist stets gleich {sqrt(pow(#,2))}".
+
+<h2>Variablen</h2>
+Grundsätzlich ist die einzig verfügbare Variable der KO-Wert des dem Visu-Element zugewiesenen <span style="background:#e0ffe0;">KO1</span>. Bei einigen Visuelementen sind u.U. weitere Variablen verfügbar, diese werden in der jeweiligen Hilfe gesondert erläutert.
+
+<ul>
+	<li>der KO-Wert wird durch das Zeichen # repräsentiert</li>
+	<li>
+		Beispiele:
+		<ul>
+			<li>die Angabe von "{#}" wird ersetzt durch "34" (bei einem KO-Wert von "34")</li>
+			<li>die Angabe von "{#*2}" wird ersetzt durch "68" (bei einem KO-Wert von "34")</li>
+			<li>die Angabe von "{round(#)}" wird ersetzt durch "7" (bei einem KO-Wert von "7.123")</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Funktionen</h2>
+Mit Hilfe von Funktionen können diverse Berechnungen oder String-Manipulationen vorgenommen werden (siehe Funktionsreferenz).
+
+<ul>
+	<li>eine Funktion wird durch ihren Namen und ggf. erforderliche Parameter repräsentiert, z.B. "{round(12.34)}"</li>
+	<li>der Funktionsaufruf wird stets durch den Rückgabewert der Funktion ersetzt</li>
+	<li>
+		Beispiele:
+		<ul>
+			<li>die Angabe von "{round(12.34)}%" wird ersetzt durch "12%"</li>
+			<li>die Angabe von "{round(#)}" wird ersetzt durch "7" (bei einem KO-Wert von "7.123")</li>
+			<li>die Angabe von "{str_right(str_left('EDOMI',3),1)}" wird ersetzt durch "O"</li>
+			<li>die Angabe von "{str_right(left(4),1)}" wird ersetzt durch "M" (bei einem KO-Wert von "EDOMI")</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Mit Hilfe der String-Funktion split() bzw. str_split() kann ein speziell zusammengesetztes KO (z.B. durch einen entsprechenden Logikbaustein) in mehrere Teile zerlegt werden. Dadurch ist es möglich mit nur einem KO1 verschiedene Parameter zu übergeben (z.B. X- und Y-Werte für eine Translation).
+Beispiel (KO-Wert="23|45"): 
+<ul>
+	<li>das Feld &Delta;X-Position enthält "{split(0)}" (dies führt zur Ausgabe von "23")</li>
+	<li>das Feld &Delta;Y-Position enthält "{split(1)}" (dies führt zur Ausgabe von "45")</li>
+	<li>Ergebnis: das Visuelement wird relativ zu seiner Position um 23 Pixel nach rechts und um 45 Pixel nach unten verschoben</li>
+</ul>
+
+
+<h2>Formeln</h2>
+Mit Hilfe von Formeln können Variablen oder Rückgabewerte von Funktionen weiteren Berechnungen unterzogen werden.
+
+<ul>
+	<li>mögliche Operatoren sind z.B. "+", "-", "*", "/" uvm.</li>
+	<li>
+		Beispiele:
+		<ul>
+			<li>die Angabe von "{(12+8)/5}" wird ersetzt durch "4"</li>
+			<li>die Angabe von "{(12+8)/#}" wird ersetzt durch "5" (bei einem KO-Wert von "4")</li>
+			<li>die Angabe von "{round((12+8)/#)}" wird ersetzt durch "6" (bei einem KO-Wert von "3")</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Funktionsreferenz</h2>
+Folgende Funktionen stehen für diverse Berechnungen oder String-Manipulationen zu Verfügung:
+<table class="tableHelp">
+	<tr>
+		<td>Funktion</td>
+		<td>Beschreibung</td>
+		<td>Beispiel</td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#f0f0f0"><b>Allgemeine mathematische Funktionen<br>können sich sowohl auf den KO-Wert, als auch auf einen beliebigen anderen Wert beziehen</b></td>
+	</tr>
+	<tr>
+		<td>abs(x)</td>
+		<td>absoluter Wert von x</td>
+		<td>{abs(#)}</td>
+	</tr>
+	<tr>
+		<td>floor(x)</td>
+		<td>x abrunden</td>
+		<td>{floor(#)}</td>
+	</tr>
+	<tr>
+		<td>ceil(x)</td>
+		<td>x aufrunden</td>
+		<td>{ceil(#)}</td>
+	</tr>
+	<tr>
+		<td>pow(x,y)</td>
+		<td>x mit y potenzieren (x hoch y)</td>
+		<td>{pow(#,2)}</td>
+	</tr>
+	<tr>
+		<td>sqrt(x)</td>
+		<td>Quadratwurzel von x</td>
+		<td>{sqrt(#)}</td>
+	</tr>
+	<tr>
+		<td>log(x)</td>
+		<td>natürlicher Logarithmus von x</td>
+		<td>{log(#)}</td>
+	</tr>
+	<tr>
+		<td>sin(x)</td>
+		<td>Sinus von x (im Bogenmaß)</td>
+		<td>{sin(#*3.1415927/180)}</td>
+	</tr>
+	<tr>
+		<td>cos(x)</td>
+		<td>Cosinus von x (im Bogenmaß)</td>
+		<td>{cos(#*3.1415927/180)}</td>
+	</tr>
+	<tr>
+		<td>tan(x)</td>
+		<td>Tangens von x (im Bogenmaß)</td>
+		<td>{tan(#*3.1415927/180)}</td>
+	</tr>
+	<tr>
+		<td>round(x)</td>
+		<td>x runden</td>
+		<td>{round(#)}</td>
+	</tr>
+	<tr>
+		<td>fixed(x,anz)</td>
+		<td>x auf eine feste Anzahl (anz) von Nachkommastellen bringen</td>
+		<td>{fixed(#,2)}</td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#f0f0f0"><b>Allgemeine String-Funktionen<br>können sich sowohl auf den KO-Wert, als auch auf einen beliebigen anderen Wert beziehen</b></td>
+	</tr>
+	<tr>
+		<td>str_left(x,n)</td>
+		<td>n Zeichen von links des Strings x ausgeben</td>
+		<td>{str_left('EDOMI',3)}</td>
+	</tr>
+	<tr>
+		<td>str_right(x,n)</td>
+		<td>n Zeichen von rechts des Strings x ausgeben</td>
+		<td>{str_right('EDOMI',3)}</td>
+	</tr>
+	<tr>
+		<td>str_mid(x,pos,n) </td>
+		<td>n Zeichen ab der Position pos des Strings x ausgeben (pos beginnt mit 0)</td>
+		<td>{str_mid('EDOMI',5,3)}</td>
+	</tr>
+	<tr>
+		<td>str_split(x,pos,sep)</td>
+		<td>
+			zerlegt den String x per Default bei jedem Vorkommen des Zeichens "|" und gibt den Teilstring mit dem Index pos zurück (beginnend bei 0)
+			Optional kann ein alternatives Trennzeichen (sep) angegeben werden.
+		</td>
+		<td>
+			str_split('11|22|33|44',2) gibt 33 zurück
+			str_split('A-B-C-D',2,'-') gibt "C" zurück
+		</td>
+	</tr>
+	<tr>
+		<td>str_len(x)</td>
+		<td>gibt die Anzahl der Zeichen des Strings x zurück</td>
+		<td>{str_len('EDOMI')}</td>
+	</tr>
+	<tr>
+		<td>str_replace(x,string1,string2)</td>
+		<td>ersetzt jedes Vorkommen von string1 im String x durch string2</td>
+		<td>{str_replace('HS4','HS','EDOMI')}</td>
+	</tr>
+	<tr>
+		<td>str_lcase(x)</td>
+		<td>wandelt den String x in Kleinbuchstaben um</td>
+		<td>{str_lcase('EDOMI')}</td>
+	</tr>
+	<tr>
+		<td>str_ucase(x)</td>
+		<td>wandelt den String x in Großbuchstaben um</td>
+		<td>{str_ucase('edomi')}</td>
+	</tr>
+	<tr>
+		<td>str_trim(x)</td>
+		<td>entfernt "whitespace" am Anfang und Ende des Strings x</td>
+		<td>{str_trim(' EDOMI ')}</td>
+	</tr>
+	<tr>
+		<td>str_stringornum(x)</td>
+		<td>überprüft den String x auf seinen Datentyp und gibt entweder einen STRING zurück oder einen FLOAT-Wert</td>
+		<td>
+			str_stringornum('edomi') gibt den String 'edomi' zurück
+			str_stringornum('123.45') gibt die Zahl 123.45 zurück
+		</td>
+	</tr>
+	<tr>
+		<td>str_secondstotime(x)</td>
+		<td>wandelt Sekunden (x) in einen String im Format 'h:mm:ss' um</td>
+		<td>
+			str_secondstotime(0) gibt '0:00:00' zurück
+			str_secondstotime(90) gibt '0:01:30' zurück
+			str_secondstotime(3605) gibt '1:00:05' zurück
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#f0f0f0"><b>KO-String-Funktionen <br>beziehen sich immer auf den KO-Wert</b></td>
+	</tr>
+	<tr>
+		<td>left(n)</td>
+		<td>n Zeichen von links des KO-Werts ausgeben</td>
+		<td>{left(3)}</td>
+	</tr>
+	<tr>
+		<td>right(n)</td>
+		<td>n Zeichen von rechts des KO-Werts ausgeben</td>
+		<td>{right(3)}</td>
+	</tr>
+	<tr>
+		<td>mid(pos,n) </td>
+		<td>n Zeichen ab der Position pos des KO-Werts (String) ausgeben (pos beginnt mit 0)</td>
+		<td>{mid(5,3)}</td>
+	</tr>
+	<tr>
+		<td>split(pos,sep)</td>
+		<td>
+			zerlegt den KO-Wert per Default bei jedem Vorkommen des Zeichens "|" und gibt den Teilstring mit dem Index pos zurück (beginnend bei 0)
+			Optional kann ein alternatives Trennzeichen (sep) angegeben werden.
+		</td>
+		<td>
+			KO-Wert="11|22|33|44":
+			split(2) gibt 33 zurück
+			
+			KO-Wert="A-B-C-D":
+			split(2,'-') gibt "C" zurück
+		</td>
+	</tr>
+	<tr>
+		<td>len()</td>
+		<td>gibt die Anzahl der Zeichen des KO-Wertes zurück</td>
+		<td>{len()}</td>
+	</tr>
+	<tr>
+		<td>replace(string1,string2)</td>
+		<td>ersetzt jedes Vorkommen von string1 durch string2</td>
+		<td>{replace('HS','EDOMI')}</td>
+	</tr>
+	<tr>
+		<td>lcase()</td>
+		<td>wandelt den KO-Wert in Kleinbuchstaben um</td>
+		<td>{lcase()}</td>
+	</tr>
+	<tr>
+		<td>ucase()</td>
+		<td>wandelt den KO-Wert in Großbuchstaben um</td>
+		<td>{ucase()}</td>
+	</tr>
+	<tr>
+		<td>trim()</td>
+		<td>entfernt "whitespace" am Anfang und Ende des KO-Werts</td>
+		<td>{trim()}</td>
+	</tr>
+	<tr>
+		<td>stringornum()</td>
+		<td>überprüft den KO-Wert auf seinen Datentyp und gibt entweder einen STRING zurück oder einen FLOAT-Wert</td>
+		<td>
+			KO-Wert='edomi':
+			stringornum() gibt den String 'edomi' zurück
+			
+			KO-Wert='123.45':
+			stringornum() gibt die Zahl 123.45 zurück
+		</td>
+	</tr>
+	<tr>
+		<td>secondstotime()</td>
+		<td>wandelt den KO-Wert (Sekunden) in einen String im Format 'h:mm:ss' um</td>
+		<td>
+			KO-Wert='0':
+			secondstotime() gibt '0:00:00' zurück
+			
+			KO-Wert='90':
+			secondstotime() gibt '0:01:30' zurück
+
+			KO-Wert='3605':
+			secondstotime() gibt '1:00:05' zurück
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#f0f0f0"><b>Sonstige KO-Funktionen<br>beziehen sich immer auf den KO-Wert (sofern nicht anders angegeben)</b></td>
+	</tr>
+	<tr>
+		<td>hsvrgb()</td>
+		<td>KO-Wert (Hex-String, z.B. "A1B2C1") von HSV in RGB umwandeln</td>
+		<td>{hsvrgb()}</td>
+	</tr>
+	<tr>
+		<td>hsvlight(mode)</td>
+		<td>
+			KO-Wert (Hex-String, z.B. "A1B2C1") von HSV in RGBA umwandeln
+			
+			Der Parameter "mode" legt fest, ob der Alphawert aus dem HSV-Wert abgeleitet werden soll (false oder kein Parameter) oder ob die resultierende Farbe stets mit maximaler Opazität berechnet werden soll (true oder 1), solange der Alphawert &gt;0 ist.
+			Hinweis: Durch den Alphawert (Transparenz) kann ein Visuelement z.B. die Farbeinstellung einer RGB-Leuchte realistischer wiedergeben: Eine ausgeschaltete Leuchte ergibt somit nicht Schwarz, sondern 100% Transparenz (also quasi "unsichtbar").
+		</td>
+		<td>{hsvlight()} oder {hsvlight(true)}</td>
+	</tr>
+	<tr>
+		<td>rgblight(mode)</td>
+		<td>
+			KO-Wert (Hex-String, z.B. "A1B2C1") von RGB in RGBA umwandeln
+			
+			Der Parameter "mode" legt fest, ob der Alphawert aus dem RGB-Wert abgeleitet werden soll (false oder kein Parameter) oder ob die resultierende Farbe stets mit maximaler Opazität berechnet werden soll (true oder 1), solange der Alphawert &gt;0 ist.
+			Hinweis: Durch den Alphawert (Transparenz) kann ein Visuelement z.B. die Farbeinstellung einer RGB-Leuchte realistischer wiedergeben: Eine ausgeschaltete Leuchte ergibt somit nicht Schwarz, sondern 100% Transparenz (also quasi "unsichtbar").
+		</td>
+		<td>{rgblight()} oder {rgblight(true)}</td>
+	</tr>
+	<tr>
+		<td>colorcalc(value,mode[,koValue])</td>
+		<td>
+			KO-Wert (RGB- oder HSV-Hex-String, z.B. "A1B2C1") mit einem weiteren RGB- oder HSV-Hex-String verrechnen
+			
+			Der Parameter "value" repräsentiert den zu verrechnenden RGB- oder HSV-Hex-String.
+			
+			Der Parameter "mode" bestimmt die Art der Rechenoperation:
+			<ul>
+				<li>0 = Addition</li>
+				<li>1 = Subtraktion</li>
+				<li>2 = Multiplikation</li>
+				<li>3 = Division</li>
+			</ul>
+			
+			Der optionale(!) Parameter "koValue" ersetzt ggf. den KO-Wert, d.h. wird dieser Parameter angegeben, wird nicht der KO-Wert als Grundlage für die Berechnung verwendet, sondern der Wert "koValue".
+			
+			Die Funktion erwartet stets 3 Hex-Werte, z.B. in der Form "RRGGBB" oder "HHSSVV". Fehlende Werte werden entweder durch die entsprechende Stelle des KO-Werts ersetzt oder durch "00".
+			
+			<b>Wichtig:</b>
+			Die Berechnung wird für jede der 3 Stellen getrennt durchgeführt, d.h. "000001" + "0000ff" (Überlauf) wird zu dem Ergebnis "0000ff" führen (nicht etwa "000100"). Das Ergebnis der jeweiligen Stelle wird stets im Bereich 00..ff (0..255) liegen.
+		</td>
+		<td>
+			KO-Wert="a0b0c0":
+			{colorcalc('010203',0)} gibt "a1b2c3" zurück
+
+			KO-Wert="a1b2c3":
+			{colorcalc('010203',1)} gibt "a0b0c0" zurück
+
+			KO-Wert="a0":
+			{colorcalc('010203',0)} gibt "a10000" zurück
+
+			KO-Wert="a0b0c0":
+			{colorcalc('01',0)} gibt "a1b0c0" zurück
+
+			KO-Wert="a0xyc0":
+			{colorcalc('010203',0)} gibt "a100c3" zurück
+
+			KO-Wert="a0b0c0":
+			{colorcalc('01xy03',0)} gibt "a1b0c3" zurück
+
+			KO-Wert="EDOMI":
+			{colorcalc('010203',0,'a0b0c0')} gibt "a1b2c3" zurück (der KO-Wert wird hier ignoriert, da "koValue" angegeben wurde)
+
+		</td>
+	</tr>
+	<tr>
+		<td>range(minValue,maxValue,Range)</td>
+		<td>
+			Diese Funktion rechnet den KO-Wert linear in einen anderen Wertebereich um:
+			<ul>
+				<li>minValue/maxValue: Wertebereich des KOs (z.B. -100..100)</li>
+				<li>Range: Wertebereich des zu berechnenden Wertes (z.B. führt die Angabe von 50 zu einem Ergebnis 0..50)</li>
+			</ul>
+
+			Hinweis: Liegt der KO-Wert ausserhalb der Grenzwerte (minValue/maxValue), wird der Wert entsprechend korrigiert.
+
+			Diese Funktion kann z.B. genutzt werden, um den "Knopf" eines <link>Schiebereglers***1002-13</link> zu positionieren (weitere Hinweise: siehe dort).			
+		</td>
+		<td>
+			KO-Wert="50":
+			{range(0,100,50)} gibt "25" zurück
+
+			KO-Wert="50":
+			{range(0,100,-50)} gibt "-25" zurück
+
+			KO-Wert="0":
+			{range(-100,100,50)} gibt "25" zurück
+		</td>
+	</tr>
+	<tr>
+		<td>
+			polarX(minValue,maxValue, minAngle,maxAngle,Radius)
+
+			polarY(minValue,maxValue, minAngle,maxAngle,Radius) 
+		</td>
+		<td>
+			Diese Funktionen liefern die polaren X- bzw. Y-Koordinaten des KO-Werts zurück (die resultierenden X-/Y-Koordinaten liegen somit auf einer Kreisbahn):
+			<ul>
+				<li>minValue/maxValue: Wertebereich des KOs (z.B. -100..100)</li>
+				<li>minAngle/maxAngle: Winkelbereich der zu berechnenden Polar-Koordinate (z.B. 45..315)</li>
+				<li>Radius: Radius der zu berechnenden Polar-Koordinate</li>
+			</ul>
+
+			Wichtig:
+			<ul>
+				<li>Der Winkel 0 Grad befindet sich auf 6-Uhr-Position, positive Winkel werden im Uhrzeigersinn erwartet.</li>
+				<li>Der Mittelpunkt der resultierenden Kreisbahn ist stets X:Radius,Y:Radius (<i>nicht</i> X:0,Y:0).</li>
+			</ul>
+			
+			Hinweis: Liegt der KO-Wert ausserhalb der Grenzwerte (minValue/maxValue), wird der Wert entsprechend korrigiert.
+
+			Diese Funktion kann z.B. genutzt werden, um den "Knopf" eines <link>Drehreglers***1002-11</link> zu positionieren (weitere Hinweise: siehe dort).			
+		</td>
+		<td>
+			KO-Wert="45":
+			{polarX(0,100,0,360,50)} gibt "34.55" zurück
+
+			KO-Wert="45":
+			{polarY(0,100,0,360,50)} gibt "2.45" zurück
+		</td>
+	</tr>
+</table>

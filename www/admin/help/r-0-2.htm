@@ -1,0 +1,174 @@
+<h1><path>Logikbausteine (allgemein)***r-0</path><path>Entwicklung von Logikbausteinen***r-0-0</path>Quelltext</h1>
+Das Grundgerüst eines LBS besteht aus 4 Abschnitten (die Reihenfolge der einzelnen Abschnitte ist unerheblich):
+
+<ul>
+	<li>###[DEF]### ... ###[/DEF]###</li>
+	<li>###[HELP]### ... ###[/HELP]###</li>
+	<li>###[LBS]### ... ###[/LBS]###</li>
+	<li>###[EXEC]### ... ###[/EXEC]###</li>
+</ul>
+
+
+<h2>Abschnitt [DEF]</h2>
+Hier wird der Name und ggf. der Titel (optional) des LBS definiert, sowie seine Ein- und Ausgänge und ggf. seine Variablen.
+
+Wird kein Titel angegeben oder ist dieser leer, wird automatisch der Name des Logikbausteins als Titel zur Anzeige im Logikeditor verwendet.
+
+<ul>
+	<li>[name = Name des LBS]</li>
+	<li>[titel = Titel des LBS im Logikeditor] (diese Angabe ist optional)</li>
+	<li>[e#1 = Name des Eingangs 1]</li>
+	<li>[a#1 = Name des Ausgangs 1]</li>
+	<li>[v#1 = Initialwert der Variable 1]</li>
+</ul>
+
+Beispiel:<pre>
+###[DEF]###
+[name = UND-Gatter 2xEingänge]
+[titel = UND]
+
+[e#1 = A]
+[e#2 = B #init=0]
+...
+
+[a#1 = Ausgang]
+[a#2 = 0/1]
+...
+
+[v#1 = 123]
+[v#2 = 0]
+...
+###[/DEF]###
+</pre>
+Ein LBS kann beliebig viele Eingänge, Ausgänge und Variablen enthalten. "Whitespace" (Leerzeichen) innerhalb der Deklaration wird ignoriert - [name=(Name)] führt zum gleichen Ergebnis wie [  name = (Name)  ].
+
+Im Anschluss an eine Deklaration kann bei Bedarf ein Hilfetext angegeben werden:<pre>
+###[DEF]###
+...
+[e#1 = A] Hinweis: Dies ist Eingang A
+...
+###[/DEF]###
+</pre>
+Der Hinweistext darf keine eckigen Klammern enthalten!
+
+Variablen beziehen sich auf genau eine LBS-Instanz, d.h. mehrere LBS gleichen Typs beeinflussen sich nicht hinsichtlich deren Variablen. Grundsätzlich halten Variablen einen Wert solange, bis EDOMI beendet bzw. neu gestartet wird. Optional können Variablen jedoch auch als "remanent" deklariert werden (s.u.). Variablen und Initialwerte vom Typ String werden genau wie Zahlen ohne(!) Anführungszeichen deklariert (Zeichenketten und Zahlen werden intern nicht unterschieden).
+
+<b>Wichtig:</b>
+Eine Deklaration darf keine eckigen Klammern oder HTML-Tags enthalten, z.B. wäre [e#1 = [Test]] keine gültige Deklaration, [e#1 = Test] wäre hingegen gültig. Bei Bedarf müssen HTML-Entities/Unicode-Symbole verwendet werden.
+
+
+<h3>Deklaration von remanenten Variablen</h3>
+Werte von remanenten Variablen überdauern einen EDOMI-Neustart, während nicht-remanente Variablen bei einem Neustart auf den deklarierten Initialwert gesetzt werden.
+Wird die entsprechende LBS-Instanz erstmalig verwendet, wird die Variable auf den deklarierten Initialwert gesetzt. Beim nächsten Start von EDOMI (oder einer Projektaktivierung) wird die Variable jedoch ihren aktuellen Wert beibehalten.
+
+Zur Deklaration einer remanenten Variable muss das Schlüsselwort "remanent" angegeben werden:
+<pre>
+[v#1 remanent = 34]
+</pre>
+<b>Hinweis:</b>
+Bei einer Projektaktivierung können optional sämtliche remanenten Variablen zurückgesetzt werden, d.h. beim nächsten Start werden die Variablen wieder mit dem deklarierten Initialwert belegt.
+
+
+<h3>Besonderheiten bei der Deklaration von Eingängen</h3>
+Eingänge können ggf. mit einem Initial- bzw. Fixwert vorbelegt werden:
+<pre>
+[e#1 = Eingang1 #init=EDOMI]
+</pre>
+
+Zudem können Eingänge individuell farblich kodiert werden, der Eingang wird dann im Logikeditor entsprechend farblich hervorgehoben: 
+<pre>
+[e#1 trigger|option|important = Eingang1]
+</pre>
+Standardmäßig werden Eingänge in weiß dargestellt. Die Option "trigger" stellt den Eingang in grün dar, "option" führt zu einer Darstellung in grau, "important" stellt den Eingang in orange dar.
+
+<b>Wichtig:</b>
+Die Farbkodierung hat keinerlei Einfluss auf die Funktionsweise des Logikbausteins, sondern dient lediglich einer besseren Übersichtlichkeit im Logikeditor.
+
+
+<h2>Abschnitt [HELP]</h2>
+Hier sollte der LBS kurz beschrieben werden, sowie die Bedeutungen der Ein- und Ausgänge erläutert werden. Der Hilfetext kann HTML-Tags enthalten (z.B. Tabellen oder Listen). 
+
+Beispiel:<pre>
+###[HELP]###
+(Hilfetext)
+###[/HELP]###
+</pre>
+
+
+<h2>Abschnitt [LBS]</h2>
+In diesem Abschnitt wird die Funktionalität des LBS implementiert. Hier kann prinzipiell beliebiger PHP-Code verwendet werden.
+
+<b>Wichtig:</b>
+Es ist unbedingt zu bedenken, dass dieser Code im Kontext des EDOMI-Hauptprozesses ausgeführt wird und daher die gesamte Logik-Engine während der Ausführung des LBS-Codes blockiert ist.
+
+Der Code ist daher so effizient und "zeitsparend" wie möglich zu implementieren. Funktionen, die eine gewisse Latenz aufweisen (z.B. eine HTTP-Abfrage), müssen daher auf eine besondere Art und Weise implementiert werden (siehe Abschnitt [EXEC]).
+
+Die Funktionalität z.B. eines Timers darf nicht(!) in Form einer Warteschleife implementiert werden, sondern muss mittels LBS-Variablen und entsprechenden Zeitvergleichen bereitgestellt werden.
+
+Das Grundgerüst muss stets diese Hauptfunktion bilden:
+function LB_LBSID($id) {...}
+
+Beispiel:<pre>
+###[LBS]###
+<?
+function LB_LBSID($id) {
+...
+}
+?>
+###[/LBS]###
+</pre>
+$id repräsentiert nicht(!) die LBS-ID (Dateiname), sondern die interne ID der LBS-Instanz(!).
+Diese Funktion muss den gesamten Code des LBS beinhalten. Zusätzlich(!) können bei Bedarf weitere Hilfsfunktionen deklariert werden, außerdem können auch isolierte PHP-Scripte erzeugt werden (siehe Abschnitt [EXEC]).
+
+Innerhalb des Abschnitts [LBS] können bei Bedarf lokale (nur für diesen LBS gültige) Hilfsfunktionen deklariert werden. Eine solche Hilfsfunktion muss diesem Namensschema folgen:
+<pre>function LB_LBSID_FUNKTIONSNAME($id,...) {...}</pre>
+Die LBS-Instanz-ID $id sollte stets übergeben werden, damit die Hilfsfunktion ggf. auf die globalen LBS-Funktionen zugreifen kann. Der Aufruf der Hilfsfunktion erfolgt dann mit:
+<pre>LB_LBSID_FUNKTIONSNAME($id,...)</pre>
+Als nächstes wird i.d.R. die aktuelle Belegung der Eingänge des LBS in ein Array übergeben:
+<pre>if ($E=logic_getInputs($id)) {...}</pre>
+Das (2-dimensionale) Array $E[Eingangs-ID][Wert] enthält nun u.a. folgende Einträge (hier am Beispiel des Eingangs Nr. 1):
+<pre>$E[1]['value']: der aktuelle Wert am Eingang</pre>
+<pre>$E[1]['refresh']: 1=der Eingang wurde refreshed, 0=der Eingang wurde nicht refreshed</pre>
+Damit ein LBS überhaupt "startet", muss mindestens ein Eingang des LBS getriggert werden. $E[1]['refresh']=1 bedeutet, dass (mindestens) dieser Eingang durch ein Ereignis (z.B. ein eintreffendes Telegramm eines KOs) getriggert worden ist.
+
+
+<h2>Abschnitt [EXEC]</h2>
+Bei Bedarf kann zusätzlich zum normalen LBS-Code ein PHP-Script erstellt werden, das vom LBS als eigener Prozess gestartet werden kann. Dies ist sinnvoll, um z.B. eine HTTP-Abfrage zu implementieren (Ausführungszeit) oder um externe Programme auszuführen.
+
+Beispiel:
+<pre>
+###[EXEC]###
+<?
+require(dirname(__FILE__)."/../../../../main/include/php/incl_lbsexec.php");
+sql_connect();
+
+(eigener Code)
+
+sql_disconnect();
+?>
+###[/EXEC]###
+</pre>
+Es können alle grundlegenden Funktionen genutzt werden, die auch im Abschnitt [LBS] zu Verfügung stehen. Eigene deklarierte Hilfsfunktionen im Abschnitt [LBS] können jedoch nicht(!) genutzt werden, da diese nur lokal für den Abschnitt [LBS] zu Verfügung stehen.
+
+<b>Hinweis:</b>
+Die o.g. Funktionen greifen intern auf eine mySQL-Datenbank zu. Die mySQL-Engine trennt jedoch die Verbindung, sobald länger als 8 Stunden keinerlei Zugriff erfolgt - der Aufruf der o.g. Funktionen wird dann scheitern! Es ist daher ggf. dafür zu sorgen, dass z.B. stündlich ein mySQL-Zugriff erfolgt, um die Verbindung aufrecht zu erhalten. Die kann z.B. durch einen zyklischen Aufruf (z.B. alle 60 Minuten) der Funktion <link>setLogicKeepAlive()***r-0-3</link> erfolgen. 
+
+<b>Wichtig:</b>
+Die LBS-Instanz-ID $id steht auch im Abschnitt [EXEC] zu Verfügung.
+
+<b>Achtung:</b>
+Das EXEC-Script wird als eigene PHP-Instanz ausgeführt. Der LBS-Code im Abschnitt [LBS] hat nach dem Aufruf keine(!) Kontrolle mehr über das EXEC-Script, d.h. der Code des EXEC-Scripts muss sich selbst verwalten.
+Ein Beenden/Neustarten von EDOMI sollte mittels der Funktion <link>logic_getEdomiState()***r-0-3</link> überwacht werden. Sobald EDOMI beendet oder neugestartet wird, liefert diese Funktion den Wert 0 zurück. Jetzt bleiben dem Script ca. 3 Sekunden Zeit, um sich selbst ordnungsgemäß zu beenden (z.B. Sockets zu schließen, etc.). Aber Achtung: In diesem Moment stehen keine Logikfunktionen (Eingangswerte, etc.) mehr zu Verfügung!
+
+<h3>Abfragen von Eingängen im Abschnitt [EXEC] mit Hilfe der EXEC-Queue</h3>
+Innerhalb eines EXEC-Scripts liefert die Funktion <link>logic_getInputs()***r-0-3</link> u.U. nicht die aktuellen Werte, da das EXEC-Script asynchron (unabhängig von der Logik-Engine) ausgeführt wird.
+So ist es z.B. möglich, dass im EXEC-Script die Eingangsdaten abgerufen werden, diese jedoch im gleichen Moment von der Logik-Engine aktualisert wurden.
+Für ein zuverlässiges Abrufen im Kontext eines EXEC-Scripts ist daher eine Queue zur Zwischenspeicherung nutzbar (<link>logic_setInputsQueued()***r-0-3</link> bzw. <link>logic_getInputsQueued()***r-0-3</link>).
+
+Die Nutzung der EXEC-Queue sollte stets diesem Schema ensprechen:
+<ul>
+	<li>im LBS-Abschnitt sollten zunächst die Eingangswerte mittels der Funktion logic_getInputs() abgefragt werden</li>
+	<li>diese Werte werden dann mit logic_setInputsQueued() in der Queue gespeichert, jedoch ist darauf zu achten, dass diese Funktion nur genutzt wird wenn das EXEC-Script ausgeführt wird (sonst wird die Queue immer umfangreicher, da diese nie geleert wird)</li>
+	<li>im EXEC-Script können dann mit logic_getInputsQueued() die so gespeicherten Werte nach und nach aus der Queue abgerufen werden</li>
+	<li>Hinweis: Nach dem Beenden des EXEC-Scripts wird die Queue automatisch geleert.</li>
+</ul>

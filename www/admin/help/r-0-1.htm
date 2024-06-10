@@ -1,0 +1,79 @@
+<h1><path>Logikbausteine (allgemein)***r-0</path><path>Entwicklung von Logikbausteinen***r-0-0</path>LBS-Dateien/-ordner</h1>
+Ein LBS wird durch genau eine Datei definiert (z.B.: 14000020_lbs.php).
+
+Der Dateiname muss stets diesem Schema folgen: 
+
+<ul>
+	<li>
+		xxyyyyyy_lbs.php
+		<ul>
+			<li>xx: die interne Ordner-ID (s.u.)</li>
+			<li>yyyyyy: eine eindeutige(!) 6-stellige ID, ggf. mit führenden Nullen (z.B. 000001)</li>
+		</ul>
+	</li>
+
+	<li>der Dateiname hat demnach stets eine Länge von 8 Ziffern zzgl. "_lbs.php"</li>
+	
+	<li>die Datei muss im Verzeichnis <b><MAIN_PATH>/www/admin/lbs</b> gespeichert werden</li>
+</ul>
+
+
+Ein LBS kann entweder mit einem beliebigen Editor direkt als Datei bearbeitet werden, oder mit Hilfe der <link>Konfiguration***1000-12</link>. Letzteres ist empfehlenswert, da beim Speichern eines LBS unmittelbar diverse Prüfungen vorgenommen werden.
+
+<b>Wichtig:</b>
+<ul>
+	<li>Wurde ein LBS mit einem externen Editor erstellt bzw. bearbeitet, müssen anschließend alle LBS-Definitionen neu eingelesen werden (<link>Verwaltung/Logikbausteine/Logikbausteine neu einlesen***103-8</link>).</li>
+	<li>Wie bei allen anderen projektbezogenen Einstellungen auch, werden Änderungen an einem LBS erst nach einer <link>Projektaktivierung***103-13</link> im Live-Projekt berücksichtigt. Die Projektaktivierung erzeugt eine unabhängige LBS-Instanz.</li>
+	<li>Loginbausteine werden nicht(!) projektbezogen verwaltet, sondern sind ein Bestandteil der EDOMI-Installation. Auch <link>Eigene Logikbausteine***r-0-0</link> werden stets in diesem globalen Kontext angelegt und verwaltet, jedoch können diese Logikbausteine bei Bedarf projektbezogen in Ordnern strukturiert werden.</li>
+</ul>
+
+
+<h2>Ordner-IDs</h2>
+Zur Organisation der LBS sind die folgenden Ordner-IDs fest vorgegeben. Es können keine Logikbausteine oder neue Ordner hinzugefügt werden - dies ist nur in Ordner 19 (eigene Logikbausteine) möglich.
+<table class="tableHelp">
+	<tr>
+		<td>Ordner-ID</td>
+		<td>Bezeichnung</td>
+		<td>Hinweis</td>
+	</tr>
+	<tr>
+		<td>12</td>
+		<td>Logikbausteine</td>
+		<td>System-Logikbausteine</td>
+	</tr>
+	<tr>
+		<td>13</td>
+		<td>Grundfunktionen & Auslöser</td>
+		<td>System-Logikbausteine</td>
+	</tr>
+	<tr>
+		<td>14</td>
+		<td>Gatter & Logik</td>
+		<td>System-Logikbausteine</td>
+	</tr>
+	<tr>
+		<td>15</td>
+		<td>Mathematik, Vergleicher & Filter</td>
+		<td>System-Logikbausteine</td>
+	</tr>
+	<tr>
+		<td>16</td>
+		<td>Timer & Zeitfunktionen</td>
+		<td>System-Logikbausteine</td>
+	</tr>
+	<tr>
+		<td>17</td>
+		<td>Experimentell</td>
+		<td>experimentelle System-Logikbausteine und Logikbaustein-Entwürfe</td>
+	</tr>
+	<tr>
+		<td>18</td>
+		<td>Sonstige</td>
+		<td>System-Logikbausteine</td>
+	</tr>
+	<tr>
+		<td><b>19</b></td>
+		<td><b>Eigene Logikbausteine</b></td>
+		<td><b>dieser Ordner ist für eigene Logikbausteine reserviert</b></td>
+	</tr>
+</table>

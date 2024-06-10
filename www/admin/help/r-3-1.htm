@@ -1,0 +1,62 @@
+<h1><path>Entwicklung von Visuelementen***r-3-0</path>VSE-Dateien/-ordner</h1>
+Ein Visuelement (VSE) wird durch genau eine Datei definiert (z.B.: 1000_vse.php).
+
+Der Dateiname muss stets diesem Schema folgen: 
+
+<ul>
+	<li>
+		&lt;ID&gt;_vse.php
+		<ul>
+			<li>&lt;ID&gt;: eine eindeutige(!) ID im Bereich 1000..99999999 (für "Eigene Visuelemente")</li>
+		</ul>
+	</li>
+
+	<li>die Datei muss im Verzeichnis <b><MAIN_PATH>/www/admin/vse</b> gespeichert werden</li>
+</ul>
+
+
+Ein VSE kann entweder mit einem beliebigen Editor direkt als Datei bearbeitet werden, oder mit Hilfe der <link>Konfiguration***1000-160</link>. Letzteres ist empfehlenswert, da beim Speichern eines VSE unmittelbar diverse Prüfungen vorgenommen werden.
+
+<b>Wichtig:</b>
+<ul>
+	<li>Wurde ein VSE mit einem externen Editor erstellt bzw. bearbeitet, müssen anschließend alle VSE-Definitionen neu eingelesen werden (<link>Verwaltung/Visuelemente/Visuelemente neu einlesen***103-16</link>).</li>
+	<li>Wie bei allen anderen projektbezogenen Einstellungen auch, werden Änderungen an einem VSE erst nach einer <link>Projektaktivierung***103-13</link> bzw. <link>Visuaktivierung***103-15</link> im Live-Projekt berücksichtigt. Die Aktivierung erzeugt eine unabhängige VSE-Instanz.</li>
+	<li>Visuelemente werden nicht(!) projektbezogen verwaltet, sondern sind ein Bestandteil der EDOMI-Installation. Auch <link>Eigene Visuelemente***r-3-0</link> werden stets in diesem globalen Kontext angelegt und verwaltet.</li>
+</ul>
+
+
+<h2>Ordner-IDs</h2>
+Zur Organisation der VSE sind die folgenden Ordner-IDs fest vorgegeben. Es können grundsätzlich keine Visuelemente oder neue Ordner hinzugefügt werden, eigene Visuelemente werden stets im Ordner "Eigene Visuelemente" abgelegt.
+<table class="tableHelp">
+	<tr>
+		<td>Ordner-ID</td>
+		<td>Bezeichnung</td>
+		<td>Hinweis</td>
+	</tr>
+	<tr>
+		<td>160</td>
+		<td>Visuelemente</td>
+		<td rowspan="5">nur für System-LBS, d.h. hier können keine eigenen VSE abgelegt werden</td>
+	</tr>
+	<tr>
+		<td>161</td>
+		<td>Allgemein</td>
+	</tr>
+	<tr>
+		<td>162</td>
+		<td>Eingabe</td>
+	</tr>
+	<tr>
+		<td>163</td>
+		<td>Archive</td>
+	</tr>
+	<tr>
+		<td>164</td>
+		<td>Sonstige</td>
+	</tr>
+	<tr>
+		<td>170</td>
+		<td>Eigene Visuelemente</td>
+		<td>dieser Ordner ist für eigene Visuelemente reserviert</td>
+	</tr>
+</table>

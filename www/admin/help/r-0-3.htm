@@ -1,0 +1,377 @@
+<h1><path>Logikbausteine (allgemein)***r-0</path><path>Entwicklung von Logikbausteinen***r-0-0</path>Funktionsreferenz</h1>
+Die nachfolgend aufgeführten Funktionen stehen sowohl im LBS-Abschnitt, als auch im EXEC-Abschnitt zu Verfügung. Einige Rückgabewerte sind im EXEC-Script jedoch nicht sinnvoll auswertbar, da das EXEC-Script als eigenständlicher Prozess ausgeführt wird und somit unabhängig von der Logik-Engine asynchron abläuft (Hinweise beachten).
+
+<b>Hinweis:</b>
+Für die meisten Funktionen existiert aus historischen Gründen ein gleichwertiger "Alias"-Name. Dieser alternative Funktionsname kann mit den entsprechenden Parametern ebenfalls verwendet werden, es wird aber empfohlen den Alias-Funktionsnamen nicht mehr zu verwenden (u.U. werden die Alias-Funktionsnamen in zukünftigen Versionen entfernt).
+
+
+<h2>Konstanten</h2>
+Grundsätzlich können sämtliche Konstanten aus der <link>Basis-Konfiguration***a-1</link> in Logikbausteinen verwendet werden, z.B. liefert "global_version" die aktuelle EDOMI-Versionsnummer.
+
+
+<h2>Grundlegende LBS-Funktionen</h2>
+<table class="tableHelp">
+	<tr>
+		<td>Funktion</td>
+		<td>Erläuterung</td>
+	</tr>
+	<tr>
+		<td>logic_getInputs($id)<br><span style='color:#808080;'>Alias: getLogicEingangDataAll</span></td>
+		<td>
+			Liefert die aktuellen Daten aller Eingänge der LBS-Instanz $id zurück.
+			
+			Rückgabe:
+			ARRAY[Eingang]['value','refresh'] (im Fehlerfall wird FALSE zurückgegeben):
+			<ul>
+				<li>Eingang: Nr. des Eingangs (1..&infin;)</li>
+				<li>'value': aktueller Wert am Eingang</li>
+				<li>
+					'refresh':
+					<ul>
+						<li>1: Eingang wurde aktualisiert</li>
+						<li>0: Eingang wurde nicht aktualisiert</li>
+					</ul>
+				</li>
+			</ul>
+
+			<b>Wichtig:</b>
+			Innerhalb eines EXEC-Scripts liefert diese Funktion u.U. nicht die aktuellen Werte, da das EXEC-Script asynchron (unabhängig von der Logik-Engine) ausgeführt wird.
+			So ist es z.B. möglich, dass im EXEC-Script die Eingangsdaten abgerufen werden, diese jedoch im gleichen Moment von der Logik-Engine aktualisert wurden.
+			Für ein zuverlässiges Abrufen im Kontext eines EXEC-Scripts ist daher eine Queue zur Zwischenspeicherung nutzbar: logic_setInputsQueued() bzw. logic_getInputsQueued() (s.u.)
+		</td>
+	</tr>
+	<tr>
+		<td>logic_getVars($id)<br><span style='color:#808080;'>Alias: getLogicElementVarAll</span></td>
+		<td>
+			Liefert ein Array mit den aktuellen Werten aller Variablen der LBS-Instanz $id zurück.
+			
+			Rückgabe:
+			ARRAY[Variablen-ID]
+		</td>
+	</tr>
+	<tr>
+		<td>logic_getVar($id,$varid)<br><span style='color:#808080;'>Alias: getLogicElementVar</span></td>
+		<td>
+			Liefert den aktuellen Wert einer Variable der LBS-Instanz $id zurück.
+			
+			$varid: Nr. der Variable (1..&infin;)
+			
+			Rückgabe:
+			Variant oder NULL (Fehler)		
+		</td>
+	</tr>
+	<tr>
+		<td>logic_setInputKoValue($id,$eingang,$value)</td>
+		<td>
+			Setzt das KO am Eingang $eingang der LBS-Instanz $id auf den Wert $value.
+			
+			Sofern am Eingang $eingang ein KO anliegt, wird der Wert dieses KOs auf den Wert $value gesetzt und die Funktion liefert den Wert "true" zurück.
+			Falls am entsprechenden Eingang kein KO anliegt (der Eingang ist unbelegt oder mit einem anderen LBS verbunden), liefert die Funktion den Wert "false" zurück.
+			
+			$eingang: Nr. des Eingangs (1..&infin;)
+			$value: zu setzender KO-Wert
+
+			Rückgabe:
+			true (KO-Wert wurde gesetzt)
+			false (am entsprechenden Eingang liegt kein KO an)		
+		</td>
+	</tr>
+	<tr>
+		<td>logic_setVar($id,$varid,$value)<br><span style='color:#808080;'>Alias: setLogicElementVar</span></td>
+		<td>
+			Setzt eine Variable der LBS-Instanz $id auf einen Wert.
+			
+			$varid: Nr. der Variable (1..&infin;)
+			$value: zu setzender Wert
+		</td>
+	</tr>
+	<tr>
+		<td>logic_setOutput($id,$ausgang,$value)<br><span style='color:#808080;'>Alias: setLogicLinkAusgang</span></td>
+		<td>
+			Setzt einen Ausgang der LBS-Instanz $id auf einen Wert.
+			
+			$ausgang: Nr. des Ausgangs (1..&infin;)
+			$value: zu setzender Wert
+			
+			<b>Hinweis:</b>
+			Intern wird nicht der Ausgang auf einen Wert gesetzt, sondern alle Eingänge, die mit dem Ausgang verbunden sind: Erst beim Verlassen der Hauptfunktion LB_LBSID() wird die Logik-Engine die entsprechenden Änderungen abarbeiten. Ein mehrfacher Aufruf von logic_setOutput() <i>vor</i> dem Verlassen der Hauptfunktion führt daher dazu, dass nur der letzte (aktuellste) Aufruf berücksichtigt wird.
+			
+			<b>Wichtig:</b>
+			Die Verwendung dieser Funktion in einem EXEC-Script führt bei einem sehr häufigen Aufruf in kurzer Zeit u.U. dazu, dass einzelne Aufrufe unwirksam bleiben (das EXEC-Script wird asynchron ausgeführt). Ggf. ist daher die Funktion logic_setOutputQueued() im EXEC-Script zu verwenden (s.u.).
+		</td>
+	</tr>
+	<tr>
+		<td>logic_setState($id,$status[,$delay[,$interval]])<br><span style='color:#808080;'>Alias: setLogicElementStatus</span></td>
+		<td>
+			Aktiviert oder deaktiviert das zyklische Aufrufen der LBS-Instanz $id durch die Logik-Engine.
+
+			$status:
+			<ul>
+				<li>0=nicht zyklisch aufrufen</li>
+				<li>1=LBS zyklisch aufrufen (mit kleinstmöglichem Intervall)</li>
+				<li>Hinweis: $status=0 hat stets Priorität ($delay wird dann ignoriert)</li>
+			</ul>
+
+			$delay (optional):
+			<ul>
+				<li>Verzögerung des nächsten zyklischen Aufrufs in Millisekunden ($status muss =1 sein, ansonsten wird $delay ignoriert)</li>
+				<li>$delay=0 ist nicht erlaubt (in diesem Fall wird $delay ignoriert und $status hat Priorität)</li>
+				<li>$delay=1: nächster automatischer Aufruf mit kleinstmöglicher Verzögerung</li>
+				<li>$delay=2..&infin;: nächster automatischer Aufruf mit dieser Verzögerung (ms)</li>
+				<li>Hinweis: $delay erwartet einen INTEGER-Wert (ms)</li>
+				<li>Achtung: Das Timing ist nicht unbedingt präzise, $delay ist daher als Mindestverzögerung zu verstehen!</li>
+			</ul>
+
+			$interval (optional ergänzend zu $delay):
+			<ul>
+				<li>false: $delay nur einmalig(!) anwenden (nach dem verzögerten Aufruf wird der LBS weiterhin zyklisch aufgerufen, jedoch mit kleinstmöglicher Verzögerung)</li>
+				<li>true: $delay immer wieder anwenden (nach dem verzögerten Aufruf wird der LBS immer wieder mit der Verzögerung $delay aufgerufen)</li>
+				<li>Hinweis: wird $interval nicht angegeben, wird $delay nur einmalig angewendet (entspricht $interval=false)</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>logic_getState($id)<br><span style='color:#808080;'>Alias: getLogicElementStatus</span></td>
+		<td>
+			Liefert den aktuellen Status der LBS-Instanz $id zurück.
+			
+			Rückgabe:
+			INTEGER (im Fehlerfall wird NULL zurückgegeben):
+			<ul>
+				<li>0: LBS wird nicht (zyklisch) ausgeführt</li>
+				<li>1: LBS wird (zyklisch) ausgeführt</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>logic_debugVar($id,$varName,$value)</td>
+		<td>
+			Bei aktiviertem <link>Logikmonitor***a-7</link> für die LBS-Instanz $id wird der Wert $value protokolliert. Der Paramenter $varName ist rein informativ (i.d.R. sollte dies der Name der zu protokollierenden Variable sein).
+
+			$varName: z.B. der Name der zu protokollierenden Variable (rein informativ)
+			$value: der zu protokollierende Wert (unterstützt werden auch Arrays, Objects, etc.)		
+			
+			Beispiel:
+			logic_debugVar($id,'$TMP',$tmp) protokolliert den Inhalt der Variablen $tmp, als Variablenname wird "$TMP" protokolliert		
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#f0f0f0"><b>Funktionen für Logikbausteine mit EXEC-Script</b><br>Wichtig: Einige der folgenden Funktionen sind ausschließlich für die Verwendung <i>innerhalb</i> eines EXEC-Scripts geeignet.</td>
+	</tr>
+	<tr>
+		<td>logic_callExec(LBSID,$id[,$multitasking[,$initStart]])<br><span style='color:#808080;'>Alias: callLogicFunctionExec</span></td>
+		<td>
+			Startet ggf. das EXEC-Script der LBS-Instanz $id. 
+			
+			LBSID: Platzhalter für die LBS-ID (nicht verändern!)
+
+			$multitasking (optional):
+			<ul>
+				<li>true: das EXEC-Script darf ggf. mehrfach gestartet werden</li>
+				<li>false: das EXEC-Script wird nur einmal gestartet (alle Aufrufe der Funktion werden ignoriert, solange das EXEC-Script ausgeführt wird)</li>
+				<li>Hinweis: Wird dieser Parameter nicht angegeben, entspricht dies dem Wert "false".</li>
+			</ul>
+			
+			$initStart (optional):
+			<ul>
+				<li>true: das EXEC-Script wird bereits während der LBS-Initialisierung gestartet</li>
+				<li>false: das EXEC-Script wird erst nach Abschluss der LBS-Initialisierung gestartet (ein Aufruf von logic_callExec() während der LBS-Initialisierung führt dazu, dass logic_getStateExec() zunächst den Wert 1 zurückgibt - erst nach Abschluss der LBS-Initialisierung wird das EXEC-Script tatsächlich gestartet)</li>
+				<li>Hinweis: Wird dieser Parameter nicht angegeben, entspricht dies dem Wert "false".</li>
+			</ul>
+			
+			<b>Hinweis:</b>
+			Der LBS wartet <i>nicht</i> auf die Ausführung des EXEC-Scripts: Das EXEC-Script wird im Hintergrund gestartet und die Abarbeitung des LBS-Abschnitts wird unmittelbar fortgesetzt.
+		</td>
+	</tr>
+	<tr>
+		<td>logic_getStateExec($id)</td>
+		<td>
+			Liefert den aktuellen Status des EXEC-Scripts der LBS-Instanz $id zurück.
+			
+			Rückgabe:
+			INTEGER (im Fehlerfall wird NULL zurückgegeben):			
+			<ul>
+				<li>0: EXEC-Script wird nicht ausgeführt (bzw. wurde beendet)</li>
+				<li>1: EXEC-Script wird gerade gestartet</li>
+				<li>2: EXEC-Script wird ausgeführt</li>
+			</ul>
+			
+			<b>Hinweis:</b>
+			Wird ein EXEC-Script mehrfach gestartet (s.o.), wird stets der Zustand des zuletzt gestarteten (oder beendeten) EXEC-Scripts zurückgegeben.
+			Bei einem fehlerhaften EXEC-Script wird der Status zunächst 1 sein, anschließend 2 und unmittelbar danach 0 (da das Script aufgrund eines Fehlers beendet wurde).
+		</td>
+	</tr>
+	<tr>
+		<td>logic_setInputsQueued($id,$E[,$refreshed[,$list]])</td>
+		<td>
+			Speichert alle aktuellen Eingangsdaten der LBS-Instanz $id in einer Queue, um eine asynchrone Verarbeitung der Eingangsdaten in einem EXEC-Script zu ermöglichen.
+			
+			$E: Array der Eingangsdaten, i.d.R. das zurückgegebene Array der Funktion logic_getInputs()
+			$refreshed (optional):
+			<ul>
+				<li>true: es werden nur die Eingänge aus $E in die Queue eingefügt, die die Eigenschaft ['refresh']==1 aufweisen</li>
+				<li>false: es werden stets alle verfügbaren Eingänge aus $E in die Queue eingefügt</li>
+				<li>Hinweis: Wird dieser Parameter nicht angegeben, entspricht dies dem Wert "false".</li>
+			</ul>
+			$list (optional):
+			<ul>
+				<li>ARRAY: es werden nur die Eingänge aus $E in die Queue eingefügt, deren ID in diesem Array enthalten sind (z.B. $list=[1,3,5] führt dazu, dass nur die Eingänge 1, 3 und 5 in die Queue eingefügt werden)</li>
+				<li>false: es werden stets alle verfügbaren Eingänge aus $E in die Queue eingefügt</li>
+				<li>Hinweis: Wird dieser Parameter nicht angegeben, entspricht dies dem Wert "false".</li>
+			</ul>
+			
+			<b>Hinweis:</b>
+			Die Funktion generiert die Eingangsdaten <i>nicht</i> selbst, sondern erwartet das von der Funktion logic_getInputs() zurückgegebene Array als Parameter $E.
+			
+			<b>Achtung:</b>
+			Bei der Verwendung dieser Funktion ist darauf zu achten, dass die Queue regelmäßig abgefragt bzw. geleert wird (s.u.).
+			
+			<b>Wichtig:</b>
+			Diese Funktion sollte ausschließlich im LBS-Abschnitt verwendet werden.
+		</td>
+	</tr>
+	<tr>
+		<td>logic_getInputsQueued($id[,$fallback[,$sync]])</td>
+		<td>
+			Gibt alle Eingangsdaten der LBS-Instanz $id aus der Queue zurück und entfernt diese Eingangsdaten aus der Queue.
+			Es werden stets die "ältesten" Eingangsdaten aus der Queue zurückgegeben. Die aktuellsten verfügbaren Daten werden zuletzt zurückgegeben.
+			
+			$fallback (optional):
+			<ul>
+				<li>true: Sind keine Eingangsdaten in der Queue verfügbar, verhält sich die Funktion wie logic_getInputs() - d.h. es werden die aktuellen Eingangsdaten (asynchron) zurückgegeben.</li>
+				<li>false: Sind keine Eingangsdaten in der Queue verfügbar, gibt die Funktion "false" zurück.</li>
+				<li>Hinweis: Wird dieser Parameter nicht angegeben, entspricht dies dem Wert "false".</li>
+			</ul>
+			$sync (optional):
+			<ul>
+				<li>true: <i>nicht</i> in der Queue vorhandene Eingangsdaten werden zum Rückgabe-Array hinzugefügt (vergleichbar mit logic_getInputs(), jedoch nur für die nicht in der Queue vorhandenen Eingangsdaten - wenn keinerlei Einträge in der Queue vorhanden sind, verhält sich $sync=true also wie $fallback=true)</li>
+				<li>false: das Rückgabe-Array enthält ausschließlich Eingangsdaten aus der Queue</li>
+				<li>Hinweis: Die Verwendung von $sync=true ist nur in Verbindung mit $refreshed=true und/oder $list=array(...) bei logic_setInputsQueued() sinnvoll.</li>
+				<li>Hinweis: Wird dieser Parameter nicht angegeben, entspricht dies dem Wert "false".</li>
+			</ul>
+
+			Rückgabe:
+			ARRAY[Eingang]['value','refresh','queue'] (im Fehlerfall oder wenn kein Eintrag in der Queue vorhanden ist wird FALSE zurückgegeben):			
+			<ul>
+				<li>Eingang: Nr. des Eingangs (1..&infin;)</li>
+				<li>'value': aktueller Wert am Eingang</li>
+				<li>
+					'refresh':
+					<ul>
+						<li>1: Eingang wurde aktualisiert</li>
+						<li>0: Eingang wurde nicht aktualisiert</li>
+					</ul>
+				</li>
+				<li>
+					'queue':
+					<ul>
+						<li>1: Eingang wurde aus der Queue geholt</li>
+						<li>0: Eingang wurde nicht aus der Queue geholt (z.B. wenn $fallback=true bzw. $sync=true und die entsprechenden Bedingungen erfüllt sind)</li>
+					</ul>
+				</li>
+			</ul>
+
+			<b>Achtung:</b>
+			Nach der Rückgabe der Eingangsdaten aus der Queue werden die entsprechenden Daten aus der Queue entfernt. Ein erneuter Aufruf liefert bereits die nächsten verfügbaren Eingangsdaten aus der Queue zurück. Diese Funktion sollte daher i.d.R. nur einmal pro Schleifenzyklus im EXEC-Script aufgerufen werden.
+
+			<b>Wichtig:</b>
+			Diese Funktion sollte ausschließlich in einem EXEC-Script verwendet werden.
+		</td>
+	</tr>
+	<tr>
+		<td>logic_deleteInputsQueued($id)</td>
+		<td>
+			Leert die Queue der LBS-Instanz $id, sämtliche Eingangsdaten werden aus der Queue entfernt.
+			
+			<b>Hinweis:</b>	
+			Beim Beenden des EXEC-Scripts wird die Queue automatisch geleert.
+		</td>
+	</tr>
+	<tr>
+		<td>logic_setOutputQueued($id,$ausgang,$value)</td>
+		<td>
+			Wie logic_setOutput(), jedoch wird das Setzen des Ausgangswertes in einer Queue zwischengespeichert.
+			
+			Wenn ein Ausgang sehr häufig in kurzer Zeit auf einen Wert gesetzt werden soll, kann diese Funktion in einem EXEC-Script verwendet werden.
+			Der Aufruf dieser Funktion ist zwar weniger performant, jedoch wird jeder Aufruf garantiert wirksam umgesetzt.
+			
+			<b>Hinweis:</b>
+			Diese Funktion verwendet die selbe Queue wie z.B. Telegramme, Visuelemente, etc. - d.h. bei einer sehr "hochfrequenten" Nutzung dieser Funktion, wird die Abarbeitung von Telegrammen etc. entsprechend verzögert erfolgen! 
+
+			<b>Wichtig:</b>
+			Diese Funktion darf ausschließlich in einem EXEC-Script verwendet werden.
+		</td>
+	</tr>
+	<tr>
+		<td>logic_getEdomiState()</td>
+		<td>
+			Diese Funktion ermittelt, ob EDOMI betriebsbereit ist oder z.B. gerade beendet wird.
+
+			Rückgabe:
+			INTEGER:			
+			<ul>
+				<li>1: EDOMI ist betriebsbereit</li>
+				<li>0: EDOMI ist nicht betriebsbereit ist oder wird z.B. gerade beendet</li>
+			</ul>
+			
+			<b>Wichtig:</b>
+			Diese Funktion sollte in einem EXEC-Script verwendet werden, z.B. um das EXEC-Script gezielt zu beenden.
+		</td>
+	</tr>
+	<tr>
+		<td>logic_dbKeepalive()</td>
+		<td>
+			Diese Funktion dient ggf. zur Aufrechterhaltung der Datenbank-Verbindung (u.U. wichtig für EXEC-Scripte).
+			Einige der o.g. Funktionen greifen intern auf eine Datenbank zu. Die Datenbank-Engine trennt jedoch die Verbindung, sobald länger als 8 Stunden keinerlei Zugriff erfolgt - der Aufruf der o.g. Funktionen <i>innerhalb eines EXEC-Scripts</i>(!) wird dann u.U. scheitern!
+			Es ist daher ggf. dafür zu sorgen, dass z.B. stündlich ein Datenbank-Zugriff erfolgt, um die Verbindung aufrecht zu erhalten. Die kann z.B. durch einen zyklischen Aufruf (z.B. alle 60 Minuten) dieser Funktion erfolgen.
+			
+			<b>Hinweis:</b>
+			In der Regel ist die Verwendung dieser Funktion <i>nicht</i> erforderlich: Eine (Endlos-)Schleife im EXEC-Script sollte stets in der Form "while (logic_getEdomiState()==1)" implementiert werden (siehe <link>Beispiel "EXEC-Script als Dämon"***r-0-4</link>), damit der Prozess beim Beenden von EDOMI kontrolliert beendet wird. Die Funktion "logic_getEdomiState()" sorgt dabei bereits für eine Aufrechterhaltung der Datenbank-Verbindung.
+			
+			<b>Wichtig:</b>
+			Diese Funktion darf ausschließlich in einem EXEC-Script verwendet werden.
+		</td>
+	</tr>
+</table>
+	
+
+<h2>Hilfsfunktionen</h2>
+<table class="tableHelp">
+	<tr>
+		<td>Funktion</td>
+		<td>Erläuterung</td>
+	</tr>
+	<tr>
+		<td>convertHSVtoRGB($h,$s,$v)</td>
+		<td>
+			Wandelt $h/$s/$v in R/G/B um.
+			
+			$h/$s/$v: H/S/V-Werte  (H=0..255, S=0..255, V=0..255)
+
+			Rückgabe:
+			ARRAY[0..2] (FLOAT) oder FALSE (Fehler):
+			<ul>
+				<li>0: Rot (0..255)</li>
+				<li>1: Grün (0..255)</li>
+				<li>2: Blau (0..255)</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>convertRGBtoHSV($r,$g,$b)</td>
+		<td>
+			Wandelt $r/$g/$b in H/S/V um.
+			$r/$g/$b: R/G/B-Werte  (R=0..255, G=0..255, B=0..255)
+			
+			Rückgabe:
+			ARRAY[0..2] (FLOAT) oder FALSE (Fehler):
+			<ul>
+				<li>0: Hue (0..255)</li>
+				<li>1: Saturation (0..255)</li>
+				<li>2: Value (0..255)</li>
+			</ul>
+		</td>
+	</tr>
+</table>
+	
+	

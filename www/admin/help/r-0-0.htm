@@ -1,0 +1,35 @@
+<h1><path>Logikbausteine (allgemein)***r-0</path>Entwicklung von Logikbausteinen</h1>
+<link>Logikbausteine***r-0</link> (LBS) sind entweder PHP-Funktionen, die im Kontext der Logik-Engine aufgerufen werden - und/oder eigenständige PHP-Scripte, die unabhängig von der Logik-Engine im Hintergrund ausgeführt werden. 
+
+Grundsätzlich werden 3 Arten von Logikbausteinen (LBS) unterschieden:
+
+<ul>
+	<li>LBS, die aufgerufen und sequentiell abgearbeitet werden (z.B. ein einfacher Vergleicher)</li>
+	<li>LBS, die aufgerufen und sequentiell abgearbeitet werden, dann jedoch von der Logik-Engine solange zyklisch aufgerufen werden, bis eine bestimmte Bedingung eintritt (z.B. ein Timer)</li>
+	<li>LBS (wie oben), die zusätzlich ein unabhängiges PHP-Script ausführen. Dieses Script wird als eigener PHP-Prozess ausgeführt und läuft unabhängig im Hintergrund (z.B. zeitintensive Webabfragen)</li>
+</ul>
+
+
+Ein LBS wird stets durch seine Eingänge getriggert, d.h. sobald eine Wertänderung an einem der Eingänge vorliegt, wird der LBS-Code ausgeführt. Dies kann ein neues Telegramm (KO bzw. GA) oder ein mit dem Eingang verbundener Ausgang eines weiteren LBS sein. Beim Start von EDOMI wird der LBS zudem über ggf. vorhandene Initialwerte an einem Eingang getriggert.
+
+Sobald der LBS getriggert wurde, wird sein Funktions-Code einmalig(!) ausgeführt und der LBS "wartet" nun auf einen erneuten Trigger.
+
+Bei Bedarf kann die Logik-Engine mit einem entsprechenden Funktionsaufruf dafür sorgen, dass der LBS in einem bestimmten Intervall immer wieder aufgerufen wird: Dies ermöglicht z.B. eine Überwachung einer Bedingung - unabhängig davon, ob der LBS durch seine Eingänge erneut getriggert wird (z.B. ein Timer).
+
+Zusätzlich zu der o.g. Implementierung kann ein LBS einen unabhängigen PHP-Prozess definieren: Dieses Script läuft vollkommen unabhängig als eigenständiger Prozess und wird von der Logik-Engine nicht überwacht oder gesteuert. Dies ermöglicht z.B. die Implementierung zeitintensiver oder "riskanter" Operationen (z.B. eine Webabfrage).
+
+
+<h2>Weiterführende Informationen</h2>
+<ul>
+	<li><link>Informationen zur Funktionsweise von Logiken und Logikbausteinen***r-1</link></li>
+	<li><link>LBS-Dateien/-ordner***r-0-1</link></li>
+	<li><link>Quelltext***r-0-2</link></li>
+	<li><link>Funktionsreferenz***r-0-3</link></li>
+	<li><link>Beispiele***r-0-4</link></li>
+	<li><link>Logdateien (Individual-Logs)***a-4</link></li>
+</ul>
+
+
+
+
+
