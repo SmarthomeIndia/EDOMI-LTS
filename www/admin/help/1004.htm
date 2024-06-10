@@ -1,0 +1,92 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Visuelemente bearbeiten</h1>
+Einige Eigenschaften der aktuellen markierten Visuelemente können gemeinsam angepasst werden, z.B. um mehrere Visuelemente zu skalieren oder einer bestimmten Gruppe zuzuordnen.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Gruppe: ordnet die Visuelemente der ausgewählten Gruppe zu
+		<ul>
+			<li>(keine Änderung): die Gruppenzuordnung der Visuelemente wird nicht verändert</li>
+			<li>(keine Gruppe): die Visuelemente werden ggf. aus ihrer Gruppierung gelöst und sind somit keiner Gruppe mehr zugeordnet</li>
+		</ul>
+	</li>
+
+	<li>
+		Basis-Designvorlage: legt die <link>Designvorlage***1000-24</link> des <link>Basis-Designs***1003</link> fest
+		<ul>
+			<li>wird keine Designvorlage ausgewählt (leer), werden keine Änderungen an den Visuelementen vorgenommen</li>
+			<li>
+				<div class="buttonHelp">+</div>: legt fest, ob die Designvorlage nur verändert oder ggf. hinzugefügt werden soll
+				<ul>
+					<li>deaktiviert: einem Visuelement wird die ausgewählte Vorlage nur dann zugewiesen, wenn dem Visuelement bereits eine Vorlage zugewiesen wurde (die bereits zugewiesene Vorlage wird also ersetzt)</li>
+					<li>aktiviert: einem Visuelement wird die ausgewählte Vorlage stets zugewiesen, auch wenn dem Visuelement noch keine Vorlage zugewiesen wurde (es wird also ggf. eine neue Zuweisung erstellt)</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+ 
+	<li>
+		Z-Index: legt die Position der Visuelemente auf einer <link>gedachten Z-Achse***1002</link> fest (relativ oder absolut)
+		<ul>
+			<li>
+				<div class="buttonHelp">&bull;</div>: legt fest, ob die Angabe relativ oder absolut angewendet wird
+				<ul>
+					<li>deaktiviert: die Angabe wird relativ angewendet, z.B. verringert "-5" den Z-Index des Visuelements um 5, "7" erhöht diesen um 7</li>
+					<li>aktiviert: die Angabe wird absolut angewendet, z.B. setzt "3" den Z-Index auf 3</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		X- bzw. Y-Position: legt die X/Y-Position der Visuelemente fest (relativ oder absolut)
+		<ul>
+			<li>Hinweis: die Position der Visuelemente wird <i>nicht</i> automatisch begrenzt (z.B. durch die Ränder der Visuseite)</li>
+			<li>
+				<div class="buttonHelp">&bull;</div>: legt fest, ob die Angabe relativ oder absolut angewendet wird
+				<ul>
+					<li>
+						deaktiviert: die Angabe wird relativ angewendet, dabei kann die Angabe entweder in Pixeln oder in Prozent erfolgen
+						<ul>
+							<li>Angabe in Pixeln: z.B. verringert "-5" die aktuelle X/Y-Position des Visuelements um 5, "7" erhöht diese um 7</li>
+							<li>Angabe in Prozent: z.B. verringert "-50%" die aktuelle X/Y-Position des Visuelements um 50%, "70%" erhöht diese um 70%</li>
+						</ul>
+					</li>
+					<li>aktiviert: die Angabe wird absolut angewendet, z.B. setzt "3" die X/Y-Position auf 3</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Breite bzw. Höhe: legt die Breite bzw. Höhe der Visuelemente fest (relativ oder absolut)
+		<ul>
+			<li>Hinweis: die Größe der Visuelemente wird <i>nicht</i> automatisch begrenzt (z.B. durch die Ränder der Visuseite)</li>
+			<li>
+				<div class="buttonHelp">&bull;</div>: legt fest, ob die Angabe relativ oder absolut angewendet wird
+				<ul>
+					<li>
+						deaktiviert: die Angabe wird relativ angewendet, dabei kann die Angabe entweder in Pixeln oder in Prozent erfolgen
+						<ul>
+							<li>Angabe in Pixeln: z.B. verringert "-5" die aktuelle Breite bzw. Höhe des Visuelements um 5, "7" erhöht diese um 7</li>
+							<li>Angabe in Prozent: z.B. verringert "-50%" die aktuelle Breite bzw. Höhe des Visuelements um 50%, "70%" erhöht diese um 70%</li>
+						</ul>
+					</li>
+					<li>aktiviert: die Angabe wird absolut angewendet, z.B. setzt "3" die Breite bzw. Höhe auf 3</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		<div class="buttonHelp">am Raster ausrichten</div>: X-Position und Breite (bzw. Y-Position und Höhe) werden bei aktivierter Option am <link>eingestellten Raster***1000-22</link> ausgerichtet
+		<ul>
+			<li>Hinweis: Bei Bedarf kann die Position (bzw. die Größe) der Visuelemente auch ohne ausdrückliche Neupositionierung bzw. Skalierung am Raster ausgerichtet werden, hierzu muss in den gewünschten Feldern lediglich der Wert "0" (relativ!) eingetragen werden. Dies führt zu einer Ausrichtung am Raster, ohne die Position bzw. Größe grundsätzlich zu verändern.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Schaltflächen</h2>
+Mit der Schaltfläche "Anwenden" werden die Einstellungen übernommen, das Fenster jedoch nicht geschlossen. So können (bei entsprechender Positionierung des Fensters) die Auswirkungen unmittelbar beurteilt werden.
+
+Mit der Schaltfläche "nur am Raster ausrichten" werden die markierten Visuelemente nur am <link>eingestellten Raster***1000-22</link> ausgerichtet (Position und Größe): Dabei werden lediglich die Einstellungen <div class="buttonHelp">am Raster ausrichten</div> übernommen, alle anderen Einstellungen in diesem Dialog werden ignoriert.

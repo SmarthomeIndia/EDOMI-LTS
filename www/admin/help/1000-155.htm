@@ -1,0 +1,40 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Visualisierung***1000-20</path>Formatierung (Meldungsarchive)</h1>
+In einer <link>Visualisierung***b-0</link> können Inhalte von <link>Meldungsarchiven***1000-60</link> mit Hilfe des Visuelements <link>Meldungsarchiv***1002-25</link> angezeigt werden. Die Meldungen können bei Bedarf individuell formatiert werden (Farben und Symbol), indem einer Meldung eine hier konfigurierte Formatierung zugewiesen wird.
+
+Beim Hinzufügen einer Meldung in ein Meldungsarchiv (<link>Befehle***1007</link>) kann die gewünschte Formatierung ausgewählt werden.
+
+Alternativ kann im <i>Inhalt</i> der Meldung auf eine Formatierung verwiesen werden:
+<ul>
+	<li>"&lt;Formatierungs-ID&gt;***&lt;Meldung&gt;"</li>
+	<li>Formatierungs-ID: die ID der gewünschten Formatierung</li>
+	<li>Meldung: der eigentliche Inhalt der Meldung</li>
+	<li>Beispiel: "34***EDOMI" erzeugt eine Meldung mit der Formatierungs-ID 34 und dem Inhalt "EDOMI"</li>
+	<li>Hinweis: Eine derart referenzierte Formatierung hat stets Priorität gegenüber einer per Befehl zugewiesenen Formatierung. Exisitiert eine referenzierte Formatierung nicht (mehr), wird die Meldung unformatiert ausgegeben.</li>
+</ul>
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>
+		Name: frei wählbarer Name der Formatierung
+	</li>
+
+	<li>
+		Symbol: Auswahl eines <link>Bildes***1000-28</link>, das als Symbol (Icon) in der Meldung angezeigt werden soll
+	</li>
+
+	<li>
+		Farbe: Auswahl einer <link>Vordergrundfarbe***1000-26</link> für die Schriftfarbe der Meldung
+		<ul>
+			<li>Wichtig: Dynamische Farben werden nicht unterstützt!</li>
+		</ul>
+	</li>
+
+	<li>
+		Hintergrundfarbe: Auswahl einer <link>Hintergrundfarbe***1000-25</link> als Hintergrund der Meldung
+		<ul>
+			<li>Wichtig: Dynamische Farben werden nicht unterstützt!</li>
+		</ul>
+	</li>
+</ul>
+

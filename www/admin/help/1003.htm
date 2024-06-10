@@ -1,0 +1,292 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Design</h1>
+Mit Hilfe von Designs wird das Erscheinungsbild von <link>Visuelementen***1002</link> in der <link>Visualisierung***b-0</link> definiert.
+
+Grundsätzlich werden zwei Arten von Designs unterschieden:
+
+<ul>
+	<li>
+		Design (bzw. "Basis-Design"): diese Design-Eigenschaften werden standardmäßig für das Visuelement verwendet
+		<ul>
+			<li>existiert kein zum KO-Wert passendes dynamisches Design (s.u.), wird dieses "Basis-Design" angewendet</li>
+			<li>Hinweis: Für jedes Visuelement kann genau 1 "Basis-Design" definiert werden.</li>
+		</ul>
+	</li>
+
+	<li>
+		dynamische Designs: diese Design-Eigenschaften werden nur dann für das Visuelement verwendet, wenn der aktuelle Wert von <span style="background:#e0ffe0;">KO1</span> oder ggf. KO3 des Visuelments innerhalb eines definierten Bereichs liegt
+		<ul>
+			<li>liegt der aktuelle Wert von <span style="background:#e0ffe0;">KO1</span> oder ggf. KO3 innerhalb des angegebenen Bereichs, wird das entsprechende dynamische Design angewendet</li>
+			<li>existiert kein zum KO-Wert passendes dynamisches Design, wird das "Basis-Design" angewendet (s.o.)</li>
+			<li>Hinweis: Für jedes Visuelement kann eine beliebige Anzahl an dynamischen Designs verwaltet werden.</li>
+
+			<li>
+				grundsätzlich wird der Wert von <span style="background:#e0ffe0;">KO1</span> zur Steuerung des dynamischen Designs verwendet, jedoch wird bei konfiguriertem KO3 die Steuerung von KO3 übernommen:
+				<ul>
+					<li>KO3 wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+					<li>wenn KO3 angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+					<li>wenn KO3 nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+				</ul>
+			</li>
+
+			<li>
+				Wichtig:
+				<ul>
+					<li>ein dynamisches Design ersetzt stets sämtliche(!) Eigenschaften des "Basis-Designs" (die Eigenschaften werden also nicht(!) <i>zusätzlich</i> verwendet)</li>
+					<li>Ausnahme: Wird die Eigenschaft "Beschriftung" nicht angegeben, wird die entsprechende Angabe aus den <link>Visuelement-Einstellungen***1002</link> verwendet.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Designvorlage</h2>
+Ermöglicht die optionale Auswahl einer <link>Designvorlage***1000-24</link>, die für dieses Design verwendet werden soll.
+
+Die Auswahl einer Designvorlage führt dazu, dass alle Design-Eigenschaften der Vorlage auf das Visuelement angewendet werden. Zusätzlich können jedoch auch individuelle Eigenschaften angegeben werden (s.u.) - diese Angaben werden dann anstelle der entsprechenden Eigenschaften aus der Vorlage angewendet.
+
+Mit der Schaltfläche "Eingaben zurücksetzen" werden alle individuellen Eingaben zu den jeweiligen Eigenschaften zurückgesetzt. Dies kann z.B. hilfreich sein, wenn zunächst ein individuelles Design definiert wurde, zu einem späteren Zeitpunkt jedoch ausschließlich eine Vorlage verwendet werden soll.
+
+<b>Hinweis:</b>
+Diese Option steht beim Bearbeiten einer <link>Designvorlage***1000-24</link> nicht zu Verfügung.
+
+
+<h2>Dynamisches Design</h2>
+Diese Eigenschaften stehen nur zu Verfügung, wenn eine <link>Designvorlage***1000-24</link> oder ein <i>dynamisches</i> Design eines Visuelement bearbeitet bzw. erstellt wird.
+
+<b>Hinweis:</b>
+Beim Erstellen bzw. Bearbeiten einer <link>Designvorlage***1000-24</link> wird durch die nachfolgenden Angaben festgelegt, ob die Designvorlage ein "Basis-Design" oder ein dynamisches Design repräsentiert: Werden keine Angaben in den Feldern "von KO-Wert / bis KO-Wert" gemacht, wird die Designvorlage als "Basis-Design", andernfalls als dynamisches Design interpretiert.
+
+<ul>
+	<li>
+		von KO-Wert / bis KO-Wert: diese Angaben definieren einen Wertebereich für das <span style="background:#e0ffe0;">KO1</span> bzw. KO3 des <link>Visuelements***1002</link>
+		<ul>
+			<li>liegt der aktuelle Wert von KO1 bzw. KO3 innerhalb dieses Wertebereichs, wird dieses dynamische Design verwendet</li>
+			<li>es müssen stets beide Werte angegeben werden ("von KO-Wert" und "bis KO-Wert"), um einen gültigen Wertebereich zu definieren</li>
+			<li>Überschneidungen von Wertebereichen unterschiedlicher dynamischer Designs führen u.U. zu einer "zufälligen" Auswahl des dynamischen Designs und sind daher zu vermeiden</li>
+
+			<li>
+				Hinweis: die Option "Wertebereich-Datentyp" des <link>Visuelements***1002</link> legt den Datentyp des angegebenen Wertebereichs fest
+				<ul>
+					<li>
+						automatisch: je nach Datentyp von <span style="background:#e0ffe0;">KO1</span> bzw. KO3 wird ein nummerischer Vergleich oder ein Stringvergleich des KO-Wertes mit dem angegebenen Wertebereich durchgeführt
+						<ul>
+							<li>Integer/Float-Datentypen werden nummerisch verglichen, z.B. ist "321" größer als "123"</li>
+							<li>String-Datentypen (z.B. Datum, Uhrzeit, Hexadezimale Werte, etc.) werden als String verglichen, z.B. ist "EDOMI" größer als "ABCDE"</li>
+							<li>beim Datentyp "Variant" wird in Abhängigkeit des aktuellen KO-Wertes entweder ein nummerischer oder ein Stringvergleich durchgeführt</li>
+						</ul>
+					</li>
+					<li>Zahl: der Wertebereich wird als Zahl interpretiert, es erfolgt stets ein nummerischer Vergleich mit dem KO-Wert</li>
+					<li>String: der Wertebereich wird als String (Text) interpretiert, es erfolgt stets ein String-Vergleich mit dem KO-Wert</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Beschriftung: ersetzt ggf. die Eigenschaft "Beschriftung" des <link>Visuelements***1002</link>
+		<ul>
+			<li>wird dieses Feld leer belassen, bleibt die Eigenschaft "Beschriftung" des Visuelements unverändert bestehen</li>
+			<li>in dieser Eigenschaft können <link>Variablen, Funktionen und Formeln***r-3</link> verwendet werden</li>
+			<li>Hinweis: Je nach Visuelement hat dieses Feld eine <link>unterschiedliche Bedeutung***1002</link>.</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 10.000 Zeichen.</li>
+		</ul>
+	</li>
+
+	<li>
+		Schaltfläche "Basis-Design übernehmen":
+		<ul>
+			<li>sämtliche Eigenschaften werden aus dem "Basis-Design" (s.o.) des Visuelements übernommen</li>
+			<li>Wichtig: Eine Eigenschaft wird nur übernommen, wenn das entsprechende Ziel-Feld leer ist.</li>
+			<li>Hinweis: Diese Schaltfläche steht beim Bearbeiten einer <link>Designvorlage***1000-24</link> nicht zu Verfügung.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Eigenschaften</h2>
+Die nachfolgenden Eigenschaften legen das Erscheinungsbild des gesamten Visuelements, bzw. einzelner Bereiche des Visuelements fest.
+
+<b>Wichtig:</b>
+Sämtliche Angaben ersetzen ggf. solche aus einer zugewiesenen <link>Designvorlage***1000-24</link> (s.o.): Ist z.B. in der zugewiesenen Designvorlage die Eigenschaft "Drehung" auf den Wert 45 (Grad) gesetzt und in den Eigenschaften auf 10 (Grad), wird das Visuelement um 10 Grad gedreht. Wird diese Angabe in den Eigenschaften jedoch leer belassen, wird das Visuelement um 45 Grad gedreht.
+
+<b>Hinweise:</b>
+In allen <span style="background:#e0ffe0;">hellgrün hinterlegten Eingabefeldern</span> können <link>Variablen, Funktionen und Formeln***r-3</link> verwendet werden (bzw. bei Farbauswahl-Feldern können dynamische Farben ausgewählt werden).
+Die maximale Gesamtlänge für jede der nachfolgenden Eigenschaften beträgt 500 Zeichen.
+
+<ul>
+	<li>
+		Allgemeine Eigenschaften:
+		<ul>
+			<li>
+				X-Position/Y-Position: relative(!) Positionierung (in Pixeln)
+				<ul>
+					<li>das Visuelement wird relativ zu seiner Position um diesen Betrag in X- bzw. Y-Richtung verschoben</li>
+				</ul>
+			</li>
+		
+			<li>
+				Breite/Höhe: relative(!) Skalierung (in Pixeln)
+				<ul>
+					<li>die Breite bzw. Höhe des Visuelements wird um diesen Betrag erweitert bzw. verringert</li>
+				</ul>
+			</li>
+		
+			<li>
+				Drehung: Rotation (Winkel in Grad)
+				<ul>
+					<li>das Visuelement wird um diesen Winkel rotiert</li>
+					<li>die Rotation erfolgt im Uhrzeigersinn, d.h. ein positivert Winkel dreht das Visuelement "rechts herum"</li>
+					<li>das Rotationszentrum ist stets das geometrische Zentrum des Visuelements</li>
+				</ul>
+			</li>
+		
+			<li>
+				Opazität: Opazität (0..1)
+				<ul>
+					<li>bestimmt die Sichtbarkeit des Visuelements auf einer Skala von 0 bis 1 (z.B. "0"=unsichtbar, "0.5"=halbtransparent, "1"=vollständig sichtbar)</li>
+					<li>Hinweis: Wird keine Opazität angegeben, wird das Visuelement vollständig sichtbar angezeigt (keinerlei Transparenz).</li>
+					<li>Wichtig: Eine Opazität von "0" blendet das Visuelement vollständig aus, d.h. das Visuelement wird dann auch nicht auf Nutzerinteraktionen (z.B. Klicks) reagieren!</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Farbe und Hintergrund: legt Vorder- und Hintergrundfarbe (und ggf. ein Hintergrundbild) des Visuelements fest
+		<ul>
+			<li>
+				Farbe: Auswahl einer <link>Vordergrundfarbe***1000-26</link> für die Beschriftung und Gestaltung des gesamten Visuelements
+				<ul>
+					<li>je nach Visuelement werden die Beschriftung und/oder weitere Elemente in der ausgewählten Farbe dargestellt (z.B. <link>Schieberegler***1002-13</link>, <link>Diagramme***1002-21</link>, uvm.)</li>
+					<li>Hinweis: Wird keine Vordergrundfarbe angegeben, wird die Standard-Vordergrundfarbe (schwarz) verwendet.</li>
+				</ul>
+			</li>
+		
+			<li>
+				Hintergrundfarbe: Auswahl einer <link>Hintergrundfarbe***1000-25</link> für das gesamte Visuelement
+				<ul>
+					<li>wird keine Hintergrundfarbe angegeben, wird der Hintergrund transparent dargestellt</li>
+					<li>die Kombination von Hintergrundfarbe und -bild ist möglich (z.B. werden transparente Bereiche eines PNG-Bildes dann in der Hintergrundfarbe dargestellt)</li>
+				</ul>
+			</li>
+		
+			<li>
+				Hintergrundbild: Auswahl eines <link>Bildes***1000-28</link>, das als Hintergrundbild für das gesamte Visuelement verwendet wird
+				<ul>
+					<li>die Kombination von Hintergrundfarbe und -bild ist möglich (z.B. werden transparente Bereiche eines PNG-Bildes dann in der Hintergrundfarbe dargestellt)</li>
+					<li>Hinweis: Das Hintergrundbild wird i.d.R. an die Größe des Visuelements angepasst. Dies erlaubt z.B. die Verwendung von Bildern, die in einer deutlich höheren Auflösung vorliegen ("Retina"-Bildschirme). Einige Visuelemente erlauben eine individuelle Skalierung des Hintergrundbildes (z.B. das <link>Universalelement***1002-1</link>).</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Text: legt das Erscheinungsbild sämtlicher Texte (z.B. die Beschriftung) des Visuelements fest
+		<ul>
+			<li>
+				Schriftart: Auswahl einer <link>Schriftart***1000-150</link> für die Beschriftung und Gestaltung des gesamten Visuelements
+				<ul>
+					<li>Hinweis: Wird keine Schriftart angegeben, wird die Standard-Schriftart aus der <link>Basis-Konfiguration***a-1</link> verwendet.</li>
+				</ul>
+			</li>
+		
+			<li>
+				Schriftgröße: definiert die Schriftgröße (in Pixeln) für die Beschriftung und Gestaltung des gesamten Visuelements
+				<ul>
+					<li>Hinweis: Wird keine Schriftgröße angegeben, wird die Standard-Schriftgröße aus der <link>Basis-Konfiguration***a-1</link> verwendet.</li>
+				</ul>
+			</li>
+		
+			<li>Stil / Stärke: legt diverse Schriftattribute für die Beschriftung des Visuelements fest</li>
+		
+			<li>
+				Innenabstand: definiert den Innenabstand (in Pixeln) für die Beschriftung des Visuelements
+				<ul>
+					<li>Hinweis: Einige Visuelemente ignorieren diese Eigenschaft.</li>
+				</ul>
+			</li>
+		
+			<li>
+				Ausrichtung: definiert die horizontale Textausrichtung der Beschriftung des Visuelements
+				<ul>
+					<li>Hinweis: Die <i>vertikale</i> Ausrichtung der Beschriftung ist stets zentriert.</li>
+					<li>Hinweis: Einige Visuelemente ignorieren diese Eigenschaft.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Textschatten: sämtliche Texte (z.B. die Beschriftung) des Visuelements können ggf. mit einem Schatten hinterlegt werden
+		<ul>
+			<li>X-/Y-Abstand: legt die Distanz des Schattens zur Beschriftung fest (in Pixeln)</li>
+			<li>Unschärfe: gibt den Grad der Unschärfe des Schattens an (in Pixeln)</li>
+			<li>Farbe: der Textschatten wird mit dieser <link>Vordergrundfarbe***1000-26</link> erzeugt</li>
+			<li>Hinweis: Es müssen entweder alle oder keine der o.g. Eigenschaften angegeben werden.</li>
+		</ul>
+	</li>
+
+	<li>
+		Schatten: das gesamte Visuelement kann ggf. mit einem Schatten hinterlegt werden
+		<ul>
+			<li>X-/Y-Abstand: legt die Distanz des Schattens zum Visuelement fest (in Pixeln)</li>
+			<li>Unschärfe: gibt den Grad der Unschärfe des Schattens an (in Pixeln)</li>
+			<li>Überstand: definiert die Breite eines Bereichs (in Pixeln), der vollständig in der Schattenfarbe angezeigt wird - ähnlich eines Rahmens</li>
+			<li>Farbe: der Schatten wird in dieser <link>Vordergrundfarbe***1000-26</link> dargestellt</li>
+			<li>Hinweis: Es müssen entweder alle oder keine der o.g. Eigenschaften angegeben werden.</li>
+		</ul>
+	</li>
+
+	<li>
+		Rahmen: ermöglicht das Einfärben jeder der 4 Kanten des Visuelements in der angegeben Farbe
+		<ul>
+			<li>jeder Kante kann eine individuelle <link>Vordergrundfarbe***1000-26</link> zugewiesen werden</li>
+			<li>wird einer Kante keine Farbe zugewiesen, wird diese Kante von der Umrahmung ausgeschlossen</li>
+			<li>Breite: Rahmenstärke für alle Kanten, denen eine Farbe zugewiesen wurde (in Pixeln)</li>
+			<li>Muster: legt das Erscheinungsbild des Rahmens für alle Kanten gemeinsam fest</li>
+		</ul>
+	</li>
+
+	<li>
+		Animation: ermöglicht das Animieren des gesamtes Visuelements mit Hilfe einer konfigurierten <link>Animation***1000-27</link>
+		<ul>
+			<li>Animation: Auswahl der gewünschten <link>Animation***1000-27</link></li>
+			<li>Dauer: bestimmt die Dauer der Animation in Sekunden</li>
+			<li>Anzahl: legt fest, wie oft die Animation abgespielt werden soll (die Angabe von "0" führt dazu, dass die Animation unendlich wiederholt wird)</li>
+			<li>Hinweis: Es müssen entweder alle oder keine der o.g. Eigenschaften angegeben werden.</li>
+		</ul>
+	</li>
+
+	<li>
+		Eckenradius: ermöglicht das Abrunden jeder der 4 Ecken des Visuelements mit dem angegeben Radius (in Pixeln)
+		<ul>
+			<li>Hinweis: Hat ein Visuelement z.B. die Größe 100x100 Pixel, führt ein Eckenradius von jeweils 50 Pixeln (oder mehr) zu einem kreisrunden Visuelement.</li>
+		</ul>
+	</li>
+
+	<li>
+		Zusatzeigenschaften: einige Visuelemente können zusätzliche Farben oder Bilder nutzen (z.B. Universalelement, Zeitschaltuhr, etc.)
+		<ul>
+			<li>Zusatzvordergrundfarbe 1/2: Auswahl einer zusätzlichen <link>Vordergrundfarbe***1000-26</link></li>
+			<li>Zusatzhintergrundfarbe 1/2: Auswahl einer zusätzlichen <link>Hintergrundfarbe***1000-25</link></li>
+			<li>Zusatzbild 1/2: Auswahl eines zusätzlichen <link>Bildes***1000-28</link></li>
+			<li>Hinweis: Die Zusatzeigenschaften werden nur von einigen wenigen Visuelementen genutzt und werden ansonsten ignoriert.</li>
+		</ul>
+	</li>
+
+	<li>
+		Eigene CSS-Eigenschaften: ermöglicht die Angabe von beliebigen zusätzlichen CSS-Eigenschaften
+		<ul>
+			<li>die hier angegebenen CSS-Eigenschaften müssen jeweils mit einem Semikolon abgeschlossen werden</li>
+			<li>
+				Beispiel: Visuelement perspektivisch (3D) darstellen
+				<ul>
+					<li>-webkit-transform: perspective(1000px) rotateX(15deg) rotateY(30deg) rotateZ(15deg);</li>
+				</ul>
+			</li>
+			<li>Wichtig: Die Angaben werden nicht(!) auf eine korrekte Syntax etc. geprüft!</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 1000 Zeichen.</li>
+		</ul>
+	</li>
+</ul>

@@ -1,0 +1,132 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Zeitschaltuhren***1000-100</path>Schaltzeit (Zeitschaltuhr)</h1>
+Eine <link>Zeitschaltuhr***1000-100</link> benötigt Informationen, zu welchem Zeitpunkt ein Schaltvorgang ausgeführt werden soll. Eine solche Schaltzeit wird hier als Vorgabe konfiguriert. Die hier konfigurierte Schaltzeit ist in einer Visualisierung nicht veränderbar. Jedoch können ggf. in einer Visualisierung mit Hilfe des <link>Visuelements Zeitschaltuhr***1002-22</link> weitere Schaltzeiten ergänzt werden.
+
+<b>Hinweise:</b>
+Das kleinste Intervall zwischen zwei Schaltzeiten beträgt 1 Minute (Schaltzeiten werden in der Form hh:mm angegeben).
+Überschneidungen von Schaltzeiten werden nicht(!) überprüft oder eliminiert, bei der Konfiguration von Schaltzeiten ist ggf. darauf zu achten, dass sich die Schaltzeiten nicht gegenseitig beeinflussen oder zu widersprüchlichen Schalthandlungen führen.
+Eine Schaltzeit besteht mindestens aus der Angabe eines Wochentag und einer Uhrzeit.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Uhrzeit: legt die Uhrzeit (hh:mm) der Schaltzeit fest</li>
+
+	<li>
+		Makro: dieses <link>Makro***1000-95</link> wird beim Erreichen der Schaltzeit ausgeführt
+		<ul>
+			<li>Hinweis: Das Makro wird nur ausgeführt, wenn alle Bedingungen der Schaltzeit erfüllt sind (Uhrzeit, Wochentage und Filtereinstellungen).</li>
+		</ul>
+	</li>
+
+	<li>
+		Zusatzbedingung: legt fest, ob und wie der Wert des KOs "Zusatzbedingung" der <link>Zeitschaltuhr***1000-100</link> als Filterkriterium angewendet wird
+		<ul>
+			<li>
+				die Schaltfläche unterscheidet 3 Zustände:
+				<ul>
+					<li>KO (deaktiviert): der KO-Wert wird ignoriert</li>
+					<li>KO (aktiviert): der KO-Wert muss "1" sein</li>
+					<li><s>KO</s> (aktiviert): der KO-Wert darf nicht "1" sein</li>
+				</ul>
+			</li>
+			<li>Hinweis: Die Zusatzbedingung (KO-Wert) wird intern UND-verknüpft, muss also ggf. erfüllt sein, damit die Schaltzeit wirksam wird.</li>
+		</ul>
+	</li>
+
+	<li>
+		Wochentage: Auswahl der Wochentage, an denen die Schaltzeit berücksichtigt wird
+		<ul>
+			<li>es muss mindestens ein Wochentag ausgewählt werden</li>
+			<li>an allen nicht ausgewählten Wochentagen wird die gesamte Schaltzeit ignoriert</li>
+		</ul>
+	</li>
+
+	<li>
+		Filter: definiert optional einen Datumsbereich oder einzelne datumsbezogene Minimum-/Maximum-Werte für die Schaltzeit
+		<ul>
+			<li>
+				grundsätzlich wird mithilfe der Pfeil-Schaltfläche (zwischen den Eingabefeldern) zwischen dem Modus "Einzelwerte" und "Datumsbereich" unterschieden:
+
+				<ul>
+					<li>
+						<b>Einzelwerte</b>: die Angaben werden unabhängig voneinander als Grenzwerte interpretiert (die Pfeil-Schaltfläche ist deaktiviert)
+						<ul>
+							<li>jede Angabe für "Tag", "Monat" und "Jahr" wird als Minimum- bzw. Maximum-Wert interpretiert</li>
+							<li>wird eine Angabe leer belassen, wird dies als "beliebig" interpretiert</li>
+							
+							<li>
+								Beispiele (leere Angaben sind hier mit einem * gekennzeichnet):
+								<ul>
+									<li><span class="inputHelp">5.3.2017</span> - <span class="inputHelp">20.10.2019</span> = am 5. bis 20. eines Monats, in den Monaten 3 bis 10, in den Jahren 2017 bis 2019</li>
+									<li><span class="inputHelp">5.3.2017</span> - <span class="inputHelp">20.10.****</span> = am 5. bis 20. eines Monats, in den Monaten 3 bis 10, in allen Jahren ab 2017</li>
+									<li><span class="inputHelp">5.3.****</span> - <span class="inputHelp">20.10.2019</span> = am 5. bis 20. eines Monats, in den Monaten 3 bis 10, in allen Jahren bis 2019</li>
+									<li><span class="inputHelp">5.3.****</span> - <span class="inputHelp">20.10.****</span> = am 5. bis 20. eines Monats, in den Monaten 3 bis 10, in allen Jahren</li>
+
+									<li><span class="inputHelp">**.**.2017</span> - <span class="inputHelp">**.**.2019</span> = jeden Tag, jeden Monat, in den Jahren 2017 bis 2019</li>
+									<li><span class="inputHelp">5 .**.****</span> - <span class="inputHelp">10.**.****</span> = am 5. bis 10. eines Monats, in allen Monaten, in allen Jahren</li>
+									<li><span class="inputHelp">5 .4 .****</span> - <span class="inputHelp">10.8 .****</span> = am 5. bis 10. eines Monats, in den Monaten 4 bis 8, in allen Jahren</li>
+
+									<li><span class="inputHelp">5.10.****</span> - <span class="inputHelp">10.3.****</span> = am 5. bis 10. eines Monats, in den Monaten 10/11/12/1/2/3, in allen Jahren</li>
+									<li><span class="inputHelp">1.10.****</span> - <span class="inputHelp">31.3.2019</span> = jeden Tag, in den Monaten 10/11/12/1/2/3, in allen Jahren bis 2019</li>
+									<li><span class="inputHelp">1.10.2017</span> - <span class="inputHelp">31.3.2017</span> = jeden Tag, in den Monaten 10/11/12/1/2/3, nur im Jahr 2017</li>
+								</ul>
+							</li>
+
+						</ul>
+					</li>
+					<li>
+						<b>Datumsbereich</b>: die Angaben definieren einen Datumsbereich, der ggf. jährlich wiederholt wird (die Pfeil-Schaltfläche ist aktiviert)
+						<ul>
+							<li>ein Datumsbereich wird durch zwei Datumsangaben (von...bis) definiert</li>
+
+							<li>
+								"Tag"- bzw. "Monat"-Eigenschaften:
+								<ul>
+									<li>werden diese Eigenschaften leer belassen, wird dies intern als 1/31 bzw. 1/12 interpretiert</li>
+								</ul>
+							</li>
+
+							<li>
+								"Jahr"-Eigenschaften:
+								<ul>
+									<li>werden beide Eigenschaften leer belassen, wird die Schaltzeit jährlich wiederholt</li>
+									<li>wird nur eine der beiden Eigenschaften angegeben, wird dies als Start- bzw. Enddatum interpretiert und die Schaltzeit ab dem Startdatum (bzw. bis zum Enddatum) jährlich wiederholt</li>
+									<li>werden beide Eigenschaften angegeben, wird dies als absoluter Zeitraum interpretiert (die Schaltzeit wird nicht jährlich wiederholt)</li>
+								</ul>
+							</li>
+
+							<li>
+								Beispiele (leere Angaben sind hier mit einem * gekennzeichnet):
+								<ul>
+									<li><span class="inputHelp">1.3.2017</span> &gt; <span class="inputHelp">31.10.2019</span> = absoluter Datumsbereich vom 1.3.2017 bis zum 31.10.2019</li>
+									<li><span class="inputHelp">1.3.2017</span> &gt; <span class="inputHelp">31.10.****</span> = jeden Tag, in den Monaten 3 bis 10, jährliche Wiederholung, jedoch erst ab dem 1.3.2017</li>
+									<li><span class="inputHelp">1.3.****</span> &gt; <span class="inputHelp">31.10.2019</span> = jeden Tag, in den Monaten 3 bis 10, jährliche Wiederholung, jedoch nur bis einschließlich zum 31.10.2019</li>
+									<li><span class="inputHelp">1.3.****</span> &gt; <span class="inputHelp">31.10.****</span> = jeden Tag, in den Monaten 3 bis 10, jährliche Wiederholung</li>
+
+									<li><span class="inputHelp">**.**.2017</span> &gt; <span class="inputHelp">**.**.2019</span> = absoluter Datumsbereich vom 1.1.2017 bis zum 31.12.2019</li>
+									<li><span class="inputHelp">5 .**.****</span> &gt; <span class="inputHelp">10.**.****</span> = vom 5.1. bis 10.12., jährliche Wiederholung</li>
+									<li><span class="inputHelp">5 .4 .****</span> &gt; <span class="inputHelp">10.8 .****</span> = vom 5.4. bis 10.8., jährliche Wiederholung</li>
+
+									<li><span class="inputHelp">1.10.****</span> &gt; <span class="inputHelp">31.3.****</span> = jeden Tag, in den Monaten 10/11/12/1/2/3, jährliche Wiederholung</li>
+									<li><span class="inputHelp">1.10.****</span> &gt; <span class="inputHelp">31.3.2019</span> = jeden Tag, in den Monaten 10/11/12/1/2/3, jährliche Wiederholung, jedoch nur bis einschließlich zum 31.3.2019</li>
+									<li><span class="inputHelp">1.10.2017</span> &gt; <span class="inputHelp">31.3.2017</span> = ungültig, da ein absoluter Datumsbereich angegeben wurde und das Startdatum größer als das Enddatum ist</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Vorschau (Kalenderansicht): zeigt alle Tage eines Jahres an, die die aktuellen Filter-Einstellungen der Schaltzeit erfüllen
+		<ul>
+			<li>mit den Pfeil-Schaltflächen kann ein Jahr vor bzw. zurück navigiert werden, die Schaltfläche "Vorschau für ..." aktualisiert die aktuelle Ansicht</li>
+			<li>Wichtig: Nach dem Abändern einer Filter-Einstellung muss die Vorschau manuell aktualisiert werden.</li>
+			<li>ein grün hinterlegter Tag bedeutet, dass die aktuellen Filter-Einstellungen diesen Tag einschließen und ein Makro angegeben wurde</li>
+			<li>ein rot hinterlegter Tag bedeutet, dass die aktuellen Filter-Einstellungen diesen Tag einschließen, jedoch kein Makro angegeben wurde</li>
+			<li>der aktuelle Tag ("heute") wird zur Orientierung schwarz hinterlegt angezeigt</li>
+			<li>das KO "Zusatzbedingung" wird ignoriert</li>
+		</ul>
+	</li>	
+</ul>

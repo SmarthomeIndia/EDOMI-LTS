@@ -1,0 +1,65 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Notizen <span class="id">16</span></h1>
+Das Visuelement "Notizen" ermöglicht das Erstellen und Bearbeiten von Text-Notizen mit max. 10.000 Zeichen.
+
+<b>Wichtig:</b>
+Bitte die Hinweise zum Kommunikationsobjekt beachten (s.u.)!
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>Kopfzeilenhöhe: legt optional die Höhe der Kopfzeile in Pixeln fest</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Notiz
+		<ul>
+			<li><b>dieses KO muss ein internes KO von Typ "Variant" sein</b></li>
+			<li>die Notiz wird in diesem KO gespeichert (das KO bzw. die Notiz kann somit z.B. auch in einem Datenarchiv archiviert werden)</li>
+			<li>dieser KO-Wert wird zudem zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>Hinweis: die Verwendung des KO-Wertes zur Steuerung und Beschriftung ergibt in den meisten Fällen keinen Sinn, da der KO-Wert aus den Notizinhalten besteht</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Die Angabe von KO1 (intern, Typ "Variant) ist zwingend erforderlich, damit die Notiz gespeichert werden kann: Die Notiz wird KO1 als Wert zugewiesen.
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>es muss stets ein internes KO von Typ "Variant" angegeben werden, damit die Notiz gespeichert werden kann</li>
+	<li>die Angaben im Feld "Beschriftung" werden als Titel des Visuelements angezeigt</li>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+	<li>Seitensteuerung/Befehle stehen nicht zu Verfügung</li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Bei diesem Visuelement werden zwei Zustände unterschieden: Anzeigen der Notiz und Bearbeiten der Notiz.
+
+<b>Modus: Anzeige</b>
+Die Notiz wird angezeigt und ggf. automatisch mit der Visuseite aktualisiert. Es werden Pfeil-Schaltflächen zum Blättern (Scrollen) durch den Inhalt der Notiz angezeigt.
+
+<b>Modus: Bearbeiten</b>
+Durch Anklicken der angezeigten Notiz wird in den Bearbeitungsmodus gewechselt. Nun kann die Notiz wie folgt bearbeitet und gespeichert werden:
+
+<ul>
+	<li>Löschen: die Eingabe wird vollständig gelöscht</li>
+	<li>Abbrechen: alle Änderungen werden verworfen und der Bearbeitungsmodus wird beendet</li>
+	<li>Speichern: die Eingaben werden im KO (s.o.) gespeichert und der Bearbeitungsmodus wird beendet</li>
+</ul>

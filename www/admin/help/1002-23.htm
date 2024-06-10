@@ -1,0 +1,95 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Anwesenheitssimulation <span class="id">23</span></h1>
+Das Visuelement "Anwesenheitssimulation" stellt eine <link>konfigurierte Anwesenheitssimulation***1000-110</link> in der Visualisierung dar und ermöglicht das Steuern der Anwesenheitssimulation, zudem werden statistische Daten angezeigt.
+
+<b>Hinweis:</b>
+Die Anwesenheitssimulation arbeitet unabhängig von diesem Visuelement. Das Visuelement ist also nicht erforderlich, um eine Anwesenheitssimulation zu nutzen.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>Anwesenheitssimulation: Auswahl der <link>konfigurierten Anwesenheitssimulation***1000-110</link>, die angezeigt und gesteuert werden soll</li>
+
+	<li>
+		Schaltflächen: legt fest, ob der Betriebszustand der Anwesenheitssimulation verändert werden kann
+		<ul>
+			<li>Hinweis: die Schaltflächen werden mit Symbolen beschriftet (von links nach rechts: deaktivieren, aufnehmen, abspielen)</li>
+			<li>Wichtig: Die Anwesenheitssimulation kann unabhängig davon stets über das entsprechende KO gesteuert werden.</li>
+		</ul>
+	</li>
+
+	<li>
+		Statusanzeige: legt fest, ob und wie der aktuelle Status (KO1) angezeigt wird
+		<ul>
+			<li>deaktiviert: keine Statusanzeige</li>
+			<li>Indikatorfarbe: die entsprechende Schaltfläche wird mit der <link>Indikatorfarbe***1000-21</link> hinterlegt</li>
+			<li>Zusatzhintergrundfarbe 1: die entsprechende Schaltfläche wird mit der <link>Zusatzhintergrundfarbe 1***1003</link> hinterlegt</li>
+		</ul>
+	</li>
+
+	<li>Kopf-/Fusszeilenhöhe: legt optional die Höhe der Kopf- und Fusszeile in Pixeln fest</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerungs-KO der Anwesenheitssimulation
+		<ul>
+			<li>dieses KO ist stets mit dem Steuerungs-KO der zugewiesenen Anwesenheitssimulation verknüpft</li>
+			<li>dieser KO-Wert wird zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>dieser KO-Wert wird zudem beim Bedienen der Anwesenheitssimulation in der Visualisierung entsprechend gesetzt (Anwesenheitssimulation: deaktiviert/Abspielen/Aufnehmen)</li>
+			<li>immer wenn das KO auf einen Wert gesetzt wird, wird die angezeigte Statistik der Anwesenheitssimulation aktualisiert</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+	<li>Hinweis: wenn keine Seitensteuerungen/Befehle zugewiesen wurden, verhält sich dieses Visuelement dennoch nicht <link>klicktransparent***1002</link></li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Das Visuelement ist in 3 Teilbereiche gegliedert (von oben nach unten): 
+
+<ul>
+	<li>
+		Titelleiste:
+		<ul>
+			<li>hier werden der Name der <link>Anwesenheitssimulation***1000-110</link> angezeigt</li>
+			<li>ein Klick auf den Namen der Anwesenheitssimulation aktualisiert die angezeigte Statistik</li>
+		</ul>
+	</li>
+
+	<li>
+		Statistik:
+		<ul>
+			<li>hier wird eine Statistik der aufgezeichneten KO-Werte pro Wochentag angezeigt</li>
+			<li>Hinweis: es erfolgt keine(!) automatische Aktualisierung z.B. wenn KOs aufgezeichnet werden - erst bei einer Statusänderung (KO) oder durch einen Klick auf den Titel (s.o.) wird die Statistik aktualisiert</li>
+			<li>mit einem Klick auf diesen Bereich werden alle zugewiesenen Seitensteuerungen/Befehle ausgeführt</li>
+		</ul>
+	</li>
+
+	<li>
+		Steuerungs-Schaltflächen:
+		<ul>
+			<li>"aus": deaktiviert die Anwesenheitssimulation (das Steuerungs-KO der Anwesenheitssimulation wird auf den Wert "0" gesetzt)</li>
+			<li>"+": neue KO-Werte werden aufgezeichnet (das Steuerungs-KO der Anwesenheitssimulation wird auf den Wert "2" gesetzt)</li>
+			<li>"ein": aufgezeichnete KO-Werte werden abgespielt (das Steuerungs-KO der Anwesenheitssimulation wird auf den Wert "1" gesetzt)</li>
+		</ul>
+	</li>
+</ul>

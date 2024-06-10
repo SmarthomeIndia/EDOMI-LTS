@@ -1,0 +1,44 @@
+<h1><path>Administrationsseite***0-1</path><path>Logikeditor***1</path>Live: Eingangs-/Ausgangswert</h1>
+Ermöglicht das Anzeigen und Setzen eines Eingangs- bzw. Ausgangswerts eines Logikbausteins im aktuellen Live-Projekt.
+
+Das Setzen eines Eingangswertes erfolgt unabhängig von einem ggf. am Eingang vorhandenen KOs (der KO-Wert wird nicht verändert). Das KO kann bei Bedarf mit der Funktion <link>"Live: KO-Wert"***1010</link> auf einen Wert gesetzt werden.
+
+Das Setzen eines Ausgangswertes hat zur Folge, dass alle <i>Eingänge</i> der mit diesem Ausgang verbundenen Logikbausteine auf diesen (Eingangs)wert gesetzt werden (Ausgänge existieren im Live-Projekt nicht).
+
+<b>Achtung:</b>
+Der Eingang bzw. Ausgang des Logikbausteins wird real (Live-Projekt) auf einen Wert gesetzt - dies ist keine(!) Simulation, d.h. die entsprechende Logik wird tatsächlich ausgeführt.
+
+<b>Hinweis:</b>
+Das Anzeigen und Setzen von Live-Werten steht nur zu Verfügung, wenn das Arbeitsprojekt mit dem Live-Projekt referenziert ist (siehe <link>Ermittlung von Live-Werten***a-2</link>).
+
+
+<h3>Sonderfall: Eingangsboxen</h3>
+Eingangsboxen existieren im Live-Projekt nicht, da bei der Projektaktivierung alle Eingänge von Logikbausteinen, die mit einer Eingangsbox verbunden sind, direkt mit dem entsprechenden KO belegt werden.
+
+Das Anzeigen bzw. Setzes eines Eingangs-/Ausgangswertes ist daher bei Eingangsboxen nicht möglich.
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>
+		Eingabefeld: hier wird der aktuelle Live-Wert des Eingangs bzw. Ausgangs angezeigt und kann ggf. modifiziert werden
+		<ul>
+			<li>Hinweis: Der Inhalt ist standardmäßig selektiert, um die Eingabe eines neuen Wertes zu erleichtern.</li>
+			<li>Wichtig: Bei der Eingabe eines Wertes werden Zeilenumbrüche etc. übernommen!</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Schaltflächen</h2>
+<ul>
+	<li>
+		Wert setzen: setzt den Eingang bzw. Ausgang des Logikbausteins real (Live-Projekt) auf den angegebenen Wert
+		<ul>
+			<li>wird der aktuelle Wert im Eingabefeld nicht verändert, wird der Eingang bzw. Ausgang erneut auf diesen gleichen Wert gesetzt</li>
+			<li>Wichtig: Bei der Eingabe eines Wertes werden Zeilenumbrüche etc. übernommen!</li>
+		</ul>
+	</li>
+
+	<li>Aktualisieren: aktualisiert die Anzeige des aktuellen Live-Werts im Eingabefeld</li>
+</ul>

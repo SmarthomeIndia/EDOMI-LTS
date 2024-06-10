@@ -1,0 +1,210 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path>Visuelemente</h1>
+Visuelemente sind die Grundbausteine einer Visualisierung und erfüllen je nach Typ allgemeine oder spezielle Aufgaben. Jede <link>Visuseite***1000-22</link> kann eine beliebige Anzahl an Visuelementen enthalten.
+
+<b>Hinweis:</b>
+Das Verhalten und die Bedienung von Visuelementen in der Visualisierung wird in der Hilfe zur <link>Visualisierung***b-0</link> und in der Hilfe zu den jeweiligen Visuelementen (s.u.) beschrieben.
+
+<b>Wichtig:</b>
+Visuelemente werden nicht(!) projektbezogen verwaltet, sondern sind ein Bestandteil der EDOMI-Installation. Auch <link>Eigene Visuelemente***r-3-0</link> werden stets in diesem globalen Kontext angelegt und verwaltet.
+
+<h3>Weiterführende Informationen</h3>
+<ul>
+	<li><link>Erstellen von Visualisierungen im Visueditor***2</link></li>
+	<li><link>Entwicklung von Visuelementen***r-3-0</link></li>
+</ul>
+
+
+<h2>Spezifische Eigenschaften</h2>
+Je nach Visuelement stehen verschiedene spezifische Eigenschaften zu Verfügung. Dies ist eine Übersicht sämtlicher auf diesem System verfügbarer Visuelemente:
+
+<vse-list>
+
+
+<h2>Allgemeine Eigenschaften</h2>
+<ul>
+	<li>
+		Name: bei Bedarf kann ein frei wählbarer Name für dieses Visuelement angegeben werden
+		<ul>
+			<li>Hinweis: Der Name wird ggf. in der Seitenleiste des <link>Visueditors***2</link> angezeigt.</li>
+		</ul>
+	</li>
+	
+	<li>
+		Gruppe: Visuelemente können bei Bedarf zu einer Gruppe von Visuelementen zusammengefasst werden
+		<ul>
+			<li>hier kann das Visuelement einer bereits existierenden Gruppe zugeordnet oder aus einer Gruppe entfernt werden</li>
+			<li>Hinweis: Das Anlegen einer neuen Gruppe wird in der Hilfe zum <link>Visueditor***2</link> beschrieben.</li>
+		</ul>
+	</li>
+
+	<li>
+		Z-Index: definiert ggf. die Position des Visuelements auf einer gedachten Z-Achse
+		<ul>
+			<li>Visuelemente werden grundsätzlich in der Reihenfolge gezeichnet, in der die Visuelemente erstellt wurden</li>
+			<li>dies hat zur Folge, dass z.B. das zuletzt erstellte Visuelement alle anderen Visuelemente überlagert</li>
+			<li>ein Z-Index kann als Ganzahl im Bereich 0..&infin; definiert werden und sorgt dafür, dass das Visuelement "vor" oder "hinter" anderen Visuelementen angezeigt wird</li>
+			<li>standardmäßig ist ein Z-Index von 0 vorgegeben (dies kann in der <link>Basis-Konfiguration***a-1</link> angepasst werden), d.h. der Z-Index wird effektiv nicht berücksichtigt</li>
+		</ul>
+	</li>
+
+	<li>
+		X-Position/Y-Position: absolute Position des Visuelements in Pixeln
+		<ul>
+			<li>Hinweis: ein Visuelement kann ggf. zusätzlich relativ positioniert werden (siehe "X/Y-Position" in den <link>Design-Einstellungen***1003</link>)</li>
+		</ul>
+	</li>
+
+	<li>
+		Breite/Höhe: Größe des Visuelements in Pixeln
+		<ul>
+			<li>Hinweis: ein Visuelement kann ggf. zusätzlich relativ skaliert werden (siehe "Breite/Höhe" in den <link>Design-Einstellungen***1003</link>)</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Weitere Eigenschaften</h2>
+<ul>
+	<li>
+		Beschriftung: je nach Visuelement hat dieses Feld eine unterschiedliche Bedeutung:
+		<ul>
+			<li>einige Visuelemente werden mit dieser Angabe beschriftet (z.B. das <link>Universalelement***1002-1</link>)</li>
+			<li>die Beschriftung kann ein statischer Text sein oder ggf. mit <link>Variablen, Funktionen und Formeln***r-3</link> ergänzt werden (siehe unten)</li>
+			<li>HTML-Tags werden entsprechend interpretiert, z.B. wird "&lt;i&gt;EDOMI&lt;/i&gt;" zur Anzeige von "<i>EDOMI</i>" (kursiv) führen</li>
+			<li>Hinweis: Bei einigen Visuelementen werden hier z.B. eine URL, ein Datumsintervall oder Listendaten anstelle einer Beschriftung definiert.</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 10.000 Zeichen.</li>
+		</ul>
+	</li>
+	
+	<li>
+		Design: visuelle Eigenschaften (Farben, etc.) des Visuelements festlegen
+		<ul>
+			<li>dieses "<link>Basis-Design***1003</link>" wird immer dann angewendet, wenn kein passendes dynamisches Design vorhanden ist</li>
+			<li>Option "immer verwenden": das Design wird bei jedem Setzen von KO1 ggf. erneut angewendet (sofern kein passendes dynamisches Design vorliegt)</li>
+			<li>Option "nur bei Aufbau": das Design wird nur einmalig beim Seitenaufbau angewendet (sofern kein passendes dynamisches Design vorliegt)</li>
+		</ul>
+	</li>
+
+	<li>
+		Dynamische Designs: visuelle Eigenschaften in Abhängigkeit von KO1 oder KO3 verwalten
+		<ul>
+			<li>es können beliebig viele <link>dynamische Designs***1003</link> definiert werden</li>
+			<li>ist kein zum KO-Wert passendes dynamisches Design vorhanden, wird das "Basis-Design" (s.o.) verwendet</li>
+			<li>Hinweis: Per Kontextmenü (rechte Maustaste) kann ein dynamisches Design gelöscht oder dupliziert werden.</li>
+
+			<li>
+				Option "automatisch/Zahl/String": legt den Datentyp des angegebenen Wertebereichs fest
+				<ul>
+					<li>
+						automatisch: je nach Datentyp von <span style="background:#e0ffe0;">KO1</span> bzw. KO3 wird ein nummerischer Vergleich oder ein Stringvergleich des KO-Wertes mit dem angegebenen Wertebereich durchgeführt
+						<ul>
+							<li>Integer/Float-Datentypen werden nummerisch verglichen, z.B. ist "321" größer als "123"</li>
+							<li>String-Datentypen (z.B. Datum, Uhrzeit, Hexadezimale Werte, etc.) werden als String verglichen, z.B. ist "EDOMI" größer als "ABCDE"</li>
+							<li>beim Datentyp "Variant" wird in Abhängigkeit des aktuellen KO-Wertes entweder ein nummerischer oder ein Stringvergleich durchgeführt</li>
+						</ul>
+					</li>
+					<li>Zahl: der Wertebereich wird als Zahl interpretiert, es erfolgt stets ein nummerischer Vergleich mit dem KO-Wert</li>
+					<li>String: der Wertebereich wird als String (Text) interpretiert, es erfolgt stets ein String-Vergleich mit dem KO-Wert</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Kommunikationsobjekte: je nach Visuelement stehen verschiedene Kommunikationsobjekte zu Verfügung
+		<ul>
+			<li>
+				KO1 (<span style="background:#e0ffe0;">hellgrün hinterlegt</span>):
+				<ul>
+					<li>dieser KO-Wert wird für die Auswahl eines <link>dynamischen Designs***1003</link> und für <link>Variablen, Funktionen und Formeln***r-3</link> verwendet</li>
+					<li>Hinweis: Bei aktivierter "Live-Vorschau" (s.u.) wird der Wert dieses KOs ggf. von anderen Visuelementen (z.B. Drehregler) temporär angepasst.</li>
+				</ul>
+			</li>
+
+			<li>
+				KO2:
+				<ul>
+					<li>dieses KO wird i.d.R. bei der Bedienung eines entsprechenden Visuelements auf einen Wert gesetzt (z.B. Drehregler)</li>
+					<li>Hinweis: Dieser KO-Wert wird ggf. während der Bedienung geeigneter Visuelemente als Vorschau-Wert für das KO1 aller anderen Visuelemente mit aktivierter Live-Vorschau (s.u.) bereitgestellt.</li>
+				</ul>
+			</li>
+
+			<li>
+				KO3:
+				<ul>
+					<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+					<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+					<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+				</ul>
+			</li>
+
+			<li>
+				Option "Live-Vorschau": ist diese Option aktiviert, wird der KO-Wert von <span style="background:#e0ffe0;">KO1</span> ggf. während der Bedienung eines geeigneten <i>anderen</i> Visuelements (z.B. Drehregler) lokal auf dem Endgerät im Sinne einer Vorschau unmittelbar angepasst
+				<ul>
+					<li>diese Option kann z.B. genutzt werden, um einen "Knopf" (z.B. bei Drehregler, Schieberegler, etc.) während der Bedienung in Echtzeit neu zu positionieren</li>
+					<li>der tatsächliche KO-Wert wird ggf. während der Eingabe <i>nicht</i> verändert, die Wertänderung wird nur vorübergehend auf dem Endgerät simuliert</li>
+					<li>Beispiel: Ein Drehregler setzt das KO2 "Temperatur" auf einen Wert, ein Universalelement zeigt diesen KO-Wert (als KO1) an. Wird im Universalelement die Option "Live-Vorschau" aktiviert, wird die Wertanzeige bereits während der Bedienung des Drehreglers aktualisiert - unabhängig davon, ob das KO2 "Temperatur" tatsächlich während der Bedienung des Drehreglers auf diesen Wert gesetzt wird.</li>
+					<li>Hinweis: Dynamische Designs werden durch diese Option <i>nicht</i> abgerufen. Hierfür ist z.B. beim Drehregler die Option "KO2 zyklisch setzen" zu aktivieren (die Live-Vorschau wird dann automatisch deaktiviert, da der KO-Wert tatsächlich zyklisch gesetzt wird).</li>
+					<li>Wichtig: Bei aktivierter Option "KO2 zyklisch setzen" (z.B. bei Drehregler, Schieberegler, etc.) werden die Live-Vorschau-Einstellungen für das entsprechende Visuelement (und alle anderen) vollständig ignoriert.</li>
+
+					<li>
+						Haltezeit: legt fest, ob und wie lange der Live-Vorschau-Wert gehalten werden soll, bevor der tatsächliche KO-Wert angezeigt bzw. verwendet wird
+						<ul>
+							<li>z.B. wird ein Drehregler i.d.R. nach einer Eingabe zunächst auf den tatsächlichen KO-Wert "zurückspringen", da der eingestellte Wert unmittelbar nach dem Beenden der Eingabe noch nicht verarbeitet wurde</li>
+							<li>dies kann mit einer Haltezeit verhindert werden: der Live-Vorschau-Wert wird dabei für das entsprechende Visuelement solange gehalten, bis die Haltezeit abgelaufen ist</li>
+							<li>Hinweis: Die Haltezeit wird ggf. auch auf das aktiv bediente Visuelement selbst angewendet, z.B. kann somit ein "Zurückspringen" des Wertes bei einem Drehregler nach Abschluss der Bedienung verhindert werden.</li>
+							<li>Wichtig: Bei einem Neuaufbau einer Visuseite (z.B. Seitenwechsel) werden alle Haltezeiten zurückgesetzt.</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+
+			<li>Hinweis: Weitere Hinweise zur Bedeutung der entsprechenden KOs sind der Hilfe zum jeweiligen Visuelement zu entnehmen.</li>
+		</ul>
+	</li>
+
+	<li>
+		Seitensteuerung: beim Anklicken des Visuelements wird die angegebene Visuseite (oder ein Popup) geöffnet bzw. ein bestimmtes Popup geschlossen
+		<ul>
+			<li>
+				Seite aufrufen: die gewählte <link>Visuseite***1000-22</link> wird aufgerufen
+				<ul>
+					<li>handelt es sich bei der gewählten Visuseite um ein Popup, wird dieses Popup geöffnet und zusätzlich zu der aktuellen Visuseite angezeigt</li>
+					<li>handelt es sich bei der gewählten Visuseite um eine normale Seite, werden alle Popups geschlossen und die gewählte Seite angezeigt</li>
+				</ul>
+			</li>
+
+			<li>
+				Popup schliessen: die gewählte <link>Visuseite***1000-22</link> wird geschlossen, sofern es sich um ein Popup handelt
+				<ul>
+					<li>Hinweis: Wenn die gewählte Visuseite <i>nicht</i> als Popup konfiguriert wurde, wird diese Einstellung ignoriert.</li>
+					<li>
+						dieses Popup: falls die Visuseite (auf dem sich das Visuelement befindet) ein Popup ist, wird dieses geschlossen
+						<ul>
+							<li>Hinweis: Diese Einstellung wird nur angezeigt, wenn die entsprechende Visuseite als Popup konfiguriert wurde.</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Befehle: beim Anklicken des Visuelements werden die aufgeführten <link>Befehle***1007</link> ausgeführt
+		<ul>
+			<li>die Befehle werden in der angegebenen Reihenfolge ausgeführt</li>
+			<li>Hinweis: Per Kontextmenü (rechte Maustaste) kann ein Befehl gelöscht werden.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Schaltflächen</h2>
+Mit der Schaltfläche "Anwenden" werden die Einstellungen übernommen, das Fenster jedoch nicht geschlossen. So können (bei entsprechender Positionierung des Fensters) die Auswirkungen unmittelbar beurteilt werden.
+
+<b>Wichtig:</b>
+Mit der Schaltfläche "Abbrechen" werden grundsätzlich alle Änderungen verworfen. Dies betrifft jedoch <i>nicht</i> Änderungen bei "Design", "dynamischen Designs" und "Befehle" - hier werden Änderungen unmittelbar übernommen, die Schaltfläche "Abbrechen" bleibt daher wirkungslos.
+
+
+<h2>Variablen, Funktionen und Formeln</h2>
+In allen <span style="background:#e0ffe0;">hellgrün hinterlegten Eingabefeldern</span> können i.d.R. <link>Variablen, Funktionen und Formeln***r-3</link> verwendet werden.

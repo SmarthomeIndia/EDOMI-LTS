@@ -1,0 +1,75 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Kameras***1000-80</path><path>Kameraansichten***1000-83</path>Kameraansicht: Einstellungen</h1>
+Je nach gewählter Bildbearbeitungsoption (<link>Kameraansichten***1000-83</link>) kann ein Bildausschnitt festgelegt oder ein 360-Grad-Kamerabild entzerrt werden ("Fisheye-Dewarping").
+
+<h2>Grundsätzliche Bedienung</h2>
+Auf der linken Seite wird das aktuelle Kamerabild angezeigt, auf der rechten Seite wird das Ergebnis der Bildbearbeitung als Vorschau dargestellt.
+Der aktuell gewählte Bildausschnitt wird im Kamerabild farblich hervorgehoben.
+
+Das Kamerabild kann jederzeit mit der Schaltfläche "Bild aktualisieren" erneut von der Kamera abgerufen werden.
+
+Unterhalb des Kamerabildes werden einige Schieberegler zur Manipulation von Zoomfaktor, Drehwinkel und Translation angezeigt (eine Manipulation mit der Maus direkt im Bild ist nicht möglich).
+
+Unterhalb der Vorschau werden Eingabefelder und Schieberegler zur Einstellung von Seitenverhältnis und Auflösung angezeigt:
+
+<ul>
+	<li>
+		Seitenverhältnis (Breite/Höhe): legt das Seitenverhältnis in der Vorschau und in <link>Kameraaufnahmen***104</link> fest
+		<ul>
+			<li>Hinweis: entscheidend sind nicht die absoluten Werte, sondern der resultierende Bruch - ein Seitenverhältnis von 4:3 führt zum gleichen Ergebnis wie 400:300</li>
+			<li>Wichtig: bei der Anzeige in einem Visuelement <link>"Kamera"***1002-19</link> ist das Seitenverhältnis des Visuelements ausschlaggebend, das hier definierte Seitenverhältnis wird ignoriert</li>
+		</ul>
+	</li>
+
+	<li>
+		Auflösung: ermöglicht eine Reduzierung der Auflösung des Kamerabildes, um eine schnellere Berechnung (auf Kosten der Bildqualität) zu ermöglichen
+		<ul>
+			<li>Hinweis: diese Angabe wird nur in der Vorschau und in einem Visuelement <link>"Kamera"***1002-19</link> angewendet, in <link>Kameraaufnahmen***104</link> kann die Auflösung individuell eingestellt werden</li>
+			<li>Wichtig: bei sehr hohen Auflösungen des Kamerabildes (mehrere Megapixel) ist ggf. eine Reduzierung der Auflösung erforderlich (je nach Browser) - oder die Kamera wird derart konfiguriert, dass ein geringer aufgelöstes Kamerabild ausgeliefert wird</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Ggf. werden hier weitere Schieberegler zur Einstellung von diversen Parametern angezeigt (s.u.).
+
+
+<h2>Bildbearbeitungsoption: Ausschnitt</h2>
+Diese Bildbearbeitungsoption ermöglicht das Festlegen eines Bildausschnitts mit Hilfe folgender Parameter (Schieberegler):
+
+<ul>
+	<li>Zoom: vergrößern bzw. verkleinern des Ausschnitts</li>
+	<li>Rotieren: drehen des Ausschnitts um seinen Mittelpunkt</li>
+	<li>Verschieben (horizontal bzw. vertikal): verschieben des Ausschnitts in X- bzw. Y-Richtung</li>
+</ul>
+
+<b>Hinweis:</b>
+Der Bildausschnitt kann je nach Einstellungen auch über den Grenzbereich des Kamerabildes hinaus gehen.
+
+
+<h2>Bildbearbeitungsoption: 360-Grad-Entzerrung</h2>
+Diese Bildbearbeitungsoption ermöglicht das Entzerren eines Bildausschnitts eines 360-Grad-Kamerabildes mit Hilfe folgender Parameter (Schieberegler):
+
+<ul>
+	<li>Zoom: vergrößern bzw. verkleinern des Ausschnitts</li>
+	<li>Neigen: die virtuelle Kamera wird um diesen Winkel geneigt</li>
+	<li>Schwenken: die virtuelle Kamera wird um diesen Winkel geschwenkt</li>
+	<li>Verschieben (horizontal bzw. vertikal): die virtuelle Kamera wird radial bzw. seitlich verschoben</li>
+</ul>
+
+Zudem werden unterhalb der Vorschau weitere Parameter (Schieberegler) angezeigt, die eine Anpassung der individuellen Eigenschaften der Kamera ermöglichen. Je nach Kameramodell sind hier u.U. Anpassungen erforderlich: 
+
+<ul>
+	<li>
+		Anpassung Radius: der Radius des Kamerabildes wird automatisch ermittelt, jedoch kann ggf. eine Korrektur erforderlich sein
+		<ul>
+			<li>je nach Kameramodell wird das 360-Grad-Bild nicht die gesamte Sensorfläche einnehmen, eine Korrektur des ermittelten Radius ist dann für eine korrekte Berechnung erforderlich</li>
+		</ul>
+	</li>
+	<li>Anpassung perspektivische Verzerrung: ermöglicht ggf. eine Korrektur der Linsenverzerrung der Kamera</li>
+</ul>
+
+<b>Hinweis:</b>
+Der Bildausschnitt kann je nach Einstellungen auch über den Grenzbereich des Kamerabildes hinaus gehen. Zudem werden sämtliche Parameter bewusst nicht auf Plausibilität überprüft, so dass auch ungewöhnliche Kameraperspektiven ermöglicht werden.
+
+<b>Wichtig:</b>
+Diese Bildbearbeitungsoption ist nur für deckenmontierte 360-Grad-Kameras geeignet, nicht jedoch für wandmontierte Kameras.

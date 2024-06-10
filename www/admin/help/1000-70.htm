@@ -1,0 +1,97 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path>HTTP/UDP/SHELL</h1>
+Mit HTTP/UDP-Befehlen können z.B. Netzwerkgeräte (IP-Kameras, Router, etc.) über das LAN oder das Internet bedient bzw. konfiguriert werden. SHELL-Befehle hingegen erlauben die Ausführung beliebiger Programme, die lokal auf dem EDOMI-Server verfügbar sind.
+
+<b>Hinweis:</b>
+UDP- und SHELL-Befehle werden lediglich abgesetzt, d.h. die Antwort eines Servers oder die Ausgaben eines Shell-Kommandos werden nicht ausgewertet. Bei HTTP-Befehlen wird die Antwort des Servers ggf. in ein KO geschrieben (s.u.) und kann bei Bedarf mit entsprechenden Logiken ausgewertet werden.
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name des HTTP/UDP/SHELL-Befehls</li>
+
+	<li>
+		URL / Shell-Befehl mit Pfad: je nach Typ (s.u.) wird hier ein URL oder ein Shell-Befehl angegeben
+		<ul>
+			<li>bei Typ "HTTP": vollständige HTTP-URL einschließlich GET-Parameter, ggf. Login-Daten und Portangabe (z.B. <b>http://login:passwort@domain.com:80/test.php?var1=A&var2=B&...</b>)</li>
+			<li>bei Typ "UDP": URL in der Form <b>&lt;IP-Adresse&gt;:&lt;Port&gt;</b> bzw. <b>&lt;Domain&gt;:&lt;Port&gt;</b> (die UDP-Daten werden im Feld "UDP-Daten" angegeben)</li>
+			<li>bei Typ "SHELL": vollständiger Shell-Befehl, ggf. mit Pfad (z.B. <b>shutdown -h now</b>)</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 10.000 Zeichen.</li>
+		</ul>
+	</li>
+
+	<li>
+		Typ:
+		<ul>
+			<li>HTTP-GET: nach dem Absetzen des HTTP-Requests (GET-Methode) wird die vollständige Antwort abgewartet (jedoch nicht ausgewertet)</li>
+			<li>UDP: sendet die Daten im Feld "UDP-Daten" an die angegebene URL (s.o.)</li>
+			<li>SHELL: führt den angegebenen Shell-Befehl aus (s.o.) und wartet bis zum Ende der Ausführung</li>
+		</ul>
+	</li>
+
+	<li>
+		Optionen: je nach gewähltem Befehls-Typ werden folgende Optionen eingeblendet
+		<ul>
+			<li>
+				HTTP-GET:
+				<ul>
+					<li>KO (Antwort): dieses KO wird nach einem erfolgreichen HTTP-Request mit der Antwort des Servers befüllt (max. 10.000 Zeichen)</li>
+					<li>KO (Fehler): dieses KO wird im Fehlerfall auf den Wert 1 gesetzt (das KO wird <i>nicht</i> wieder auf 0 gesetzt!)</li>
+					<li>Timeout: der Verbindungsaufbau wird nach dieser Zeit (1..&infin; Sekunden) abgebrochen</li>
+					<li>Fehler protokollieren: legt fest, ob Verbindungsfehler im Fehler-Log protokolliert werden</li>
+				</ul>
+			</li>
+			<li>
+				UDP:
+				<ul>
+					<li>UDP-Daten: Rohdaten, die per UDP an die o.g. URL übermittelt werden sollen</li>
+					<li>jede Zeile (Zeilenumbruch: Enter-Taste) repräsentiert ein UDP-Datenpaket, es können also mehrere Datenpakete mit einem UDP-Befehl gesendet werden</li>
+					<li>Hinweis: Die maximale Gesamtlänge beträgt 10.000 Zeichen.</li>
+					<li>Datentyp: legt fest, ob die Daten als String oder als Byte-Werte gesendet werden</li>
+					<li>Byte-Werte sind im Hex-Format (2-stellig und durch ein Komma getrennt) anzugeben (z.B. "0a,0B,ff,FF,01")</li>
+				</ul>
+			</li>
+			<li>
+				SHELL:
+				<ul>
+					<li>keine weiteren Optionen</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Verwendung von Variablen</h2>
+Bei HTTP/UDP-Befehlen können im Feld "URL" und "UDP-Daten" folgende Variablen verwendet werden (für SHELL-Befehle stehen diese Variablen aus Sicherheitsgründen nicht(!) zu Verfügung):
+
+<ul>
+	<li>
+		"{id}": Repräsentiert den Wert eines KOs mit dieser ID
+		<ul>
+			<li>z.B. "http://{3}/..." wird zu "http://1.2.3.4/..."</li>
+			<li>Hinweis: Existiert das KO nicht, wird der Ausdruck unverändert ausgegeben.</li>
+		</ul>
+	</li>
+
+	<li>
+		"{x/y/z}": Repräsentiert den Wert einer KNX-GA
+		<ul>
+			<li>z.B. "http://domain.com/?temperatur={1/2/3}&..." wird zu "http://domain.com/?temperatur=23.5&..."</li>
+			<li>Hinweis: Existiert die KNX-GA nicht, wird der Ausdruck unverändert ausgegeben.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Technische Hinweise</h2>
+HTTP/UDP/SHELL-Befehle werden in einer Warteschlange organisiert, d.h. ein Befehl wird u.U. nicht unmittelbar ausgeführt: Ein HTTP/UDP/SHELL-Befehl wird erst ausgeführt, wenn der vorherige HTTP/UDP/SHELL-Befehl vollständig ausgeführt wurde (ggf. wartet z.B. ein HTTP-Request auf eine Antwort).
+
+Bei einem HTTP-Request wird für eine einstellbare Zeit (Timeout) auf eine Reaktion des Servers gewartet. Nach einem erfolgreichen Verbindungsaufbau wird die Antwort des Servers abgewartet und ggf. in ein KO geschrieben (maximal 10.000 Zeichen, s.o.).
+
+UDP-Befehle werden "verbindungslos" abgesetzt, d.h. EDOMI sendet die UDP-Datenpakte an einen Server und wartet nicht auf eine Reaktion.
+
+Bei SHELL-Befehlen wird die vollständige Ausführung des Befehls abgewartet. Beträgt die Laufzeit eines SHELL-Befehls mehr als 5 Minuten, wird die Warteschlange für einen weiteren HTTP/UDP/SHELL-Befehl freigegeben. Der SHELL-Befehl wird jedoch weiterhin im Hintergrund ausgeführt.
+
+
+<h2>Senden/Ausführen von HTTP/UDP/SHELL-Befehlen</h2>
+HTTP/UDP/SHELL-Befehle werden über den entsprechenden <link>Befehl***1007</link> gesendet.

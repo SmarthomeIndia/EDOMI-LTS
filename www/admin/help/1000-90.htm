@@ -1,0 +1,37 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path>Sequenzen</h1>
+Mit Hilfe von Sequenzen können beliebige <link>Befehle***1007</link> in einer definierten und anpassbaren Reihenfolge ausgeführt werden. Jede Sequenz kann eine beliebige Anzahl an Befehlen verwalten.
+Nach der Ausführung eines Befehls kann optional eine individuelle Wartezeit bis zur Ausführung des nächsten Befehls konfiguriert werden.
+
+<b>Achtung:</b>
+Sequenzen können wiederum Sequenzen ausführen, dabei ist jedoch mit besonderer Sorgfalt vorzugehen um Endlosschleifen zu vermeiden!
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name der Sequenz</li>
+</ul>
+
+
+<h2>Schaltflächen</h2>
+Mit der Schaltfläche "Sequenz erstellen" wird eine neue Sequenz mit den o.g. Eigenschaften angelegt.
+Anschließend stehen weitere Eigenschaften zu Verfügung:
+
+
+<h2>Weitere Eigenschaften</h2>
+<ul>
+	<li>
+		Befehle: hier werden die <link>Befehle***1007</link> dieser Sequenz verwaltet
+		<ul>
+			<li>
+				Für jeden Befehl kann eine Wartezeit (in Sekunden) bis zur Ausführung des nächsten Befehls angegeben werden:
+				<ul>
+					<li>0: nicht warten, d.h. der nachfolgende Befehl wird unmittelbar ausgeführt</li>
+					<li>1..&infin;: nach Ausführung dieses Befehls wird x Sekunden gewartet, bis der nachfolgende Befehl ausgeführt wird</li>
+					<li>Hinweis: Befehle werden asynchron ausgeführt, d.h. die Wartezeit schließt die tatsächliche Ausführungsdauer eines Befehls nicht(!) mit ein.</li>
+				</ul>
+			</li>
+
+			<li>Hinweis: Per Kontextmenü (rechte Maustaste) kann u.a. die Reihenfolge der Befehle angepasst werden.</li>
+		</ul>
+	</li>
+</ul>

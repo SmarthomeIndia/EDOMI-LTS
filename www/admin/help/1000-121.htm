@@ -1,0 +1,64 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Emails***1000-120</path>Eigene Emails</h1>
+Eigene Emails sind <link>vorkonfigurierte Emails***1000-120</link>, die mit entsprechenden <link>Befehlen***1007</link> nach Belieben versendet werden können.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name der Email-Vorlage</li>
+	
+	<li>
+		Empfänger: Email-Adresse des Empfängers
+		<ul>
+			<li>wird keine Empfänger-Adresse angegeben, wird die Standard-Adresse aus der <link>Basis-Konfiguration***a-1</link> übernommen</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 1000 Zeichen.</li>
+		</ul>
+	</li>
+
+	<li>
+		Betreff: Betreffzeile der Email
+		<ul>
+			<li>optional können auch spezielle Variablen angegeben werden (s.u.)</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 1000 Zeichen.</li>
+		</ul>
+	</li>
+
+	<li>
+		Inhalt: Inhalt der Email
+		<ul>
+			<li>optional können auch spezielle Variablen angegeben werden (s.u.)</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 10.000 Zeichen.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Verwendung von Variablen</h2>
+In den Feldern "Betreff" und "Inhalt" können nachfolgende Variablen verwendet werden (ohne "" anzugeben):
+
+<ul>
+	<li>
+		"{DATETIME} ": aktueller Zeitstempel
+		<ul>
+			<li>z.B. "Es ist {DATETIME} Uhr." wird zu "Es ist 27.03.2014 12:01:34 Uhr."</li>
+		</ul>
+	</li>
+
+	<li>
+		"{id}": Repräsentiert den Wert eines KOs mit dieser ID
+		<ul>
+			<li>z.B. "Die aktuelle Server-IP ist {3}" wird zu "Die aktuelle Server-IP ist 1.2.3.4"</li>
+			<li>Hinweis: Existiert das KO nicht, wird der Ausdruck unverändert ausgegeben.</li>
+		</ul>
+	</li>
+
+	<li>
+		"{x/y/z}": Repräsentiert den Wert einer KNX-GA
+		<ul>
+			<li>z.B. "Temperatur = {1/2/3} Grad Celsius" wird zu "Temperatur = 23.5 Grad Celsius"</li>
+			<li>Hinweis: Existiert die KNX-GA nicht, wird der Ausdruck unverändert ausgegeben.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Senden von Emails</h2>
+Eigene Emails werden über den entsprechenden <link>Befehl***1007</link> versendet.

@@ -1,0 +1,69 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Visualisierung***1000-20</path>Schriftarten</h1>
+In einer <link>Visualisierung***b-0</link> können beliebige Schriftarten konfiguriert und den einzelnen <link>Visuelementen***1002</link> bzw. <link>Designs***1003</link> zugeordnet werden.
+
+<b>Wichtig:</b>
+Die individuellen Schriftarten (s.u.) werden beim Start einer Visualisierung nicht(!) im Voraus geladen (kein Preloading). Erst bei der Verwendung (Anzeige) einer Schriftart wird die entsprechende Truetype-Datei vom EDOMI-Server geladen. Daher kann die Anzeige u.U. erst verzögert erfolgen.
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>
+		Name: frei wählbarer Name der Schriftart
+		<ul>
+			<li>wird kein Name angegeben, wird beim Erstellen einer individuellen Schriftart (s.u.) der Dateiname der Schriftart-Datei als Name verwendet</li>
+			<li>Hinweis: Wird eine bereits vorhandene individuelle Schriftart bearbeitet (Hochladen einer anderen Schriftart-Datei), wird der Name nicht(!) durch den neuen Dateinamen ersetzt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Typ: legt fest, ob eine System-Schriftart oder eine individuelle Schriftart erstellt werden soll
+		<ul>
+			<li>
+				System-Schriftart: Die Schriftart muss auf dem Endgerät bereits verfügbar sein und wird über den entsprechenden Namen ausgewählt
+				<ul>
+					<li>
+						Schriftart: der gültige Name einer installieren System-Schriftart (z.B. "Arial" oder "Times")
+						<ul>
+							<li>Achtung: Die Angabe von mehreren Schriftarten (z.B. "Arial,Times") ist <i>nicht</i> möglich.</li>
+							<li>Hinweis: Eine Auflistung aller auf dem Endgerät installierten System-Schriftarten ist aus technischen Gründen nicht möglich (Browser-Sicherheit), daher ist der entsprechende Name z.B. der Schriftart-Verwaltung des Betriebssystems zu entnehmen.</li>
+						</ul>
+					</li>
+					<li>Schaltfläche "Vorschau": der Vorschautext wird in der angegebenen System-Schriftart angezeigt</li>
+				</ul>
+			</li>
+			
+			<li>
+				Individuelle Schriftart: Die Schriftart wird aus einer hochzuladenen Truetype-Datei (TTF) generiert.
+				<ul>
+					<li>
+						Schaltfläche "Truetype-Datei hochladen": öffnet einen Dateiauswahl-Dialog zur Auswahl der hochzuladenden Truetype-Datei
+						<ul>
+							<li>die ausgewählte Truetype-Datei wird auf den EDOMI-Server übertragen (Upload)</li>
+							<li>nach dem (erfolgreichen) Hochladen wird der Vorschautext in der individuellen Schriftart angezeigt</li>
+							<li>Hinweis: Aus Kompatibilitätsgründen (Browser) werden nur Truetype-Schriften unterstützt (Dateiendung "ttf").</li>
+						</ul>
+					</li>
+
+					<li>
+						Gültigkeit (Stil): gibt an, ob die Schriftart ausschließlich für kursive Texte verwendet werden soll
+						<ul>
+							<li>immer anwenden: die Schriftart wird immer verwendet, unabhängig von der Stil-Eigenschaft des Visuelements</li>
+							<li>nur für kursive Texte: die Schriftart wird nur verwendet, wenn die Stil-Eigenschaft des Visuelements mit "kursiv" angegeben wurde</li>
+							<li>Hinweis: Jede Schriftart kann grundsätzlich sowohl "normal" als auch "kursiv" angezeigt werden, jedoch führt ggf. die Verwendung einer für die kursive Darstellung erstellten Truetype-Datei zu einer verbesserten Qualität.</li>
+						</ul>
+					</li>
+				
+					<li>
+						Gültigkeit (Stärke): gibt an, ob die Schriftart ausschließlich für fette Texte verwendet werden soll
+						<ul>
+							<li>immer anwenden: die Schriftart wird immer verwendet, unabhängig von der Stil-Eigenschaft des Visuelements</li>
+							<li>nur für fette Texte: die Schriftart wird nur verwendet, wenn die Stil-Eigenschaft des Visuelements mit "fett" angegeben wurde</li>
+							<li>Hinweis: Jede Schriftart kann grundsätzlich sowohl "normal" als auch "fett" angezeigt werden, jedoch führt ggf. die Verwendung einer für die fette Darstellung erstellten Truetype-Datei zu einer verbesserten Qualität.</li>
+						</ul>
+					</li>				
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+

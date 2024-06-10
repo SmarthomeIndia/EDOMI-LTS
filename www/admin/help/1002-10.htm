@@ -1,0 +1,99 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Tastatureingabe <span class="id">10</span></h1>
+Das Visuelement "Tastatureingabe" ermöglicht das Bearbeiten eines KO-Wertes per Tastatur (bzw. Bildschirmtastatur auf Smartphones und Tablets).
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>Modus: zeigt die Eingaben lesbar an ("normal") oder ersetzt die Eingabe und die Beschriftung visuell mit Platzhaltern ("Passwort")</li>
+
+	<li>
+		Inhalt vorselektieren: legt fest, ob der angezeigte Inhalt beim Bearbeiten vorselektiert werden soll oder nicht
+		<ul>
+			<li>bei aktivierter Vorselektierung wird der Inhalt ausgewählt und eine Eingabe führt zum Überschreiben des Inhalts</li>
+		</ul>
+	</li>
+
+	<li>
+		Eingabe abschließen (KO2-Wert setzen): legt fest, auf welche Weise die Eingabe abgeschlossen und der KO2-Wert auf den Inhalt der Eingabe gesetzt werden soll
+		<ul>
+			<li>nur mit Enter-Taste: die Eingabe wird nur mittels der Enter-Taste übernommen (jeder Verlust des Eingabefokus verwirft die Eingabe, z.B. durch einen Klick ausserhalb des Visuelements oder bei einem Seitenwechsel ohne Nutzerinteraktion)</li>
+			<li>mit Enter-Taste und bei Fokusverlust: die Eingabe wird mittels der Enter-Taste oder durch den Verlust des Eingabefokus übernommen (jeder Verlust des Eingabefokus führt zur Übernahme der Eingabe, z.B. durch einen Klick ausserhalb des Visuelements oder bei einem Seitenwechsel ohne Nutzerinteraktion)</li>
+		</ul>
+	</li>
+ 
+	<li>
+		Minimum (Integer/Float): unterer Grenzwert der Eingabe (unterschreitet die Eingabe das Minimum, wird die Eingabe auf diesen Wert korrigiert)
+		<ul>
+			<li>wird dieses Feld [leer] belassen, werden ggf. die KO-Filtereinstellungen angewendet</li>
+		</ul>
+	</li>
+
+	<li>
+		Maximum (Integer/Float): oberer Grenzwert der Eingabe (überschreitet die Eingabe das Maximum, wird die Eingabe auf diesen Wert korrigiert)
+		<ul>
+			<li>wird dieses Feld [leer] belassen, werden ggf. die KO-Filtereinstellungen angewendet</li>
+		</ul>
+	</li>
+
+	<li>
+		Raster (Integer/Float): die Eingabe wird auf einen Wert mit dieser "Schrittweite" umgerechnet
+		<ul>
+			<li>z.B. Raster=0.5: die Eingabe 0.45 wird zu 0, die Eingabe 2.98 wird zu 2.5 umgerechnet</li>
+			<li>wird dieses Feld [leer] belassen, werden ggf. die KO-Filtereinstellungen angewendet</li>
+		</ul>
+	</li>
+
+	<li>
+		Nachkommastellen: die Eingabe wird ggf. auf die angegebene Anzahl von Nachkommastellen gerundet
+		<ul>
+			<li>Option "KO-Filter": ggf. werden die KO-Filtereinstellungen angewendet</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Status
+		<ul>
+			<li>dieser KO-Wert wird als Ausgangswert einer Eingabe verwendet</li>
+			<li>dieser KO-Wert wird zudem zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+		</ul>
+	</li>
+
+	<li>
+		KO2: Wert setzen
+		<ul>
+			<li>dieses KO wird auf den per Tastatur eingegebenen Wert gesetzt</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Bei einer Aktivierung ergänzen sich KO1 und KO2 gegenseitig: Wird z.B. KO1 nicht angegeben, wird KO1 automatisch mit dem gleichen KO wie KO2 verknüpft (und umgekehrt).
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>Sofern nur die Eingabe von Zahlen erlaubt werden soll, müssen die Eigenschaften Minimum und/oder Maximum angegeben werden (im Visuelement bzw. in den KO-Einstellungen). Andernfalls können sowohl Zahlen, als auch Texte eingegeben werden.</li>
+	<li>Seitensteuerung/Befehle stehen nicht zu Verfügung</li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Zum Eingeben eines Wertes wird das Visuelement angeklickt.
+Das Eingabefeld wird dann in Indikatorfarbe dargestellt und ist für Tastatureingaben bereit (auf Smartphones und Tablets wird ggf. die Bildschirmtastatur des Betriebsystems eingeblendet).
+Mit der Enter-Taste wird die Eingabe abgeschlossen, ein Klick ausserhalb des Visuelements bricht die Eingabe ab.

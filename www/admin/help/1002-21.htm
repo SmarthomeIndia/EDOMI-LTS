@@ -1,0 +1,96 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Diagramm <span class="id">21</span></h1>
+Das Visuelement "Diagramm" zeigt die Inhalte von Datenarchiven bzw. konfigurierten <link>Diagrammen***1000-130</link> grafisch an.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>Diagramm: Auswahl des <link>konfigurierten Diagramms***1000-130</link>, das angezeigt werden soll</li>
+
+	<li>
+		Opazität der Beschriftungen: gibt die Opazität der nachfolgenden Beschriftungen an
+		<ul>
+			<li>10..100%: Hauptintervall, X-Achsenbeschriftung und X-Achsenticks werden ggf. mit dieser Opazität angezeigt</li>
+			<li>unsichtbar: keinerlei Beschriftungen, als Diagrammfläche wird das gesamte Visuelement genutzt (keinerlei Ränder, die Y-Achsen und ggf. der aktuelle Wert werden nicht angezeigt, horizontale Gitterlinien werden ggf. angezeigt)</li>
+			<li>Hinweis: Der Diagrammtitel wird stets mit einer Opazität von 100% angezeigt (sofern nicht die Option "unsichtbar" ausgewählt wurde).</li>
+		</ul>
+	</li>
+
+	<li>Beschriftung der Titelzeile: legt fest, ob der Digrammtitel und das Hauptintervall (Datumsbereich) angezeigt werden sollen</li>
+
+	<li>Beschriftung der X-Achse: legt fest, ob die Einheit (Legende) angezeigt und ob die Ticks beschriftet werden sollen</li>
+
+	<li>
+		Ticks auf der X-Achse: legt fest, ob die Ticks auf der X-Achse angezeigt werden sollen
+		<ul>
+			<li>Hinweis: "Trennlinien" sind vertikale Linien, die ggf. besondere Intervalle (z.B. einen Tageswechsel) kennzeichnen - diese Trennlinien können optional beschriftet werden (s.o.).</li>
+		</ul>
+	</li>
+
+	<li>
+		Aktualisierung per KO: legt fest, ob das Diagramm bei Änderung des KO1-Wertes (s.u.) aktualisiert werden soll
+		<ul>
+			<li>deaktiviert: das Diagramm wird ggf. ausschließlich per Intervall (s.u.) aktualisiert</li>
+			<li>aktiviert: das Diagramm wird bei jeder KO1-Wertänderung aktualisiert (und ggf. zusätzlich per Intervall, s.u.)</li>
+		</ul>
+	</li>
+
+	<li>
+		Aktualisierung per Intervall: legt fest, in welchem Intervall das Diagramm aktualisiert werden soll
+		<ul>
+			<li>deaktiviert: das Diagramm wird nicht per Intervall aktualisiert (ggf. jedoch per KO, s.o.)</li>
+			<li>"alle x Sekunden/Minuten/Stunden": das Diagramm wird in dem ausgewählten Intervall aktualisiert (und ggf. zusätzlich per KO, s.o.)</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Wenn "Beschriftung der Titelzeile" und "Beschriftung der X-Achse" deaktiviert sind, wird die Diagrammfläche in vertikaler Richtung entsprechend vergrößert.
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerung
+		<ul>
+			<li>dieser KO-Wert wird zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>immer wenn das KO auf einen Wert gesetzt wird, wird das Diagramm ggf. aktualisiert (siehe "Aktualisierung per KO")</li>
+			<li>Hinweis: dieses KO kann ggf. zur Definition des Zeitintervalls des Diagramms verwendet werden (s.u.)</li>
+			<li>Hinweis: wird dieses KO mit dem "KO: Status" eines Datenarchivs verknüpft, wird das Diagramm ggf. automatisch aktualisiert sobald der Inhalt des Datenarchivs verändert wird (siehe "Aktualisierung per KO")
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>
+		Im Feld "Beschriftung" (auch in dynamischen Designs) kann optional ein Zeitintervall in der Form "Startdatum ** Enddatum" angegeben werden:
+		<ul>
+			<li>ist eine solche Angabe vorhanden, werden die Einstellungen in der <link>Diagramm-Konfiguration***1000-130</link> ignoriert</li>
+			<li>Beispiele:</li>
+			<li>"**": zeigt alle verfügbaren Daten an</li>
+			<li>"** now": zeigt alle verfügbaren Daten bis zum aktuellen Zeitpunkt an</li>
+			<li>"-3 days ** now": zeigt alle verfügbaren Daten der letzten 3 Tage bis zum aktuellen Zeitpunkt an</li>
+			<li>"-{#} days ** now": zeigt alle verfügbaren Daten der letzten x Tage bis zum aktuellen Zeitpunkt an, wobei x dem KO-Wert (s.o.) entspricht</li>
+			<li>Details hierzu sind der Hilfe zur <link>Diagramm-Konfiguration***1000-130</link> zu entnehmen</li>
+		</ul>
+	</li>
+	
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Mit einem Klick auf dieses Visuelement werden alle zugewiesenen Seitensteuerungen/Befehle ausgeführt.

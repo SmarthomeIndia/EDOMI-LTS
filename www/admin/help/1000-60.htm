@@ -1,0 +1,50 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path>Meldungsarchive</h1>
+Meldungsarchive können eine beliebige Anzahl von Meldungen und Werten archivieren.
+
+<b>Hinweis:</b>
+Meldungsarchive können nicht(!) als Datenquelle für Diagramme verwendet werden.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name des Meldungsarchivs</li>
+	
+	<li>
+		KO: Status
+		<ul>
+			<li>bei jeder Änderung des Datenbestandes an diesem Archiv wird dieses KO auf die Gesamtanzahl der Archiveinträge gesetzt:</li>
+			<li>beim Start von EDOMI</li>
+			<li>beim Hinzufügen/Entfernen eines Eintrags</li>
+			<li>beim automatischen Löschen von Einträgen (s.u.)</li>
+		</ul>
+	</li>
+
+	<li>
+		Totzeit: legt fest, ob das Hinzufügen eines Eintrags jederzeit oder nur nach Verstreichen einer Mindestzeit seit dem letzten Hinzufügen ermöglicht wird
+		<ul>
+			<li>0: das Hinzufügen eines Eintrags ist ohne Einschränkung möglich</li>
+			<li>1..&infin; (Sekunden, Ganzzahl): das Hinzufügen eines Eintrags ist nur alle 1..&infin; Sekunden möglich</li>
+		</ul>
+	</li>
+
+	<li>
+		Speicherdauer: legt fest, ob und wann Einträge automatisch gelöscht werden
+		<ul>
+			<li>Archiveinträge werden grundstäzlich mit einem Zeitstempel archiviert</li>
+			<li>ist ein Archiveintrag älter als die festgelegte Speicherdauer, wird der Archiveintrag beim Start von EDOMI und täglich um 00:00:00 Uhr aus dem Archiv gelöscht</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Hinzufügen und Entfernen von Archiveinträgen</h2>
+Archiveinträge werden über entsprechende <link>Befehle***1007</link> hinzugefügt oder entfernt. Zudem können <link>Logikbausteine***r-0</link> weitere Funktionen zur Verwaltung von Archiveinträgen bereitstellen.
+Zudem können einzele Archiveinträge mit Hilfe des Visuelements <link>Meldungsarchiv***1002-25</link> gelöscht werden.
+
+Jede Meldung kann optional beim Erzeugen mit einer <link>Formatierung***1000-155</link> visuell angepasst werden.
+
+<b>Hinweis:</b>
+Archiveinträge werden u.U. automatisch gelöscht, sofern die Eigenschaft "Speicherdauer" (s.o.) entsprechend konfiguriert wurde. 
+
+
+<h2>Struktur von Archiveinträgen</h2>
+Archiveinträge werden jeweils mit einem eindeutigen Zeitstempel versehen (Datum, Uhrzeit und Mikrosekunden). Der eigentliche Wert kann ein beliebiger Datentyp mit maximal 10.000 Zeichen Länge sein.

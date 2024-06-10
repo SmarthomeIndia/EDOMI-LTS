@@ -1,0 +1,84 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Emails***1000-120</path>System-Emails</h1>
+System-Emails sind <link>vorkonfigurierte Emails***1000-120</link>, die ggf. beim Eintreten bestimmter Ereignisse automatisiert versendet werden.
+
+Die folgenden Email-Vorlagen sind inhaltlich beliebig anpassbar, die funktionale Bedeutung bleibt jedoch erhalten:
+<table class="tableHelp">
+	<tr>
+		<td>ID</td>
+		<td width="30%">Name (Default)</td>
+		<td>Erläuterung</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>Warnung: Unerwarteter Reboot</td>
+		<td>Diese Email wird gesendet, wenn der EDOMI-Server unerwartet neugestartet (Reboot) wurde.</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>Warnung: CPU/RAM/HDD</td>
+		<td>Diese Email wird einmal täglich um 00:00:00 Uhr gesendet, wenn eine zu hohe CPU-Last, ein zu hoher RAM-Verbrauch oder eine zu geringe Festplatten-Restkapazität festgestellt wurde. Maßgeblich ist dabei der entsprechende aktuelle Wert um 00:00:00 Uhr eines jeden Tages.</td>
+	</tr>
+</table>
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name der Email-Vorlage</li>
+	
+	<li>
+		Empfänger: Email-Adresse des Empfängers
+		<ul>
+			<li>wird keine Empfänger-Adresse angegeben, wird die Standard-Adresse aus der <link>Basis-Konfiguration***a-1</link> übernommen</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 1000 Zeichen.</li>
+		</ul>
+	</li>
+
+	<li>
+		Betreff: Betreffzeile der Email
+		<ul>
+			<li>optional können auch spezielle Variablen angegeben werden (s.u.)</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 1000 Zeichen.</li>
+		</ul>
+	</li>
+
+	<li>
+		Inhalt: Inhalt der Email
+		<ul>
+			<li>optional können auch spezielle Variablen angegeben werden (s.u.)</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 10.000 Zeichen.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Verwendung von Variablen</h2>
+In den Feldern "Betreff" und "Inhalt" können nachfolgende Variablen verwendet werden (ohne "" anzugeben):
+
+<ul>
+	<li>
+		"{DATETIME} ": aktueller Zeitstempel
+		<ul>
+			<li>z.B. "Es ist {DATETIME} Uhr." wird zu "Es ist 27.03.2014 12:01:34 Uhr."</li>
+		</ul>
+	</li>
+
+	<li>
+		"{id}": Repräsentiert den Wert eines KOs mit dieser ID
+		<ul>
+			<li>z.B. "Die aktuelle Server-IP ist {3}" wird zu "Die aktuelle Server-IP ist 1.2.3.4"</li>
+			<li>Hinweis: Existiert das KO nicht, wird der Ausdruck unverändert ausgegeben.</li>
+		</ul>
+	</li>
+
+	<li>
+		"{x/y/z}": Repräsentiert den Wert einer KNX-GA
+		<ul>
+			<li>z.B. "Temperatur = {1/2/3} Grad Celsius" wird zu "Temperatur = 23.5 Grad Celsius"</li>
+			<li>Hinweis: Existiert die KNX-GA nicht, wird der Ausdruck unverändert ausgegeben.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Senden von Emails</h2>
+System-Emails werden ggf. automatisch versendet (<link>Basis-Konfiguration***a-1</link>).

@@ -1,0 +1,367 @@
+<h1>Befehle</h1>
+Mit Hilfe von Befehlen werden u.a. die in der <link>Konfiguration***1000</link> definierten Einstellungen abgerufen (z.B. eine Email versenden, ein Kamerabild archivieren oder eine Szene abrufen). Mit Hilfe folgender Komponenten werden diese Befehle ausgeführt:
+
+<ul>
+	<li><link>Logiken***1000-10</link> (bzw. <link>Ausgangsboxen***lbs_12000010</link>)</li>
+	<li><link>Sequenzen***1000-90</link></li>
+	<li><link>Makros***1000-95</link></li>
+	<li><link>Visuelemente***1002</link></li>
+</ul>
+
+<b>Wichtig:</b>
+Die Ausführung mehrerer Befehle erfolgt in der gleichen Reihenfolge wie in der jeweiligen Konfiguration angezeigt (von oben nach unten). Die einzelnen Befehle werden jedoch asynchron ausgeführt, d.h. es wird i.d.R. nicht gewartet bis der vorherige Befehl auch tatsächlich <i>vollständig</i> ausgeführt worden ist.
+
+<b>Hinweis:</b>
+Bei Befehlen in <link>Sequenzen***1000-90</link> kann eine Wartezeit (in Sekunden) bis zur Ausführung des nächsten Befehls angegeben werden.
+
+<table class="tableHelp">
+	<tr>
+		<td>Befehl</td>
+		<td>Beschreibung</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#ffe9e9"><h3>Ausgangsboxen</h3>
+			<b>Hinweis:</b>
+			Diese Befehle sind nur für <link>Ausgangsboxen***lbs_12000010</link> verfügbar. Die Ausführung des Befehls hängt vom Typ der Ausgangsbox und dessen Belegung ab.
+		</td>
+	</tr>
+	<tr>
+		<td>KO: Eingangswert (Ausgangsbox) zuweisen</td>
+		<td>
+			Das ausgewählte <link>KO***1000-30</link> wird bei jedem neuen Telegramm am Eingang einer Ausgangsbox ggf. auf diesen Wert gesetzt.
+		</td>
+	</tr>
+	<tr>
+		<td>Datenarchiv: Eingangswert (Ausgangsbox) hinzufügen</td>
+		<td>
+			Bei jedem neuen Telegramm am Eingang einer Ausgangsbox wird dieser Wert ggf. im ausgewählten <link>Datenarchiv***1000-50</link> archiviert.			
+			Der Zeitstempel des Archiveintrags kann optional angepasst werden, z.B. um im Tagesverlauf summierte Werte rückwirkend zu archivieren.
+		</td>
+	</tr>
+	<tr>
+		<td>Meldungsarchiv: Eingangswert (Ausgangsbox) hinzufügen</td>
+		<td>
+			Bei jedem neuen Telegramm am Eingang einer Ausgangsbox wird dieser Wert ggf. im ausgewählten <link>Meldungsarchiv***1000-60</link> archiviert.
+			Optional kann eine <link>Formatierung***1000-155</link> für die zu erzeugende Meldung ausgewählt werden.
+			Der Zeitstempel des Archiveintrags kann optional angepasst werden, z.B. um eine Meldung rückwirkend zu archivieren.
+		</td>
+	</tr>
+	<tr>
+		<td>Visu/Visuaccount: Eingangswert (Ausgangsbox) als Visuseite aufrufen</td>
+		<td>
+			Bei jedem neuen Telegramm am Eingang einer Ausgangsbox wird dieser Wert ggf. als <link>Visuseite***1000-22</link> in der ausgewählten <link>Visualisierung***1000-21</link> aufgerufen.
+			Der Wert des Telegramms repräsentiert die ID einer beliebigen Visuseite (oder eines Popups) der ausgewählten Visualisierung. Existiert keine Visuseite mit dieser ID, wird der Befehl ignoriert.
+			Optional kann ein <link>Visuaccount***1000-23</link> ausgewählt werden, um den Aufruf der Visuseite auf diesen bestimmen Account zu beschränken.
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#e9e9e9"><h3>Kommunikationsobjekte</h3></td>
+	</tr>
+	<tr>
+		<td>KO: Wert zuweisen</td>
+		<td>Das ausgewählte <link>KO***1000-30</link> wird auf den angegebenen Wert gesetzt.</td>
+	</tr>
+	<tr>
+		<td>KO: Wert addieren</td>
+		<td>Der aktuelle Wert des ausgewählten <link>KOs***1000-30</link> wird mit dem angegebenen Wert addiert (eine Subtraktion kann durch einen negativen Wert erreicht werden).</td>
+	</tr>
+	<tr>
+		<td>KO: Wert eines anderen KOs zuweisen</td>
+		<td>Das ausgewählte <link>KO***1000-30</link> wird auf den aktuellen Wert eines anderen KOs gesetzt (es erfolgt kein(!) Read-Request).</td>
+	</tr>
+	<tr>
+		<td>KO: Wechseln zwischen 0 und Wert</td>
+		<td>Der aktuelle Wert des ausgewählten <link>KOs***1000-30</link> wechselt beim jedem Aufruf dieses Befehls zwischen 0 und dem angegebenen Wert in Abhängigkeit vom aktuellen Wert des KOs (0 oder &ne;0).</td>
+	</tr>
+	<tr>
+		<td>KO: Wechseln zwischen 0 und Wert (mit Status-KO)</td>
+		<td>Der aktuelle Wert des ausgewählten <link>KOs***1000-30</link> wechselt beim jedem Aufruf dieses Befehls zwischen 0 und dem angegebenen Wert in Abhängigkeit vom Wert des angegebenen Status-KOs (0 oder &ne;0).</td>
+	</tr>
+	<tr>
+		<td>KO: Wechseln zwischen 1 und Wert (mit Status-KO)</td>
+		<td>Der aktuelle Wert des ausgewählten <link>KOs***1000-30</link> wechselt beim jedem Aufruf dieses Befehls zwischen 1 und dem angegebenen Wert in Abhängigkeit vom Wert des angegebenen Status-KOs (1 oder &ne;1).</td>
+	</tr>
+	<tr>
+		<td>KO: Rasterwert addieren/subtrahieren</td>
+		<td>Der aktuelle Wert des ausgewählten <link>KOs***1000-30</link> wird mit dem Raster-Wert des KOs addiert.</td>
+	</tr>
+	<tr>
+		<td>KO: Wertliste vor/zurück</td>
+		<td>
+			Der aktuelle <i>nummerische</i> Wert des ausgewählten <link>KOs***1000-30</link> wird auf einen Vorgänger/Nachfolger-Wert aus der konfigurierten Wertliste gesetzt.
+			Eine Schrittweite >0 führt zur Auswahl eines nachfolgenden Wertes, eine Schrittweite <0 zur Auswahl eines vorherigen Wertes.
+			Beispielweise führt eine Schrittweite von 3 zur Auswahl des dritten nachfolgenden Wertes aus der Wertliste. Ist der Anfang oder das Ende der Wertliste erreicht, wird der KO-Wert nicht verändert (das KO wird jedoch erneut auf den aktuellen Wert gesetzt). 
+			Hinweis: Weitere Informationen zur Verwendung der Wertliste sind in der <link>Hilfe zur KO-Konfiguration***1000-30</link> verfügbar.
+		</td>
+	</tr>
+	<tr>
+		<td>KO: Abfragen (Read-Request)</td>
+		<td>
+			Der aktuelle Wert des ausgewählten <link>KOs***1000-30</link> wird vom KNX-Bus abgefragt (Read-Request), sofern eine entsprechend konfigurierte <link>KNX-Gruppenadresse***1000-32</link> angegeben wurde.
+			Hinweis: Es wird nicht(!) auf die Antwort (Response) des Read-Requests gewartet. Das KNX-Endgerät wird bei korrekter Konfiguration (L-Flag) asynchron antworten. 
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#e9e9e9"><h3>Visualisierungen</h3>
+			<b>Hinweis:</b>
+			Die nachfolgenden Befehle werden asynchron an die Visualisierung übermittelt, d.h. in Abhängigkeit vom festgelegten Intervall in der <link>Basis-Konfiguration***a-1</link> werden diese Befehle u.U. geringfügig verzögert ausgeführt.
+
+			<b>Hinweis zur Tonausgabe/Sprachausgabe:</b>
+			Auf einigen Endgeräten (z.B. iOS-basierten Geräten) ist unter Umständen die Tonausgabe und/oder die Sprachausgabe erst dann verfügbar, wenn diese einmalig mit einem Klick (Nutzerinteraktion) aktiviert wurde. In diesem Fall wird am oberen Bildschirmrand die Meldung "Tonausgabe aktivieren" angezeigt und sollte mit einem Klick bestätigt werden (siehe auch <link>Visualisierung***b-0</link>).
+		</td>
+	</tr>
+	<tr>
+		<td>Visu/Visuaccount: Visuseite/Popup aufrufen</td>
+		<td>
+			Die ausgewählte <link>Visuseite***1000-22</link> (bzw. das Popup) wird auf allen Endgeräten aufgerufen, die mit dem gewählten <link>Visuaccount***1000-23</link> in die zugehörige Visualisierung eingeloggt sind.
+			Wird kein Visuaccount angegeben, wird die ausgewählte Visuseite auf allen Endgeräten aufgerufen, die in die zugehörige Visualisierung mit einem beliebigen Account eingeloggt sind.
+		</td>
+	</tr>
+	<tr>
+		<td>Visu/Visuaccount: Popup schließen</td>
+		<td>
+			Das ausgewählte Popup wird auf allen Endgeräten geschlossen, die mit dem gewählten <link>Visuaccount***1000-23</link> in die zugehörige Visualisierung eingeloggt sind.
+			Wird kein Visuaccount angegeben, wird das ausgewählte Popup auf allen Endgeräten geschlossen, die in die zugehörige Visualisierung mit einem beliebigen Account eingeloggt sind.
+			Hinweis: Ist die ausgewählte <link>Visuseite***1000-22</link> kein Popup, wird dieser Befehl bei der Ausführung wirkungslos bleiben.
+		</td>
+	</tr>
+	<tr>
+		<td>Visu/Visuaccount: Alle Popups schließen</td>
+		<td>
+			In der ausgewählten Visualisierung werden alle Popups auf allen Endgeräten geschlossen, die mit dem gewählten <link>Visuaccount***1000-23</link> in die zugehörige Visualisierung eingeloggt sind.
+			Wird kein Visuaccount angegeben, werden die Popups auf allen Endgeräten geschlossen, die in die zugehörige Visualisierung mit einem beliebigen Account eingeloggt sind.
+		</td>
+	</tr>
+	<tr>
+		<td>Visu: Ton abspielen</td>
+		<td>
+			Der ausgewählte <link>Ton***1000-29</link> wird auf allen Endgeräten abgespielt, die in die ausgewählte <link>Visualisierung***1000-21</link> mit einem beliebigen Account eingeloggt sind.
+			Wird kein Ton angegeben, wird eine laufende Ton-Wiedergabe abgebrochen.
+		</td>
+	</tr>
+	<tr>
+		<td>Visuaccount: Ton abspielen</td>
+		<td>
+			Der ausgewählte <link>Ton***1000-29</link> wird auf allen Endgeräten abgespielt, die mit dem ausgewählten <link>Visuaccount***1000-23</link> in eine beliebige Visualisierung eingeloggt sind.
+			Wird kein Ton angegeben, wird eine laufende Ton-Wiedergabe abgebrochen.
+		</td>
+	</tr>
+	<tr>
+		<td>Visu: Sprachausgabe</td>
+		<td>
+			Der angegebene Text wird auf allen Endgeräten per Sprachausgabe vorgelesen, die in die ausgewählte <link>Visualisierung***1000-21</link> mit einem beliebigen Account eingeloggt sind.
+			
+			Der Text kann folgende Variablen enthalten:			
+			<ul>
+				<li>
+					"{id}": Repräsentiert den Wert eines KOs mit dieser ID
+					<ul>
+						<li>z.B. "Es ist {5} Uhr" wird zu "Es ist 12:00:00 Uhr" (Systemzeit)</li>
+						<li>Hinweis: Existiert das KO nicht, wird der Ausdruck unverändert ausgegeben.</li>
+					</ul>
+				</li>
+			
+				<li>
+					"{x/y/z}": Repräsentiert den Wert einer KNX-GA
+					<ul>
+						<li>z.B. "Die Temperatur beträgt {1/2/3} Grad" wird zu "Die Temperatur beträgt 21 Grad"</li>
+						<li>Hinweis: Existiert die KNX-GA nicht, wird der Ausdruck unverändert ausgegeben.</li>
+					</ul>
+				</li>
+			</ul>
+
+			Optional können folgende Parameter <i>vor</i> dem Text angegeben und mit "***" abgeschlossen werden "&lt;Sprache&gt;/&lt;Geschwindigkeit&gt;/&lt;Tonhöhe&gt;***Text...":
+			<ul>
+				<li>
+					Sprache:
+					<ul>
+						<li>de-DE: Deutsch</li>
+						<li>en-US: Englisch</li>
+						<li>es-ES: Spanisch</li>
+						<li>fr-FR: Französisch</li>
+					</ul>
+				</li>
+				<li>Geschwindigkeit: ein Wert zwischen 0.1 und 10 (Standard ist 1)</li>
+				<li>Tonhöhe: ein Wert zwischen 0 und 2 (Standard ist 1)</li>
+			</ul>
+			
+			<b>Hinweis:</b>
+			Es sind stets <i>alle</i> oder <i>keine</i> Parameter anzugeben! Ohne die Angabe von Parametern werden die Standardeinstellungen des Browser oder die zuletzt verwendeten Parameter (auch die des Visuelements <link>Sprachausgabe***1002-31</link>) angewendet.
+
+			<b>Beispiele:</b>
+			"de-DE/1/0.5***Dies ist ein Test": Der Text wird auf Deutsch mit der Geschwindigkeit 1 und der Tonhöhe 0.5 vorgelesen.
+			"Dies ist ein Test": Der Text wird mit den Standardeinstellungen des Browsers oder den zuletzt verwendeten Parametern vorgelesen.
+		</td>
+	</tr>
+	<tr>
+		<td>Visuaccount: Sprachausgabe</td>
+		<td>
+			Der angegebene Text wird auf allen Endgeräten per Sprachausgabe vorgelesen, die mit dem ausgewählten <link>Visuaccount***1000-23</link> in eine beliebige Visualisierung eingeloggt sind.
+			(Variablen und Parameter wie beim Befehl "Visu: Sprachausgabe")
+		</td>
+	</tr>
+	<tr>
+		<td>Visu/Visuaccount: Logout</td>
+		<td>
+			Alle Endgeräte, die in die ausgewählte <link>Visualisierung***1000-21</link> mit dem ausgewählten <link>Visuaccount***1000-23</link> eingeloggt sind, werden aus der Visualisierung ausgeloggt.
+			Wird keine Visualisierung angegeben, sind sämtliche Visualisierungen betroffen in die die Endgeräte mit dem gewählten Visuaccount eingeloggt sind.
+			Wird kein Visuaccount angegeben, sind sämtliche Visualisierungen betroffen in die die Endgeräte mit einem beliebigen Visuaccount eingeloggt sind.
+			Ggf. wird das Status-KO des Visuaccounts (bzw. aller Visuaccounts) auf den Wert 0 gesetzt (dies wird u.U. einige Sekunden verzögert erfolgen).
+			Hinweis: Werden weder eine Visualisierung noch ein Visuaccount angegeben, werden alle Endgeräte aus allen Visualisierungen ausgeloggt.
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#e9e9e9"><h3>Archive</h3></td>
+	</tr>
+	<tr>
+		<td>Datenarchiv: Wert hinzufügen</td>
+		<td>Der angegebene Wert wird im ausgewählten <link>Datenarchiv***1000-50</link> archiviert.</td>
+	</tr>
+	<tr>
+		<td>Datenarchiv: KO-Wert hinzufügen</td>
+		<td>Der aktuelle Wert des angegebenen KOs wird im ausgewählten <link>Datenarchiv***1000-50</link> archiviert.</td>
+	</tr>
+	<tr>
+		<td>Datenarchiv: Eintrag entfernen</td>
+		<td>
+			Ein oder mehrere Einträge werden aus dem ausgewählten <link>Datenarchiv***1000-50</link> entfernt (gelöscht):
+			<ul>
+				<li>neusten Eintrag entfernen: der aktuellste Eintrag wird aus dem Archiv entfernt</li>
+				<li>ältesten Eintrag entfernen: der älteste Eintrag wird aus dem Archiv entfernt</li>
+				<li>alle Einträge entfernen: das Archiv wird vollständig geleert</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>Meldungsarchiv: Meldung hinzufügen</td>
+		<td>
+			Der angegebene Wert wird im ausgewählten <link>Meldungsarchiv***1000-60</link> archiviert.
+
+			Die Meldung kann folgende Variablen enthalten:			
+			<ul>
+				<li>
+					"{id}": Repräsentiert den Wert eines KOs mit dieser ID
+					<ul>
+						<li>z.B. "Es ist {5} Uhr" wird zu "Es ist 12:00:00 Uhr" (Systemzeit)</li>
+						<li>Hinweis: Existiert das KO nicht, wird der Ausdruck unverändert ausgegeben.</li>
+					</ul>
+				</li>
+			
+				<li>
+					"{x/y/z}": Repräsentiert den Wert einer KNX-GA
+					<ul>
+						<li>z.B. "Die Temperatur beträgt {1/2/3} Grad" wird zu "Die Temperatur beträgt 21 Grad"</li>
+						<li>Hinweis: Existiert die KNX-GA nicht, wird der Ausdruck unverändert ausgegeben.</li>
+					</ul>
+				</li>
+			</ul>
+			
+			Optional kann eine <link>Formatierung***1000-155</link> für die zu erzeugende Meldung ausgewählt bzw. im Inhalt der Meldung hinzugefügt werden.
+		</td>
+	</tr>
+	<tr>
+		<td>Meldungsarchiv: Meldung entfernen</td>
+		<td>
+			Ein oder mehrere Meldungen werden aus dem ausgewählten <link>Meldungsarchiv***1000-60</link> entfernt (gelöscht):
+			<ul>
+				<li>neuste Meldung entfernen: die aktuellste Meldung wird aus dem Archiv entfernt</li>
+				<li>älteste Meldung entfernen: die älteste Meldung wird aus dem Archiv entfernt</li>
+				<li>alle Meldungen entfernen: das Archiv wird vollständig geleert</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>Kameraarchiv: Kamerabild hinzufügen</td>
+		<td>
+			Das aktuelle Livebild einer Kamera wird im ausgewählten <link>Kameraarchiv***1000-82</link> archiviert.
+			Hinweis: Die Zuweisung der <link>Kamera***1000-81</link> erfolgt im Kamerarchiv selbst.
+		</td>
+	</tr>
+	<tr>
+		<td>Kameraarchiv: Kamerabild entfernen</td>
+		<td>
+			Ein oder mehrere Kamerabilder werden aus dem ausgewählten <link>Kameraarchiv***1000-82</link> entfernt (gelöscht):
+			<ul>
+				<li>neustes Kamerabild entfernen: das aktuellste Kamerabild wird aus dem Archiv entfernt</li>
+				<li>ältestes Kamerabild entfernen: das älteste Kamerabild wird aus dem Archiv entfernt</li>
+				<li>alle Kamerabilder entfernen: das Archiv wird vollständig geleert</li>
+				<li>Hinweis: Die eigentlichen Bilddateien werden erst bei einem EDOMI-Neustart, täglich um 00:00:00 Uhr oder bei einer Projekt-Aktivierung gelöscht.</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>Anrufarchiv: Eintrag entfernen</td>
+		<td>
+			Ein oder mehrere Einträge werden aus dem ausgewählten <link>Anrufarchiv***1000-127</link> entfernt (gelöscht):
+			<ul>
+				<li>neusten Eintrag entfernen: der aktuellste Eintrag wird aus dem Archiv entfernt</li>
+				<li>ältesten Eintrag entfernen: der älteste Eintrag wird aus dem Archiv entfernt</li>
+				<li>alle Einträge entfernen: das Archiv wird vollständig geleert</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="#e9e9e9"><h3>Sonstiges</h3></td>
+	</tr>
+	<tr>
+		<td>Szene: Abrufen/lernen</td>
+		<td>Die ausgewählte <link>Szene***1000-40</link> wird abgerufen bzw. angelernt.</td>
+	</tr>
+	<tr>
+		<td>Sequenz: Abrufen/stoppen</td>
+		<td>
+			Die ausgewählte <link>Sequenz***1000-90</link> wird abgerufen (ausgeführt) bzw. gestoppt (abgebrochen).
+			Hinweis: Wird eine Sequenz, die aktuell ausgeführt wird erneut abgerufen, wird dieser Befehl ignoriert (eine "laufende" Sequenz wird nicht neugestartet). 
+		</td>
+	</tr>
+	<tr>
+		<td>Makro: Ausführen</td>
+		<td>
+			Das ausgewählte <link>Makro***1000-95</link> wird ausgeführt.
+		</td>
+	</tr>
+	<tr>
+		<td>HTTP/UDP/SHELL: Ausführen</td>
+		<td>
+			Der ausgewählte <link>HTTP/UDP/SHELL-Befehl***1000-70</link> wird ausgeführt.
+			Hinweis: Die Ausführung wird in einer Warteschlange organisiert, d.h. der Befehl wird u.U. nicht unmittelbar ausgeführt.
+		</td>
+	</tr>
+	<tr>
+		<td>IR-Befehl: Senden</td>
+		<td>
+			Der ausgewählte <link>IR-Befehl***1000-75</link> wird über den gewählten Kanal gesendet (Modul "<link>IRtrans***a-1-4</link>" erforderlich).
+			Kanal 1: i.d.R. die interne IR-LED des IRtrans
+			Kanal 2: die optionalen externen IR-LEDs des IRtrans
+			Hinweis: Die Ausführung wird in einer Warteschlange organisiert, d.h. der Befehl wird u.U. nicht unmittelbar ausgeführt.
+		</td>
+	</tr>
+	<tr>
+		<td>Email: Senden</td>
+		<td>
+			Die ausgewählte <link>Email***1000-120</link> wird gesendet.
+			Hinweis: Die Ausführung wird in einer Warteschlange organisiert, d.h. der Befehl wird u.U. nicht unmittelbar ausgeführt.
+		</td>
+	</tr>
+	<tr>
+		<td>Telefonbucheintrag: Anrufen/auflegen</td>
+		<td>
+			Der ausgewählte <link>Telefonbucheintrag***1000-125</link> wird für die angegebene Anrufdauer angerufen (Modul "<link>Telefonie-Gateway***a-1-2</link>" erforderlich). Wird kein Telefonbucheintrag ausgewählt, wird eine ggf. bestehende Verbindung beendet ("auflegen").
+			<ul>
+				<li>Anrufdauer "unendlich": der Telefonbucheintrag wird angerufen, die Verbindung bleibt dauerhaft bestehen</li>
+				<li>Anrufdauer (Zeitangabe): der Telefonbucheintrag wird angerufen, die Verbindung wird nach der ausgewählten Zeit wieder beendet</li>
+			</ul>
+			Hinweis: Die Ausführung wird in einer Warteschlange organisiert, d.h. der Befehl wird u.U. nicht unmittelbar ausgeführt.
+			
+			<b>Wichtig:</b>
+			Die Funktion "Auflegen" ist nur in Kombination mit einem vorherigen Anruf von "unendlicher Dauer" wirksam. Wird eine bestimmte Anrufdauer angegeben, bleibt das Auflegen ohne Wirkung, da dieser Befehl erst nach Ablauf der definierten Anrufdauer ausgeführt wird (der Anruf ist jedoch dann ohnehin bereits beendet).
+		</td>
+	</tr>
+	<tr>
+		<td>EDOMI: Steuerung</td>
+		<td>
+			Ermöglicht das <link>Steuern von EDOMI***0-0</link> bzw. das Erstellen eines <link>Autobackups***a-3</link>.
+			Hinweis: Die Ausführung wird in einer Warteschlange organisiert, d.h. der Befehl wird u.U. nicht unmittelbar ausgeführt.
+		</td>
+	</tr>
+</table>

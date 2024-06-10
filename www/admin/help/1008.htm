@@ -1,0 +1,273 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Visualisierung***1000-20</path><path>Diagramme***1000-130</path>Datenquelle</h1>
+Datenquellen definieren die einzelnen Graphen eines <link>Diagramms***1000-130</link>, das in einer Visualisierung mit Hilfe des <link>Visuelements Diagramm***1002-21</link> grafisch dargestellt werden kann.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Datenarchiv: Auswahl des <link>Datenarchivs***1000-50</link>, auf dessen Grundlage die Graphen berechnet werden</li>
+
+	<li>
+		Graph 1: dieser Graph wird als erstes im Diagramm berechnet und dargestellt
+		<ul>
+			<li>Typ: Auswahl der grafischen Darstellung des Graphen (s.u.)</li>
+			<li>
+				Datenpunkte im Mittelwert-Intervall: liegen mehrere Datenpunkte innerhalb des Mittelwert-Intervalls (s.u.), werden diese zu einem Mittelwert zusammengefasst bzw. als Min- und Max-Wert angezeigt
+				<ul>
+					<li>Mittelwert: ggf. wird der der Mittelwert der Datenpunkte innerhalb des Mittelwert-Intervalls berechnet und als 1 Datenpunkt angezeigt</li>
+					<li>Mittelwert und MIN/MAX: ggf. wird der der Mittelwert der Datenpunkte innerhalb des Mittelwert-Intervalls berechnet und als 1 Datenpunkt angezeigt, zusätzlich werden die Min- und Max-Werte als kleine Linien angezeigt</li>
+					<li>Datenpunkte MIN und MAX: ggf. werden die Min- und Max-Werte der Datenpunkte innerhalb des Mittelwert-Intervalls berechnet und als 2 Datenpunkte in der Reihenfolge MIN&rarr;MAX angezeigt</li>
+					<li>Datenpunkte MAX und MIN: ggf. werden die Min- und Max-Werte der Datenpunkte innerhalb des Mittelwert-Intervalls berechnet und als 2 Datenpunkte in der Reihenfolge MAX&rarr;MIN angezeigt</li>
+					<li>Hinweis: Diese Option wirkt sich ggf. auch auf Graph 2 aus, jedoch werden bei der Option "Mittelwert und MIN/MAX" die Min- und Max-Werte nur im Graph 1 angezeigt.</li>
+				</ul>
+			</li>
+			<li>Farbe: Auswahl der <link>Farbe***1000-26</link> des Graphen (es können auch dynamische Farben verwendet werden)</li>
+			<li>Opazität: Auswahl der Deckkraft des Graphen</li>
+			<li>Linienstärke/Größe: legt die Linienstärke bzw. die Größe des Graphen (je nach Typ) in Pixeln fest</li>
+			<li>Schattenstärke: bei Bedarf kann der Graph mit einem Schatten vom Hintergrund abgehoben werden</li>
+		</ul>
+	</li>
+
+	<li>
+		Graph 2: optional wird dieser Graph zusätzlich zu Graph 1 (s.o.) berechnet und dargestellt
+		<ul>
+			<li>Dieser Graph kann z.B. verwendet werden, um einzelne Datenpunkte zusätzlich als Punktwolke darzustellen oder einen Flächen-Graph mit einer Linie abzuschließen.</li>
+			<li>Hinweis: Für das Generieren dieses Graphen ist kein weiterer Datenbankzugriff oder Netzwerkverkehr erforderlich, da die Datenpunkte von Graph 1 auf dem Endgerät übernommen werden.</li>
+			<li>Typ: ggf. Auswahl der grafischen Darstellung des Graphen</li>
+			<li>Farbe: Auswahl <link>Farbe***1000-26</link> des Graphen (es können auch dynamische Farben verwendet werden)</li>
+			<li>Opazität: Auswahl der Deckkraft des Graphen</li>
+			<li>Linienstärke/Größe: legt die Linienstärke bzw. die Größe des Graphen (je nach Typ) in Pixeln fest</li>
+			<li>Schattenstärke: bei Bedarf kann der Graph mit einem Schatten vom Hintergrund abgehoben werden</li>
+		</ul>
+	</li>
+
+	<li>
+		Darstellungsoptionen:
+		<ul>
+			<li>
+				Grenzwert (links): optional können die Graphen über das Diagrammintervall hinaus verlängert werden, um bündig mit der linken Begrenzung der Diagrammfläche abzuschließen
+				<ul>
+					<li>ohne: die Graphen werden nicht verlängert, d.h. es werden nur Datenpunkte berücksichtigt, die tatsächlich im Diagrammintervall vorhanden sind</li>
+					<li>visuell verlängern: die Graphen werden rein visuell verlängert, d.h. der erste Datenpunkt wird ggf. wiederholt</li>
+					<li>Vorläuferwert einbeziehen: der unmittelbar zeitlich vor(!) dem Diagrammintervall liegende Datenpunkt wird in die Graphen mit einbezogen (die Graphen werden dabei stets an der linken und rechten Begrenzung der Diagrammfläche abgeschnitten)</li>
+					<li>Hinweis: Das Gesamtintervall der Y-Achse berücksichtigt diese Datenpunkte nicht(!), d.h. das Intervall muss ggf. manuell angepaßt werden.</li>
+				</ul>
+			</li>
+
+			<li>
+				Mittelwert-Intervall: ggf. können mehrere Datenpunkte zeitlich zusammengefaßt werden (Mittelwert) 
+				<ul>
+					<li>das Mittelwert-Intervall wird in Sekunden angegeben</li>
+					<li>[leer]: die Datenpunkte werden niemals zusammengefaßt, d.h. jeder einzelne Datenpunkt wird angezeigt - zeitlich jedoch mindestens in einem Sekundenraster (dies kann u.U. zu einem extrem langsamen Aufbau des Graphen führen!)</li>
+					<li>0: die Datenpunkte werden grundsätzlich nicht zusammengefaßt, jedoch werden die Datenpunkte ggf. automatisch gemittelt (s.u.)</li>
+					<li>1..&infin;: alle Datenpunkte innerhalb dieses Intervalls werden zu einem Datenpunkt zusammengefaßt und gemittelt</li>
+					<li>Hinweis: Die Verwendung eines Mittelwert-Intervalls ist bei einer hohen Anzahl von Datenpunkten zu empfehlen. Die Graphen werden performanter generiert und wirken oftmals visuell angenehmer (Glättung).</li>
+					<li>Wichtig: Diese Einstellung hat keinen Einfluss auf die Skalierung der X-Achse!</li>
+				</ul>
+			</li>
+
+			<li>
+				Grenzwert (rechts): optional können die Graphen über das Diagrammintervall hinaus verlängert werden, um bündig mit der rechten Begrenzung der Diagrammfläche abzuschließen
+				<ul>
+					<li>ohne: die Graphen werden nicht verlängert, d.h. es werden nur Datenpunkte berücksichtigt, die tatsächlich im Diagrammintervall vorhanden sind</li>
+					<li>visuell verlängern: die Graphen werden rein visuell verlängert, d.h. der letzte Datenpunkt wird ggf. wiederholt</li>
+					<li>Nachfolgerwert einbeziehen: der unmittelbar zeitlich nach(!) dem Diagrammintervall folgende Datenpunkt wird in die Graphen mit einbezogen (die Graphen werden dabei stets an der linken und rechten Begrenzung der Diagrammfläche abgeschnitten)</li>
+					<li>Hinweis: Das Gesamtintervall der Y-Achse berücksichtigt diese Datenpunkte nicht(!), d.h. das Intervall muss ggf. manuell angepaßt werden.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Y-Achse:
+		<ul>
+			<li>
+				Darstellung: legt fest, ob und wie die Y-Achse angezeigt und beschriftet werden soll (Legende)
+				<ul>
+					<li>Legende individuell: die Beschriftung kann individuell im Feld "Legende" angegeben werden</li>
+					<li>Legende Archivname: als Beschriftung wird der Name des zugrundeliegenden <link>Datenarchivs***1000-50</link> verwendet</li>
+					<li>Y-Achse nicht anzeigen: die Y-Achse wird vollständig ausgeblendet</li>
+				</ul>
+			</li>
+
+			<li>
+				Anzeige erzwingen: legt fest, ob die Y-Achse auch dann angezeigt werden soll wenn keine Datenpunkte verfügbar sind (also keine Graphen dargestellt werden) 
+				<ul>
+					<li>nein: die Y-Achse wird vollständig ausgeblendet</li>
+					<li>Y-Achse immer anzeigen: die Y-Achse wird dennoch angezeigt, sofern die Einstellung "Darstellung" entsprechend konfiguriert wurde (s.o.)</li>
+				</ul>
+			</li>
+
+			<li>
+				Aktuellsten Wert anzeigen: legt fest, ob der aktuelleste verfügbare Wert des Datenarchivs direkt auf der Y-Achse angezeigt werden soll
+				<ul>
+					<li>als Pfeil anzeigen: der aktuelleste verfügbare Wert des zugrundeliegenden <link>Datenarchivs***1000-50</link> wird als Pfeil-Symbol auf der Y-Achse visualisiert</li>
+					<li>Hinweis: Das Gesamtintervall der Y-Achse berücksichtigt diesen Datenpunkt nicht(!), d.h. das Intervall muss ggf. manuell angepaßt werden.</li>
+				</ul>
+			</li>
+
+			<li>
+				Skalierung: legt fest, ob die Y-Achse für diesen Graphen individuell skaliert werden soll, oder ob die (globalen) Einstellungen der Diagramm-Konfiguration übernommen werden sollen 
+				<ul>
+					<li>
+						individuell: die Y-Achse kann individuell für diesen Graphen skaliert werden:
+						<ul>
+							<li>
+								Min-Wert/Max-Wert: dieses Angaben definieren (jeweils optional) das Gesamtintervall der Y-Achse (Achsenabschnitt) 
+								<ul>
+									<li>wird kein Mindest- bzw. Maximalwert angegeben, wird der jeweilige Wert automatisch auf der Grundlage der verfügbaren Datenpunkte ermittelt</li>
+								</ul>
+							</li>
+				
+							<li>
+								Gesamtintervall optimieren: legt fest, ob das Gesamtintervall (Mindestwert..Maxmimalwert) automatisch optimiert werden soll
+								<ul>
+									<li>nein: die Angaben "Min-Wert/Max-Wert" (bzw. die aus den verfügbaren Datenpunkten errechneten Grenzwerte) werden unverändert übernommen</li>
+									<li>ja (Algorithmus 1): die Angaben "Min-Wert/Max-Wert" (bzw. die aus den verfügbaren Datenpunkten errechneten Grenzwerte) werden ggf. derart angepaßt, dass sich eine harmonische (gut ablesbare) Aufteilung in Y-Intervalle ergibt</li>
+								</ul>
+							</li>
+				
+							<li>
+								Y-Intervalle: legt ggf. die Anzahl der Y-Intervalle fest
+								<ul>
+									<li>0: die Anzahl der Y-Intervalle wird automatisch berechnet (in Abhängigkeit der zur Verfügung stehenden Diagrammfläche und der Schriftgröße)</li>
+									<li>1..&infin;: die gewünschte Anzahl der Y-Intervalle (falls die Option "Y-Intervalle optimieren" aktiviert ist, kann die tatsächliche Anzahl hiervon abweichen)</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					
+					<li>Diagramm-Einstellungen (Y-Achsen) verwenden: alle Y-Achsen bzw. Graphen mit dieser Einstellung werden gemeinsam skaliert (siehe <link>Konfiguration: Diagramme***1000-130</link>)</li>
+				</ul>
+			</li>			
+		</ul>
+	</li>
+
+	<li>
+		Horizontale Gitterlinien: sofern die Y-Achse sichtbar ist, können optional horizontale Gitterlinien angezeigt werden
+		<ul>
+			<li>
+				Darstellung: legt fest, on und in welcher Farbe die horizontalen Gitterlinien angezeigt werden
+				<ul>
+					<li>nicht anzeigen: die Gitterlinien werden nicht angezeigt</li>
+					<li>in Diagrammfarbe anzeigen: die Gitterlinien werden in der Vordergrundfarbe des <link>Visuelements Diagramm***1002-21</link> angezeigt</li>
+					<li>in Graph-1-Farbe anzeigen: die Gitterlinien werden in der gleichen Farbe wie der Graph 1 angezeigt</li>
+				</ul>
+			</li>
+
+			<li>Opazität: Auswahl der Deckkraft der Gitterlinien</li>
+
+			<li>Überlagernde Gitterlinien: legt fest, ob sich überlagernde Gitterlinien verschiedener Datenquellen mehrfach angezeigt werden sollen</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Graph-Typen</h2>
+<ul>
+	<li>
+		Linien (linear):
+		<ul>
+			<li>Datenpunkte werden mit geraden Linien direkt miteinander verbunden</li>
+			<li>Hinweis: Ist nur 1 Datenpunkt verfügbar, wird kein Graph angezeigt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Linien (Flanken):
+		<ul>
+			<li>Datenpunkte werden mit geraden Linien derart miteinander verbunden, dass der Zeitpunkt einer Wertänderung (Flanke) ersichtlich wird</li>
+			<li>dieser Charttyp eignet sich z.B. zur Darstellung von Schaltereignissen</li>
+			<li>Hinweis: Ist nur 1 Datenpunkt verfügbar, wird kein Graph angezeigt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Fläche (linear) / Fläche (Flanken):
+		<ul>
+			<li>wie "Linien" mit dem Unterschied, dass der Bereich zwischen Graph und X-Achse aufgefüllt wird</li>
+		</ul>
+	</li>
+
+	<li>
+		Balken (dynamische Breite):
+		<ul>
+			<li>Datenpunkte werden als vertikale Balken dargestellt, die Balkenbreite wird durch die umliegenden Datenpunkte begrenzt</li>
+			<li>Hinweis: Eine gleichförmige Verteilung der Balkenbreite kann mit Hilfe der Einstellung "Mittelwert-Intervall" erreicht werden.</li>
+		</ul>
+	</li>
+
+	<li>
+		Balken (konstante Breite):
+		<ul>
+			<li>Datenpunkte werden als vertikale Balken dargestellt, die Balkenbreite wird durch die Einstellung "Linienstärke/Größe" fest vorgegeben (in Pixeln)</li>
+			<li>Hinweis: Die Balken werden stets zentriert angezeigt, d.h. die (horizontale) Mitte der Balken liegt auf dem entsprechenden Datenpunkt (Zeitpunkt).</li>
+		</ul>
+	</li>
+
+	<li>
+		Alpha-Balken (dynamische Breite):
+		<ul>
+			<li>Datenpunkte werden als vertikale Balken dargestellt, die Balkenbreite wird durch die umliegenden Datenpunkte begrenzt</li>
+			<li>der Alphawert (Transparenz) der Balken verhält sich proportional zum Y-Wert (d.h. je länger ein Balken ist, desto weniger transparent wird dieser dargestellt)</li>
+			<li>die Einstellung "Opazität" dient dabei als Referenz: Eine Opazitätseinstellung des Graphen von z.B. 50% führt zu Alphawerten von 0..50%.</li>
+			<li>Hinweis: Eine gleichförmige Verteilung der Balkenbreite kann mit Hilfe der Einstellung "Mittelwert-Intervall" erreicht werden.</li>
+		</ul>
+	</li>
+
+	<li>
+		Alpha-Fläche:
+		<ul>
+			<li>Datenpunkte werden als Fläche über die gesamte Diagrammhöhe(!) dargestellt
+			<li>der Alphawert (Transparenz) der einzelnen Flächenabschnitte verhält sich proportional zum Y-Wert</li>
+			<li>die Einstellung "Opazität" dient dabei als Referenz: Eine Opazitätseinstellung des Graphen von z.B. 50% führt zu Alphawerten von 0..50%.</li>
+		</ul>
+	</li>
+
+	<li>
+		Bezierkurve:
+		<ul>
+			<li>Datenpunkte werden mit Kurven direkt miteinander verbunden</li>
+			<li>die Berechnung der Kurveneigenschaften erfolgt aus Performancegründen arbiträr, d.h. die Darstellung kann u.U. von den Erwartungen abweichen</li>
+			<li>Hinweis: Ist nur 1 Datenpunkt verfügbar, wird kein Graph angezeigt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Bezierkurve (mittelwertig):
+		<ul>
+			<li>Datenpunkte werden mittelwertig mit Kurven indirekt miteinander verbunden</li>
+			<li>die einzelnen Datenpunkte werden i.d.R. nicht vom Graphen tangiert</li>
+			<li>die Berechnung der Kurveneigenschaften erfolgt aus Performancegründen arbiträr, d.h. die Darstellung kann u.U. von den Erwartungen abweichen</li>
+			<li>Hinweis: Ist nur 1 Datenpunkt verfügbar, wird kein Graph angezeigt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Bezierfläche / Bezierfläche (mittelwertig):
+		<ul>
+			<li>wie "Bezierkurve" mit dem Unterschied, dass der Bereich zwischen Graph und X-Achse aufgefüllt wird</li>
+		</ul>
+	</li>
+
+	<li>
+		Punktwolke (Kreise/Kreuze/Striche/Punkte):
+		<ul>
+			<li>jeder Datenpunkt wird als einzelnes Symbol dargestellt</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Hinweise</h2>
+Die Y-Achsen mehrerer Datenquellen werden in der gleichen Reihenfolge angezeigt (von links nach rechts), wie die Datenquellen angelegt bzw. sortiert worden sind (<link>Diagramm-Konfiguration***1000-130</link>). Die Graphen mehrerer Datenquellen werden von "hinten nach vorne" aufgebaut, d.h. der erste Graph liegt "über" dem zweiten Graph und so fort.
+
+Die Graphen können auch mit einer "<link>dynamischen Vordergrundfarbe***1000-26</link>" konfiguriert werden, d.h. die Farbe kann ggf. KO-gesteuert beeinflusst werden.
+
+Bei einer automatischen Ermittlung des Gesamtintervalls der Y-Achse werden Datenpunkte ausserhalb des Diagrammintervalls nicht berücksichtigt (bezogen auf "X-Achse: Grenzwert (links/rechts)" und "Y-Achse: Aktuellsten Wert anzeigen").
+
+<h3>X-Achse: Mittelwert-Intervall</h3>
+Standardmäßig (0=automatisch) werden die Datenpunkte sekündlich zusammengefaßt und ggf. gemittelt, falls mehr Datenpunkte vorliegen als die Diagrammfläche in Pixeln zur Verfügung stellt.
+Die Angabe eines Mittelwert-Intervalls &gt;0 führt dazu, dass Datenpunkte, die innerhalb dieses Intervalls liegen zu einem Mittelwert zusammengefaßt werden (der resultierende Datenpunkt (Mittelwert) wird dabei zeitlich (X-Achse) in der Mitte des Intervalls angezeigt). Alternativ können auch die Minimum- und Maximum-Werte des entsprechenden Datenpunktes als Datenpunkte angezeigt werden (diese 2 Datenpunkte ersetzen dann sämtliche Datenpunkte innerhalb des Mittelwert-Intervalls).
+Auf diese Weise können Datenpunkte z.B. stündlich (3600 Sekunden) zusammengefasst werden.
+
+
+

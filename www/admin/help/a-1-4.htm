@@ -1,0 +1,30 @@
+<h1><path>Basis-Konfiguration***a-1</path>Modul: IRtrans</h1>
+Dieses Modul ermöglicht das Einlernen und Senden von <link>IR-Befehlen***1000-75</link> (Infrarot-Fernbedienungen) mit Hilfe eines entsprechend konfigurierten IRtrans-Gerätes.
+
+<b>Hinweis:</b>
+Das Empfangen von IR-Codes (mit Ausnahme des Einlernvorgangs) ist nicht möglich.
+
+
+<h2>Konfiguration</h2>
+Dieses Modul wird in der <link>Basis-Konfiguration***a-1</link> konfiguriert und aktiviert.
+
+
+<h3>IRtrans-Konfiguration</h3>
+Zur Nutzung dieses Moduls ist ein entsprechend konfiguriertes IRtrans-Gerät erforderlich (weitere Information sind der Dokumentation des IRtrans-Gerätes zu entnehmen). Folgende Einstellungen auf der Konfigurations-Webseite des IRtrans sind u.U. erforderlich:
+<ul>
+	<li>IR Relay: "UDP ASCII Results &gt; Sourceport" = Aus</li>
+	<li>IR Receive: "Select external IR Receiver 1" = Aus, "IR Receiver 1 active" = Aus</li>
+	<li>Hinweis: IP-Adresse und Port müssen mit den Angaben in der <link>Basis-Konfiguration***a-1</link> übereinstimmen.</li>
+</ul>
+
+<b>Hinweis:</b>
+Die IR-Codes werden direkt in EDOMI verwaltet. Die Senden von IR-Codes aus der internen IRtrans-Datenbank ist nur über <link>HTTP/UDP/SHELL***1000-70</link>-Befehle möglich.
+
+
+<h2>Erforderliche Hardware</h2>
+Als Schnittstelle ist ein geeignetes IRtrans-Gerät des Herstellers "IRTrans GmbH" erforderlich  (<a href="http://www.irtrans.de" target="_blank">Hersteller-Webseite</a>).
+Die IRtrans-Hardware muss mindestens diese Voraussetzungen erfüllen (Angaben ohne Gewähr):
+<ul>
+	<li>ASCII API-Schnittstelle (sämtliche Geräte mit IRDB)</li>
+	<li>Ethernet oder WLAN</li>
+</ul>

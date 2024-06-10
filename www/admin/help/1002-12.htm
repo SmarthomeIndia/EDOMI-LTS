@@ -1,0 +1,162 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Dimmer/RGB/HSV <span class="id">12</span></h1>
+Das Visuelement "Dimmer/RGB/HSV" ermöglicht das Bearbeiten eines KO-Wertes mit Hilfe eines virtuellen Potentiometers oder Inkrementalgebers (Endlosdrehregler) bzw. diverser Schaltflächen. Dieses Visuelement ist dafür ausgelegt einen Dimmwert bzw. RGB-/HSV-Farbwert anzuzeigen und einzustellen.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>
+		Modus: Auswahl des Dimmer-Typs
+		<ul>
+			<li>Dimmer: ermöglicht die Einstellung eines Helligkeitswertes von 0..100% (KO2 wird auf einen Wert 0..255 gesetzt)</li>
+			<li>RGB-Dimmer: ermöglicht die Einstellung eines RGB-Farbwertes (KO2 wird auf einen Wert 000000..FFFFFF gesetzt)</li>
+			<li>HSV-Dimmer: ermöglicht die Einstellung eines HSV-Farbwertes (KO2 wird auf einen Wert 000000..FFFFFF gesetzt)</li>
+			<li>Inkrementalgeber: Der Dimmer verhält sich wie ein Inkrementalgeber, d.h. bei jeder Winkeländerung von 5 Grad wird der Wert je nach Drehrichtung erhöht oder erniedrigt.</li>
+			<li>Potentiometer: der Dimmer verhält sich wie ein Potentiometer mit einem Bewegungsumfang von 0..360 Grad</li>
+			<li>Hinweis: Der Wert von KO2 wird stets relativ zum aktuellen Wert (KO1) verändert, d.h. der Drehregler des Dimmers kann an einer beliebigen Position "angefasst" werden, ohne dass eine Wertänderung erfolgt. Erst beim Bewegen des Drehreglers wird der Wert relativ zu dieser Startposition abgeändert.</li>
+		</ul>
+	</li>
+
+	<li>
+		Darstellung: legt das Erscheinungsbild des Dimmers fest
+		<ul>
+			<li>Deko (Dekoration): zeigt den Bewegungsumfang ("Schleifbahn") und einen einfachen Knopf an</li>
+			<li>Cursor: zeigt während der Bedienung einen Cursor in Indikatorfarbe an</li>
+			<li>Eingabewert: zeigt während der Bedienung den eingestellten Wert in Indikatorfarbe an (Prozentwert bzw. "Hue" in Grad)</li>
+		</ul>
+	</li>
+
+	<li>
+		Statusanzeige: legt fest, ob und wie der aktuell eingestellte Farb- bzw. Helligkeitswert angezeigt werden soll
+		<ul>
+			<li>Dimmwert: der Bereich innerhalb des Drehreglers wird mit dem aktuellen Farb- bzw. Helligkeitswert ausgefüllt, die Helligkeit wird dabei als Transparenz visualisiert (eine geringe Helligkeit führt zu einer hohen Transparenz der angezeigten Füllung)</li>
+			<li>EIN-Indikator: die innere Umrandung des Drehreglers wird in der aktuellen Farbe angezeigt, jedoch stets mit maximaler Helligkeit (dies ermöglicht eine visuelle Kontrolle den EIN-Zustands auch bei gering eingestellter Helligkeit)</li>
+			<li>Hinweis: Während der Bedienung des Visuelements wird stets der aktuelle Farb- bzw. Helligkeitswert (wie bei "Dimmwert" beschrieben) angezeigt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Größe: legt den Durchmesser der grafischen Anzeige (Drehregler) relativ zur Größe des Visuelements fest
+		<ul>
+			<li>erlaubt sind Werte von 0..100 Prozent</li>
+			<li>ein Wert von 0(%) führt dazu, dass der zentrale Drehregler nicht angezeigt wird: Die Einstellung des Dimm- bzw. Helligkeitswertes ist dann nicht mehr möglich, jedoch können die Schaltflächen H/S bzw. R/G/B dennoch bedient werden.</li>
+			<li>Hinweis: Diese Angabe wirkt sich auf das Erscheinungsbild aus, zudem wird die Größe des aktiven Bereichs für den Drehregler festgelegt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Knopfgröße (von/bis): legt die relative Größe des "Knopfes" und des Eingabe-Cursors fest (sofern "Deko" bzw. "Cursor" aktiviert ist)
+		<ul>
+			<li>erlaubt sind Werte von -100..100 Prozent</li>
+			<li>Hinweis: Diese Angabe wirkt sich lediglich auf das Erscheinungsbild aus (funktioniell keine Bedeutung).</li>
+		</ul>
+	</li>
+
+	<li>
+		Schaltflächen: legt fest, ob die Schaltflächen beschriftet und (teilweise) deaktiviert werden sollen
+		<ul>
+			<li>Hinweis: die Ein-/Aus-Schaltflächen werden mit Symbolen beschriftet (links: ein, rechts: aus)</li>
+			<li>Beschriftung: zeigt die Beschriftung der Schaltflächen an oder blendet diese aus (z.B. für eine eigene Beschriftung mit Hilfe eines hinterlegten Bildes)</li>
+			<li>EIN/AUS: aktiviert oder deaktiviert die Funktion der Schaltflächen "EIN" bzw. "AUS"</li>
+		</ul>
+	</li>
+
+	<li>
+		Klick-Indikatoren: legt fest, ob beim Anklicken der entsprechenden Schaltflächen der Klick-Indikator angezeigt werden soll  
+		<ul>
+			<li>deaktiviert: es werden keine Klick-Indikatoren angezeigt</li>
+			<li>nur EIN/AUS-Schaltflächen: beim Anklicken der EIN/AUS-Schaltflächen wird der Klick-Indikator für die entsprechende Schaltfläche angezeigt</li>
+			<li>nur RGB/HS-Schaltflächen: beim Anklicken und Einstellen der RGB- bzw. HS-Werte wird der Klick-Indikator für die entsprechende Schaltfläche angezeigt</li>
+			<li>alle Schaltflächen: der Klick-Indikator wird bei allen o.g. Schaltflächen angezeigt</li>
+			<li>Hinweis: Der Klick-Indikator wird nur für die jeweilige <i>Beschriftung</i> der Schaltfläche angezeigt, nicht für die gesamte Schaltfläche. Werden die Schaltflächen nicht beschriftet, wird auch kein Klick-Indikator angezeigt.</li>
+		</ul>
+	</li>
+
+	<li>
+		KO2 zyklisch setzen: legt fest, wann und wie häufig KO2 auf einen Wert gesetzt werden soll
+		<ul>
+			<li>deaktiviert: das KO wird nur beim Beenden ("Loslassen") der Eingabe auf den entsprechenden Wert gesetzt</li>
+			<li>aktiviert: das KO wird beim Beenden und <i>während</i> der Eingabe (jedoch nur bei einer Wertänderung) auf den entsprechenden Wert gesetzt - dies wird u.U. zu einer hohen Buslast führen!</li>
+			<li>aktiviert (alle ... ms setzen): das KO wird beim Beenden und <i>während</i> der Eingabe (jedoch nur bei einer Wertänderung) auf den entsprechenden Wert gesetzt, jedoch nur in dem angegebenen Intervall</li>
+			<li>Wichtig: Ist diese Option aktiviert, wird das Visuelement keine Live-Vorschau-Werte bereitstellen.</li>
+		</ul>
+	</li>
+
+	<li>
+		Verbundenes Visuelement (Knopf): falls ein Visuelement mit dem Dimmer <link>verbunden***2</link> wurde, wird das verbundene Visuelement an der aktuellen Knopf-Position angezeigt (ggf. auch rotiert)
+		<ul>
+			<li>Radius: relativer Abstand des verbundenen Visuelements vom Mittelpunkt der grafischen Anzeige des Dimmers (siehe "Größe"), erlaubt sind Angaben im Bereich -&infin;..&infin;</li>
+			<li>Rotation: das verbundene Visuelement wird ggf. mit der aktuellen Einstellung des Dimmers rotiert</li>
+			<li>Hinweis: Die Design-Angaben "X/Y-Position" und "Drehung" des verbundenen Visuelements werden zusätzlich (Addition) angewendet.</li>
+			<li>Wichtig: Als Urspung für die Positionierung/Rotation wird stets die Mitte des verbundenen Visuelements angenommen.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Status
+		<ul>
+			<li>dieser KO-Wert wird ggf. als Wert und Position angezeigt und dient als Grundlage für die stets relative Wertänderung</li>
+			<li>dieser KO-Wert wird zudem zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+		</ul>
+	</li>
+
+	<li>
+		KO2: Wert setzen
+		<ul>
+			<li>dieses KO wird auf den per Dimmer eingestellten Wert gesetzt</li>
+			<li>Hinweis: Dieser KO-Wert wird während der Bedienung des Visuelements als Vorschau-Wert für das KO1 aller anderen Visuelemente mit <link>aktivierter Live-Vorschau***1002</link> bereitgestellt.</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Bei einer Aktivierung ergänzen sich KO1 und KO2 gegenseitig: Wird z.B. KO1 nicht angegeben, wird KO1 automatisch mit dem gleichen KO wie KO2 verknüpft (und umgekehrt).
+
+<b>Hinweis:</b>
+Beim Modus "Dimmer" sollten die KOs mit dem Datentyp "Variant" bzw. "DPT 5" konfiguriert werden.
+Beim Modus "RGB-/HSV-Dimmer" sollten die KOs mit dem Datentyp "Variant" bzw. "DPT 232" konfiguriert werden.
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert (die Textausrichtung ist stets zentriert)</li>
+	<li>Seitensteuerung/Befehle stehen nicht zu Verfügung</li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Je nach Modus (Dimmer, RGB-/HSV-Dimmer) haben die Schaltflächen und Drehregler des Visuelements eine unterschiedliche Bedeutung (s.u.). Grundsätzlich erfolgt die Bedienung jedoch in jedem Modus auf die gleiche Weise:
+
+Im Zentrum des Visuelements ist ein Drehregler positioniert (Bedienung siehe Visuelement <link>Drehregler***1002-11</link>), der zur Einstellung eines gewählten Parameters dient. Um diesen Drehregler herum sind bis zu 4 Schaltflächen angeordnet, die entweder durch Anklicken unittelbar eine Aktion ausführen (Ein/Aus) oder zur Definition des gewünschten Drehregler-Parameters (R/G/B, bzw. H/S) dienen (Anklicken und Festhalten).
+
+Beim Einstellen eines Wertes mit dem Drehregler führt ein Loslassen der Maustaste zum Beenden der Einstellung.
+
+<b>Modus "Dimmer":</b>
+Die Schaltflächen "ein" bzw. "aus" setzen KO2 beim Anklicken auf den Wert "255" bzw. "0".
+Der Drehregler definiert einen Wert im Bereich 0..255 - angezeigt wird jedoch ggf. ein Helligkeitswert im Bereich 0..100%.
+
+<b>Modus "RGB-Dimmer":</b>
+Die Schaltfläche "aus" setzt KO2 beim Anklicken auf den RGB-Wert "000000".
+Der Drehregler definiert standardmäßig die Helligkeit, d.h. der aktuell eingestellte RGB-Wert wird entsprechend umgerechnet.
+Die Schaltflächen "R", "G" und "B" definieren den gewünschten Rot-, Grün- und Blauanteil des Farbwertes: Durch Anklicken und Festhalten der entsprechenden Schaltfläche kann der gewünschte Wert mit Hilfe des Drehreglers eingestellt werden.
+Hinweis: Prinzipbedingt kann die Helligkeit u.U. nur unter Verlust der Farbinformation berechnet werden!
+
+<b>Modus "HSV-Dimmer":</b>
+Die Schaltflächen "ein" bzw. "aus" setzen KO2 beim Anklicken auf den Wert "xxxx00" bzw. "xxxxFF" ("xxxx" repräsentiert dabei den aktuell eingestellten Farbwert ("H" bzw. "S") und wird im Gegensatz zum RGB-Dimmer nicht durch die Helligkeitseinstellung beeinflusst).
+Der Drehregler definiert standardmäßig die Helligkeit ("V"), d.h. der aktuell eingestellte HSV-Wert wird entsprechend umgerechnet.
+Die Schaltflächen "H" und "S" definieren den gewünschten Farbwert bzw. die Sättigung: Durch Anklicken und Festhalten der entsprechenden Schaltfläche kann der gewünschte Wert mit Hilfe des Drehreglers eingestellt werden.

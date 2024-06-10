@@ -1,0 +1,86 @@
+<h1>Logdateien</h1>
+Wichtige Ereignisse, Fehlermeldungen und Statusinformationen werden optional in Logdateien protokolliert. Die Verwaltung (z.B. das automatische Löschen älterer Logdateien) erfolgt dabei automatisiert.
+
+Logdateien werden grundsätzlich in der <link>Basis-Konfiguration***a-1</link> konfiguriert und können in der <link>Verwaltung***103-1</link> jederzeit eingesehen werden.
+
+
+<h2>Verfügbare Logdateien</h2>
+Jeder Logdatei-Typ ist für die Protokollierung spezifischer Ereignisse ausgelegt:
+
+<h3>System-Logs (schwarz)</h3>
+Hier werden sämtliche relevanten Ereignisse protokolliert, die das Gesamtsystem "EDOMI" betreffen (z.B. Startvorgang, Statusmeldungen, etc.).
+System-Logs werden monatlich neu angelegt.
+
+<b>Hinweise:</b>
+Die meisten dieser Ereignisse werden zusätzlich auf der <link>Konsole***a-5</link> ausgegeben.
+Meldungen des Betriebssystems werden nicht(!) protokolliert, jedoch auf der <link>Konsole***a-5</link> ausgegeben.
+
+
+<h3>Fehler-Logs (rot)</h3>
+Hier werden sämtliche Fehler protokolliert, die während der Laufzeit auftreten.
+Fehler-Logs werden monatlich neu angelegt.
+
+<b>Hinweis:</b>
+Fehlermeldungen des Betriebssystems werden nicht(!) protokolliert, jedoch auf der <link>Konsole***a-5</link> ausgegeben.
+
+
+<h3>Visu-Logs (schwarz)</h3>
+Hier werden ausschließlich Login- und Logout-Ereignisse in <link>Visualisierungen***b-0</link> protokolliert.
+Visu-Logs werden monatlich neu angelegt.
+
+
+<h3>Logik-Logs (lila)</h3>
+Hier werden ausschließlich Ausgaben des <link>Logikmonitors***a-7</link> protokolliert.
+Logik-Logs werden je nach Konfiguration überschrieben oder neu angelegt.
+
+
+<h3>Monitor-Logs (grün)</h3>
+Hier werden optional alle Wertänderungen von <link>Kommunikationsobjekten***1000-30</link> protokolliert. Ausserdem werden Ereignisse, die von diversen <link>Befehlen***1007</link> ausgelöst werden protokolliert (z.B. Email-Versand, Telefonanruf, etc.).
+Monitor-Logs werden täglich neu angelegt.
+
+<b>Hinweis:</b>
+Das Monitor-Log wird zusätzlich zu den Einstellungen in der <link>Basis-Konfiguration***a-1</link> über das <link>System KO [6]***1000-33</link> konfiguriert.
+
+
+<h3>Individual-Logs (blau)</h3>
+Hier werden bei Bedarf spezielle Ereignisse protokolliert, z.B. kann optional die gesamte KNX- oder Visu-Kommunikation protokolliert werden, um eventuelle Probleme analysieren zu können.
+
+<b>Hinweis:</b>
+Ggf. werden diese individuellen Logdateien auch von Logikbaustein-Entwicklern verwendet, z.B. um Debug-Informationen zu protokollieren.
+
+
+<h2>Technische Informationen</h2>
+<ul>
+	<li>
+		alle Logdateien können wahlweise im Plaintext- oder HTML-Format erstellt werden (<link>Basis-Konfiguration***a-1</link>)
+		<ul>
+			<li>eine Änderung dieser Einstellung bewirkt, dass eine neue Log-Datei angelegt wird (sofern noch keine Datei dieses Formats existiert)</li>
+			<li>eine bereits vorhandene Log-Datei des gewählten Formats wird ggf. nicht neu angelegt, sondern fortgeführt (neue Einträge werden in diese Log-Datei geschrieben)</li>
+			<li>die Sonderzeichen chr(10) und chr(13) werden konvertiert in "[LF]" und "[CR]" (z.B. bei KO-Werten)</li>
+			<li>HTML-Format: HTML-Entities werden konvertiert, z.B. wird aus "&lt;" ein "&amp;lt;" (z.B. bei KO-Werten) - die Anzeige im Browser wird hierdurch nicht tangiert</li>
+		</ul>
+	</li>
+
+	<li>
+		beim Anlegen eines neuen Logs wird ein Header erzeugt: {EDOMI,&lt;Dateiname&gt;,&lt;Erstell-Datum&gt;,&lt;Erstell-Uhrzeit&gt;,&lt;Erstell-Mikrosekunden&gt;,&lt;PID des Prozesses, der die Logdatei erstellt hat&gt;}
+		<ul>
+			<li>bei Logs im Text-Format wird eine Legende im Header hinzugefügt: {&lt;Spalte1&gt;,&lt;Spalte2&gt;,...} (je nach Log-Typ)</li>
+			<li>bei Logs im HTML-Format wird eine Legende in Form einer Tabellen-Titelzeile hinzugefügt (je nach Log-Typ)</li>
+		</ul>
+	</li>
+
+	<li>
+		Verwenden von Individual-Logs beim <link>Erstellen von Logikbausteinen***r-0-0</link>:
+		<ul>
+			<li>jeder Log-Eintrag wird nach folgendem Schema hinzugefügt: "Datum Uhrzeit/ms/PID/LogLevel/LogMessage" (der Separator ist hier "/" und kann in der <link>Basis-Konfiguration***a-1</link> definiert werden)</li>
+			<li>
+				PHP-Syntax: writeToCustomLog(logName,logLevel,logMsg)
+				<ul>
+					<li>logName: Log-Name (max. 100 Zeichen, erlaubt sind "a-z/A-Z/0-9/äöüÄÖÜß/_/-/&lt;Leerzeichen&gt;")</li>
+					<li>logLevel: beliebiger Wert/String </li>
+					<li>logMsg: beliebiger Wert/String</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+<ul>

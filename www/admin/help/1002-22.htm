@@ -1,0 +1,105 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Zeitschaltuhr <span class="id">22</span></h1>
+Das Visuelement "Zeitschaltuhr" stellt eine <link>konfigurierte Zeitschaltuhr***1000-100</link> in der Visualisierung dar und ermöglicht das Steuern der Zeitschaltuhr, sowie das Hinzufügen und Bearbeiten von Schaltzeiten.
+
+<b>Hinweis:</b>
+Die Zeitschaltuhr arbeitet unabhängig von diesem Visuelement. Das Visuelement ist also nicht erforderlich, um eine Zeitschaltuhr zu nutzen. Das Visuelement "Zeitschaltuhr" ermöglicht jedoch das Hinzufügen und Bearbeiten von Schaltzeiten zur Laufzeit.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>Zeitschaltuhr: Auswahl der <link>konfigurierten Zeitschaltuhr***1000-100</link>, die angezeigt und bearbeitet werden soll</li>
+
+	<li>
+		Schaltflächen: legt fest, ob die Zeitschaltuhr aktiviert/deaktiviert werden kann und ob Schaltzeiten bearbeitet/hinzugefügt werden dürfen
+		<ul>
+			<li>Hinweis: die Schaltflächen werden mit Symbolen beschriftet (von links nach rechts: deaktivieren, hinzufügen, aktivieren)</li>
+			<li>Wichtig: Die Zeitschaltuhr kann unabhängig davon stets über das entsprechende KO gesteuert werden, Schaltzeiten können bereits in der Konfiguration der Zeitschaltuhr definiert werden.</li>
+		</ul>
+	</li>
+
+	<li>
+		Statusanzeige: legt fest, ob und wie der aktuelle Status (KO1) angezeigt wird
+		<ul>
+			<li>deaktiviert: keine Statusanzeige</li>
+			<li>Indikatorfarbe: die entsprechende Schaltfläche wird mit der <link>Indikatorfarbe***1000-21</link> hinterlegt</li>
+			<li>Zusatzhintergrundfarbe 1: die entsprechende Schaltfläche wird mit der <link>Zusatzhintergrundfarbe 1***1003</link> hinterlegt</li>
+		</ul>
+	</li>
+
+	<li>
+		Sortierung: legt die Sortierung der angezeigten Schaltzeiten fest
+		<ul>
+			<li>ID: die Schaltzeiten werden absteigend nach deren ID angezeigt</li>
+			<li>Wochentag/Uhrzeit: die Schaltzeiten werden aufsteigend nach Wochentag und Uhrzeit angezeigt</li>
+		</ul>
+	</li>
+
+	<li>Analoguhr: legt fest, ob vor jeder Schaltzeit eine Analoguhr angezeigt werden soll und legt deren Größe in Pixeln fest (keine Skala, nur Stunden-/Minutenzeiger)</li>
+
+	<li>Kopf-/Fusszeilenhöhe: legt optional die Höhe der Kopf- und Fusszeile in Pixeln fest</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerungs-KO der Zeitschaltuhr
+		<ul>
+			<li>dieses KO ist stets mit dem Steuerungs-KO der zugewiesenen Zeitschaltuhr verknüpft</li>
+			<li>dieser KO-Wert wird zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>dieser KO-Wert wird zudem beim Bedienen der Zeitschaltuhr in der Visualisierung entsprechend gesetzt (Zeitschaltuhr: Aus/Ein)</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>Bereits in der <link>Konfiguration der Zeitschaltuhr***1000-100</link> können Schaltzeiten fest vorgegeben werden - diese sind in der Visualisierung nicht veränderbar!</li>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+	<li>Seitensteuerung/Befehle stehen nicht zu Verfügung</li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Das Visuelement ist in 3 Teilbereiche gegliedert (von oben nach unten): 
+
+<ul>
+	<li>
+		Titelleiste:
+		<ul>
+			<li>hier werden Pfeil-Schaltflächen zum Blättern durch die Schaltzeiten (Scrollen), sowie der Name der <link>Zeitschaltuhr***1000-100</link> angezeigt</li>
+			<li>ein Klick auf den Namen der Zeitschaltuhr aktualisiert den Inhalt des Visuelements</li>
+		</ul>
+	</li>
+
+	<li>
+		Schaltzeiten (Auflistung):
+		<ul>
+			<li>in der Visualisierung erstellte Schaltzeiten werden in der Vordergrundfarbe des Visuelements angezeigt</li>
+			<li>durch Anklicken einer Schaltzeit kann diese bearbeitet oder gelöscht werden (siehe auch: <link>Konfiguration einer Zeitschaltuhr***1000-100</link>)</li>
+			<li>vorkonfigurierte (fixe) Schaltzeiten werden kontrastreduziert angezeigt (diese Schaltzeiten sind in der Visualisierung nicht veränderbar)</li>
+		</ul>
+	</li>
+
+	<li>
+		Steuerungs-Schaltflächen:
+		<ul>
+			<li>"aus": deaktiviert die Zeitschaltuhr (das Steuerungs-KO der Zeitschaltuhr wird auf den Wert "0" gesetzt)</li>
+			<li>"+": fügt eine neue Schaltzeit hinzu</li>
+			<li>"ein": aktiviert die Zeitschaltuhr (das Steuerungs-KO der Zeitschaltuhr wird auf den Wert "1" gesetzt)</li>
+		</ul>
+	</li>
+</ul>

@@ -1,0 +1,158 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Kamera <span class="id">19</span></h1>
+Das Visuelement "Kamera" ermöglicht das Anzeigen eines Livebildes einer <link>konfigurierten Kameraansicht***1000-83</link>. Die Kameraansicht kann ggf. per KO oder manuell per Maus angepasst werden (virtuelles PTZ).
+
+<b>Hinweis:</b>
+Die PTZ-Option bewirkt lediglich eine Änderung der <link>Bildbearbeitungs-Einstellungen der konfigurierten Kameraansicht***1020</link>. Die Steuerung echter PTZ-Hardware ist mit diesem Visuelement <i>nicht</i> möglich.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>
+		Kameraansicht: Auswahl einer <link>konfigurierten Kameraansicht***1000-83</link>, deren Livebild angezeigt werden soll
+		<ul>
+			<li>Wichtig: die direkte Auswahl einer <link>konfigurierten Kamera***1000-81</link> ist nicht möglich, es muss stets eine Kameraansicht konfiguriert und ausgewählt werden</li>
+		</ul>
+	</li>
+
+	<li>
+		Titel-/Zoom-Zeile: legt fest, ob der Name der Kameraansicht angezeigt werden soll
+		<ul>
+			<li>unsichtbar: die "Titel-/Zoom-Zeile" wird nicht angezeigt, ist aber ggf. dennoch zum Zoomen vorhanden</li>
+			<li>Abgrenzung: die "Titel-/Zoom-Zeile" wird durch eine Linie abgegrenzt</li>
+			<li>Titel: der Name der Kameraansicht wird angezeigt</li>
+		</ul>
+	</li>
+
+	<li>Höhe: legt die Höhe der "Titel-/Zoom-Zeile" fest (in Pixeln)</li>
+		
+	<li>
+		Aktualisierung per Intervall: legt fest, in welchem Intervall das Livebild aktualisiert werden soll
+		<ul>
+			<li>MJPEG-Stream direkt einbinden: Ein ggf. konfigurierter MJPEG-Stream wird direkt von der Visualisierung (Client) abgerufen und angezeigt. Die gewählte Kameraansicht wird daher <i>nicht</i> auf den angezeigten Stream angewendet, stattdessen wird der Stream der in der Kameraansicht gewählten Kamera direkt angezeigt.</li>
+			<li>deaktiviert: das Livebild wird nicht per Intervall aktualisiert (ggf. jedoch per KO, s.o.)</li>
+			<li>"alle x Sekunden/Minuten": das Livebild wird in dem ausgewählten Intervall aktualisiert (und ggf. zusätzlich per KO, s.o.)</li>
+			<li>Das Aktualisierungsintervall bezieht sich stets auf das letzte erfolgreiche Abrufen eines Kamerabildes: Die Zeitmessung beginnt erst, wenn ein Kamerabild vollständig von der Kamera abgerufen wurde.</li>
+			<li>Hinweis: Die Kamerabilder werden u.U. zwischengespeichert, um eine Kamera bei mehrfachen Zugriffen zur selben Zeit zu entlasten (siehe <link>Basis-Konfiguration***a-1</link> bzw. <link>Kameraeinstellungen***1000-81</link>)</li>
+			<li>Hinweis: Es erfolgt <i>keine</i> Livebild-Aktualisierung per Intervall, wenn das Livebild direkt als MJPEG-Stream eingebunden wird.</li>
+		</ul>
+	</li>
+
+	<li>
+		PTZ: legt fest, ob die (virtuellen) PTZ-Parameter der Kameraansicht (z.B. Zoom, Schwenk-Winkel, etc.) per KO oder per Maus modifiziert werden kann
+		<ul>
+			<li>per KO: die PTZ-Parameter können per KO1 angepasst werden (s.u.)</li>
+			<li>
+				manuell: die PTZ-Parameter können per Maus angepasst werden
+				<ul>
+					<li>Klicken und Ziehen nach rechts bzw. links in der "Titel-/Zoom-Zeile" bewirkt eine Änderung des Zoom-Faktors</li>
+					<li>Klicken und Ziehen ausserhalb der "Titel-/Zoom-Zeile" verändert den Blickwinkel (bei "360-Grad-Entzerrung") bzw. die Position (bei "Ausschnitt") der Ansicht</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		PTZ Steuerungsrichtung: bei manueller Steuerung kann die Wirkung der Mausbewegung bei Bedarf umgekehrt werden
+		<ul>
+			<li>Joystick: eine Mausbewegung z.B. nach links bewirkt ein Schwenken der Ansicht nach links (mit der Maus wird quasi die Schwenkrichtung vorgegeben)</li>
+			<li>Natürlich:  eine Mausbewegung z.B. nach links bewirkt ein Schwenken der Ansicht nach rechts (die Ansicht wird quasi mit der Maus verschoben)</li>
+		</ul>
+	</li>
+	
+	<li>
+		PTZ Auflösung während der manuellen Steuerung: bei manueller Steuerung kann die Auflösung des Kamerabildes vorübergehend z.B. reduziert werden, um auf leistungsschwachen Endgeräten ein ruckelfreies Bewegen zu ermöglichen
+		<ul>
+			<li>unverändert: die Auflösung wird unverändert aus den Kameraeinstellungen übernommen</li>
+			<li>5..100%:  die Auflösung wird während der manuellen Steuerung auf diesen Wert gesetzt, abschließend wird das Kamerabild mit der Auflösung aus den Kameraeinstellungen erneut gerendert</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerung (ggf. PTZ)
+		<ul>
+			<li>dieser KO-Wert wird zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>zudem kann mit diesem KO ggf. die Kameraansicht angepasst werden (s.u.)</li>
+		</ul>
+	</li>
+
+	<li>
+		KO2: PTZ-Wert setzen
+		<ul>
+			<li>dieses KO wird ggf. auf diverse Metadaten gesetzt (s.u.)</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h3>Anpassen der Kameraansicht per KO1</h3>
+Die aktuelle Kameraansicht kann mit KO1 jederzeit angepasst werden, sofern die entsprechende Option "PTZ: per KO" ausgewählt wurde.
+
+<b>Wichtig:</b>
+Bei deaktivierter(!) Option "PTZ: per KO" kann die Kameraansicht dennoch per KO1 gewechselt werden (z.B. "3" wechselt zur Kameraansicht "3"), jedoch werden alle weiteren Parameter (Zoom, etc.) ignoriert und aus den Vorgaben der konfigurierten Kameraansicht übernommen.
+
+Der Wert von KO1 muss dabei diesem Schema folgen:
+<ul>
+	<li>
+		"Kameraansicht-ID;Zoom;Parameter1;Parameter2;" (ohne "")
+		<ul>
+			<li>Kameraansicht-ID: die ID der <link>konfigurierten Kameraansicht***1000-83</link></li>
+			<li>Zoom: Zoom-Faktor im Bereich 0..100 (100=maximaler Zoom)</li>
+			<li>Parameter1: Neige-Winkel im Bereich -90..90 (bei "360-Grad-Entzerrung") bzw. X-Position im Bereich -100..100 (bei "Ausschnitt")</li>
+			<li>Parameter2: Schwenk-Winkel im Bereich -180..180 (bei "360-Grad-Entzerrung") bzw. Y-Position im Bereich -100..100 (bei "Ausschnitt")</li>
+		</ul>
+	</li>
+
+	<li>
+		nicht angegebene Parameter werden unverändert angewendet:
+		<ul>
+			<li>"7;;20": setzt nur Parameter1 auf "20" und wechselt zur Kameraansicht "7" (Zoom und Parameter2 bleiben unverändert)</li>
+			<li>";50": setzt nur den Zoom-Faktor auf "50"</li>
+			<li>"": bewirkt keinerlei Änderungen</li>
+		</ul>
+	</li>
+
+	<li>
+		beim Wechsel der Kameraansicht ohne die Angabe weiterer Parameter bzw. beim ersten Aufruf (Seitenaufbau) des Visuelements werden die Vorgaben aus der konfigurierten Kameraansicht übernommen
+		<ul>
+			<li>"3" (ohne Semikolon oder weitere Angaben!): wechselt zur Kameraansicht "3" und übernimmt dabei die Vorgaben aus der konfigurierten Kameraansicht</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Sofern die Option "PTZ: manuell" ausgewählt wurde, wird zudem KO2(!) ggf. nach dem gleichen Schema auf einen entsprechenden Wert gesetzt, sobald die Kameraansicht manuell per Maus modifiziert wurde.
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>die Kameraansicht kann ggf. per KO1 angepasst werden (s.o.), sofern ein entsprechender PTZ-Modus ausgewählt wurde</li>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+	<li>Seitensteuerung/Befehle stehen nur dann zu Verfügung, wenn die Option "MJPEG-Stream einbinden" bzw. kein manueller PTZ-Modus ausgewählt wurde</li>
+	<li>Hinweis: wenn keine Seitensteuerungen/Befehle zugewiesen wurden, verhält sich dieses Visuelement dennoch nicht <link>klicktransparent***1002</link></li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Je nach PTZ-Modus kann die Kameraansicht ggf. im Sinne eines virtuellen PTZ per KO oder manuell per Maus angepasst werden:
+
+Klicken und Ziehen innerhalb des Visuelements bewirkt eine Änderung des Blickwinkels oder der Position.
+Ein Klicken und Ziehen nach rechts bzw. links innerhalb der Titel-/Zoom-Zeile (auch wenn diese unsichtbar ist) verändert den Zoom-Faktor der Kameraansicht.
+
+<b>Hinweis:</b>
+Bei gewählter Option "MJPEG-Stream direkt einbinden" kann die Ansicht nicht verändert werden.

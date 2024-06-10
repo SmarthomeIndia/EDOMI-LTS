@@ -1,0 +1,45 @@
+<h1>Datensicherung</h1>
+Backups sind Datensicherungen der gesamten EDOMI-Installation und können im Bedarfsfall in der <link>Verwaltung***103-5</link> wiederhergestellt werden.
+
+<b>Wichtig:</b>
+Backups (bzw. deren Wiederherstellung) sind für "Notfälle" (Datenverlust, Hardwaredefekte, etc.) gedacht und sollten nicht(!) für einen routinemäßigen Datenaustausch o.d.G. verwendet werden!
+
+
+<h2>Backups</h2>
+Ein Backup repräsentiert stets eine Datensicherung der gesamten EDOMI-Installation, einschließlich sämtlicher Einstellungen und Projekte:
+
+<ul>
+	<li>sämtliche EDOMI-Systemdateien (Scripte, Einstellungen, Datenbanken, etc.)</li>
+	<li>sämtliche Projekte einschließlich aller Einstellungen (Arbeitsprojekt, Live-Projekt und archivierte Projekte)</li>
+	<li>Wichtig: Das Betriebssystem und dessen Einstellungen sind nicht(!) Bestandteil eines Backups.</li>
+</ul>
+
+<b>Wichtig:</b>
+Jedes Backup ist als "Schnappschuss" (Snapshot) der gesamten EDOMI-Installation zu verstehen, d.h. die Wiederherstellung eines Backups führt dazu, dass exakt der Zustand zum Zeitpunkt der Datensicherung wiederhergestellt wird (auch bezüglich des Live-Projekts, einschließlich aller Remanentdaten).
+
+
+<h3>Automatische Backups</h3>
+Sofern sich EDOMI im normalen <link>Betriebszustand***0-0</link> befindet (d.h. EDOMI verarbeitet das aktuelle Live-Projekt und ist nicht pausiert), wird optional täglich um 00:00:00 Uhr ein automatisches Backup angefertigt und im Backup-Verzeichnis abgelegt.
+
+In der <link>Basis-Konfiguration***a-1</link> können automatische Backups aktiviert oder deaktiviert werden, zudem kann eine Speicherdauer definiert werden (automatische Backups werden nach einer einstellbaren Zeit automatisch wieder gelöscht).
+
+
+<h3>Manuelles Backup</h3>
+In der <link>Verwaltung***103-5</link> kann jederzeit das Erstellen eines Backups veranlasst werden.
+
+Die Backupdatei <b>EDOMI-Backup.edomibackup</b> wird im Verzeichnis <b><MAIN_PATH>/www/data/tmp</b> abgelegt und i.d.R. automatisch über den Browser herunterladen. 
+
+<b>Hinweis:</b>
+Die Backupdatei wird zusätzlich im Backup-Verzeichnis <b><BACKUP_PATH></b> abgelegt und kann somit ggf. komfortabel wiederhergestellt werden.
+
+
+<h2>Wiederherstellung eines Backups</h2>
+Die Wiederherstellung eines Backups (Restore) kann jederzeit in der <link>Verwaltung***103-5</link> initiiert werden. Die wiederherzustellende Backupdatei muss im Backup-Verzeichnis abgelegt werden (siehe <link>Basis-Konfiguration***a-1</link>). Der Dateitransfer kann z.B. per FTP oder SSH erfolgen.
+
+Nach einer erfolgreichen Wiederherstellung wird der EDOMI-Server neugestartet (reboot) und der Zustand zum Zeitpunkt der Datensicherung ist exakt wiederhergestellt.
+
+<b>Wichtig:</b>
+Die Wiederherstellung einzelner Backup-Bestandteile ist nicht möglich, es wird stets das gesamte Backup mit allen Einstellungen und EDOMI-Systemdateien wiederhergestellt.
+
+<b>Hinweis:</b>
+Eine Backupdatei kann notfalls auch über die <link>Konsole***a-5</link> wiederhergestellt werden, z.B. wenn die Administrationsseite nicht mehr erreichbar ist.

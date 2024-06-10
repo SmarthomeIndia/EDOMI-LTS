@@ -1,0 +1,30 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Kameras***1000-80</path>Kameraansichten</h1>
+Kameraansichten ermöglichen die Anzeige des Kamerabildes einer <link>konfigurierten Kamera***1000-81</link> in einer Visualisierung. Weiterhin können Kameraansichten auch beim Einsehen von Kameraarchiven bzw. Aufnahmen des Digitalen Videorekorders (<link>Kameraaufnahmen***104</link>) verwendet werden.
+
+Eine Kameransicht ermöglicht optional das Festlegen eines Bildausschnitts bzw. das Entzerren des Bildes einer 360-Grad-Kamera ("Fisheye-Dewarping").
+
+<b>Hinweis:</b>
+Für die Anzeige eines Live-Kamerabildes in einer Visualisierung ist <i>immer</i> eine konfigurierte Kameraansicht erforderlich, auch wenn keine Bildverarbeitung (Ausschnitt bzw. Fisheye-Dewarping) erfolgen soll.
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name der Kameransicht</li>
+	
+	<li>Kamera: Auswahl der <link>konfigurierten Kamera***1000-81</link>, für die eine Kameraansicht generiert werden soll</li>
+
+	<li>
+		Bildbearbeitung: ermöglicht optional das Festlegen eines Bildausschnitts bzw. das Entzerren des Bildes einer 360-Grad-Kamera ("Fisheye-Dewarping")
+		<ul>
+			<li>deaktiviert (Originalbild): es erfolgt keine Bearbeitung, d.h. das Kamerabild wird unverändert ausgegeben</li>
+			<li>Ausschnitt: es kann ein beliebiger Bildausschnitt zur Ausgabe festgelegt werden</li>
+			<li>360-Grad-Entzerrung (Kreis): ein Bildausschnitt einer 360-Grad-Kamera wird entzerrt ausgegeben, das Originalbild der Kamera ist kreisrund (unabhängig von dem Seitenverhältnis des Kamerabildes)</li>
+			<li>360-Grad-Entzerrung (Ellipse): ein Bildausschnitt einer 360-Grad-Kamera wird entzerrt ausgegeben, das Originalbild der Kamera ist ellipsenförmig verzerrt (unabhängig von dem Seitenverhältnis des Kamerabildes)</li>
+		</ul>
+	</li>
+
+	<li>Einstellungen: falls eine Bildbearbeitungsoption gewählt wurde, öffnet diese Schaltfläche das Fenster "<link>Kameraansicht: Einstellungen***1020</link>" zur Festlegung weiterer Parameter</li>
+</ul>
+
+<b>Wichtig:</b>
+Das Festlegen eines Bildausschnitts bzw. das Entzerren eines 360-Grad-Kamerabildes ist sehr rechenintensiv (die Berechnungen werden auf dem Endgerät/Client ausgeführt, nicht auf dem EDOMI-Server). Nach Möglichkeit ist also auf eine Bildbearbeitung zu verzichten, es erfolgen dann keine weiteren Berechnungen und das Kamerbild wird im Originalzustand ausgegeben.

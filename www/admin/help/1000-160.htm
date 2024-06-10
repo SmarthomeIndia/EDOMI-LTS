@@ -1,0 +1,57 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Visualisierung***1000-20</path>Visuelemente</h1>
+Sämtliche Visualisierungen basieren auf Visuelementen als kleinste funktionale Einheit einer <link>Visualisierung***b-0</link>. Einzelne Visuelemente können im <link>Visueditor***2</link> auf eine Visuseite eingefügt werden.
+
+<ul>
+	<li><link>Informationen zur Entwicklung von Visuelementen***r-3-0</link></li>
+</ul>
+
+<b>Hinweis:</b>
+Ein (fehlerfreies) Visuelement kann nach der Erstellung bzw. nach einer Bearbeitung unmittelbar verwendet werden. Ein erneutes Einlesen (<link>Verwaltung/Visuelemente neu einlesen***103-16</link>) ist nicht(!) erforderlich.
+
+
+<h2>Erstellen eines Visuelements</h2>
+In der Konfiguration können nur Visuelemente im Ordner "Eigene Visuelemente" hinzugefügt werden.
+<ul>
+	<li>Visuelement-ID: ID des zu erstellenden Visuelements im Bereich 1000..99999999 (die ID darf noch nicht anderweitig vergeben sein)</li>
+	<li>Vorlage: Auswahl eines Grundgerüstes, je nach Zielsetzung</li>
+</ul>
+
+Ein Klick auf die Schaltfläche "Visuelement erstellen" erzeugt ein neues Visuelement mit den o.g. Parametern. Das Visuelement kann nun bearbeitet werden (s.u.).
+
+
+<h2>Bearbeiten eines Visuelements</h2>
+In der Konfiguration können nur Visuelemente im Ordner "Eigene Visuelemente" bearbeitet werden, alle anderen Visuelemente können nur eingesehen (jedoch nicht verändert) werden.
+
+Die folgenden Informationen können nicht direkt bearbeitet werden, sondern werden aus dem Quelltext des Visuelements interpretiert:
+
+<ul>
+	<li>Name: Name des Visuelements</li>
+	<li>Instanzen: Anzahl der Instanzen dieses Visuelements, die auf allen Visuseiten in Verwendung sind</li>
+</ul>
+
+Sofern das Visuelement fehlerhaft ist, wird ein entsprechender Hinweis angezeigt.
+
+<h3>Schaltflächen</h3>
+<ul>
+	<li>
+		VSE-Datei neu einlesen: die Visuelement-Datei wird erneut eingelesen und interpretiert
+		<ul>
+			<li>sofern das Visuelement mit einem externen Editor bearbeitet wird, kann die bearbeitete Datei mit dieser Schaltfäche erneut eingelesen werden</li>
+		</ul>
+	</li>
+	<li>
+		Quelltext bearbeiten/einsehen: öffnet den <link>Quelltext***1016</link> des Visuelements und ermöglicht ggf. dessen Bearbeitung
+		<ul>
+			<li>Hinweis: Ein Bearbeiten des Quelltextes ist nur bei Visuelementen im Ordner "Eigene Visuelemente" möglich.</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Wichtig:</b>
+<ul>
+	<li>Änderungen an einem Visuelement werden automatisch auf alle vorhandenen Instanzen angewendet.</li>
+	<li>Wird ein Visuelement gelöscht, werden auch alle Instanzen gelöscht.</li>
+	<li>Enthält ein Visuelement Fehler, werden alle Instanzen entsprechend gekennzeichnet und sind nicht mehr editierbar, bis der Fehler behoben wurde.</li>
+	<li>Fehlerhafte oder fehlende Visuelemente werden bei einer Projekt- oder Visuaktivierung nicht übertragen und sind im Live-Projekt dementsprechend nicht verfügbar.</li>
+</ul>
+

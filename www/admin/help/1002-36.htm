@@ -1,0 +1,76 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Weiterleitung <span class="id">36</span></h1>
+Das Visuelement "Weiterleitung" ermöglicht das Aufrufen beliebiger Visuseiten in Abhängigkeit des KO1-Wertes. Zudem kann festgelegt werden, ob Seitensteuerung/Befehle bei einer erfolgreichen Weiterleitung oder bei einer nicht erfolgreichen Weiterleitung ausgeführt werden sollen.
+
+Sobald die Visuseite, die dieses Visuelement enthält aufgerufen wird, werden ggf. die entsprechenden Seitensteuerungen/Befehle ausgeführt (ohne Nutzerinteraktion). Optional kann die Ausführung auch KO-gesteuert erfolgen.
+
+<b>Hinweis:</b>
+Dieses Visuelement ist in der Visualisierung nicht sichtbar.
+
+<b>Achtung:</b>
+Das automatisierte Aufrufen von Visuseiten kann u.U. zu einer Endlosschleife führen, z.B. wenn das Visuelement derart konfiguriert wurde, dass die das Visuelement enthaltene Visuseite erneut aufgerufen wird.
+
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>
+		Ausführung: legt fest, unter welchen Bedingungen die Weiterleitung ggf. ausgeführt werden soll
+		<ul>
+			<li>bei Seitenaufruf: die Ausführung erfolgt ggf. bei jedem Aufruf der Visuseite, die dieses Visuelement enthält (sofern der KO1-Wert den Bedingungen entspricht bzw. nicht entspricht)</li>
+			<li>KO-gesteuert: die Ausführung erfolgt ggf. immer dann, wenn der sich Wert des KO1 ändert (sofern der KO1-Wert den Bedingungen entspricht bzw. nicht entspricht)</li>
+			<li>Wichtig: Sofern die o.g. Bedingung erfüllt ist, erfolgt die Ausführung bei jedem Seitenaufruf erneut, bis die o.g. Bedingung nicht mehr erfüllt ist.</li>
+		</ul>
+	</li>
+</ul>
+
+<ul>
+	<li>
+		KO-Werte und Visuseiten: legt fest, welche KO1-Werte das Aufrufen der entsprechenden Visuseite bewirken
+		<ul>
+			<li>KO-Wert(e): KO-Wert (ggf. auch mehrere), die zu einem Aufruf der zugewiesenen Visuseite führen (mehrere Werte sind mit einem Semikolon zu separieren, z.B. "1;2;3")</li>
+			<li>Visuseite/Popup: diese Visuseite/Popup wird aufgerufen, wenn der KO1-Wert den o.g. Angaben entspricht</li>
+		</ul>
+	</li>
+</ul>
+
+<ul>
+	<li>
+		Seitensteuerung und Befehle: legt fest, unter welchen Bedingungen die Seitensteuerungen/Befehle ausgeführt werden sollen
+		<ul>
+			<li>Seitensteuerung bei Weiterleitung: bei einer erfolgreichen Weiterleitung (KO1-Wert entspricht einer der Angaben) kann optional das aktuelle Popup (auf dem sich dieses Visuelement befindet) geschlossen werden</li>
+			<li>Seitensteuerung wenn keine Weiterleitung: bei einer nicht erfolgten Weiterleitung (KO1-Wert entspricht nicht den Angaben) können optional die entsprechenden Seitensteuerungen des Visuelements ausgeführt werden</li>
+			<li>Befehle ausführen: legt fest, ob und unter welchen Bedinungen die Befehle des Visuelements ausgeführt werden sollen</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerung
+		<ul>
+			<li>dieses KO wird ausschließlich zur Ausführung der Weiterleitung (s.o.) verwendet, indem dessen Wert mit den Angaben im Feld "KO-Wert(e)" verglichen wird</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>
+		Verhalten des Visuelements:
+		<ul>
+			<li>wird die Visuseite, die das Visuelement enthält erneut aufgerufen, erfolgt die Ausführung der Weiterleitung bzw. der Seitensteuerungen/Befehle ggf. erneut</li>
+		</ul>
+	</li>
+
+	<li>Designs stehen nicht zu Verfügung (das Visuelement ist in der Visualisierung nicht sichtbar)</li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+In der Visualisierung ist dieses Element vollständig unsichtbar und daher nicht bedienbar. Die Steuerung erfolgt ausschließlich über den KO-Wert des zugewiesenen KOs bzw. automatisch beim Aufruf der Visuseite.

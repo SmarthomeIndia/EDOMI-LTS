@@ -1,0 +1,81 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Codeschloss <span class="id">24</span></h1>
+Das Visuelement "Codeschloss" führt die zugewiesenen Seitensteuerungen/Befehle nur nach Eingabe eines korrekten Zifferncodes aus.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>Code: einzugebener Zifferncode (maximal 20 Ziffern von jeweils 0..9, z.B. "1234")</li>
+
+	<li>
+		Versuche bis Sperrung: legt fest, wieviele Fehlversuche (falscher Code) erlaubt werden
+		<ul>
+			<li>wird die festgelegte Anzahl der Fehlversuche überschritten, wird das Visuelement gesperrt</li>
+			<li>Hinweis: das Visuelelement bleibt nur solange gesperrt, bis die Visuseite oder die Visualisierung erneut aufgerufen wird</li>
+		</ul>
+	</li>
+
+	<li>
+		Indikatoren: legt fest, ob beim Anklicken bzw. erfolgreichen Codeeingabe ein Klick-Indikator angezeigt werden soll
+		<ul>
+			<li>Klick-Indikator: beim Anklicken z.B. einer Ziffer wird ein Klick-Indikator angezeigt</li>
+			<li>Code-Bestätigung: bei Eingabe des korrekten Codes wird ein Klick-Indikator für das gesamte Visuelement zur Bestätigung angezeigt</li>
+		</ul>
+	</li>
+
+	<li>Darstellung: trennt ggf. die virtuellen Zifferntasten mit Linien voneinander ab ("Tastenkreuz")</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerung
+		<ul>
+			<li>dieser KO-Wert wird zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+		</ul>
+	</li>
+
+	<li>
+		KO2: Codeschloss-Status
+		<ul>
+			<li>dieses (optionale) KO wird vom Visuelement wie folgt gesetzt:</li>
+			<li>1: es wurde der korrekte Code eingegeben (die Befehle werden ausgeführt)</li>
+			<li>0: es wurde ein falscher Code eingegeben</li>
+			<li>-1: das Codeschloss ist gesperrt (die Anzahl der "Versuche bis Sperrung" (s.o.) wurde überschritten)</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>das Feld "Beschriftung" steht nicht zu Verfügung, bzw. wird ignoriert</li>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Der Zifferncode wird mit der Maus durch Anklicken der entsprechenden Schaltflächen eingegeben. Jede einzelne Ziffer muss innerhalb von 3 Sekunden eingegeben werden, ansonsten wird die Eingabe vollständig zurückgesetzt (verworfen).
+Während der Eingabe wird unten links die Anzahl der bereits eingegebenen Ziffern in Indikatorfarbe angezeigt. Mit der Schaltfläche "-" wird die Eingabe vollständig zurückgesetzt (verworfen).
+
+Nach Eingabe der letzen Ziffer wird der Code überprüft:
+Bei korrekter Eingabe des Codes wird der Hintergrund des Visuelements kurzzeitig in Indikatorfarbe dargestellt und die zugewiesenen Seitensteuerungen/Befehle werden ausgeführt.
+Bei fehlerhafter Eingage des Codes wackelt das Visuelement kurzzeitig hin und her, die Eingabe wird verworfen.
+Wird die zulässige Anzahl an Fehlversuchen überschritten, wird das Visuelement für weitere Eingaben gesperrt. Diese temporäre Sperre wird erst bei einem erneuten Aufruf der Visuseite bzw. der Visualisierung aufgehoben.
+
+
+<h3>Code-Eingabe per Tastatur</h3>
+Mit einem Klick auf das Feld unten links (Anzeige der eingegebenen Ziffern) wird ein Eingabefeld angezeigt. Nun kann der Zifferncode mit Hilfe der Tastatur eingegeben werden und mit der ENTER-Taste bestätigt werden.
+Sobald eine Ziffer oder ein anderes Visuelement angeklickt wird, wird das Eingabefeld wieder ausgeblendet.

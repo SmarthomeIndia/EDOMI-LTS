@@ -1,0 +1,59 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Kameras***1000-80</path>Kameraarchive</h1>
+Kameraarchive können eine beliebige Anzahl von Kamerabildern archivieren. Archivierte Kamerabilder werden z.B. in <link>Kameraaufnahmen***104</link> oder mit Hilfe des Visuelements <link>"Kameraarchiv"***1002-20</link> angezeigt.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name des Kameraarchivs</li>
+	
+	<li>Kamera: Auswahl der <link>konfigurierten Kamera***1000-81</link>, deren Bild archiviert werden soll</li>
+
+	<li>
+		KO: Status
+		<ul>
+			<li>bei jeder Änderung des Datenbestandes an diesem Archiv wird dieses KO auf die Gesamtanzahl der Archiveinträge gesetzt:</li>
+			<li>beim Start von EDOMI</li>
+			<li>beim Hinzufügen/Entfernen eines Eintrags</li>
+			<li>beim automatischen Löschen von Einträgen (s.u.)</li>
+		</ul>
+	</li>
+
+	<li>
+		KO: letzte Archivierung
+		<ul>
+			<li>beim Hinzufügen eines Kamerabildes wird dieses KO mit Metadaten bezüglich des archivierten Bildes belegt</li>
+			<li>
+				Diese Metadaten haben folgende Struktur und können z.B. von speziellen <link>Logikbausteinen***r-0</link> ausgewertet werden:
+				<ul>
+					<li>&lt;Archiv-ID&gt;;&lt;Kamera-ID&gt;;&lt;Datum&gt;;&lt;Uhrzeit&gt;;&lt;Mikrosekunden&gt;;&lt;Dateiname des Bildes mit Pfad&gt;</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Totzeit: legt fest, ob das Hinzufügen eines Eintrags jederzeit oder nur nach Verstreichen einer Mindestzeit seit dem letzten Hinzufügen ermöglicht wird
+		<ul>
+			<li>0: das Hinzufügen eines Eintrags ist ohne Einschränkung möglich</li>
+			<li>1..&infin; (Sekunden, Ganzzahl): das Hinzufügen eines Eintrags ist nur alle 1..&infin; Sekunden möglich</li>
+		</ul>
+	</li>
+
+	<li>
+		Speicherdauer: legt fest, ob und wann Einträge automatisch gelöscht werden
+		<ul>
+			<li>Archiveinträge werden grundstäzlich mit einem Zeitstempel archiviert</li>
+			<li>ist ein Archiveintrag älter als die festgelegte Speicherdauer, wird der Archiveintrag beim Start von EDOMI und täglich um 00:00:00 Uhr aus dem Archiv gelöscht</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Hinzufügen und Entfernen von Archiveinträgen</h2>
+Archiveinträge werden über entsprechende <link>Befehle***1007</link> hinzugefügt oder entfernt. Zudem können <link>Logikbausteine***r-0</link> weitere Funktionen zur Verwaltung von Archiveinträgen bereitstellen.
+
+<b>Hinweis:</b>
+Archiveinträge werden u.U. automatisch gelöscht, sofern die Eigenschaft "Speicherdauer" (s.o.) entsprechend konfiguriert wurde. 
+
+
+<h2>Struktur von Archiveinträgen</h2>
+Archiveinträge werden jeweils mit einem eindeutigen Zeitstempel versehen (Datum, Uhrzeit und Mikrosekunden). Das eigentliche Kamerabild wird als JPG-Datei im Verzeichnis <b>www/data/liveproject/cam/live</b> abgelegt.

@@ -1,0 +1,61 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Skizze <span class="id">18</span></h1>
+Das Visuelement "Skizze" ermöglicht das Erstellen und Bearbeiten einer grafischen Skizze, mit der Maus wird eine Vektor-Zeichnung erstellt (die maximale Anzahl an Polygonen ist abhängig von deren Komplexität).
+
+<b>Wichtig:</b>
+Bitte die Hinweise zum Kommunikationsobjekt beachten (s.u.)!
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>Modus: legt die maximal zulässige Anzahl an Polygonen fest (falls nur 1 Polygon zugelassen wird, wird die Skizze vor jedem Zeichenvorgang automatisch gelöscht)</li>
+	<li>Linienstärke: legt die Linienstärke der Polygone in Pixeln fest</li>
+	<li>Glättung: legt fest, in welchem Maß die Polygone geglättet werden (dies spart u.U. Speicherplatz und läßt die Skizze "harmonischer" erscheinen)</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Skizze
+		<ul>
+			<li><b>dieses KO muss ein internes KO von Typ "Variant" sein</b></li>
+			<li>die Skizze wird in diesem KO gespeichert (das KO bzw. die Skizze kann somit z.B. auch in einem Datenarchiv archiviert werden)</li>
+			<li>dieser KO-Wert wird zudem zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>Hinweis: die Verwendung des KO-Wertes zur Steuerung und Beschriftung ergibt in den meisten Fällen keinen Sinn, da der KO-Wert aus den Skizzendaten besteht</li>
+			<li>Hinweis: Dieser KO-Wert wird während der Bedienung des Visuelements als Vorschau-Wert für das KO1 aller anderen Visuelemente mit <link>aktivierter Live-Vorschau***1002</link> bereitgestellt.</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Die Angabe von KO1 (intern, Typ "Variant) ist zwingend erforderlich, damit die Skizze gespeichert werden kann: Die Skizze wird KO1 als Wert zugewiesen.
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>es muss stets ein internes KO von Typ "Variant" angegeben werden, damit die Skizze gespeichert werden kann</li>
+	<li>eine Skizze wird in relativen Koordinaten gespeichert (Vektoren), d.h. eine Skizze skaliert stets mit dem Visuelement (ohne Berücksichtigung des Seitenverhältnisses)</li>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+	<li>Beschriftung und Seitensteuerung/Befehle stehen nicht zu Verfügung</li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Mit der Maus können einzelne Polygone durch Anklicken und Festhalten bzw. Loslassen gezeichnet werden. Nach jedem Erstellen eines Polygons wird die Skizze in das KO geschrieben. Das nächste Polygon kann erst dann gezeichnet werden, wenn der KO-Wert verarbeitet wurde.
+
+Am oberen Rand der Skizze wird der verbleibende Speicherplatz (in Indikatorfarbe) für die gesamte Skizze angezeigt, ggf. wird der verbleibende Speicherplatz nach jedem Polygon neuberechnet (Glättung, s.o.).
+
+<b>Hinweis:</b>
+Zum Löschen einer Skizze genügt es, das entsprechende KO zu leeren (also auf "" zu setzen).

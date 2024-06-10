@@ -1,0 +1,66 @@
+<h1>Konsole</h1>
+Ein an den EDOMI-Server angeschlossener Bildschirm (bzw. das <link>Widget "Serversteuerung"***0-0</link>) zeigt im normalen Betrieb die Konsolenausgaben (im Textformat) von EDOMI und des Betriebssystems an. Im Normalfall ist das Anschließen eines Bildschirms nicht erforderlich (EDOMI ist für einen "Headless"-Betrieb ausgelegt).
+
+<b>Hinweis:</b>
+Die meisten Konsolenausgaben von EDOMI werden zusätzlich im <link>System-Log***a-4</link> protokolliert, jedoch nicht die Konsolenausgaben des Betriebsystems.
+
+Am unteren Bildschirmrand werden Statusinformationen angezeigt - dieses "Statuszeile" ist stets sichtbar, sofern EDOMI nicht beendet wurde. Die Statuszeile ist in 3 Bereiche unterteilt:
+
+<ul>
+	<li>
+		linke Spalte: zeigt den aktuellen Status von EDOMI an
+		<ul>
+			<li>PAUSE: EDOMI ist pausiert</li>
+			<li>KNX-VERBINDUNG...: EDOMI wurde gestartet und stellt ggf. gerade die Verbindung zum KNX-Bus her</li>
+			<li>(Datum/Uhrzeit): EDOMI befindet sich im normalen <link>Betriebszustand***0-0</link>, der Zeitstempel gibt die Startzeit an</li>
+		</ul>
+	</li>
+	
+	<li>mittlere Spalte: zeigt die EDOMI-Version und einen Copyright-Hinweis an</li>
+
+	<li>rechte Spalte: zeigt <link>Datum und Uhrzeit***a-6</link> des EDOMI-Servers an</li>
+</ul>
+
+
+<h2>Steuerung von EDOMI mit Hilfe der Konsole</h2>
+Die Steuerung erfolgt grundsätzlich mit Hilfe der <link>Administration***0</link> in einem Browser. In Ausnahmefällen kann es jedoch erforderlich sein, EDOMI mit Hilfe von Shell-Befehlen zu steuern.
+
+Die Eingabe von Shell-Befehlen auf <i>dieser</i> Konsole ist während der Laufzeit von EDOMI nicht(!) möglich, ggf. muss zunächst eine weitere Konsole geöffnet bzw. ein Zugang z.B. per SSH hergestellt werden.
+
+<ul>
+	<li>
+		Shell-Befehl zur Steuerung von EDOMI: <b>php <MAIN_PATH>/main/control.php &lt;Befehl&gt;</b>
+
+		<ul>
+			<li>
+				&lt;Befehl&gt;: einer der folgenen Ausdrücke
+				<ul>
+					<li>reboot: der Server wird kontrolliert neugestartet, Ausgabe: OK;REBOOT (es wird nicht geprüft, ob der Befehl tatsächlich ausgeführt wurde)</li>
+					<li>shutdown: der Server wird kontrolliert heruntergefahren, Ausgabe: OK;SHUTDOWN (es wird nicht geprüft, ob der Befehl tatsächlich ausgeführt wurde)</li>
+					<li>activate: das aktuelle Arbeitsprojekt wird aktiviert (anschließend wird EDOMI pausiert), Ausgabe: OK;ACTIVATE (es wird nicht geprüft, ob der Befehl tatsächlich ausgeführt wurde)</li>
+					<li>start: EDOMI wird gestartet (sofern EDOMI pausiert ist und ein Live-Projekt vorhanden ist), Ausgabe: OK;START (es wird nicht geprüft, ob der Befehl tatsächlich ausgeführt wurde)</li>
+					<li>pause: EDOMI wird pausiert, Ausgabe: OK;PAUSE (es wird nicht geprüft, ob der Befehl tatsächlich ausgeführt wurde)</li>
+					<li>restart: EDOMI wird neugestartet (oder pausiert, wenn kein Live-Projekt vorhanden ist), Ausgabe: OK;RESTART (es wird nicht geprüft, ob der Befehl tatsächlich ausgeführt wurde)</li>
+					<li>stop: EDOMI wird vollständig beendet (zum Linux-Promt), Ausgabe: OK;STOP/QUIT;WAITING... (wenn das Beenden erfolgreich war: OK;STOP/QUIT;READY) (wenn das Beenden nicht erfolgreich war (nach 30 Sekunden): ERROR;STOP/QUIT;TIMEOUT)</li>
+					<li>quit: (genau wie "stop")</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Wiederherstellung eines Backups mit Hilfe der Konsole</h2>
+Die Wiederherstellung eines Backups erfolgt grundsätzlich mit Hilfe der <link>Administration***0</link> in einem Browser. In Ausnahmefällen kann es jedoch erforderlich sein, eine Wiederherstellung mit Hilfe der Konsole durchzuführen.
+
+Die Eingabe von Shell-Befehlen auf <i>dieser</i> Konsole ist während der Laufzeit von EDOMI nicht(!) möglich, ggf. muss zunächst eine weitere Konsole geöffnet bzw. ein Zugang z.B. per SSH hergestellt werden.
+
+<ul>
+	<li>
+		Shell-Befehl zur Wiederherstellung eines Backups: <b>sh <MAIN_PATH>/main/restore.sh "&lt;Backupdatei mit Pfad&gt;"</b>
+
+		<ul>
+			<li>&lt;Backupdatei mit Pfad&gt;: eine EDOMI-Backupdatei mit Pfadangabe, z.B. "/tmp/EDOMI-Backup.edomibackup"</li>
+		</ul>
+	</li>
+</ul>

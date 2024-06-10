@@ -1,0 +1,16 @@
+<h1>Datum und Uhrzeit</h1>
+Datum und Uhrzeit werden automatisch über einen Systemdienst (NTP) mit speziellen Zeitservern über das Internet abgeglichen. Bei jedem Neustart des EDOMI-Servers werden Datum und Uhrzeit einmalig abgeglichen (auch bei großen Abweichungen). In der Folge wird die Uhrzeit ständig im Hintergrund über einen Driftfaktor korrigiert, so dass die Zeiteinstellungen stets präzise und korrekt sind.
+
+
+<h2>Konfiguration</h2>
+Die NTP-Server und weitere Einstellungen können bei Bedarf in der Konfigurationsdatei (<b>/etc/ntp.conf</b>) des NTP-Dienstes angepasst werden.
+
+<b>Wichtig:</b>
+Die in der <link>Basis-Konfiguration***a-1</link> konfigurierte Zeitzone sollte mit der Zeitzone des Betriebssystems übereinstimmen!
+
+
+<h2>Zeitumstellung (Sommer-/Winterzeit)</h2>
+Je nach konfigurierter Zeitzone erfolgt eine automatische Zeitumstellung (Sommer-/Winterzeit). Wird während des normalen <link>Betriebszustandes***0-0</link> von EDOMI eine Zeitumstellung erkannt, startet EDOMI automatisch neu um die Zeitumstellung zu übernehmen.
+
+<b>Hinweis:</b>
+Bei einer Zeitumstellung während des normalen Betriebszustandes wird das <link>remanente System-KO "Zeitumstellung"***1000-33</link> automatisch auf einen Wert gesetzt.

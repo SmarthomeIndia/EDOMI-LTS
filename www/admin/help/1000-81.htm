@@ -1,0 +1,109 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Kameras***1000-80</path>Kameraeinstellungen</h1>
+Eine Kameraeinstellung konfiguriert eine IP-Kamera zur Verwendung in einer Visualisierung (<link>Visuelement "Kamera"***1002-19</link>), zur Archivierung in einem <link>Kameraarchiv***1000-82</link> und zur Aufnahme mittels des <link>Digitalen Videorekorders***a-1-5</link>.
+
+Zur Verwendung einer Kamera in einer Visualisierung ist zudem eine <link>Kameraansicht***1000-83</link> zu erstellen. Aktualisierungszeiten und weitere Einstellungen sind ggf. individuell in dem <link>Visuelement "Kamera"***1002-19</link> anzugeben.
+
+<b>Hinweis:</b>
+Es können nur IP-Kameras verwendet werden, die das Livebild über eine HTTP-URL als JPG-Standbild oder MJPEG-Stream (Motion-JPEG) bereitstellen. Andere Kodierungen werden nicht unterstützt.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name der Kamera</li>
+	
+	<li>
+		URL: per HTTP abrufbare URL, unter der die Kamera das Livebild als JPG-Standbild oder MJPEG-Stream bereitstellt
+		<ul>
+			<li>Format: http://&lt;IP-Adresse der Kamera&gt;/...</li>
+			<li>ggf. ist eine Angabe des Ports erforderlich: http://&lt;IP-Adresse der Kamera&gt;:&lt;Port&gt;/...</li>
+			<li>ggf. erwartet die Kamera eine Authentifizierung in der Form: http://login:passwort@&lt;IP-Adresse der Kamera&gt;:&lt;Port&gt;/...</li>
+			<li>Hinweis: Bei Bedarf können JPG-Standbilder auch mittels "cUrl" abgerufen werden (s.u.)</li>
+		</ul>
+	</li>
+
+	<li>
+		Typ: legt fest, ob die angegebene URL ein JPG-Standbild oder einen MJPEG-Stream bereitstellt
+		<ul>
+			<li>JPG: die Kamera liefert ein JPG-Standbild unter der angegebenen URL</li>
+			<li>MJPEG: die Kamera liefert einen MJPEG-Stream unter der angegebenen URL</li>
+		</ul>
+	</li>
+
+	<li>
+		Digitaler Videorekorder (DVR): legt fest, ob Einzelbilder der Kamera fortlaufend aufgezeichnet werden sollen
+		<ul>
+			<li>Hinweis: Voraussetzung für die Nutzung des <link>Digitalen Videorekorders***104</link> ist die Konfiguration des Moduls "<link>Digitaler Videorekorder***a-1-5</link>" in der <link>Basis-Konfiguration***a-1</link>.</li>
+			<li>
+				Aufnahmeintervall:
+				<ul>
+					<li>in diesem Intervall wird ein Bild von der Kamera abgerufen und aufgezeichnet</li>
+					<li>Hinweis: Je nach Anzahl der Kameras mit aktivierter Aufnahmefunktion wird das tatsächliche Aufnahmeintervall ggf. von dieser Einstellung abweichen (je nach Geschwindigkeit des Bildabrufs der eingesetzten Kameras).</li>
+					<li>Wichtig: Erfolg die Aufnahme KO-gesteuert (s.u.) wird das hier gewählte Aufnahmeintervall ignoriert, da der KO-Wert das Aufnahmeintervall festlegt.</li>
+				</ul>
+			</li>
+			<li>
+				Speicherdauer:
+				<ul>
+					<li>legt fest, ob und wann die aufgezeichneten Bilder automatisch gelöscht werden</li>
+					<li>Hinweis: Die Aufnahmen werden stundenweise verwaltet, d.h. bei jedem Stundenwechsel werden ältere Aufnahmen übergeprüft und ggf. gelöscht.</li>
+				</ul>
+			</li>
+			<li>
+				KO: Steuerung der Aufnahme
+				<ul>
+					<li>mit diesem optionalen KO wird die Aufnahme aktiviert oder deaktiviert und ggf. das Aufnahmeintervall festgelegt</li>
+					<li>der KO-Wert "0" deaktiviert die Aufnahme, ein KO-Wert von "1" bis "60" (ganzzahlig) aktiviert die Aufnahme und legt zugleich das Aufnahmeintervall (s.o.) fest</li>
+					<li>Hinweis: Wird dieses KO nicht angegeben, erfolgt eine dauerhafte Aufnahme.</li>
+					<li>Achtung: Bei einer Steuerung der Aufnahme mit Hilfe des KOs kann die entsprechende Reaktion bis zu 1 Sekunde verzögert erfolgen (das KO wird sekündlich abgefragt)!</li>
+				</ul>
+			</li>
+			<li>
+				KO: Ereignis
+				<ul>
+					<li>der Wert dieses optionalen KOs wird mit jeder Einzelbild-Aufnahme gespeichert</li>
+					<li>unterschieden wird dabei jedoch nur der Wert 0 ("kein Ereignis") und &ne;0 ("Ereignis")</li>
+					<li>Ereignisse werden in den <link>Kameraaufnahmen***104</link> hervorgehoben und können z.B. einen aktivierten Bewegungsmelder repräsentieren</li>
+					<li>Achtung: Das KO wird sekündlich abgefragt, daher ist je nach Aufnahmeintervall sicherzustellen, dass das KO den gewünschten Wert ausreichend lange beibehält (z.B. mittels einer entsprechenden Logik).</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>JPG-Standbild mittels "cUrl" abrufen</h2>
+Einige Kameras benötigen u.U. eine spezielle Methode der Authentifizierung (Login). In diesem Fall kann "cUrl" zum Abruf von JPG-Standbildern verwendet werden. Das Feld "URL" muss für die Verwendung von "cUrl" folgenden Aufbau haben:
+
+<ul>
+	<li>
+		<b>CURL***&lt;Authentifizierungsmethode&gt;***&lt;Login&gt;***&lt;Passwort&gt;***&lt;URL&gt;</b>
+		<ul>
+			<li>Authentifizierungsmethode: legt die Art der Authentifizierung fest, erlaubt sind ANY, BASIC oder DIGEST</li>
+			<li>Login: Benutzername</li>
+			<li>Passwort: Passwort</li>
+			<li>URL: per HTTP abrufbare URL, unter der die Kamera das Livebild als JPG-Standbild bereitstellt (s.o.)</li>
+		</ul>
+	</li>
+
+	<li>
+		Beispiele:
+		<ul>
+			<li>CURL***ANY***admin***geheim***http://1.2.3.4/snapshot.jpg</li>
+			<li>CURL***DIGEST***admin***geheim***http://1.2.3.4/snapshot.jpg</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Wichtig:</b>
+Die Verwendung von "cUrl" ist ausschließlich mit JPG-Standbild-URLs möglich, nicht jedoch mit MJPEG-Stream-URLs. 
+
+
+<h2>Schaltflächen</h2>
+Mit der Schaltfläche "Vorschau" wird versucht, ein Live-Bild die den u.g. Einstellungen von der Kamera abzurufen und anzuzeigen.
+
+
+<h2>Technische Informationen</h2>
+Kamerabilder werden grundsätzlich von EDOMI (nicht vom Visualisierungs-Endgerät) abgerufen und bereitgestellt.
+
+Auch MJPEG-Streams werden in Einzelbilder zerlegt, können bei Bedarf jedoch auch direkt in der Visualisierung eingebunden werden (Option "MJPEG-Stream direkt einbinden" im Visuelement <link>"Kamera"***1002-19</link>). Beim direkten Einbinden eines MJPEG-Streams wird der Stream direkt vom Visualisierungs-Endgerät abgerufen.
+
+In der <link>Basis-Konfiguration***a-1</link> kann festgelegt werden, ob das Livebild einer Kamera zwischengespeichert werden soll. Diese Option führt ggf. dazu, dass das Livebild intern für eine einstellbare Zeit vorgehalten wird, um z.B. bei mehreren parallel laufenden Visualisierungen die Kamera nicht mehrfach abfragen zu müssen (Ressourcen).

@@ -1,0 +1,161 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Visualisierung***1000-20</path>Diagramme</h1>
+Diagramme werden verwendet, um Inhalte von <link>Datenarchiven***1000-50</link> in einer Visualisierung mit Hilfe des <link>Visuelements Diagramm***1002-21</link> grafisch darzustellen.
+
+<b>Hinweis:</b>
+Für weitere Informationen zum Aufbau von Diagrammen siehe: <link>Datenquellen***1008</link>
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name des Diagramms</li>
+
+	<li>Diagrammtitel: dieser Diagrammtitel wird ggf. in der Visualisierung angezeigt</li>
+	
+	<li>
+		Kumulation: alle Datenquellen des Diagramms können ggf. kumuliert dargestellt werden, d.h. die Daten werden zu Durchschnittswerten für ein bestimmtes Intervall zusammengefasst
+		<ul>
+			<li>ohne: die Daten werden nicht kumuliert</li>
+			<li>Sekunde..Jahr: die Daten werden für das gewählte Intervall zu Durchschnittswerten zusammengefasst</li>
+			<li>gesamter Zeitraum: alle Daten des gewählten Diagrammintervalls (s.u.) werden zu einem Durchschnittswert zusammengefasst</li>
+		</ul>
+	</li>
+
+	<li>
+		Diagrammintervall: legt den Zeitraum der anzuzeigenden Datenarchiv-Inhalte (Datenquellen) fest (siehe unten)
+		<ul>
+			<li>
+				Startdatum (links): definiert den Beginn des Diagrammintervalls (die "linke" Begrenzung des Diagramms)
+				<ul>
+					<li>hier können ggf. absolute und relative Zeitangeben, sowie KOs angegeben werden (s.u.)</li>
+				</ul>
+			</li>
+			
+			<li>
+				Enddatum (rechts): definiert das Ende des Diagrammintervalls (die "rechte" Begrenzung des Diagramms)
+				<ul>
+					<li>hier können ggf. absolute und relative Zeitangeben, sowie KOs angegeben werden (s.u.)</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		X-Achse: ermöglicht bei Bedarf eine manuelle Konfiguration des Intervalls der X-Achse (empfohlen wird jedoch die automatische Skalierung)
+		<ul>
+			<li>
+				Intervall (Einheit): legt ggf. fest, in welcher Einheit die X-Achse skaliert werden soll
+				<ul>
+					<li>automatisch skalieren: die X-Achse wird automatisch für eine gute Lesbarkeit skaliert (empfohlen)</li>
+					<li>Sekunden..Jahre: Die X-Achse wird mit der gewählten Einheit skaliert, die Angabe "Tick-Abstand" ist erforderlich!</li>
+					<li>Hinweis: Das manuelle Konfigurieren der X-Achse steht für kumulierte Diagramme nicht zu Verfügung.</li>
+				</ul>
+			</li>
+			
+			<li>
+				Tick-Abstand: legt bei einer manuellen(!) Skalierung den Abstand zwischen zwei Ticks in der gewählten Einheit fest
+				<ul>
+					<li>die Ticks rasten in diesem Intervall ein, d.h. ein Intervall von z.B. 15 Minuten führt dazu, dass bei einer Startzeit von 12:04:18 der erste Tick um 12:15:00 erscheint, der folgende Tick um 12:30:00 und so fort</li>
+					<li>Hinweis: Ggf. werden nicht alle Ticks angezeigt, vielmehr wird der zu Verfügung stehende Platz (Diagrammbreite in der Visualisierung) optimal ausgenutzt (ggf. wird ein Vielfaches des Intervalls verwendet).</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Y-Achsen: ermöglicht eine gemeinsame Skalierung aller zugewiesenen Y-Achsen bzw. Graphen
+		<ul>
+			<li>alle <link>Datenquellen***1008</link> mit der Skalierungs-Option "Diagramm-Einstellungen (Y-Achsen) verwenden" werden gleichermaßen skaliert</li>
+			<li>
+				Min-Wert/Max-Wert: dieses Angaben definieren (jeweils optional) das gemeinsame Gesamtintervall der Y-Achsen (Achsenabschnitt) 
+				<ul>
+					<li>wird kein Mindest- bzw. Maximalwert angegeben, wird der jeweilige Wert automatisch auf der Grundlage der verfügbaren Datenpunkte ermittelt</li>
+					<li>Hinweis: Werden bei einer automatischen Ermittlung keine gültige Werte gefunden (z.B. bei einem leeren Datenarchiv), werden die <i>individuellen</i> Einstellungen zur Y-Achsen-Skalierung der entsprechenden Datenquelle verwendet.</li>
+				</ul>
+			</li>
+
+			<li>
+				Gesamtintervall optimieren: legt fest, ob das Gesamtintervall (Mindestwert..Maxmimalwert) automatisch optimiert werden soll
+				<ul>
+					<li>nein: die Angaben "Min-Wert/Max-Wert" (bzw. die aus den verfügbaren Datenpunkten errechneten Grenzwerte) werden unverändert übernommen</li>
+					<li>ja (Algorithmus 1): die Angaben "Min-Wert/Max-Wert" (bzw. die aus den verfügbaren Datenpunkten errechneten Grenzwerte) werden ggf. derart angepaßt, dass sich eine harmonische (gut ablesbare) Aufteilung in Y-Intervalle ergibt</li>
+				</ul>
+			</li>
+
+			<li>
+				Y-Intervalle: legt ggf. die Anzahl der Y-Intervalle fest
+				<ul>
+					<li>0: die Anzahl der Y-Intervalle wird automatisch berechnet (in Abhängigkeit der zur Verfügung stehenden Diagrammfläche und der Schriftgröße)</li>
+					<li>1..&infin;: die gewünschte Anzahl der Y-Intervalle (falls die Option "Y-Intervalle optimieren" aktiviert ist, kann die tatsächliche Anzahl hiervon abweichen)</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Schaltflächen</h2>
+Mit der Schaltfläche "Diagramm erstellen" wird ein neues Diagramm mit den o.g. Eigenschaften angelegt.
+Anschließend stehen weitere Eigenschaften zu Verfügung:
+
+
+<h2>Weitere Eigenschaften</h2>
+<ul>
+	<li>
+		Datenquellen: Hinzufügen und Bearbeiten einer beliebigen Anzahl von <link>Datenquellen***1008</link>
+		<ul>
+			<li>jede <link>Datenquelle***1008</link> wird ggf. als Graph (bzw. 2 Graphen) in dem Diagramm dargestellt</li>
+			<li>die Auflistung der Datenquellen folgt diesem Schema: Farbe, Datenarchiv, ggf. individuelle Legende (blau), Graph-Typ, Linienstärke/Größe</li>
+			<li>Hinweis: Die Angaben in dieser Auflistung (Farbe, Graph-Typ, etc.) beziehen sich stets auf den ersten Graphen in der Konfiguration einer Datenquelle.</li>
+			<li>Hinweis: Per Kontextmenü (rechte Maustaste) kann u.a. die Reihenfolge der Datenquellen angepasst werden.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Diagrammintervall</h2>
+Start- und Enddatum des Diagramms werden über die o.g. Eigenschaften definiert und gelten für alle Datenquellen des Diagramms gleichermaßen. Das Diagrammintervall legt fest, welcher Zeitraum der verfügbaren Datenarchiv-Einträge im Diagramm berücksichtigt werden soll.
+
+Start- und Enddatum können sowohl statisch bzw. absolut, als auch dynamisch bzw. relativ angegeben werden. Das <link>Visuelement Diagramm***1002-21</link> kann diese Angaben zudem dynamisch ersetzen.
+
+Werden Start- und(!) Enddatum nicht angegeben, werden alle verfügbaren Daten im Diagramm berücksichtigt.
+Wird beispielsweise nur das Enddatum angegeben (das Startdatum hingegen nicht), so werden alle verfügbaren Daten bis einschließlich zum Enddatum im Diagramm berücksichtigt.
+
+<b>Hinweis:</b>
+Die Intervalle der X-Achse werden stets automatisch auf der Grundlage des Diagrammintervalls berechnet und skaliert (in Abhängigkeit der zu Verfügung stehenden Diagrammfläche und der Schriftgröße). Eine manuelle Anpassung der X-Intervalle ist nicht möglich.
+
+Die folgenden Ausdrücke können als Start- und Enddatum (auch in Kombination) verwendet werden (ohne "" anzugeben):
+
+<h3>Absolute Angaben:</h3>
+<ul>
+	<li>absolutes Datum, z.B. "27.03.2014" (die Uhrzeit wird dann intern auf 00:00:00 gesetzt)</li>
+	<li>absolute Uhrzeit, z.B. "12:01:34" (das Datum wird dann intern auf das aktuelle Datum gesetzt)</li>
+	<li>absolutes Datum und absolute Uhrzeit, z.B. "27.03.2014 12:01:34"</li>
+</ul>
+
+<h3>Relative Angaben:</h3>
+<ul>
+	<li>"today": aktuelles Datum (die Uhrzeit wird intern auf 00:00:00 gesetzt)</li>
+	<li>"now": aktuelles Datum und aktuelle Uhrzeit</li>
+	<li>"now -5 day": aktuelles Datum und aktuelle Uhrzeit abzüglich 5 Tage</li>
+	<li>"now +5 second": aktuelles Datum und aktuelle Uhrzeit zuzüglich 5 Sekunden</li>
+	<li>"first day of this month": der erste Tag des aktuellen Monats</li>
+	<li>"last day of next month": der letzte Tag des aktuellen Monats</li>
+	<li>weitere Einheiten sind z.B.: second, minute, hour, day, month, year</li>
+	<li>Hinweis: Diese Angaben basieren auf der PHP-Funktion "strtotime()", die noch viele weitere Optionen anbietet: <a href="http://php.net/manual/en/datetime.formats.relative.php" target="_blank">http://php.net/manual/en/datetime.formats.relative.php</a> (externer Link)</li>
+</ul>
+
+<h3>Variablen:</h3>
+<ul>
+	<li>"{second}": aktuelle Sekunde</li>
+	<li>"{minute}": aktuelle Minute</li>
+	<li>"{hour}": aktuelle Stunde</li>
+	<li>"{day}": aktueller Tag (nicht der Wochentag!)</li>
+	<li>"{month}": aktueller Monat</li>
+	<li>"{year}": aktuelles Jahr</li>
+</ul>
+
+<h3>Kommunikationsobjekte:</h3>
+<ul>
+	<li>"{id}": Repräsentiert den Wert eines KOs mit dieser ID, z.B. "now -{567} days" bis "now -4 days"</li>
+	<li>"{x/y/z}": Repräsentiert den Wert einer KNX-GA, z.B. "now -{1/2/3} days" bis "now -4 days"</li>
+	<li>Hinweis: Existiert das KO nicht, wird der Ausdruck unverändert verwendet: "{1/2/3}" bliebe also unverändert in der Intervallangabe bestehen und würde zu einem ungültigen Intervall führen.</li>
+</ul>

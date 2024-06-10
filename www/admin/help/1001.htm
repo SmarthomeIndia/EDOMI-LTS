@@ -1,0 +1,39 @@
+<h1>Kommunikationsobjekt (Szenen)</h1>
+Diese <link>Kommunikationsobjekte***1000-30</link> werden beim Abrufen oder Anlernen einer <link>Szene***1000-40</link> verwendet.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>
+		KO: dieses KO wird beim Abrufen der Szene auf den Initialwert bzw. auf den angelernten Wert gesetzt
+		<ul>
+			<li>Hinweis: Die Reihenfolge der hier angegebenen KOs ist beim Abrufen oder Lernen einer Szene nicht von Bedeutung.</li>
+		</ul>
+	</li>
+
+	<li>
+		Initialwert: das KO (s.o.) wird beim Abrufen der Szene auf diesen Wert gesetzt, sofern kein angelernter Wert verfügbar ist
+		<ul>
+			<li>Hinweis: Die Reihenfolge der hier angegebenen KOs ist beim Abrufen oder Lernen einer Szene nicht von Bedeutung.</li>
+		</ul>
+	</li>
+
+	<li>
+		Lern-KO: der Wert dieses KOs wird beim Anlernen der Szene intern gespeichert und ersetzt dann den Initialwert
+		<ul>
+			<li>wird kein Lern-KO angegeben, kann das KO (s.o.) nicht angelert werden (das KO wird beim Abrufen der Szene also stets auf den Initialwert gesetzt)</li>
+			<li>als Lern-KO kann z.B. die Status-GA eines KNX-Endgerätes angegeben werden</li>
+			<li>KO und Lern-KO können auch identisch sein, falls kein gesondertes Status-KO zu Verfügung steht</li>
+			<li>Hinweis: Beim Anlernen wird das Lern-KO ggf. nicht(!) vom KNX-Bus abgefragt (kein Read-Request).</li>
+		</ul>
+	</li>
+
+	<li>
+		Wert-KO: dieses optionale KO wird auf den Initialwert bzw. den angelernten Wert gesetzt (beim Start von EDOMI, beim Anlernen der Szene und beim <link>manuellen Ändern***1012</link> des Live-Wertes)
+		<ul>
+			<li>dieses KO repräsentiert stets den aktuellen KO-Wert des Szeneneintrags und kann z.B. in einer Visualisierung eingesetzt werden</li>
+		</ul>
+	</li>
+</ul>
+
+<h2>Schaltflächen</h2>
+Mit der Schaltfläche "Live" wird ggf. der aktuelle gelernte KO-Wert aus dem <link>Live-Projekt***a-2</link> ermittelt und angezeigt, ausserdem kann der gelernte KO-Wert auf einen Wert gesetzt werden (<link>weitere Informationen***1012</link>).

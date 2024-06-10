@@ -1,0 +1,43 @@
+<h1>Projekte</h1>
+Projekte repräsentieren sämtliche <link>Konfigurationen und Einstellungen***1000</link>, wie z.B. <link>Logiken***1000-10</link>, <link>Visualisierungen***1000-20</link> und <link>Kommunikationsobjekte***1000-30</link>.
+
+<b>Hinweis:</b>
+Projekte werden grundsätzlich in der <link>Verwaltung***103</link> erstellt und administriert.
+
+Grundsätzlich werden folgende Projekt-Typen unterschieden:
+
+<ul>
+	<li>Arbeitsprojekt: dieses Projekt ist aktuell zur Bearbeitung "geöffnet", alle <link>Konfigurationen und Einstellungen***0-1</link> in EDOMI beziehen sich auf dieses Projekt</li>
+	<li>Live-Projekt: dieses Projekt wird aktuell (vollkommen unabhängig vom aktuellen Arbeitsprojekt) "ausgeführt" und über die <link>Statusseite***0-0</link> kontrolliert</li>
+	<li>Archivierte Projekte: diese Projekte wurden archiviert oder importiert und können bei Bedarf in der <link>Verwaltung***103-12</link> geöffnet werden</li>
+</ul>
+
+
+<h2>Arbeitsprojekt</h2>
+Dieses Projekt ist aktuell zur Bearbeitung "geöffnet", alle Konfigurationen und Einstellungen in EDOMI beziehen sich auf dieses Projekt.
+
+Das Arbeitsprojekt ist prinzipiell unabhängig vom Live-Projekt, d.h. sämtliche Änderungen beeinflussen das Live-Projekt in keiner Weise.
+Im Detail gibt es jedoch einige Schnittstellen zwischen Arbeitsprojekt und Live-Projekt, z.B. bei der Anzeige von Live-Werten im <link>Logikeditor***1</link> oder in der <link>Konfiguration der Kommunikationsobjekte***1000-30</link> (siehe "Ermittlung von Live-Werten").
+
+<b>Wichtig:</b>
+Änderungen am aktuellen Arbeitsprojekt werden erst nach einer <link>Projektaktivierung***103-13</link> wirksam: Dabei wird das Arbeitsprojekt in das Live-Projekt überführt.
+
+
+<h2>Live-Projekt</h2>
+Dieses Projekt wird aktuell (vollkommen unabhängig vom aktuellen Arbeitsprojekt) "ausgeführt" und über die <link>Statusseite***0-0</link> kontrolliert.
+
+Das Live-Projekt repräsentiert das Ergebnis der <link>Projektaktivierung***103-13</link> eines Arbeitsprojekts. Bis auf wenige Ausnahmen (s.o.) verhält sich das Live-Projekt vollkommen unabhängig vom aktuellen Arbeitsprojekt.
+
+Jedoch ist das Live-Projekt ggf. mit dem aktuellen Arbeitsprojekt referenziert, z.B. werden auf diese Weise remanente Daten bei einer Projektaktivierung abgeglichen. Basiert das Live-Projekt nicht(!) auf dem aktuellen Arbeitsprojekt, werden bei einer Projektaktivierung sämtliche Remanentdaten gelöscht, da keinerlei Beziehung zwischen den Projekten besteht.
+
+
+<h2>Archivierte Projekte</h2>
+Diese Projekte wurden archiviert oder importiert und können bei Bedarf in der <link>Verwaltung***103-12</link> geöffnet werden.
+
+
+<h2>Ermittlung von Live-Werten</h2>
+Die Ermittlung von Live-Werten (z.B. im <link>Logikeditor***1</link> oder in der <link>Konfiguration von Kommunikationsobjekten***1000-30</link>) ist nur möglich, wenn das Arbeitsprojekt mit dem Live-Projekt referenziert ist.
+
+Bei der Ermittlung von Live-Werten wird nicht(!) überprüft, ob das aktuelle Arbeitsprojekt mit dem Live-Projekt tatsächlich "übereinstimmt". Wird z.B. der Live-Wert eines KOs ermittelt, das erst nach(!) der Projektaktivierung zum Arbeitsprojekt hinzugefügt wurde, kann kein Live-Wert ermittelt werden da dem Live-Projekt dieses neue KO nicht bekannt ist.
+
+Im Logikeditor wird ebenfalls nicht(!) überprüft, ob z.B. der Eingang eines Logikbausteins zwischenzeitlich im Arbeitsprojekt umbelegt wurde. Die Live-Werte aus dem Live-Projekt werden lediglich auf die Logikbausteine im Logikeditor "projiziert".

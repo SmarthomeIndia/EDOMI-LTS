@@ -1,0 +1,106 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path>Fernzugriff</h1>
+Der Fernzugriff ermöglicht es, ein <link>Kommunikationsobjekt***1000-30</link> mittels eines HTTP-Requests auf einen Wert zu setzen bzw. den aktuellen KO-Wert abzufragen.
+
+Der Fernzugriff muss für jedes freizugebende KO konfiguriert werden. Dies soll verhindern, dass unbeabsichtigt oder böswillig KO-Werte per HTTP-Request verändert oder ausgelesen werden können.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name des Fernzugriffs</li>
+
+	<li>KO: auf dieses KO kann per Fernzugriff zugegriffen werden</li>
+</ul>
+
+
+<h2>Zugriff per HTTP-Request</h2>
+Der Zugriff auf ein per Fernzugriff freigegebenes KO erfolgt über folgende URL:
+
+<ul>
+	<li>
+		Abfragen eines KO-Wertes:
+		<ul>
+			<li><b>http://&lt;IP-Adresse&gt;/remote/?login=&lt;Login&gt;&pass=&lt;Passwort&gt;&koid=&lt;KO-ID&gt;</b></li>
+		</ul>
+	</li>
+
+	<li>
+		Setzen eines KO-Wertes:
+		<ul>
+			<li><b>http://&lt;IP-Adresse&gt;/remote/?login=&lt;Login&gt;&pass=&lt;Passwort&gt;&koid=&lt;KO-ID&gt;&kovalue=&lt;KO-Wert&gt;</b></li>
+		</ul>
+	</li>
+
+	<li>&lt;IP-Adresse&gt;: IP-Adresse des EDOMI-Servers</li>
+	<li>&lt;Login&gt;: Login (s.u.)</li>
+	<li>&lt;Passwort&gt;: Passwort (s.u.)</li>
+
+	<li>&lt;KO-ID&gt;: ID des Kommunikationsobjekts (nicht die Gruppenadresse!)</li>
+
+	<li>
+		&lt;KO-Wert&gt;: Wert, auf den das KO ggf. gesetzt werden soll
+		<ul>
+			<li>wird der Parameter "&kovalue=&lt;KO-Wert&gt;" nicht angegben, wird der aktuelle KO-Wert von EDOMI zurückgegeben</li>
+			<li>Hinweis: Bei einer KNX-GA erfolgt kein(!) Read-Request, es wird stets der letzte bekannte GA-Wert aus dem internen Prozessabbild zurückgegeben.</li>
+		</ul>
+	</li>
+</ul>
+
+Beispiele:
+
+<ul>
+	<li>
+		http://192.168.0.10/remote/?login=remote&pass=remote&koid=3
+		<ul>
+			<li>fragt das System-KO [3] (Server-IP) ab, der Rückgabewert wäre z.B. "1.2.3.4" (ohne "")</li>
+		</ul>
+	</li>
+
+	<li>
+		http://192.168.0.10/remote/?login=remote&pass=remote&koid=100&kovalue=EDOMI
+		<ul>
+			<li>setzt das KO [100] auf den Wert "EDOMI", der Rückgabewert wäre z.B. "OK;100;EDOMI;" (ohne "")</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Rückgabewerte</h2>
+Je nach Parametern und Status wird der o.g. HTTP-Request wie folgt beantwortet:
+
+<ul>
+	<li>
+		&lt;KO-Wert&gt;
+		<ul>
+			<li>das abgefragte KO hat aktuell den Wert &lt;KO-Wert&gt;</li>
+		</ul>
+	</li>
+
+	<li>
+		OK;&lt;KO-ID&gt;;&lt;KO-Wert&gt;;
+		<ul>
+			<li>das KO &lt;KO-ID&gt; wird/wurde auf den Wert &lt;KO-Wert&gt; gesetzt</li>
+		</ul>
+	</li>
+
+	<li>
+		ERROR;&lt;KO-ID&gt;;FORBIDDEN;
+		<ul>
+			<li>das KO &lt;KO-ID&gt; ist nicht für den Fernzugriff freigegeben oder existiert nicht</li>
+		</ul>
+	</li>
+
+	<li>
+		ERROR;LOGIN;
+		<ul>
+			<li>die Zugangsdaten sind nicht korrekt</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Zugangsdaten (Fernzugriff)</h2>
+Die Zugangsdaten sind standardmäßig wie folgt eingerichtet und können im Bereich <link>Verwaltung/Accounts***103-3</link> angepaßt werden:
+
+<ul>
+	<li>Login: remote</li>
+	<li>Passwort: remote</li>
+</ul>

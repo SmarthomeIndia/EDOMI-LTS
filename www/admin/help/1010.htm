@@ -1,0 +1,47 @@
+<h1>Live: KO-Wert</h1>
+Ermöglicht das Anzeigen und Setzen eines KO-Wertes im aktuellen Live-Projekt.
+
+<b>Achtung:</b>
+Das KO bzw. die KNX-GA wird real (Live-Projekt) auf einen Wert gesetzt - dies ist keine(!) Simulation. Dies hat zur Folge, dass z.B. eine mit diesem KO verknüpte Logik tatsächlich getriggert oder eine KNX-GA physisch auf den Bus gesendet wird.
+
+<b>Hinweis:</b>
+Das Anzeigen und Setzen von Live-Werten steht nur zu Verfügung, wenn das Arbeitsprojekt mit dem Live-Projekt referenziert ist (siehe <link>Ermittlung von Live-Werten***a-2</link>).
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>
+		Letzte Änderung: ggf. wird hier Datum und Uhrzeit (einschließlich Mikrosekunden) der letzten Wertänderung angezeigt
+		<ul>
+			<li>Hinweis: Der Zeitstempel stimmt nicht exakt mit dem Zeitstempel im Monitor-Log überein, da das Monitor-Log den Zeitpunkt der <i>Anforderung</i> für eine Wertänderung bzw. <i>des Empfangens/Sendens</i> einer KNX-GA repräsentiert.</li>
+		</ul>
+	</li>
+
+	<li>
+		Eingabefeld: hier wird der aktuelle Live-Wert des KOs angezeigt und kann ggf. modifiziert werden
+		<ul>
+			<li>bei internen KOs steht ein mehrzeiliges Eingabefeld zu Verfügung, bei KNX-GAs nur ein einzeiliges Eingabefeld</li>
+			<li>Hinweis: Der Inhalt ist standardmäßig selektiert, um die Eingabe eines neuen Wertes zu erleichtern.</li>
+			<li>Wichtig: Bei der Eingabe eines internen KO-Wertes werden Zeilenumbrüche etc. übernommen!</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Schaltflächen</h2>
+<ul>
+	<li>
+		Wert setzen: setzt das KO real (Live-Projekt) auf den angegebenen Wert
+		<ul>
+			<li>wird der aktuelle Wert im Eingabefeld nicht verändert, wird das KO erneut auf diesen gleichen Wert gesetzt</li>
+			<li>Wichtig: Bei der Eingabe eines internen KO-Wertes werden Zeilenumbrüche etc. übernommen!</li>
+		</ul>
+	</li>
+
+	<li>
+		Aktualisieren: aktualisiert die Anzeige des aktuellen Live-Werts im Eingabefeld
+		<ul>
+			<li>Hinweis: Bei einer KNX-GA erfolgt kein(!) Read-Request, es wird stets der letzte bekannte GA-Wert aus dem internen Prozessabbild angezeigt.</li>
+		</ul>
+	</li>
+</ul>

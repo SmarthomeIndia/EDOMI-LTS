@@ -1,0 +1,56 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path>IR-Befehle</h1>
+IR-Befehle ermöglichen das Senden von konfigurierten Infrarot-Codes mit Hilfe einer geeigneten <link>IRtrans-Hardware***a-1-4</link>.
+
+Infrarot-Codes können manuell definiert oder mit Hilfe des IRtrans von einer IR-Fernbedienung angelernt werden.
+
+<b>Wichtig:</b>
+Voraussetzung für das Anlernen und Senden von IR-Befehlen ist die Konfiguration des Moduls "<link>IRtrans***a-1-4</link>" in der <link>Basis-Konfiguration***a-1</link>.
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name des IR-Befehls</li>
+
+	<li>
+		IR-Code: Hexadezimaler IR-Code, der beim Senden des IR-Befehls ausgegeben wird
+		<ul>
+			<li>der IR-Code wird beim Anlernen einer Fernbedienungsfunktion generiert</li>
+			<li>Bei Bedarf kann der IR-Code auch manuell modifiziert werden.</li>
+			<li>Hinweis: Die maximale Gesamtlänge beträgt 10.000 Zeichen.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Anlernen eines IR-Codes</h2>
+Die folgenden Optionen stehen nur bei einem aktivierten Modul "<link>IRtrans***a-1-4</link>" zu Verfügung:
+
+<ul>
+	<li>
+		Lernen: ein IR-Befehl wird angelernt und ersetzt im Erfolgsfall den Wert im Feld "IR-Code"
+		<ul>
+			<li>die Wartezeit auf einen Tastendruck auf der IR-Fernbedienung kann in der <link>Basis-Konfiguration***a-1</link> angepasst werden</li>
+			<li>
+				Optionen: (detailierte Informationen sind dem IRtrans-Benutzerhandbuch zu entnehmen)
+				<ul>
+					<li>Long-IR-Code: sehr lange IR-Codes (z.B. von Klimaanlagen) erfordern u.U. diese Option</li>
+					<li>Repeat-IR-Code: Wiederholungs-IR-Codes (z.B. Lautstärke-Tasten) erfordern u.U. diese Option</li>
+					<li>RAW/Binär-Modus: einige IR-Codes erfordern u.U. ein Anlernen im RAW-Modus</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Senden: der IR-Code im Feld "IR-Code" wird zu Testzwecken gesendet
+		<ul>
+			<li>das Senden erfolgt hier stets über Kanal 1 und 2</li>
+		</ul>
+	</li>
+
+	<li>IRtrans neustarten: IRtrans wird neugestartet</li>
+</ul>
+
+
+<h2>Senden von IR-Codes</h2>
+IR-Codes werden über den entsprechenden <link>Befehl***1007</link> gesendet.

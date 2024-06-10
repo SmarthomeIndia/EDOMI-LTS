@@ -1,0 +1,49 @@
+<h1>Basis-Konfiguration</h1>
+Die grundlegende Konfiguration von EDOMI erfolgt über eine Textdatei. Die Datei selbst enthält bereits alle Informationen und Hilfestellungen zu den jeweiligen Parametern:
+
+<ul>
+	<li>Dateiname: <b>edomi.ini</b></li>
+	<li>Verzeichnis: <b><MAIN_PATH></b></li>
+</ul>
+
+Die Konfigurationsdatei kann in der <link>Verwaltung***103-6</link> oder mit jedem UTF-8-fähigen Texteditor bearbeitet werden.
+
+<b>Wichtig:</b>
+Änderungen an dieser Konfigurationsdatei werden erst nach einem Neustart des Servers übernommen (ein Neustart von EDOMI genügt nicht).
+
+
+<h2>Wichtige Grundeinstellungen nach der Installation</h2>
+Die folgenden Parameter müssen ggf. unmittelbar nach der Installation angepasst werden:
+
+<b>Zeitzone:</b>
+<ul>
+	<li>set_timezone='Europe/Berlin'</li>
+	<li>Wichtig: Die hier angegebene Zeitzone sollte mit der Zeitzone des Betriebssystems übereinstimmen!</li>
+	<li>Beispiel: 'Europe/Berlin' = Deutschland</li>
+	<li>Weitere Zeitzonen-Einstellungen unter <a href="http://php.net/manual/en/timezones.php" target="_blank">http://php.net/manual/en/timezones.php</a> (externer Link)</li>
+</ul>
+
+<b>IP-Adresse des EDOMI-Servers im lokalen Netzwerk:</b>
+<ul>
+	<li>Beispiele:</li>
+	<li>global_serverIP='192.168.0.10' - die IP-Adresse wird manuell auf 192.168.0.10 gesetzt</li>
+	<li>global_serverIP='' - die IP-Adresse wird automatisch ermittelt (bei jedem Server-Neustart)</li>
+	<li>Hinweis: Die IP-Adresse wurde i.d.R. bereits auf die entsprechende Eingabe während der Installation von EDOMI gesetzt.</li>
+</ul>
+
+Alle weiteren Parameter sind standardmäßig derart konfiguriert, dass EDOMI ohne Gefahr in Betrieb genommen werden kann (z.B. ist die <link>Kommunikation mit dem KNX-Bus***a-1-1</link> standardmäßig deaktiviert).
+
+
+<h2>Module</h2>
+Im Abschnitt "Module" sind die folgenden Funktionseinheiten konfigurierbar, bzw. lassen sich aktivieren oder deaktivieren:
+
+<ul>
+	<li><link>Email-Gateway***a-1-0</link>: Senden von Emails, z.B. Systemmitteilungen oder individuelle Email-Benachrichtigungen</li>
+	<li><link>KNX-Gateway***a-1-1</link>: Erforderlich für die Kommunikation mit dem KNX-Bus</li>
+	<li><link>Telefonie-Gateway***a-1-2</link>: ermöglicht die Nutzung von Telefonie-Funktionen mit Hilfe einer Fritzbox (AVM)</li>
+	<li><link>Anrufmonitor***a-1-3</link>: Überwachung von ein- und ausgehenden Anrufen (benötigt das Telefonie-Gateway)</li>
+	<li><link>IRtrans***a-1-4</link>: ermöglicht das Einlernen und Senden von IR-Befehlen (Infrarot-Fernbedienungen) mit Hilfe eines IRtrans-Gerätes</li>
+	<li><link>Digitaler Videorekorder***a-1-5</link>: ermöglicht die fortlaufende Aufzeichnung von Einzelbildern entspechend konfigurierter Kameras</li>
+</ul>
+
+

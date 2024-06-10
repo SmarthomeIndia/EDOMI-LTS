@@ -1,0 +1,105 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Kameraarchiv <span class="id">20</span></h1>
+Das Visuelement "Kameraarchiv" ermöglicht das Anzeigen der Kamerabilder eines <link>konfigurierten Kameraarchivs***1000-82</link>.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>Kameraarchiv: Auswahl des <link>konfigurierten Kameraarchivs***1000-82</link>, dessen Inhalt angezeigt werden soll</li>
+
+	<li>
+		Kameraansicht: Auswahl einer <link>konfigurierten Kameraansicht***1000-83</link>, die für die Anzeige der Archivbilder verwendet werden soll
+		<ul>
+			<li>Hinweis: diese Angabe ist optional, ohne Angabe einer Kameraansicht wird das Original-Archivbild angezeigt</li>
+			<li>Achtung: prinzipiell könnte hier auch eine Kameraansicht ausgewählt werden, die <i>nicht</i> zur konfigurierten Kamera des Archivs gehört (nicht zu empfehlen)</li>
+		</ul>
+	</li>
+
+	<li>
+		Aktualisierung per KO: legt fest, ob das Archivbild bei Änderung des KO1-Wertes (s.u.) aktualisiert werden soll
+		<ul>
+			<li>deaktiviert: das Archivbild wird nicht automatisch aktualisiert</li>
+			<li>aktiviert: das Archivbild wird bei jeder KO1-Wertänderung aktualisiert, d.h. es wird stets das aktuellste Archivbild geladen und angezeigt</li>
+		</ul>
+	</li>
+
+	<li>
+		Positionsanzeige: ggf. kann die (zeitliche) Position des aktuell angezeigten Archivbildes bezogen auf das gesamte Archiv angezeigt werden (unterhalb der Trennline der Titelzeile)
+		<ul>
+			<li>deaktiviert: keine Positionsanzeige</li>
+			<li>Indikatorfarbe: die Position wird mit der <link>Indikatorfarbe***1000-21</link> dargestellt</li>
+			<li>Zusatzhintergrundfarbe 1: die Position wird mit der <link>Zusatzhintergrundfarbe 1***1003</link> dargestellt</li>
+		</ul>
+	</li>
+	
+	<li>Höhe (der Positionsanzeige): legt die Höhe der Positionsanzeige in Pixeln fest</li>
+
+	<li>Zeitstempel: legt das Format des angezeigten Archivbild-Zeitstempels fest</li>
+
+	<li>Kopfzeilenposition: legt die Position der Kopfzeile (oben oder unten) fest</li>
+
+	<li>Kopfzeilenhöhe: legt optional die Höhe der Kopfzeile in Pixeln fest</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerung
+		<ul>
+			<li>dieser KO-Wert wird zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>immer wenn das KO auf einen Wert gesetzt wird, wird das Archivbild ggf. aktualisiert (siehe "Aktualisierung per KO")</li>
+		</ul>
+	</li>
+
+	<li>
+		KO2: Archiv-Metadaten setzen
+		<ul>
+			<li>dieses KO wird ggf. auf diverse Metadaten des aktuell angezeigten Archivbilds gesetzt ("Datum;Uhrzeit;Mikrosekunden;Dateiname;")</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Falls KO1 nicht angegeben wurde, wird das KO1 bei einer Aktivierung automatisch das Status-KO des Kameraarchivs verknüpft (sofern vorhanden). Bei der Verwendung des Status-KO des Kameraarchivs wird das Visuelement bei jeder Änderung des Kameraarchivs ggf. automatisch aktualisiert (siehe "Aktualisierung per KO").
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+	<li>Seitensteuerung/Befehle werden nur bei einem Klick ausserhalb der Titelzeile ausgeführt</li>
+	<li>Hinweis: wenn keine Seitensteuerungen/Befehle zugewiesen wurden, verhält sich dieses Visuelement dennoch nicht <link>klicktransparent***1002</link></li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Das Visuelement ist in 2 Teilbereiche gegliedert (von oben nach unten): 
+
+<ul>
+	<li>
+		Titelleiste:
+		<ul>
+			<li>hier werden Pfeil-Schaltflächen zum Blättern durch die Archivbilder, der Name des <link>Kameraarchivs***1000-82</link> und ein Zeitstempel des angezeigten Archivbilds angezeigt</li>
+			<li>ein Klick auf den Namen des Kameraarchivs aktualisiert den Inhalt des Visuelements und führt zur Anzeige des aktuellsten Archivbildes</li>
+		</ul>
+	</li>
+
+	<li>
+		Archivbild:
+		<ul>
+			<li>hier wird standardmäßig das aktuellste Archivbild angezeigt, mit den o.g. Pfeil-Schaltflächen kann durch das Kameraarchiv navigiert werden</li>
+			<li>mit einem Klick auf diesen Bereich werden ggf. die zugewiesenen "Seitensteuerungen/Befehle" ausgeführt</li>
+		</ul>
+	</li>
+</ul>

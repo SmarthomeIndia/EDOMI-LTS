@@ -1,0 +1,97 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Bild-URL/Webseite <span class="id">29</span></h1>
+Das Visuelement "Bild-URL/Webseite" zeigt eine Bild-URL an oder bettet eine Webseite ein.
+
+<b>Achtung:</b>
+Das Einbetten externer Bild- oder Webseiten-URLs kann u.U. ein Sicherheitsrisiko darstellen. Ausserdem ist u.U. ein "Ausbrechen" der Webseite aus dem eingebettenen "iFrame" möglich, so dass die eingebettete Webseite die angezeigte Visualisierung im Browser ersetzt. 
+
+<b>Hinweis:</b>
+Das Einbetten externer Bild- oder Webseiten-URLs muss vom Ziel-Server ermöglicht (erlaubt) werden. Unter Umständen verweigert der Ziel-Server das Ausliefern eines Bildes bzw. einer Webseite in die Visualisierung.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>
+		URL-Typ: legt fest, ob die im Feld "Beschriftung" angegebene URL ein Bild oder eine Webseite repräsentiert
+		<ul>
+			<li>Beim URL-Typ "Webseite" muss die Webseite innerhalb von 30 Sekunden geladen werden, ansonsten wird das Laden abgebrochen (Timeout).</li>
+			<li>Hinweis: die eigentliche URL muss im Feld "Beschriftung" angegeben werden (auch möglich in dynamischen Designs)</li>
+		</ul>
+	</li>
+
+	<li>Caching verhindern: ist diese Option aktiviert, wird an die URL ein Zeitstempel in der Form "?&TS..." bzw. "&TS..." angehängt, um das Zwischenspeichern der Inhalte im Browser-Cache zu verhindern</li>
+
+	<li>
+		Bild-Format (nur bei URL-Typ "Bild"): legt fest, wie das angezeigte Bild bezogen auf das Visuelement skaliert werden soll
+		<ul>
+			<li>Breite und Höhe anpassen: Das Bild wird genau an die Visuelementgröße angepasst (das Seitenverhältnis wird dabei ignoriert)</li>
+			<li>Breite anpassen: Die Bildbreite wird an die Visuelementbreite angepasst, die Höhe wird unter Beibehaltung des Seitenverhältnisses angepasst</li>
+			<li>Höhe anpassen: Die Bildhöhe wird an die Visuelementhöhe angepasst, die Breite wird unter Beibehaltung des Seitenverhältnisses angepasst</li>
+			<li>Originalgröße: Das Bild wird in seiner nativen Größe angezeigt, ggf. werden Bildteile abgeschnitten</li>
+		</ul>
+	</li>
+
+	<li>
+		Webseiten-Hintergrund (nur bei URL-Typ "Webseite"): legt fest, welcher Hintergrund angezeigt werden soll bis die Webseite geladen wurde und diese Einstellung ggf. überschreibt
+		<ul>
+			<li>Streifenmuster: Als Hintergrund wird ein Streifenmuster angezeigt, bis die Webseite geladen wurde (ggf. wird dann der Hintergrund der Webseite verwendet).</li>
+			<li>kein Hintergrund (transparent): Es wird kein Hintergrund angezeigt, bis die Webseite geladen wurde (ggf. wird dann der Hintergrund der Webseite verwendet).</li>
+		</ul>
+	</li>
+
+	<li>
+		Aktualisierung per KO: legt fest, ob das Bild bzw. die Webseite bei Änderung des KO1-Wertes (s.u.) aktualisiert werden soll
+		<ul>
+			<li>deaktiviert: das Bild bzw. die Webseite wird ggf. ausschließlich per Intervall (s.u.) aktualisiert</li>
+			<li>aktiviert: das Bild bzw. die Webseite wird bei jeder KO1-Wertänderung aktualisiert (und ggf. zusätzlich per Intervall, s.u.)</li>
+		</ul>
+	</li>
+
+	<li>
+		Aktualisierung per Intervall: legt fest, in welchem Intervall das Bild bzw. die Webseite aktualisiert werden soll
+		<ul>
+			<li>deaktiviert: das Bild bzw. die Webseite wird nicht per Intervall aktualisiert (ggf. jedoch per KO, s.o.)</li>
+			<li>"alle x Sekunden/Minuten/Stunden": das Bild bzw. die Webseite wird in dem ausgewählten Intervall aktualisiert (und ggf. zusätzlich per KO, s.o.)</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerung
+		<ul>
+			<li>dieser KO-Wert wird zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>immer wenn das KO auf einen Wert gesetzt wird, wird das Bild bzw. die Webseite ggf. aktualisiert (siehe "Aktualisierung per KO")</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>Im Feld "Beschriftung" (auch in dynamischen Designs) muss die URL des Bildes bzw. der Webseite angegeben werden.</li>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+</ul>
+
+<b>Wichtig:</b>
+<link>Konfigurierte Bilder***1000-28</link> stehen für dieses Visuelement nur dann (als lokale URL) zu Verfügung, wenn ein konfiguriertes Bild in einer Visualisierung tatsächlich genutzt wird: Ungenutzte Bild-Dateien werden bei der <link>Projektaktivierung***103-13</link> nicht übertragen.
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Mit einem Klick auf dieses Visuelement werden alle zugewiesenen Seitensteuerungen/Befehle ausgeführt.
+
+<b>Hinweis:</b>
+Beim URL-Typ "Webseite" werden Klicks auf die angezeigte Webseite angewendet, nicht auf das Visuelement selbst. Klicks auf Bereiche ausserhalb der Webseite (z.B. falls das Visuelement über einen Rahmen verfügt) führen zur Ausführung aller zugewiesenen Seitensteuerungen/Befehle.

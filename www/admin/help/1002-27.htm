@@ -1,0 +1,146 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Wertanzeige <span class="id">27</span></h1>
+Das Visuelement "Wertanzeige" zeigt einen KO-Wert in Form einer linearen oder kreisrunden grafischen Darstellung (SVG) an.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>
+		Typ: definiert die grundsätzliche grafische Darstellung der Wertanzeige
+		<ul>
+			<li>Linear: es wird eine lineare Darstellung erzeugt
+				<ul>
+					<li>Strich: Strich</li>
+					<li>Kreis: gefüllter Kreis</li>
+					<li>Balken: Balken</li>
+					<li>Balken (runde Enden): Balken mit abgerundeten Enden</li>
+					<li>Hinweis: die Ausrichtung der Grafik (horizontal oder vertikal) erfolgt stets automatisch anhand des Seitenverhältnisses (Breite:Höhe): Ist "Breite &ge; Höhe" wird die Grafik horizontal ausgerichtet, ansonsten vertikal.</li>
+				</ul>
+			</li>
+
+			<li>Polar: es wird eine kreisrunde Darstellung erzeugt
+				<ul>
+					<li>Zeiger: Zeiger (wie bei einem Tachometer)</li>
+					<li>Zeiger (mit Mittelpunkt): Zeiger mit Anzeige des Mittelpunkts</li>
+					<li>Strich: Strich am Innenrand der "Schleifbahn"</li>
+					<li>Kreis: gefüllter Kreis am Innenrand der "Schleifbahn"</li>
+					<li>Segment: gefülltes Kreissegment</li>
+					<li>Kontur: Kreissegmentkontur am Innenrand der "Schleifbahn"</li>
+					<li>Kontur (runde Enden): Kreissegmentkontur am Innenrand der "Schleifbahn" mit abgerundeten Enden</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Größe: legt die Länge (linear) bzw. den Durchmesser (polar) der grafischen Anzeige relativ zur Größe des Visuelements fest
+		<ul>
+			<li>erlaubt sind Werte von 0..100 Prozent</li>
+		</ul>
+	</li>
+
+	<li>
+		Richtung: definiert die Anzeigerichtung der Wertanzeige
+		<ul>
+			<li>normal: die Anzeige erfolgt bei polarer Wertanzeige im Uhrzeigersinn (der Minimum-Wert entspricht dem Startwinkel), bei linearer Wertanzeige von links nach rechts (bzw. von oben nach unten)</li>
+			<li>invertiert: die Anzeige erfolgt bei polarer Wertanzeige gegen den Uhrzeigersinn (der Minimum-Wert entspricht dem Endwinkel), bei linearer Wertanzeige von rechts nach links (bzw. von unten nach oben)</li>
+		</ul>
+	</li>
+
+	<li>
+		Startwinkel/Endwinkel: definiert die Ausdehnung der polaren Wertanzeige im Bereich von 0..360 Grad (nur beim Typ "Polar")
+		<ul>
+			<li>beide Werte sind als absolute Winkelwerte anzugeben, z.B. führt 45/315 zu einem 3/4-Kreis (270 Grad), der nach unten offen ist</li>
+			<li>Bezugspunkt (0 Grad) ist die 6-Uhr-Position</li>
+			<li>Winkelwerte werden stets im Uhrzeigersinn umgesetzt, z.B. führt die Angabe 0/90 zu einem Viertelkreis unten links</li>
+			<li>Hinweis: Diese Option steht nur bei einer polaren Wertanzeige zu Verfügung.</li>
+		</ul>
+	</li>
+
+	<li>
+		Zeiger: Stärke/Größe in Pixeln (die Angabe von "0" führt zu einer automatischen Anpassung an die Schleifbahn-Stärke)
+		<ul>
+			<li>beim Typ "Zeiger": diese Angabe bestimmt die Linienstärke der Zeiger (in Pixeln): die Angabe von "0" führt zu einer Skalierung in Abhängigkeit von der Größe des Visuelements</li>
+			<li>beim Typ "Strich": diese Angabe bestimmt die Linienstärke des Strichs (in Pixeln), die radiale Länge entspricht stets der Angabe "Bereichsanzeige: Stärke" (auch wenn die Bereichsanzeige ausgeblendet ist)</li>
+			<li>beim Typ "Kreis": diese Angabe bestimmt den Radius des Kreises (in Pixeln)</li>
+			<li>beim Typ "Segment": diese Angabe wird ignoriert</li>
+			<li>beim Typ "Kontur/Balken": diese Angabe bestimmt die Linienstärke der Kontur bzw. des Balkens (in Pixeln)</li>
+		</ul>
+	</li>
+
+	<li>
+		Bereichsanzeige: definiert das Erscheinungsbild der gesamten "Schleifbahn" bzw. eines Abschnitts (bei KO-Steuerung, s.u.)
+		<ul>
+			<li>
+				Opazität: legt die Opazität der Bereichsanzeige fest oder blendet die Bereichsanzeige aus
+			</li>
+			<li>
+				Typ: legt die Darstellung der Bereichsanzeige fest
+				<ul>
+					<li>Hinweis: der Typ "Segment" ist nur für die polare Wertanzeige verfügbar, bei einer linearen Wertanzeige wird "Segment" wie "Kontur (runde Enden)" dargestellt.</li>
+				</ul>
+			</li>
+			<li>
+				Stärke: bestimmt die Stärke der Bereichsanzeige in Pixeln (die Angabe von "0" führt zu einer automatischen Skalierung in Abhängigkeit von der Größe des Visuelements)
+				<ul>
+					<li>beim Typ "Strich": diese Angabe bestimmt zudem die Länge des Strichs (in Pixeln)</li>
+					<li>beim Typ "Kreis": diese Angabe bestimmt zudem den Durchmesser(!) des Kreises (in Pixeln), sofern die Angabe "Zeiger: Stärke/Größe"=0 ist (automatisch)</li>
+					<li>beim Typ "Kontur/Balken": diese Angabe bestimmt zudem die Stärke der Kontur bzw. des Balkens (in Pixeln), sofern die Angabe "Zeiger: Stärke/Größe"=0 ist (automatisch)</li>
+				</ul>
+			</li>
+			<li>
+				Hinweis: optional kann über den KO1-Wert der Umfang der angezeigten Bereichsanzeige begrenzt werden (siehe bei Kommunikationsobjekte)
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Wertebereich (Minimum/Maxmium): definiert den Wertebereich für die Anzeige des KO-Wertes (Integer/Float)
+		<ul>
+			<li>wird dieses Feld [leer] belassen, werden ggf. die KO-Filtereinstellungen angewendet</li>
+			<li>Hinweis: Wenn der Minimum-Wert <i>größer</i> als der Maxmium-Wert ist, werden die Werte intern korrigiert (für eine invertierte Darstellung ist die Option "Richtung" entsprechend auszuwählen).</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerung
+		<ul>
+			<li>dieser KO-Wert wird ggf. als Wert und Position angezeigt</li>
+			<li>dieser KO-Wert wird zudem zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>
+				ggf. wird dieser KO-Wert zudem als Begrenzung der Bereichsanzeige verwendet:
+				<ul>
+					<li>enthält der KO-Wert mehrere (durch ein Semikolon separierte) Werte, werden diese Werte als "Wert", "Minimum" und "Maximum" interpretiert</li>
+					<li>z.B. führt der KO-Wert "20;15;25" zur Anzeige des Wertes "20" und die Bereichsanzeige wird auf die Werte "15" bis "25" begrenzt</li>
+					<li>ein fehlender Minimum- bzw. Maximum-Wert (z.B. "20;;25") wird durch den entsprechenden Wert des definierten Wertebereichs ersetzt</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>die Beschriftung wird stets zentriert angezeigt</li>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Mit einem Klick auf dieses Visuelement werden alle zugewiesenen Seitensteuerungen/Befehle ausgeführt.

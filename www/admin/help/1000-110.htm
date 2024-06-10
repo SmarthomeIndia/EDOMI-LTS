@@ -1,0 +1,61 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path>Anwesenheitssimulationen</h1>
+Eine Anwesenheitssimulation kann die Werte einer beliebige Anzahl von <link>Kommunikationsobjekten***1000-30</link> aufzeichnen und bei Bedarf wiedergeben, z.B. um die Anwesenheit von Hausbewohnern während eines Urlaubs zu simulieren.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name der Szene</li>
+
+	<li>
+		KO: Steuerung der Anwesenheitssimulation 
+		<ul>
+			<li>mit diesem KO wird der Betriebszustand der Anwesenheitssimulation gesteuert:</li>
+			<li>0: die Anwesenheitssimulation ist deaktiviert</li>
+			<li>1: die Anwesenheitssimulation gibt die aufgezeichneten KO-Werte wieder (Abspielen)</li>
+			<li>2: die Anwesenheitssimulation zeichnet KO-Werte auf (Aufnehmen)</li>
+			<li>Hinweis: Dieses KO wird ggf. vom <link>Visuelement Anwesenheitssimulation***1002-23</link> zum Steuern der Anwesenheitssimulation gesetzt bzw. ausgewertet.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Schaltflächen</h2>
+Mit der Schaltfläche "Anwesenheitssimulation erstellen" wird eine neue Anwesenheitssimulation mit den o.g. Eigenschaften angelegt.
+Anschließend stehen weitere Eigenschaften zu Verfügung:
+
+
+<h2>Weitere Eigenschaften</h2>
+<ul>
+	<li>
+		Kommunikationsobjekte: hier werden die <link>zu dieser Anwesenheitssimulation gehörenden Kommunikationsobjekte***1009</link> verwaltet
+		<ul>
+			<li>ggf. werden für jedes Kommunikationsobjekt die angegebenen <link>Start- und Stoppwerte***1009</link> angezeigt</li>
+			<li>Hinweis: Die Reihenfolge der hier angegebenen KOs ist nicht von Bedeutung.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Funktionsweise der Anwesenheitssimulation</h2>
+Das Verhalten einer Anwesenheitssimulation (AWS) ist mit einem Tonbandrekorder, der in einer Endlosschleife aufnimmt bzw. wiedergibt, vergleichbar.
+
+Die AWS orientiert sich ausschließlich an den 7 Wochentagen, d.h. die KO-Werte werden genau 7 Tage aufgezeichnet bzw. wiedergegeben.
+Läuft eine Aufzeichnung länger als 7 Tage, werden die bereits vorhandenen Aufzeichnungen sukzessive für das jeweilige KO gelöscht und die neuen KO-Werte übernommen.
+Beim Abspielen wird nach 7 Tagen entsprechend wieder von vorn begonnen (Endlosschleife).
+
+Das Abspielen einer Aufzeichnung erfolgt ca. im Sekundentakt, d.h. sämtliche aufgezeichneten KO-Werte werden in diesem zeitlichen Raster ausgegeben. Die exakte zeitliche Reihenfolge der Aufzeichnung bleibt dabei jedoch bestehen. Beispiel: Während einer Aufzeichnung wird ein KO um 12:00:00.0 auf 1 und um 12:00:00.5 auf 0 gesetzt. Beim Abspielen wird das KO um 12:00:00 auf 1 und unmittelbar danach auf 0 gesetzt (nicht erst 0.5 Sekunden später).
+
+Die AWS unterscheidet 3 Betriebszustände, die durch ein KO gesteuert werden:
+<ul>
+	<li>0: deaktiviert</li>
+	<li>1: Abspielen</li>
+	<li>2: Aufnehmen (während der Aufnahme erfolgt kein(!) Abspielen)</li>
+</ul>
+
+Die AWS kann problemlos dauerhaft im Betriebszustand "Aufnehmen" verbleiben und z.B. bei längerer Abwesenheit auf den Betriebszustand "Abspielen" gesetzt werden. 
+
+Beim Wechsel des Betriebszustand von "Abspielen" zu "Deaktiviert" oder "Aufnehmen" ist zu beachten, dass das Abspielen der gespeicherten KO-Werte unmittelbar beendet wird: Der aktuelle Zustand eines KOs wird dabei nicht berücksichtigt. Dies kann u.U. dazu führen, dass z.B. eine Leuchte durch die AWS eingeschaltet wurde und nach dem Deaktivieren der AWS in diesem Zustand verbleibt.
+Durch die Angabe von entsprechenden <link>Start- bzw. Stoppwerten***1009</link> können jedoch zu Beginn und Ende eines Abspielvorgangs definierte Zustände erreicht werden.
+
+<b>Wichtig:</b>
+Da die AWS intern nur ca. im Sekundentakt arbeitet (mit Ausnahme der Aufzeichnung), kann ein zu schneller Wechsel zwischen den Betriebszuständen u.U. dazu führen, dass die Start-/Stoppwerte nicht wie erwartet gesetzt werden:
+Wird die AWS z.B. auf "Abspielen" gesetzt und in weniger als 1 Sekunde wieder deaktiviert, werden weder Start- noch Stoppwerte gesetzt. Die AWS muss also mindestens 1 Sekunde lang im Zustand "Abspielen" sein, damit die Start- und Stoppwerte berücksichtigt werden. 

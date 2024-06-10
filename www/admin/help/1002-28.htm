@@ -1,0 +1,91 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Anrufarchiv <span class="id">28</span></h1>
+Das Visuelement "Anrufarchiv" stellt den Inhalt eines <link>konfigurierten Anrufarchivs***1000-127</link> in der Visualisierung tabellarisch dar.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>Anrufarchiv: Auswahl des <link>konfigurierten Anrufarchivs***1000-127</link>, dessen Inhalt angezeigt werden soll</li>
+
+	<li>
+		Aktualisierung per KO: legt fest, ob die angezeigten Inhalte des Anrufarchivs bei Änderung des KO1-Wertes (s.u.) aktualisiert werden soll
+		<ul>
+			<li>deaktiviert: die angezeigten Inhalte werden nur manuell aktualisiert (durch einen Klick auf die Titelleiste)</li>
+			<li>aktiviert: die angezeigten Inhalte werden zusätzlich bei jeder KO1-Wertänderung aktualisiert</li>
+		</ul>
+	</li>
+
+	<li>Anruftyp: legt fest, welche Anrufe angezeigt werden sollen (eingehend/ausgehend)</li>
+
+	<li>
+		Nachladen: legt fest, wieviele Einträge maximal übertragen werden
+		<ul>
+			<li>die Daten werden blockweise aus dem Anrufarchiv übertragen</li>
+			<li>beim ersten Aufruf des Visuelements wird die angegebene Anzahl an Einträgen geladen</li>
+		</ul>
+	</li>
+
+	<li>Zeitstempel: legt ggf. die Formatierung und die Opazität des Zeitstempels eines Archiveintrags fest</li>
+
+	<li>Abtrennung: fügt ggf. zwischen den Einträgen einen Freiraum bzw. eine Trennlinie ein</li>
+
+	<li>Kopfzeilenhöhe: legt optional die Höhe der Kopfzeile in Pixeln fest</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Steuerung
+		<ul>
+			<li>dieser KO-Wert wird zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+			<li>immer wenn das KO auf einen Wert gesetzt wird, wird das Visuelement ggf. aktualisiert (siehe "Aktualisierung per KO")</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Falls KO1 nicht angegeben wurde, wird das KO1 bei einer Aktivierung automatisch das Status-KO des Anrufarchivs verknüpft (sofern vorhanden). Bei der Verwendung des Status-KO des Anrufarchivs wird das Visuelement bei jeder Änderung des Archivinhaltes ggf. automatisch aktualisiert.
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>das Feld "Beschriftung" steht nicht zu Verfügung, bzw. wird ignoriert</li>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert</li>
+	<li>Hinweis: wenn keine Seitensteuerungen/Befehle zugewiesen wurden, verhält sich dieses Visuelement dennoch nicht <link>klicktransparent***1002</link></li>
+</ul>
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Das Visuelement ist in 2 Teilbereiche gegliedert (von oben nach unten): 
+
+<ul>
+	<li>
+		Titelleiste:
+		<ul>
+			<li>hier werden Pfeil-Schaltflächen zum Blättern durch die Einträge (Scrollen), sowie der Name des <link>Anrufarchivs***1000-127</link> angezeigt</li>
+			<li>ein Klick auf den Namen des Anrufarchivs aktualisiert den Inhalt des Visuelements</li>
+		</ul>
+	</li>
+
+	<li>
+		Archiveinträge:
+		<ul>
+			<li>hier werden die geladenen Einträge des Archivs angezeigt (absteigend nach Zeitstempel sortiert, d.h. die neuesten Einträge werden am Anfag der Auflistung angezeigt)</li>
+			<li>ein ausgehender Anruf wird mit "&gt;", ein eingehender Anruf wird mit "&lt;" gekennzeichnet</li>
+			<li>sofern ein zur Rufnummer passender Eintrag im <link>Telefonbuch***1000-125</link> vorliegt, wird der Name des Anrufers bzw. des Angerufenen angezeigt (ansonsten wird die Rufnummer angezeigt)</li>
+			<li>mit einem Klick auf diesen Bereich werden alle zugewiesenen Seitensteuerungen/Befehle ausgeführt</li>
+		</ul>
+	</li>
+</ul>

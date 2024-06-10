@@ -1,0 +1,32 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Anwesenheitssimulationen***1000-110</path>Kommunikationsobjekt</h1>
+Diese <link>Kommunikationsobjekte***1000-30</link> werden von einer <link>Anwesenheitssimulationen***1000-110</link> beim Abspielen bzw. Aufnehmen berücksichtigt.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>
+		KO: der Wert dieses KOs wird von der Anwesenheitssimulation ggf. aufgezeichnet bzw. abgespielt
+		<ul>
+			<li>wenn kein Status-KO angegeben wurde (s.u.), wird der Wert dieses KOs aufgezeichnet bzw. abgespielt</li>
+			<li>wenn ein Status-KO angegeben wurde (s.u.), wird stattdessen der Wert des Status-KOs aufgezeichnet bzw. über dieses KO abgespielt</li>
+		</ul>
+	</li>
+	
+	<li>
+		Startwert (optional): das KO wird zu Beginn des Abspielens einmalig auf diesen Wert gesetzt
+	</li>
+
+	<li>
+		Stoppwert (optional): das KO wird beim Beenden des Abspielens (Deaktivierung oder Wechsel in den Aufnahmemodus) einmalig auf diesen Wert gesetzt
+		<ul>
+			<li>Hinweis: Beim Wechsel vom Abspielmodus in den Aufnahmemodus wird der Stoppwert zudem mit aufgezeichnet.</li>
+		</ul>
+	</li>
+
+	<li>
+		Status-KO (optional): der Wert dieses KOs wird ggf. von der Anwesenheitssimulation aufgezeichnet bzw. abgespielt
+		<ul>
+			<li>wenn ein Status-KO angegeben wurde, wird <i>dessen</i> Wert aufgezeichnet (anstelle des Wertes vom o.g. KO)</li>
+			<li>beim Abspielen wird das o.g. KO auf <i>diesen</i> aufgezeichneten Wert gesetzt</li>
+		</ul>
+	</li>
+</ul>

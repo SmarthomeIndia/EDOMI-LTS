@@ -1,0 +1,53 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Telefon***1000-124</path>Anruftrigger</h1>
+Für alle ein- und ausgehenden Anrufe können sogenannte Anruftrigger konfiguriert werden. Dabei werden ggf. Kommunikationsobjekte auf einen bestimmten Wert gesetzt, sobald ein Anruf den u.g. Filterkriterien entspricht. Auf diese Weise können z.B. Logikfunktionen ausgelöst oder Visuelemente modifziert werden.
+
+<b>Wichtig:</b>
+Voraussetzung für die Nutzung von Telefonie-Funktionen ist die Konfiguration des Moduls "<link>Telefonie-Gateway***a-1-2</link>" und ggf. des Moduls "<link>Anrufmonitor***a-1-3</link>" in der <link>Basis-Konfiguration***a-1</link>.
+
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name des Anrufarchivs</li>
+	
+	<li>Anruftyp: legt fest, ob der Anruftrigger bei eingehenden oder bei ausgehenden Anrufen reagieren soll</li>
+
+	<li>
+		Quell-Rufnummer: Auswahl des <link>konfigurierten Telefonbucheintrags***1000-125</link>, auf dessen Rufnummer reagiert werden soll
+		<ul>
+			<li>die Quell-Rufnummer entspricht dem Anschluss, von dem aus der Anruf initiiert worden ist</li>
+			<li>wird keine Quell-Rufnummer angegeben, reagiert der Anruftrigger auf jede beliebige Quell-Rufnummer</li>
+		</ul>
+	</li>
+
+	<li>
+		Ziel-Rufnummer: Auswahl des <link>konfigurierten Telefonbucheintrags***1000-125</link>, auf dessen Rufnummer reagiert werden soll
+		<ul>
+			<li>die Ziel-Rufnummer entspricht dem Anschluss, der angerufen worden ist</li>
+			<li>wird keine Ziel-Rufnummer angegeben, reagiert der Anruftrigger auf jede beliebige Ziel-Rufnummer</li>
+		</ul>
+	</li>
+
+	<li>
+		KO: Status
+		<ul>
+			<li>dieses KO wird bei jedem Anruf, der den o.g. Filterkriterien entspricht auf den Wert "1" gesetzt</li>
+			<li>Hinweis: das KO wird beim Beenden des Anrufs nicht(!) verändert</li>
+		</ul>
+	</li>
+
+	<li>
+		KO: Quell-Rufnummer/Name
+		<ul>
+			<li>dieses KO wird bei jedem Anruf, der den o.g. Filterkriterien entspricht auf die Quell-Rufnummer bzw. den zugehörigen Namen/Id im <link>Telefonbuch***1000-125</link> gesetzt</li>
+			<li>Beispiel: "0301234567" oder "EDOMI Supporthotline (1)"</li>
+		</ul>
+	</li>
+
+	<li>
+		KO: Ziel-Rufnummer/Name
+		<ul>
+			<li>dieses KO wird bei jedem Anruf, der den o.g. Filterkriterien entspricht auf die Ziel-Rufnummer bzw. den zugehörigen Namen/Id im <link>Telefonbuch***1000-125</link> gesetzt</li>
+			<li>Beispiel: "0301234567" oder "EDOMI Supporthotline (1)"</li>
+		</ul>
+	</li>
+</ul>

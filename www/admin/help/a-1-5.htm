@@ -1,0 +1,20 @@
+<h1><path>Basis-Konfiguration***a-1</path>Modul: Digitaler Videorekorder (DVR)</h1>
+Dieses Modul ermöglicht die fortlaufende Aufzeichnung von Einzelbildern entsprechend <link>konfigurierter Kameras***1000-81</link>.
+
+
+<h2>Konfiguration</h2>
+Dieses Modul wird in der <link>Basis-Konfiguration***a-1</link> konfiguriert und aktiviert.
+
+
+<h2>Hinweise</h2>
+Dieses Modul wird (sofern korrekt konfiguriert und aktiviert) nur gestartet, wenn mindestens eine Kamera für die DVR-Aufzeichnung konfiguriert ist.
+
+<ul>
+	<li>alle Aufnahmen werden stundenweise in speziellen Dateien verwaltet</li>
+	<li>das Einsehen von Aufnahmen ist ausschließlich über die Funktion <link>Kameraaufnahmen***104</link> in der Administration möglich</li>
+	<li>die Kameras werden sequentiell (nicht parallel) abgefragt, d.h. falls z.B. der Abruf eines Kamerabildes längere Zeit in Anspruch nehmen sollte, werden die Bilder anderer Kameras ebenfalls verzögert abgerufen</li>
+	<li>das Löschen älterer Aufnahmen erfolgt während des laufenden Betriebs des DVR-Moduls automatisch (je nach konfigurierter Speicherdauer der entsprechenden Kamera)</li>
+	<li>bei einer Projekt-Aktivierung werden sämtliche Aufzeichnungen inzwischen entfernter oder für die DVR-Aufzeichnung deaktivierter Kameras gelöscht</li>
+	<li>falls die Kapazität des Ziel-Datenträgers erschöpft ist, wird die Aufzeichnung solange angehalten, bis ältere Aufnahmen automatisch gelöscht wurden (s.o.)</li>
+	<li>bei einer Steuerung der Aufnahme mit Hilfe eines KOs kann die Reaktion bis zu 1 Sekunde verzögert erfolgen (das KO wird sekündlich abgefragt)</li>
+<ul>

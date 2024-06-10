@@ -1,0 +1,10 @@
+<lbs-titel>Flankendetektor <span class='id'>13000039</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Flankendetektor</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput"></td><td class="app1_elInputValue">0</td><td class="app1_elOutput">positiv</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">negativ</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr></table></div></div>Ein neues Telegramm an E1 wird mit dem vorherigen Zustand von E1 verglichen. Ist das Telegramm größer, wird A1=1 gesetzt. Ist das Telegramm kleiner, wird A2=1 gesetzt.
+
+Beim ersten Start des Bausteins liegt noch kein Vergleichswert vor, daher kann auch keine Flanke bestimmt werden. 
+Ein Initialwert an E1 wird nicht(!) als erster Vergleichswert herangezogen, sondern dient ggf. als Vergleichswert für das als nächstes eintreffende Telegramm an E1.
+Der erste Wert an E1 (auch ein Initialwert) dient immer(!) als Vergleichswert für das nachfolgende Telegramm an E1. 
+
+E1: Signal
+A1: 1=steigende (positive) Flanke
+A2: 1=fallende (negative) Flanke

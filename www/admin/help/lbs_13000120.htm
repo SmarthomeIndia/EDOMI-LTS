@@ -1,0 +1,20 @@
+<lbs-titel>Zähler <span class='id'>13000120</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Zähler</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">+1</td><td class="app1_elInputValue">0</td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">-1</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">Reset</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Reset</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Reset-Stand</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Aktiviert</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E6</td><td class="app1_elInput">Abrufen</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein zählt mit jedem neuen Telegramm &ne;0 an E1 bzw. E2 vorwärts bzw. rückwärts. Die Schrittweite beträgt dabei stets +1 bzw. -1.
+
+Der Zählerstand ist remanent, d.h. nach einem EDOMI-Neustart bleibt der Zählerstand erhalten. A1 wird jedoch nach einem Neustart nicht automatisch auf den aktuellen Wert gesetzt, erst nach dem Eintreffen eines Telegramms &ne;0 an E1..E3 oder E6 wird der entsprechende Zählerstand ausgegeben.
+
+Mit einem Telegramm &ne;0 an E6 wird der aktuelle Zählerstand sofort abgerufen und an A1 ausgegeben. Dies kann z.B. nützlich sein, um nach einem EDOMI-Neustart den bis dahin ermittelten Zählerstand gezielt abzufragen (z.B. mit einem Initialwert von 1 an E6).
+
+Hinweis:
+Auch negative Zählerstände sind möglich!
+
+
+E1: &ne;0 = Zähler +1
+E2: &ne;0 = Zähler -1
+E3: &ne;0 = Zähler zurücksetzen: der Zähler (und A1) wird auf den Wert an E4 gesetzt, A2 wird auf den aktuellen Zählerstand (vor dem Reset) gesetzt
+E4: auf diesen Wert wird der Zähler bei einem Reset (E3) gesetzt
+E5: &ne;0 = Aktiviert, 0 = Deaktiviert (der Zählerstand wird dabei NICHT verändert - weder beim Aktivieren, noch beim Deaktivieren)
+E6: aktuellen Zählerstand sofort abrufen
+
+A1: aktueller Zählerstand (wird gesetzt, wenn an E1/E2/E3 oder E6 ein Telegramm &ne;0 eintrifft)
+A2: Zählerstand bei einem Reset (wird auf den aktuellen Zählerstand gesetzt, wenn der Zähler zurückgesetzt wird)

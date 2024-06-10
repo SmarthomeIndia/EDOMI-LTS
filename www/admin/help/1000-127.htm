@@ -1,0 +1,42 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Telefon***1000-124</path>Anrufarchive</h1>
+Anrufarchive können eine beliebige Anzahl von Anrufinformationen archivieren, die z.B. vom <link>Anrufmonitor***a-1-3</link> bereitgestellt werden.
+
+<b>Wichtig:</b>
+Voraussetzung für die Nutzung von Telefonie-Funktionen ist die Konfiguration eines <link>Telefonie-Gateways***a-1-2</link> und ggf. des <link>Anrufmonitors***a-1-3</link>.
+
+<b>Hinweis:</b>
+Das Anlegen von mehr als einem Anrufarchiv ist für die meisten Anwendungsfälle nicht erforderlich bzw. nicht sinnvoll.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name des Anrufarchivs</li>
+	
+	<li>
+		KO: Status
+		<ul>
+			<li>bei jeder Änderung des Datenbestandes an diesem Archiv wird dieses KO auf die Gesamtanzahl der Archiveinträge gesetzt:</li>
+			<li>beim Start von EDOMI</li>
+			<li>beim Hinzufügen/Entfernen eines Eintrags</li>
+			<li>beim automatischen Löschen von Einträgen (s.u.)</li>
+		</ul>
+	</li>
+
+	<li>
+		Speicherdauer: legt fest, ob und wann Einträge automatisch gelöscht werden
+		<ul>
+			<li>Archiveinträge werden grundstäzlich mit einem Zeitstempel archiviert</li>
+			<li>ist ein Archiveintrag älter als die festgelegte Speicherdauer, wird der Archiveintrag beim Start von EDOMI und täglich um 00:00:00 Uhr aus dem Archiv gelöscht</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Hinzufügen und Entfernen von Archiveinträgen</h2>
+Archiveinträge werden ggf. automatisch vom <link>Anrufmonitor***a-1-2</link> und über entsprechende <link>Befehle***1007</link> hinzugefügt bzw. entfernt. Zudem können <link>Logikbausteine***r-0</link> weitere Funktionen zur Verwaltung von Archiveinträgen bereitstellen.
+
+<b>Hinweis:</b>
+Archiveinträge werden u.U. automatisch gelöscht, sofern die Eigenschaft "Speicherdauer" (s.o.) entsprechend konfiguriert wurde. 
+
+
+<h2>Struktur von Archiveinträgen</h2>
+Archiveinträge werden jeweils mit einem eindeutigen Zeitstempel versehen (Datum, Uhrzeit und Mikrosekunden). Als Anrufinformationen werden die Rufnummer, die Anrufrichtung (eingehend/ausgehend) und einige Metadaten archiviert.

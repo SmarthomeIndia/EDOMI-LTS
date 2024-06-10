@@ -1,0 +1,129 @@
+<h1>Visualisierung</h1>
+In EDOMI erstellte <link>Visualisierungen***1000-20</link> werden mit Hilfe eines Browsers auf einem beliebigen Endgerät angezeigt und bedient. 
+
+
+<h2>Aufruf einer Visualisierung</h2>
+Die Visualisierung kann mit jedem Webkit-fähigen Browser aufgerufen werden (z.B. Chrome, Safari, u.a.):
+
+<ul>
+	<li>Die Visualisierung ist unter dieser URL erreichbar: <b>http://&lt;IP-Adresse&gt;/visu</b></li>
+	<li>Optional können die Zugangsdaten und die Auswahl der Visualisierung bereits in der URL übergeben werden: <b>http://&lt;IP-Adresse&gt;/visu/?login=&lt;Login&gt;&pass=&lt;Passwort&gt;&visu=&lt;Visu-ID&gt;</b></li>
+
+	<li>&lt;IP-Adresse&gt;: IP-Adresse des EDOMI-Servers</li>
+	<li>&lt;Login&gt;: Login (s.u.)</li>
+	<li>&lt;Passwort&gt;: Passwort (s.u.)</li>
+
+	<li>
+		&lt;Visu-ID&gt;: ID der gewünschten Visualisierung (die ID wird z.B. in der <link>Konfiguration von Visualisierungen***1000-21</link> angezeigt)
+		<ul>
+			<li>Die Übergabe von Login/Passwort wird ohne(!) die Angabe einer gültigen Visu-ID ignoriert.</li>
+			<li>Die Übergabe einer gültigen Visu-ID ohne(!) Login/Passwort führt zur Vorauswahl der gewünschten Visualisierung.</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Bei iOS-basierten Endgeräten wird empfohlen, nach Aufruf der Visualisierung im Safari-Browser eine Verknüpfung auf dem "Homescreen" anzulegen. Die Visualisierung kann dann komfortabel über ein App-Symbol auf dem Homescreen aufgerufen werden und wird als "Webapp" ausgeführt (im Vollbildmodus). Bei Android-basierten Endgeräten ist eine äquivalente Vorgehensweise empfehlenswert.
+
+<b>Wichtig:</b>
+Der Zugang zur Visualisierung ist nicht verschlüsselt. Jeder, der im Besitz der Zugangsdaten ist kann prinzipiell auf die Visualisierung zugreifen! Bei Bedarf ist daher für weitergehende Schutzmaßnahmen z.B. auf Netzwerkebene zu sorgen.
+
+
+<h3>Login-Dialog</h3>
+Werden keine oder nicht alle der o.g. URL-Parameter angegeben, wird ggf. ein Login-Dialog angezeigt:
+
+<ul>
+	<li>
+		(Name einer Visualisierung): Auswahl der gewünschten Visualisierung
+		<ul>
+			<li>standardmäßig wird die erste verfügbare Visualisierung ausgewählt</li>
+			<li>die gewünschte Visualisierung kann durch Anklicken der angezeigten Visualisierung ausgewählt werden</li>
+		</ul>
+	</li>
+
+	<li>Login/Passwort: Zugangsdaten (<link>Visuaccount***1000-23</link>) für die ausgewählte Visualisierung</li>
+
+	<li>Ok: Einloggen (oder alternativ mit Hilfe der Enter-Taste)</li>
+</ul>
+
+<b>Hinweis:</b>
+Falls keine Visualisierung verfügbar ist, wird kein Login-Dialog angezeigt.
+
+
+<h2>Hinweise zur Bedienung</h2>
+Grundsätzlich wird die Visualisierung per Maus oder Touchscreen bedient, einige Visuelemente erfordern zudem eine Tastatur bzw. Bildschirmtastatur:
+
+<ul>
+	<li>Die Bedienung der einzelnen Visuelemente ist in der Hilfe zu den jeweiligen <link>Visuelementen***1002</link> beschrieben.</li>
+	<li>Visuelemente, denen keine Reaktion auf einen Klick zugewiesen worden ist, verhalten sich u.U. "klicktransparent": Ein Klick auf ein solches Visuelement führt zu keiner Reaktion und der Klick wird ggf. an das darunterliegende Visuelement "durchgereicht". Das Visuelement verhält sich also so, als ob es nicht existieren würde.</li>
+</ul>
+
+
+<h3>Aktualisierungsanzeige</h3>
+Einige Visuelementen (z.B. <link>Diagramm***1002-21</link>, <link>Kamera***1002-19</link> oder <link>Webseite***1002-29</link>) werden unabhängig von der Visuseite aktualisiert, daher wird bei diesen Visuelementen jeweils ein "Aktualisierungsbalken" angezeigt: Am oberen Rand des Visuelements wird über die gesamte Breite ein Balken angezeigt, der bei jeder Aktualisierung des Visuelements u.U. sichtbar wird (grün). Dieser "Aktualisierungsbalken" wird jedoch nur sichtbar, wenn die Aktualisierung mehr als 1 Sekunde benötigt (z.B. bei einer langsamen Netzwerkverbindung oder wenn sehr viele Daten zu übertragen sind).
+
+
+<h3>Warnhinweise</h3>
+Ebenfalls am oberen Bildschirmrand werden ggf. Warnhinweise eingeblendet:
+
+<ul>
+	<li>CPU: bei einer kritischen CPU-Last wird ein Warnhinweis angezeigt</li>
+	<li>RAM: bei einer geringen freien RAM-Kapazität wird ein Warnhinweis angezeigt</li>
+	<li>HDD: bei einer geringen freien Festplatten-Kapazität wird ein Warnhinweis angezeigt</li>
+
+	<li>
+		FEHLER: ggf. wird die aktuelle Anzahl an Fehlermeldungen angezeigt (Details werden ggf. im <link>Fehlerlog***a-4</link> protokolliert)
+		<ul>
+			<li>diese Meldung kann mit einem Klick ausgeblendet werden</li>
+			<li>Hinweis: Nach dem Ausblenden wird die Meldung bei weiteren Fehlermeldungen wieder angezeigt.</li>
+			<li>Hinweis: Diese Meldung ist in der <link>Basis-Konfiguration***a-1</link> deaktivierbar.</li>
+		</ul>
+	</li>
+
+	<li>
+		Tonausgabe aktivieren: ggf. wird diese Meldung angezeigt, wenn eine Tonausgabe bzw. Sprachausgabe eine einmalige Nutzerinteraktion erfordert
+		<ul>
+			<li>diese Meldung sollte mit einem Klick bestätigt werden, um die Tonausgabe/Sprachausgabe zu aktivieren</li>
+			<li>Hinweis: Für weitere Informationen siehe unten bei "Technische Informationen".</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Technische Informationen</h2>
+Die Visualisierung wird als dynamische HTML-Seite erzeugt und kommuniziert mit dem EDOMI-Server über Javascript (AJAX) und eine Websocket-Verbindung. Die Inhalte werden überwiegend ereignisgesteuert aktualisiert und übermittelt, d.h. der Server informiert über eine Websocket-Verbindung die Visualisierung aktiv über eine Zustandsänderung ("Pushing").
+
+
+<h3>Verhalten bei Projektaktivierung bzw. Visuaktivierung oder Verbindungsverlust</h3>
+Bei einer <link>Projektaktivierung***103-13</link> bzw. <link>Visuaktivierung***103-15</link> wird die Visualisierung vorübergehend beendet und es wird eine Animation angezeigt. Sobald die Aktivierung abgeschlossen und EDOMI bereit ist, wird die Visualisierung automatisch mit der Startseite gestartet.
+Bei einem Verbindungsverlust (z.B. Netzwerkproblemen) verhält sich die Visualisierung wie zuvor beschrieben, d.h. im Hintergrund versucht die Visualisierung den Server zyklisch zu kontaktieren und wird im Erfolgsfall die Startseite anzeigen.
+
+Ggf. werden Statusinformationen oder Fehlermeldungen am oberen Bildschirmrand angezeigt, z.B. wenn keine Startseite konfiguriert wurde oder EDOMI (noch) nicht betriebsbereit ist.
+
+<b>Hinweis:</b>
+Werden in der Konfiguration Änderungen an einem <link>Visuaccount***1000-23</link> vorgenommen und das Projekt anschließend aktiviert, wird die Visualisierung u.U. ausgeloggt. Zum Aufrufen der Visualisierung ist in diesem Fall ein erneutes Einloggen erforderlich.
+
+
+<h3>Verhalten bei befehlsgesteuerten Aufruf von Visuseiten</h3>
+Wird eine Visuseite (bzw. ein Popup) mittels eines <link>Befehls***1007</link> aufgerufen (also nicht durch unmittelbare Nutzerinteraktion, sondern z.B. über eine <link>Logik***1000-10</link>), verhält sich die Visualisierung wie folgt:
+
+<ul>
+	<li>normale Seite: die Seite wird wie üblich angezeigt, alle geöffneten Popups werden geschlossen</li>
+	<li>Popup: das Popup wird wie üblich angezeigt oder in den Vordergrund geholt (falls dieses Popup bereits geöffnet ist)</li>
+</ul>
+
+<b>Hinweis:</b>
+Die <link>Befehle***1007</link> zum Aufruf von Visuseiten (und auch zur Ausgabe von Tönen bzw. Sprache in einer Visualisierung) werden nur wirksam, wenn die Visualisierung (mit dem entsprechenden Account) "online" ist. Beim Einloggen in eine Visualisierung werden alle Befehle dieser Art zurückgesetzt - die Visualisierung startet also immer mit der entsprechenden Startseite.
+
+
+<h3>Ausloggen und Timeout</h3>
+Ein Logout eines Visuaccounts kann mit Hilfe der <link>Statusseite***0-0</link> oder mit einem <link>Befehl***1007</link> erfolgen. Zudem werden alle Visuaccounts zyklisch überwacht und optional automatisch ausgeloggt.
+
+
+<h3>Wiedergabe von Tönen bzw. Sprachausgabe</h3>
+Auf einigen Endgeräten (z.B. iOS-basierten Geräten) ist unter Umständen die Tonausgabe und/oder die Sprachausgabe erst dann verfügbar, wenn diese einmalig mit einem Klick (Nutzerinteraktion) aktiviert wurde. 
+Beim ersten Aufruf einer Visualisierung prüft EDOMI, ob die Tonausgabe/Sprachausgabe benötigt wird und versucht diese Funktion im Browser zu aktivieren.
+Falls eine automatische Aktivierung nicht möglich ist, wird am oberen Bildschirmrand die Meldung "Tonausgabe aktivieren" angezeigt: Mit einem Klick auf diese Meldung wird die Tonausgabe/Sprachausgabe i.d.R. dauerhaft aktiviert und die Meldung wird ausgeblendet.
+
+<b>Hinweis:</b>
+Bei einer Verwendung der Ton- oder Sprachausgabe kann der Start einer Visualisierung u.U. einige Sekunden verzögert erfolgen, da die entsprechenden Browserfunktionen zunächst initialisiert werden müssen. Dieses Verhalten ist browserabhängig und kann von EDOMI nicht beeinflusst werden.

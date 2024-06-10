@@ -1,0 +1,202 @@
+<h1><path>Administrationsseite***0-1</path><path>Visueditor***2</path><path>Visuelemente***1002</path>Schieberegler <span class="id">13</span></h1>
+Das Visuelement "Schieberegler" ermöglicht das Bearbeiten eines KO-Wertes mit Hilfe eines virtuellen Schiebepotentiometers.
+
+<h2>Spezifische Eigenschaften</h2>
+Für weitere Einstellungen und Optionen siehe: <link>Allgemeine Informationen zu Visuelementen***1002</link>
+
+<ul>
+	<li>
+		Modus: legt das Eingabeverhalten des Schiebereglers fest
+		<ul>
+			<li>Potentiometer (relativ): Der Wert von KO2 wird relativ zum aktuellen Wert (KO1) verändert, d.h. der Schieberegler kann an einer beliebigen Position "angefasst" werden, ohne dass eine Wertänderung erfolgt. Erst beim Bewegen des Schiebereglers wird der Wert relativ zu dieser Startposition abgeändert.</li>
+			<li>Potentiometer (absolut): Der Wert von KO2 wird unabhängig vom aktuellen Wert (KO1) gesetzt, d.h. beim "Anfassen" des Schiebereglers wird bereits der mit dieser Position korrespondierende Wert gesetzt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Darstellung: legt das Erscheinungsbild des Schiebereglers fest
+		<ul>
+			<li>Deko (Dekoration): zeigt den Pfad ("Schleifbahn") an</li>
+			<li>Cursor: hebt während der Bedienung ggf. den Knopf und die Schleifbahn (s.u.) in Indikatorfarbe hervor</li>
+			<li>Eingabewert: zeigt während der Bedienung den eingestellten Wert in Indikatorfarbe an</li>
+		</ul>
+	</li>
+
+	<li>
+		Bewegungsrichtung: legt fest, in welcher Bewegungsrichtung der Wert erhöht bzw. erniedrigt wird
+		<ul>
+			<li>Hinweis: die Ausrichtung des Schiebereglers (horizontal oder vertikal) erfolgt stets automatisch anhand des Seitenverhältnisses (Breite:Höhe): Ist "Breite &ge; Höhe" wird der Schieberegler horizontal ausgerichtet, ansonsten vertikal.</li>
+		</ul>
+	</li>
+
+	<li>
+		Größe: legt die Länge der grafischen Anzeige (Schleifbahn) relativ zur Größe des Visuelements fest
+		<ul>
+			<li>Hinweis: Ein Wert &lt;100(%) verkürzt die Schleifbahn und somit den Bewegungsumfang des Schiebereglers entsprechend.</li>
+		</ul>
+	</li>
+
+	<li>
+		Knopf: zeigt ggf. einen einfachen Knopf an der aktuellen Position (eingestellter Wert) an
+		<ul>
+			<li>deaktiviert: es wird kein Knopf angezeigt</li>
+			<li>Linie: der Knopf wird als Linie angezeigt</li>
+			<li>Kreis: der Knopf wird als Kreiskontur angezeigt, optional wird der Kreis mit der <link>Zusatzhintergrundfarbe 1***1003</link> gefüllt</li>
+			<li>Quadrat: der Knopf wird als Quadratkontur angezeigt, optional wird der Kreis mit der <link>Zusatzhintergrundfarbe 1***1003</link> gefüllt</li>
+		</ul>
+	</li>
+
+	<li>
+		Knopfgröße: legt die relative Größe des Knopfes fest
+		<ul>
+			<li>erlaubt sind Werte von 0..100 Prozent</li>
+			<li>Hinweis: Diese Angabe wirkt sich lediglich auf das Erscheinungsbild aus (funktioniell keine Bedeutung).</li>
+		</ul>
+	</li>
+
+	<li>
+		Schleifspur: legt ggf. das Erscheinungsbild der Schleifspur fest
+		<ul>
+			<li>Darstellung: aktiviert ggf. die Anzeige der Schleifspur mit runden oder eckigen Enden</li>
+			<li>Stärke: legt die relative Stärke der Schleifspur fest (in 0..100 Prozent der Höhe bzw. Breite des Visuelements)</li>
+			<li>Hinweis: die Schleifspur beginnt je nach "Bewegungsrichtung" (s.o.) stets entsprechend links oder rechts (bzw. oben oder unten)</li>
+			<li>Wichtig: die Farbe der Schleifspur wird mit der <link>Zusatzvordergrundfarbe 1***1003</link> festgelegt</li>
+		</ul>
+	</li>
+
+	<li>
+		Minimum (Integer/Float): unterer Grenzwert der Eingabe
+		<ul>
+			<li>wird dieses Feld [leer] belassen, werden ggf. die KO-Filtereinstellungen angewendet</li>
+			<li>Wichtig: Falls das Minimum und/oder das Maximum nicht definiert wurde, wird stets ein Wertebereich von 0..100 erzeugt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Maximum (Integer/Float): oberer Grenzwert der Eingabe
+		<ul>
+			<li>wird dieses Feld [leer] belassen, werden ggf. die KO-Filtereinstellungen angewendet</li>
+			<li>Wichtig: Falls das Minimum und/oder das Maximum nicht definiert wurde, wird stets ein Wertebereich von 0..100 erzeugt.</li>
+		</ul>
+	</li>
+
+	<li>
+		Raster (Integer/Float): die Eingabe wird auf einen Wert mit dieser "Schrittweite" umgerechnet
+		<ul>
+			<li>z.B. Raster=0.5: die Eingabe 0.45 wird zu 0, die Eingabe 2.98 wird zu 2.5 umgerechnet</li>
+			<li>wird dieses Feld [leer] belassen, werden ggf. die KO-Filtereinstellungen angewendet</li>
+		</ul>
+	</li>
+
+	<li>
+		Nachkommastellen: die Eingabe wird ggf. auf die angegebene Anzahl von Nachkommastellen gerundet
+		<ul>
+			<li>Option "KO-Filter": ggf. werden die KO-Filtereinstellungen angewendet</li>
+		</ul>
+	</li>
+
+	<li>
+		KO2 zyklisch setzen: legt fest, wann und wie häufig KO2 auf einen Wert gesetzt werden soll
+		<ul>
+			<li>deaktiviert: das KO wird nur beim Beenden ("Loslassen") der Eingabe auf den entsprechenden Wert gesetzt</li>
+			<li>aktiviert: das KO wird beim Beenden und <i>während</i> der Eingabe (jedoch nur bei einer Wertänderung) auf den entsprechenden Wert gesetzt - dies wird u.U. zu einer hohen Buslast führen!</li>
+			<li>aktiviert (alle ... ms setzen): das KO wird beim Beenden und <i>während</i> der Eingabe (jedoch nur bei einer Wertänderung) auf den entsprechenden Wert gesetzt, jedoch nur in dem angegebenen Intervall</li>
+			<li>Wichtig: Ist diese Option aktiviert, wird das Visuelement keine Live-Vorschau-Werte bereitstellen.</li>
+		</ul>
+	</li>
+
+	<li>
+		Verbundenes Visuelement (Knopf): falls ein Visuelement mit dem Schieberegler <link>verbunden***2</link> wurde, wird das verbundene Visuelement an der aktuellen Knopf-Position angezeigt (ggf. auch rotiert)
+		<ul>
+			<li>Abstand von Mittellinie: relativer Abstand des verbundenen Visuelements von der Mittellinie der grafischen Anzeige des Schiebereglers (siehe "Größe"), erlaubt sind Angaben im Bereich -&infin;..&infin;</li>
+			<li>Hinweis: Die Design-Angaben "X/Y-Position" des verbundenen Visuelements werden zusätzlich (Addition) angewendet.</li>
+			<li>Wichtig: Als Urspung für die Positionierung wird stets die Mitte des verbundenen Visuelements angenommen.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Kommunikationsobjekte</h2>
+Dieses Visuelement kann (optional) folgende Kommunikationsobjekte (KO) verwalten:
+
+<ul>
+	<li>
+		KO1: Status
+		<ul>
+			<li>dieser KO-Wert wird ggf. als Wert und Position angezeigt</li>
+			<li>dieser KO-Wert wird zudem zur <span style="background:#e0ffe0;">Steuerung und Beschriftung</span> verwendet (Designs, Funktionen und Formeln)</li>
+		</ul>
+	</li>
+
+	<li>
+		KO2: Wert setzen
+		<ul>
+			<li>dieses KO wird auf den per Schieberegler eingestellten Wert gesetzt</li>
+			<li>Hinweis: Dieser KO-Wert wird während der Bedienung des Visuelements als Vorschau-Wert für das KO1 aller anderen Visuelemente mit <link>aktivierter Live-Vorschau***1002</link> bereitgestellt.</li>
+		</ul>
+	</li>
+
+	<li>
+		KO3: Steuerung des dynamischen Designs
+		<ul>
+			<li>dieser KO-Wert wird ausschließlich zur Steuerung eines <link>dynamischen Designs***1003</link> verwendet</li>
+			<li>wenn dieses KO angegeben wurde, wird ein dynamisches Design durch dieses <i>KO3</i> gesteuert</li>
+			<li>wenn dieses KO nicht angegeben wurde, wird ein dynamisches Design durch das <i>KO1</i> gesteuert</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b>
+Bei einer Aktivierung ergänzen sich KO1 und KO2 gegenseitig: Wird z.B. KO1 nicht angegeben, wird KO1 automatisch mit dem gleichen KO wie KO2 verknüpft (und umgekehrt).
+
+
+<h2>Besonderheiten</h2>
+<ul>
+	<li>die Ausrichtung des Schiebereglers (horizontal oder vertikal) erfolgt anhand des Seitenverhältnisses (Breite:Höhe) automatisch</li>
+	<li>die Eigenschaften Minimum und Maximum müssen stets angegeben werden (im Visuelement bzw. in den KO-Einstellungen)</li>
+	<li>Designs: Innenabstand und Textausrichtung werden ignoriert (die Textausrichtung ist stets zentriert)</li>
+	<li>Seitensteuerung/Befehle stehen nicht zu Verfügung</li>
+</ul>
+
+
+<h2>Tipps</h2>
+<h3>Individuellen "Knopf" erzeugen</h3>
+Mit Hilfe eines weiteren Visuelements (z.B. einem Universalelement) kann bei Bedarf ein individueller "Knopf" zur Anzeige der aktuellen Position des Schiebereglers erzeugt werden:
+
+Zunächst wird z.B. ein Universalelement beispielsweise mit einem Hintergrundbild angelegt:
+<ul>
+	<li>als KO1 wird das KO2 des Schiebereglers angegeben</li>
+	<li>ggf. kann hier die Option "Live-Vorschau" aktiviert werden, um das Universalelement in Echtzeit während der Bedienung des Schiebereglers reagieren zu lassen</li>
+	<li>je nach Ausrichtung des Schiebereglers (horizontal oder vertikal) wird im Design des Visuelements der Eigenschaft "X-Position" (horizontal) oder "Y-Position" (vertikal) die Formel "{range(...)}" zugewiesen (die Funktionsparameter werden in der Folge erläutert)</li>
+	<li>diese Angabe führt zu einer wertabhängigen Positionierung des Universalalements auf einem linearen Pfad</li>
+	<li>
+		abschließend wird das Universalelement exakt(!) an einer Kante des Schiebereglers positioniert, je nach Ausrichtung und Bewegungsrichtung:
+		<ul>
+			<li>Bewegungsrichtung links/oben=Minimum: das Universalelement muss an der linken bzw. oberen Kante des Schiebereglers positioniert werden</li>
+			<li>Bewegungsrichtung rechts/unten=Minimum: das Universalelement muss an der rechten bzw. unteren Kante des Schiebereglers positioniert werden</li>
+		</ul>
+	</li>
+	<li>Hinweis: Die genaue Position kann ggf. angepaßt werden, z.B. um das Universalelement (Knopf) exakt auf dem Pfad zu positionieren. In der Regel ist es z.B. sinnvoll, den Knopf mittig auf der entsprechenden Kante zu positionieren.</li>
+</ul>
+
+Die Parameter der o.g. Formel <link>range(minValue,maxValue,Range)***r-3</link> sind wie folgt zu wählen:
+<ul>
+	<li>minValue/maxValue: der Wertebereich (Minimum/Maximum) des Schiebereglers</li>
+	<li>Range: je nach Ausrichtung des Schiebereglers ist dessen Breite bzw. Höhe anzugeben</li>
+	<li>
+		Range: je nach Ausrichtung des Schiebereglers ist dessen Breite (horizontal) bzw. Höhe (vertikal) anzugeben (ggf. abzüglich Rahmenbreite), zudem muss je nach Bewegungsrichtung der Wert negiert werden:
+		<ul>
+			<li>Bewegungsrichtung links/oben=Minimum: "Range" muss positiv angegeben werden, z.B. "100"</li>
+			<li>Bewegungsrichtung rechts/unten=Minimum: "Range" muss negativ angegeben werden, z.B. "-100"</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Hinweis:</b> 
+Zur Positionsanzeige kann alternativ (oder zusätzlich) z.B. auch eine <link>Wertanzeige***1002-27</link> oder eine <link>dynamische Hintergrundfarbe***1000-25</link> verwendet werden.
+
+
+<h2>Bedienung in der Visualisierung</h2>
+Durch das Anklicken (und Festhalten) einer beliebigen Stelle des Visuelements wird die Eingabe gestartet.
+Ein Verschieben der Maus (mit gedrückter Maustaste) führt je nach Ausrichtung des Schiebereglers (horizontal oder vertikal) zu einer Änderung des Eingabewerts.
+Ein Loslassen der Maustaste beendet die Eingabe, KO2 wird ggf. auf den eingestellten Wert gesetzt.

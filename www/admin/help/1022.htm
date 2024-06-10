@@ -1,0 +1,76 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path><path>Terminschaltuhren***1000-101</path>Termin (Terminschaltuhr)</h1>
+Eine <link>Terminschaltuhr***1000-101</link> benötigt Informationen, zu welchem Zeitpunkt ein Schaltvorgang ausgeführt werden soll. Ein solcher Termin wird hier als Vorgabe konfiguriert. Die hier konfigurierten Termine sind in einer Visualisierung nicht veränderbar. Jedoch können ggf. in einer Visualisierung mit Hilfe des <link>Visuelements Terminschaltuhr***1002-32</link> weitere Termine ergänzt werden.
+
+<b>Hinweise:</b>
+Das kleinste Intervall zwischen zwei Terminen beträgt 1 Minute (Termine werden in der Form hh:mm angegeben).
+Überschneidungen von Terminen werden nicht(!) überprüft oder eliminiert, bei der Konfiguration von Terminen ist ggf. darauf zu achten, dass sich die Termine nicht gegenseitig beeinflussen oder zu widersprüchlichen Schalthandlungen führen.
+Ein Termin besteht mindestens aus der Angabe eines (Start)Datums und einer Uhrzeit.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>
+		Datum: legt das Datum (tt.mm.jjjj) des Termins fest
+		<ul>
+			<li>bei wiederkehrenden Terminen (s.u.) definiert dieses Datum das Startdatum</li>
+		</ul>
+	</li>
+	
+	<li>Uhrzeit: legt die Uhrzeit (hh:mm) des Termins fest</li>
+	
+	<li>Name: diese Bezeichnung des Termins (max. 100 Zeichen) wird lediglich im <link>Visuelement Terminschaltuhr***1002-32</link> angezeigt</li>
+	
+	<li>
+		Makro: dieses <link>Makro***1000-95</link> wird beim Erreichen des Termins ausgeführt
+		<ul>
+			<li>Hinweis: Das Makro wird nur ausgeführt, wenn alle Bedingungen des Termins erfüllt sind (Datum, Uhrzeit und Terminwiederholung).</li>
+		</ul>
+	</li>
+
+	<li>
+		Zusatzbedingung: legt fest, ob und wie der Wert des KOs "Zusatzbedingung" der <link>Terminschaltuhr***1000-101</link> als Filterkriterium angewendet wird
+		<ul>
+			<li>
+				die Schaltfläche unterscheidet 3 Zustände:
+				<ul>
+					<li>KO (deaktiviert): der KO-Wert wird ignoriert</li>
+					<li>KO (aktiviert): der KO-Wert muss "1" sein</li>
+					<li><s>KO</s> (aktiviert): der KO-Wert darf nicht "1" sein</li>
+				</ul>
+			</li>
+			<li>Hinweis: Die Zusatzbedingung (KO-Wert) wird intern UND-verknüpft, muss also ggf. erfüllt sein, damit der Termin wirksam wird.</li>
+		</ul>
+	</li>
+	
+	<li>
+		Terminwiederholung: optional kann ein Termin mit Hilfe der folgenden Eigenschaften automatisch wiederholt werden
+		<ul>
+			<li>Intervall: bestimmt das Wiederholungsintervall in Tagen, Wochen, Monaten oder Jahren (leer = keine Wiederholung)</li>
+			<li>Einheit: legt die Einheit des Wiederholungsintervalls fest (Tage, Wochen, Monate oder Jahre)</li>
+			<li>Enddatum: definiert ein (einschließliches) Enddatum für das Wiederholungsintervall (leer = unendlich wiederholen)</li>
+
+			<li>Hinweis: Das Wiederholungsintervall beginnt stets mit dem Startdatum (s.o.) des Termins.</li>
+			<li>Achtung: Bei einem Wiederholungsintervall von z.B. "1 Monat" mit dem Startdatum 31.01.2017 wird der Termin <i>nicht</i> im Februar/April/Juni/... wiederholt, da diese Monate nur über max. 30(!) Tage verfügen.</li>
+			
+			<li>Beispiele (in der Reihenfolge Intervall/Einheit/Enddatum):
+				<ul>
+					<li>1/Tage/[leer] = der Termin wird jeden Tag ab dem Startdatum wiederholt (unendlich)</li>
+					<li>14/Tage/30.09.2017 = der Termin wird alle 14 Tage ab dem Startdatum wiederholt, bis einschließlich zum 30.09.2017 (sofern der 30.09.2017 in das 14-tägige Intervall paßt)</li>
+					<li>6/Monate/[leer] = der Termin wird jedes halbe Jahr ab dem Startdatum wiederholt (unendlich)</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>
+		Vorschau (Kalenderansicht): zeigt alle Termine eines Jahres an, die den aktuellen Einstellungen entsprechen
+		<ul>
+			<li>mit den Pfeil-Schaltflächen kann ein Jahr vor bzw. zurück navigiert werden, die Schaltfläche "Vorschau für ..." aktualisiert die aktuelle Ansicht</li>
+			<li>Wichtig: Nach dem Abändern einer Termin-Einstellung muss die Vorschau manuell aktualisiert werden.</li>
+			<li>ein grün hinterlegter Tag bedeutet, dass die aktuellen Termin-Einstellungen diesen Tag einschließen und ein Makro angegeben wurde</li>
+			<li>ein rot hinterlegter Tag bedeutet, dass die aktuellen Termin-Einstellungen diesen Tag einschließen, jedoch kein Makro angegeben wurde</li>
+			<li>der aktuelle Tag ("heute") wird zur Orientierung schwarz hinterlegt angezeigt</li>
+			<li>das KO "Zusatzbedingung" wird ignoriert</li>
+		</ul>
+	</li>	
+
+</ul>

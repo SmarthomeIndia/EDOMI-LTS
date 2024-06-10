@@ -1,0 +1,59 @@
+<h1><path>Administrationsseite***0-1</path><path>Konfiguration***1000</path>Terminschaltuhren</h1>
+Terminschaltuhren setzen ein Kommunikationsobjekt zu einem definierten Termin (Schaltzeit) auf einen Wert. Jede Terminschaltuhr kann eine beliebige Anzahl an <link>Terminen***1022</link> verwalten.
+
+<h2>Eigenschaften</h2>
+<ul>
+	<li>Name: frei wählbarer Name der Terminschaltuhr</li>
+	
+	<li>
+		KO: Steuerung der Terminschaltuhr
+		<ul>
+			<li>mit diesem KO wird die Terminschaltuhr ein- oder ausgeschaltet</li>
+			<li>ein KO-Wert="0" (bzw. &ne;"1") deaktiviert die Terminschaltuhr, ein KO-Wert="1" aktiviert die Terminschaltuhr</li>
+			<li>Hinweis: Dieses KO wird ggf. vom <link>Visuelement Terminschaltuhr***1002-32</link> zum Aktivieren/Deaktivieren der Terminschaltuhr gesetzt bzw. ausgewertet.</li>
+		</ul>
+	</li>
+
+	<li>
+		KO: Zusatzbedingung
+		<ul>
+			<li>dieses (optionale) KO kann als weitere Filterbedingung eines Termins verwendet werden</li>
+			<li>für jeden <link>Termin***1022</link> kann festgelegt werden, ob dieses KO ignoriert wird, das KO den Wert "1" haben muss oder das KO <i>nicht</i> den Wert "1" haben darf</li>
+			<li>Hinweis: Die Zusatzbedingung (KO-Wert) wird intern UND-verknüpft, muss also ggf. erfüllt sein, damit der Termin wirksam wird.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Schaltflächen</h2>
+Mit der Schaltfläche "Terminschaltuhr erstellen" wird eine neue Terminschaltuhr mit den o.g. Eigenschaften angelegt.
+Anschließend stehen weitere Eigenschaften zu Verfügung:
+
+Die Schaltfläche "Vorschau" öffnet ein neues Fenster mit einer Vorschau für alle konfigurierten Termine (das KO "Zusatzbedingung" wird dabei ignoriert).
+
+
+<h2>Weitere Eigenschaften</h2>
+<ul>
+	<li>
+		Termine: hier werden die <link>Termine***1022</link> für diese Terminschaltuhr verwaltet
+		<ul>
+			<li>Hinweis: Die hier konfigurierten Termine sind in einer Visualisierung nicht veränderbar. Jedoch können ggf. in einer Visualisierung mit Hilfe des <link>Visuelements Terminschaltuhr***1002-32</link> weitere Termine ergänzt werden.</li>
+		</ul>
+	</li>
+
+	<li>
+		Makro-Vorgaben für Visualisierungen: hier müssen sämtliche <link>Makros***1000-95</link> für diese Terminschaltuhr definiert werden, die in einer Visualisierung verwendet werden sollen
+		<ul>
+			<li>die hier aufgelisteten Makros werden beim Erstellen eines Termins in einer Visualisierung zur Auswahl angeboten</li>
+			<li>Hinweis: In einer Visualisierung werden ausschließlich die hier aufgelisteten Makros zur Auswahl angeboten. Die in der Administration konfigurierten (fixen) Termine sind hiervon unabhängig und können sämtliche zur Verfügung stehenden Makros ausführen.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>Funktionsweise der Terminschaltuhr</h2>
+Die Terminschaltuhr arbeitet wie ein Terminkalender, d.h. das Makro wird ausgeführt, sobald ein <link>Termin***1022</link> erreicht wird. Ist die Terminschaltuhr deaktiviert, werden alle Termine ignoriert. Beim Aktivieren der Terminschaltuhr wird nicht(!) überprüft, ob ein Termin vor(!) dem Zeitpunkt der Aktivierung konfiguriert wurde: Das Makro wird erst beim Erreichen des nächsten(!) Termins ausgeführt.
+
+Die Terminschaltuhr arbeitet intern sekundengenau, das kleinste Intervall zwischen zwei Terminen beträgt jedoch 1 Minute (Termine werden in der Form hh:mm angegeben). Die Toleranzbreite beträgt maximal +1 Sekunde, wird z.B. ein Termin um "15:00" Uhr konfiguriert, wird die Terminschaltuhr frühstens um 15:00:00 Uhr und spätestens um 15:00:01 Uhr das Makro ausführen.
+
+Überschneidungen von Terminen werden nicht(!) überprüft oder eliminiert, bei der Konfiguration von Terminen ist ggf. darauf zu achten, dass sich die Termine nicht gegenseitig beeinflussen oder zu widersprüchlichen Schalthandlungen führen.

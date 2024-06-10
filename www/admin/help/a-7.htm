@@ -1,0 +1,97 @@
+<h1>Logikmonitor</h1>
+Mit Hilfe des Logikmonitors kann die Ausführung von <link>Logiken***r-1</link> protokolliert werden.
+
+<b>Achtung:</b>
+<ul>
+	<li>Der Logikmonitor sollte nur temporär (z.B. zur Ermittlung und Beseitigung von Fehlern oder Problemen) aktiviert werden.</li>
+	<li>Die Nutzung des Logikmonitors kann die Ausführungsgeschwindigkeit von Logiken verlangsamen!</li>
+	<li>Die vom Logikmonitor erzeugte Log-Datei kann je nach Konfiguration bereits nach kurzer Zeit einen erheblichen Umfang aufweisen.</li>
+</ul>
+
+
+<h2>Konfiguration</h2>
+Die Konfiguration des Logikmonitors erfolgt über eine Textdatei. Die Datei selbst enthält bereits alle Informationen und Hilfestellungen zu den jeweiligen Parametern:
+
+<ul>
+	<li>Dateiname: <b>logicmonitor.ini</b></li>
+	<li>Verzeichnis: <b><MAIN_PATH></b></li>
+</ul>
+
+Die Konfigurationsdatei kann mit jedem UTF-8-fähigen Texteditor bearbeitet werden.
+
+<b>Hinweis:</b>
+Die vom Logikmonitor erzeugte <link>Log-Datei***a-4</link> wird in der <link>Basis-Konfiguration***a-1</link> konfiguriert (Text- oder HTML-Format, etc.). 
+
+
+<h2>Verhalten des Logikmonitors</h2>
+<ul>
+	<li>Die Konfigurationsdatei des Logikmonitors (logicmonitor.ini) wird bei jedem EDOMI-Neustart ausgewertet (ein Neustart des Servers ist <i>nicht</i> erforderlich).</li>
+	<li>Der Logikmonitor wird nur aktiviert, wenn Live- und Arbeitsprojekt referenziert sind (ggf. ist also zunächst eine Projektaktivierung erforderlich).</li>
+	<li>Wird das Arbeitsprojekt zur Laufzeit des Logikmonitors gewechselt (Live- und Arbeitsprojekt sind nicht mehr referenziert), wird der Logikmonitor bei nächsten Neustart deaktiviert. </li>
+	<li>Die konfigurierten Logikseiten- und Logikbaustein-IDs beziehen sich stets auf das Live-Projekt, auch wenn zwischenzeitlich Änderungen am Arbeitsprojekt vorgenommen wurden.</li>
+</ul>
+
+<b>Hinweis:</b>
+Bei aktiviertem Logikmonitor wird auf der <link>Statusseite***0-0</link> ein entsprechender Hinweis angezeigt.
+
+
+<h2>Legende (Log-Datei)</h2>
+Die vom Logikmonitor erzeugte <link>Log-Datei***a-4</link> wird je nach Einstellung in der <link>Basis-Konfiguration***a-1</link> als Text- oder HTML-Datei erzeugt.
+
+
+<h3>HTML-Format (empfohlen)</h3>
+Im HTML-Format werden die Einträge wie folgt formatiert (zur besseren Lesbarkeit werden alle Einträge alternierend mit weiß bzw. grau hinterlegt):
+
+Sobald ein LBS getriggert wurde, wird ein Eintrag (grün) generiert:
+<ul>
+	<li>INIT: der LBS wurde im Kontext der LBS-Initialisierung getriggert</li>
+	<li>TRIGGER: der LBS wurde von einem KO bzw. einem Ausgang eines verbundenen LBS getriggert</li>
+	<li>INTERVAL: der LBS wurde durch einen zyklischen Aufruf automatisiert getriggert</li>
+	<li>die letzte Spalte enthält die ID der Logikseite, die ID des Logikbausteins (nicht der LBS-Instanz) und dessen Namen: "[PAGE-ID] LBS-ID Name"</li>
+</ul>
+
+Alle nachfolgenden Einträge repräsentieren Funktionen und Ereignisse des soeben getriggerten LBS:
+<ul>
+	<li>schwarz: Funktionsaufruf oder Ereignis (die letzte Spalte enthält i.d.R. den Namen der entsprechenden Funktion)</li>
+	<li>rot: Befehle von Ausgangsboxen werden ausgeführt ("DO COMMANDS"): protokolliert werden nur die Anzahl der Befehle und der Wert des Eingangs, der für das Triggern der Ausgangsbox verantwortlich ist</li>
+</ul>
+
+Sobald der LBS abgearbeitet worden ist, wird ein Eintrag (grau) mit dem Inhalt "RETURN" generiert (zudem wird eine abschließende Trennlinie erzeugt)
+
+Die Spalte "Ergebnis" enthält ggf. Informationen bzw. Rückgabewerte nach folgendem Schema:
+<ul>
+	<li>E1..&infin;: Eingang
+		<ul>
+			<li>E&lt;ID&gt; = &lt;VALUE&gt;: der Eingang ID ist per Fixwert (oder mittels der Livevorschau im Logikeditor) auf den Wert VALUE gesetzt</li>
+			<li>E&lt;ID&gt; : KO[&lt;KOID&gt;] = &lt;VALUE&gt;: der Eingang ID ist mit dem KO KOID verknüpft und ist durch dieses KO auf den Wert VALUE gesetzt</li>
+			<li>E&lt;ID&gt; : A&lt;AID&gt; @ LBS[&lt;LBSID&gt;] = &lt;VALUE&gt;: der Eingang ID ist mit dem Ausgang AID des Logikbausteins mit der Instanz-ID LBSID verknüpft und ist durch diesen Ausgang auf den Wert VALUE gesetzt</li>
+			<li>Flags: E&lt;ID&gt; kann mit zudem nachfolgenden Flags gekennzeichnet sein:
+				<ul>
+					<li>*: der Eingang hat den Status "refresh" (der Eingangswert wurde also verändert)</li>
+					<li>+: der Eingang wurde durch logic_getInputsQueued() aus der INPUTQUEUE gelesen</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li>V1..&infin;: Variable
+		<ul>
+			<li>V&lt;ID&gt; = &lt;VALUE&gt;: die Variable ID ist auf den Wert VALUE gesetzt</li>
+			<li>Flags: V&lt;ID&gt; kann mit zudem nachfolgenden Flags gekennzeichnet sein:
+				<ul>
+					<li>#: die Variable ist remanent</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+<b>Wichtig:</b>
+Funktionen und Ereignisse von EXEC-Scripten können jederzeit protokolliert werden (EXEC-Scripte werden asynchron abgearbeitet)! Daher werden sämtliche Ausgaben eines EXEC-Scriptes in blau hervorgehoben.
+Sobald das EXEC-Script gestartet worden ist ("EXEC STARTED"), enthält die letzte Spalte die ID der Logikseite, die ID des Logikbausteins (nicht der LBS-Instanz) und dessen Namen: "[PAGE-ID] LBS-ID Name"
+
+
+<h3>Text-Format</h3>
+Im Text-Format werden die Einträge grundsätzlich wie im HTML-Format generiert, jedoch ohne farbliche Hervorhebung. EXEC-Script-Ausgaben werden daher in der Spalte "LBSID" mit dem Zusatz "[EXEC]" gekennzeichnet. 
+Die einzelnen Zeilen einer Ergebnisliste werden durch ein CR (ASCII-Code 13) abgetrennt.
+
