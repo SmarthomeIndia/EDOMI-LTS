@@ -1,0 +1,23 @@
+<lbs-titel>WC-Spülung <span class='id'>17900004</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">WC-Spülung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Abspülen</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Abspülen</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Automatisch abspülen</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Nachladen</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Abspülen: max. Anzahl</td><td class="app1_elInputValue">1</td><td class="app1_elOutput">Abspülen (Auto)</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Automatik: Intervall (Tage)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Nachladedauer (s)</td><td class="app1_elInputValue">10</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E6</td><td class="app1_elInput">Aktiviert (E1)</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein steuert eine elektrisch betätigte WC-Spülung.
+
+Sobald ein neues Telegramm &ne;0 an E1 eintrifft (z.B. durch die Drückerplatte), wird die Spülung ausgelöst (A1=1). Anschließend wartet der Baustein (A2=1), bis die Nachladedauer (E5) erreicht worden ist (A2=0).
+Trifft <i>während dieser Nachladezeit</i> erneut ein Telegramm &ne;0 an E1 ein, wird dieser "Wunsch zum erneuten Abspülen" intern vorgemerkt und nach erfolgtem Nachladen ausgelöst. Die maximale Anzahl dieser Mehrfachspülungen wird an E3 festgelegt.
+
+E4 gibt das Intervall (in Tagen) für ein automatisches Abspülen an, z.B. um ein Austrocknen des Siphons zu vermeiden. Sobald an E2 ein neues Telegramm &ne;0 eintrifft, wird automatisch abgespült sofern das an E4 angegebene Intervall erreicht oder überschritten worden ist. 
+Der Baustein arbeitet <i>nicht</i> zyklisch, d.h. das automatische Abspülen erfolgt nur wenn E2 entsprechend getriggert wird.
+Beim automatischen Abspülen wird A1=1 und A3=1 gesetzt (A3 kann z.B. zur Protokollierung des automatischen Abspülens verwendet werden). 
+
+Mit E6=0 kann das manuelle Abspülen (E1) vorübergehend deaktiviert werden, z.B. während der Reinigung der Drückerplatte (um ein versehentliches Auslösen zu verhindern).
+
+
+E1: &ne;0 = Abspülen (ggf. auch mehrfach hintereinander)
+E2: &ne;0 = automatisches Abspülen ggf. durchführen (sofern das Intervall an E4 erreicht/überschritten wurde)
+E3: 1..&infin; = maximale Anzahl von Spülungen während der Nachladezeit
+E4: Intervall für automatisches Abspülen in Tagen (0=deaktiviert)
+E5: Nachladedauer (in Sekunden)
+E6: &ne;0 = manuelles Abspülen ist aktiviert, 0 = manuelles Abspülen ist deaktiviert (das automatische Abspülen bleibt ggf. aktiviert)
+
+A1: 1 = Abspülen (manuell oder automatisch)
+A2: 1 = lädt gerade nach, 0 = bereit zum Abspülen
+A3: 1 = automatisches Abspülen (z.B. für Protokollierung)

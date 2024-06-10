@@ -1,0 +1,43 @@
+<lbs-titel>Alarmanlage <span class='id'>17000225</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Alarmanlage</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Extern 1: Alarmtrigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Alarm</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Intern 2: Alarmtrigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Voralarm</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Panik 3: Alarmtrigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Alarmanzahl</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Extern 1: Ein/Aus</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Extern 1: Aktiviert</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Intern 2: Ein/Aus</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Intern 2: Aktiviert</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E6</td><td class="app1_elInput">Panik 3: Ein/Aus</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Panik 3: Aktiviert</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E7</td><td class="app1_elInput">Extern 1: Scharfschaltung (s)</td><td class="app1_elInputValue">30</td><td class="app1_elOutput">Extern 1: Scharf</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E8</td><td class="app1_elInput">Intern 2: Scharfschaltung (s)</td><td class="app1_elInputValue">10</td><td class="app1_elOutput">Intern 2: Scharf</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E9</td><td class="app1_elInput">Panik 3: Scharfschaltung (s)</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">Panik 3: Scharf</td><td class="app1_elOutputNum">A9&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E10</td><td class="app1_elInput">Extern 1: Voralarmdauer (s)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E11</td><td class="app1_elInput">Intern 2: Voralarmdauer (s)</td><td class="app1_elInputValue">10</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E12</td><td class="app1_elInput">Panik 3: Voralarmdauer (s)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E13</td><td class="app1_elInput">Alarmdauer (s)</td><td class="app1_elInputValue">3600</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E14</td><td class="app1_elInput">Quittierung</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E15</td><td class="app1_elInput">Logging</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein bildet eine einfache Alarmanlage nach.
+
+Unterschieden werden 3 verschiedene Auslöser eines Alarms: "Extern" (1), "Intern" (2) und "Panik" (3).
+Sobald ein Alarm ausgelöst wurde (A1=1/2/3), kann kein erneuter Alarm eines anderen Auslösers ausgelöst werden, bis der Alarm quittiert worden ist (E14=1) oder der Auslöser deaktiviert wird.
+
+Grundsätzlich wird mit E4..E6 der entsprechende Auslöser aktiviert oder deaktiviert und A4..A6 entsprechend auf 1 oder 0 gesetzt. Der entsprechende Auslöser ist jedoch erst "scharfgeschaltet", wenn die Scharfschalt-Verzögerung (E7..E9) abgelaufen ist (A7..A9 wird dann auf 1 gesetzt).
+
+"Panik" kann stets unabhängig von "Extern" und "Intern" mittels E6 aktiviert/deaktiviert werden.
+"Intern" wird hingegen zusätzlich abhängig von "Extern" deaktiviert bzw. aktiviert: Wurde "Intern" aktiviert (E5=1) und anschließend "Extern" ebenfalls aktiviert (E4=1), wird "Intern" sofort deaktiviert. Erst wenn "Extern" deaktiviert wird, wird "Intern" ggf. wieder aktiviert.
+
+
+<h3>Alarm auslösen</h3>
+Ausgelöst wird ein Alarm, sobald an E1..E3 ein Telegramm =1 eintrifft (sofern der entsprechende Auslöser bereits "scharfgeschaltet" ist). 
+Je nach E10..E12 wird nun zunächst A2 (Voralarm) auf die ID des auslösenden Alarms gesetzt ("Extern"=1, "Intern"=2, "Panik"=3), bis die Voralarmdauer abgelaufen ist.
+Anschließend wird A1 (Alarm) auf die ID des auslösenden Alarms gesetzt und A3 wird um den Wert 1 erhöht (Alarmanzahl).
+Sobald ein Voralarm (A2) oder Alarm (A1) ausgelöst wurde, kann kein weiterer Alarm ausgelöst werden bis der aktuelle Alarm quittiert oder beendet worden ist.
+
+
+<h3>Alarm beenden</h3>
+Beendet wird ein Alarm automatisch nach Ablauf der an E13 angegebenen Alarmdauer. Der Zustand vor dem Alarm wird dann unmittelbar wieder hergestellt, d.h. die entsprechend aktivierten Auslöser sind sofort wieder "scharfgeschaltet".
+Ein Alarm bzw. Voralarm kann zudem vorzeitig beendet werden, indem der Alarm quittiert wird (E14=1) oder der Auslöser des Alarms deaktiviert wird (E4..E6=0).
+Nur bei einer Quittierung mittels E14 wird der Alarmzähler (A3) zurückgesetzt, andernfalls wird der Alarmzähler bei jedem Alarm (jedoch nicht bei einem Voralarm) um den Wert 1 erhöht.
+
+
+<h3>Verhalten bei einem Neustart</h3>
+Nach einem Neustart wird der Baustein vollständig zurückgesetzt (mit Ausnahme des Alarmzählers). Wurde also vor einem Neustart z.B. ein Alarm ausgelöst, wird dieser nach dem Neustart nicht erneut ausgelöst.
+
+
+<h3>Ein- und Ausgänge</h3>
+E1..E3: 1 = Alarm 1..3 auslösen
+E4..E6: &ne;0 = Auslöser 1..3 aktivieren, 0 = Auslöser 1..3 deaktivieren
+E7..E9: Scharfschaltverzögerung für Auslöser 1..3 (in Sekunden), 0 = Scharfschaltverzögerung für Auslöser 1..3 deaktiviert
+E10..E12: Voralarmdauer für Auslöser 1..3 (in Sekunden), 0 = Voralarm für Auslöser 1..3 deaktiviert
+E13: Alarmdauer für alle 3 Auslöser gleichermaßen (in Sekunden)
+E14: 1 = ausgelösten Alarm quittieren (Alarmzähler wird zurückgesetzt)
+E15: 1 = Protokollierung aktivieren (im Individual-Log "LBS17000225-&lt;Instanz-ID&gt;")
+	
+A1: 0 = Alarm beendet/quittiert, 1..3 = Alarm durch Auslöser 1..3
+A2: 0 = Voralarm beendet/quittiert, 1..3 = Voralarm durch Auslöser 1..3
+A3: Alarmzähler (nicht Voralarm): Anzahl der ausgelösten Alarme seit Quittierung (dieser Wert wird intern remanent gespeichert)
+A4..A6: 1 = Auslöser 1..3 ist aktiviert, 0 = Auslöser 1..3 ist deaktiviert
+A7..A9: 1 = Auslöser 1..3 ist "scharfgeschaltet", 0 = Auslöser 1..3 ist nicht "scharfgeschaltet"

@@ -1,0 +1,8 @@
+<lbs-titel>Zeitdifferenz <span class='id'>16000120</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Zeitdifferenz</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput"></td><td class="app1_elInputValue"></td><td class="app1_elOutput">&Delta;T</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">AVG</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein berechnet die Zeitdifferenz (und deren Durchschnittswert) von nacheinander eintreffenden Telegrammen.
+
+Das erste Telegramm &ne;[leer] an E1 startet die Messung, jedes weitere Telegramm &ne;[leer] an E1 führt zur Ausgabe der Zeitdifferenz (bzw. Durchschnittswert) zum vorherigen Telegramm.
+
+E1: jedes Telegramm &ne;[leer] führt zur Ausgabe der Zeitdifferenz (bzw. Durchschnittswert) zum vorherigen Telegramm (mit Ausnahme des ersten Telegramms nach einem Neustart)
+A1: Zeitdifferenz (Sekunden, FLOAT)
+A2: durchschnittliche Zeitdifferenz (Sekunden, FLOAT)

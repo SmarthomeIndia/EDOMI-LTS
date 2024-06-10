@@ -1,0 +1,21 @@
+<lbs-titel>Restzeit-Timer <span class='id'>16000116</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Restzeit-Timer</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">0|1</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Dauer (s)</td><td class="app1_elInputValue">10</td><td class="app1_elOutput">Restzeit (s)</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Restzeit (%)</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein bildet einen (retriggerbaren) Timer mit Restzeitanzeige nach.
+
+Ein Telegramm &ne;0 an E1 startet den Baustein, bzw. startet den Baustein neu:
+Der Timer beginnt abzulaufen und wird durch jedes weitere Telegramm &ne;0 an E1 neu gestartet.
+Ausgang A1 wird bei JEDEM Telegramm &ne;0 an E1 auf 1 gesetzt.
+An Ausgang A2 wird sekündlich die verbleibende Restzeit in Sekunden, an A3 in Prozent ausgegeben.
+Läuft der Timer vollständig ab, werden A2 bzw. A3 (Restzeit) auf 0 gesetzt. A1 wird ebenfalls auf 0 gesetzt.
+
+Anwendungsbeispiel:
+BWM-Signal verlängern und Restzeit visualisieren:
+An A2 oder A3 (Restzeit) muss ein KO gesetzt werden - dieses KO kann dann z.B. in der Visu angezeigt werden oder ein dynamisches Design abrufen.
+
+Hinweis:
+Das Setzen von E2 beeinflusst einen bereits laufenden Timer nicht. Jedoch führt jedes Telegramm an E1 oder E2 zur Aktualsierung der Ausgänge A2 und A3.
+
+E1: &ne;0 = Trigger. Sobald ein neues Telegramm &ne;0 eintrifft, wird der Timer wieder neu gestartet (retriggern).
+E2: Zeit in Sekunden
+A1: Bei jedem(!) Telegramm &ne;0 an E1 wird A1 auf 1 gesetzt. Nach Ablauf der Zeit wird A1 auf 0 gesetzt.
+A2: Hier wird sekündlich die verbleibende Restzeit in Sekunden ausgegeben. Nach Ablauf der Zeit wird A2 auf 0 gesetzt.
+A3: wie A2, die Restzeit wird jedoch in Prozent ausgegeben (ganzzahlig)

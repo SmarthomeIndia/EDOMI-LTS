@@ -1,0 +1,20 @@
+<lbs-titel>Vergleicher =&#91;Liste&#93; <span class='id'>15000037</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">=&#91;Liste&#93;?</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput"></td><td class="app1_elInputValue"></td><td class="app1_elOutput">1/0</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Wertliste 1</td><td class="app1_elInputValue"></td><td class="app1_elOutput">1</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Wertliste 0</td><td class="app1_elInputValue"></td><td class="app1_elOutput">0</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein vergleicht einen Wert an E1 mit einer Auflistung von Werten an E2 und E3. Jedes neue Telegramm an E1 triggert den Baustein.
+
+Wenn der Wert an E1 einem der Werte an E2 entspricht, wird A1=1 gesetzt.
+Wenn der Wert an E1 einem der Werte an E3 entspricht, wird A1=0 gesetzt.
+Entspricht der Wert an E1 keinem der Werte an E2 und E3, wird A1 nicht verändert.
+
+<b>Hinweise:</b>
+Der Baustein wird nur durch E1 getriggert, d.h. eine Änderung von E2 bzw. E3 bewirkt keinen erneuten Vergleich.
+Der Vergleich erfolgt auf Stringbasis, auch Groß- und Kleinschreibung werden berücksichtigt.
+Die Wertliste an E2 wird stets zuerst zum Vergleich herangezogen. Sollte der gleiche Wert an E2 und E3 vorhanden sein, hat E2 stets Priorität.
+
+
+E1: Vergleichswert (Trigger)
+E2: Wertliste für A1=1 (separiert durch ein Semikolon, z.B. "1;2;3")
+E3: Wertliste für A1=0 (separiert durch ein Semikolon, z.B. "4;5")
+
+A1: s.o.
+A2: Filter 1: wie A1, jedoch wird A2 ausschließlich auf 1 gesetzt (wenn A1=1 gesetzt wird)
+A3: Filter 0: wie A1, jedoch wird A3 ausschließlich auf 0 gesetzt (wenn A1=0 gesetzt wird)

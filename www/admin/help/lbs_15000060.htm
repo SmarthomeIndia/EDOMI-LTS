@@ -1,0 +1,8 @@
+<lbs-titel>Addition A+Konstante <span class='id'>15000060</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">A+K</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">A</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">K</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein addiert einen Wert an E1 mit einer Konstante an E2. Nur jedes neue Telegramm an E1 triggert den Baustein, eine Änderung des Wertes an E2 (Konstante) führt nicht zu einer Neuberechnung. Erst wenn ein neues Telegramm an E1 eintrifft, wird der aktuelle Wert an E2 zur Berechnung herangezogen.
+
+Wenn E1 oder E2 keine Zahlen sind, entspricht dies der Zahl 0. Es wird also immer ein gültiges Ergebnis an A1 ausgegeben, sobald an E1 ein neues Telegramm eintrifft.
+
+E1: Trigger: Wert A
+E2: Konstante K
+A1: E1 + E2 (A+K)

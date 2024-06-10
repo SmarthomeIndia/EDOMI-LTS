@@ -1,0 +1,6 @@
+<lbs-titel>Impuls/Trigger <span class='id'>16000110</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Impuls/Trigger</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue">0</td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Dauer (ms)</td><td class="app1_elInputValue">500</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein generiert einen Impuls. Im Grunde verhält sich der Baustein wie ein einfacher Timer.
+
+E1: &ne;0 = Starten. Jedes weitere Telegramm während der Laufzeit wird ignoriert!
+E2: Impulsdauer (ms!): 0/[leer]=keine (d.h.: A1 wird 1 und schnellstmöglich wieder auf 0 gesetzt)
+A1: Beim Start 1, nach Ablauf der Triggerzeit 0

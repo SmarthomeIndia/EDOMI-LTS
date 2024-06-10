@@ -1,0 +1,31 @@
+<lbs-titel>Betriebsstundenzähler <span class='id'>16000103</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Betriebsstundenzähler</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger/Stop</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">h:mm:ss</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Reset</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">Stunden</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Intervall (s)</td><td class="app1_elInputValue">1</td><td class="app1_elOutput">Minuten</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Abrufen</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">Sekunden</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Reset: h:mm:ss</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Reset: Stunden</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Reset: Minuten</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Reset: Sekunden</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein bildet einen Betriebsstundenzähler mit Ausgabe der aktuellen Betriebszeit nach.
+
+Ein Telegramm &ne;0 an E1 startet den Baustein:
+Die Ausgänge A1..A4 werden auf die aktuelle Betriebszeit gesetzt und fortlaufend mit dem Intervall an E3 aktualisiert (das kleinste Intervall beträgt 1 Sekunde).
+
+Ein Telegramm =0 an E1 stoppt den Baustein, bzw. der Baustein wird angehalten:
+Die Ausgänge A1..A4 werden abschließend auf die aktuelle Betriebszeit gesetzt. Bei einem erneuten Start wird die Betriebszeit entsprechend fortgeführt.
+
+Ein Reset (E2&ne;0) setzt die Betriebszeit auf 0 zurück (auch im laufenden Betrieb des Bausteins) und gibt an A1..A4 den Wert 0 aus (an A1 wird "0:00:00" ausgegeben). An A5..A8 wird hingegen die <i>bis zum Reset aufgelaufene Betriebszeit</i> ausgegeben (dies erfolgt <i>ausschließlich</i> bei einem Reset).
+
+Mit einem Telegramm &ne;0 an E4 wird die aktuelle Betriebszeit sofort abgerufen und an A1..A4 ausgegeben. Dies kann z.B. nützlich sein, um nach einem EDOMI-Neustart die bis dahin ermittelte Betriebszeit gezielt abzufragen (z.B. mit einem Initialwert von 1 an E4).
+
+Hinweis:
+Das Setzen von E3 beeinflusst einen bereits laufenden Baustein nicht. Erst beim nächsten Start wird der Baustein mit diesen Intervall arbeiten.
+
+Wichtig:
+Die aktuelle Betriebszeit wird remanent gespeichert und bleibt somit auch bei einem EDOMI-Neustart erhalten. Ein Zurücksetzen ist nur über einen Reset an E2 möglich.
+Das dauerhafte Speichern der Betriebszeit erfolgt beim Starten/Stoppen und während der Laufzeit mit dem am E3 festgelegten Intervall: Wird EDOMI (während der Laufzeit des Bausteins) zwischen zwei Intervallen neugestartet, wird die aktuelle Betriebszeit u.U. ungenau (zu gering) sein. Je kleiner das Intervall definiert ist, um so präziser erfolgt also die dauerhafte Speicherung im Falle eines Neustarts zur Laufzeit des Bausteins.
+
+
+E1: &ne;0 = Trigger (Start), 0 = Stopp (beim Starten oder Stoppen wird die aktuelle Betriebszeit unmittelbar an A1..A4 ausgegeben)
+E2: &ne;0 = Reset (die aktuelle Betriebszeit wird auf 0 zurückgesetzt und an A1..A4 ausgegeben)
+E3: 1..&infin; = Aktualisierungsintervall für die Ausgänge A1..A4 (in Sekunden)
+E4: aktuelle Betriebszeit sofort abrufen
+
+A1: abgerundete(!) Betriebszeit im Format h:mm:ss (z.B. "0:12:34" oder "123:45:00")
+A2: Betriebszeit in Stunden, abgerundet auf 4 Nachkommastellen (z.B. "5.1234")
+A3: Betriebszeit in Minuten, abgerundet auf 4 Nachkommastellen (z.B. "4.01")
+A4: Betriebszeit in Sekunden, abgerundet auf 4 Nachkommastellen (z.B. "3.001")
+A5..A8: wie A1..A4, jedoch werden diese Ausgänge nur bei einem Reset auf die bis dahin aufgelaufene Betriebszeit gesetzt (A1..A4 werden bei einem Reset auf 0 gesetzt)

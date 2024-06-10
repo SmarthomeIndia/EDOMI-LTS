@@ -1,0 +1,12 @@
+<lbs-titel>Logging <span class='id'>18000110</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Logging</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Logeintrag</td><td class="app1_elInputValue"></td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Loglevel</td><td class="app1_elInputValue"></td></tr><tr><td class="app1_elInputNum col3">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Dateiname</td><td class="app1_elInputValue"></td></tr></table></div></div>Dieser Baustein schreibt alle Werte an E1 in eine Logdatei. Der Dateiname des Individual-Logs muss an E3 angegeben werden.
+
+Optional kann an E2 ein beliebiger Wert als "Loglevel" angegeben werden. Der Baustein wird jedoch nur durch E1 getriggert!
+
+<b>Wichtig:</b>
+Individual-Logs müssen ggf. zunächst in der <link>Basis-Konfiguration***0-1-1</link> aktiviert werden.
+
+
+E1: jedes(!) Telegramm triggert den Baustein und wird in die Logdatei geschrieben
+E2: (optional) ein beliebiger Wert
+E3: beliebiger Dateiname (Individual-Log)

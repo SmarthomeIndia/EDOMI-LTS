@@ -1,0 +1,21 @@
+<lbs-titel>String zerteilen 10-fach <span class='id'>18000003</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">String zerteilen</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">String 1</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Separator</td><td class="app1_elInputValue">;</td><td class="app1_elOutput">String 2</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">String 3</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">String 4</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">String 5</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">String 6</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">String 7</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">String 8</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">String 9</td><td class="app1_elOutputNum">A9&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">String 10</td><td class="app1_elOutputNum">A10&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Reststring</td><td class="app1_elOutputNum">A11&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein zerteilt einen String in maximal 10 einzelne Teil-Strings (Werte) und legt diese auf die Ausgänge A1..A10 (und ggf. A11).
+
+Die Teil-Strings müssen durch ein oder mehrere Zeichen (E2) voneinander abgetrennt sein, standardmäßig wird ein Semikolon erwartet (z.B. "Wert1;Wert2;Wert3").
+
+Enthält der String an E1 mehr als 10 Teil-Strings, wird der restliche String unverändert an A11 ausgegeben.
+
+Es werden stets nur die erforderlichen Ausgänge gesetzt (z.B. A1..A3, wenn E1="a;b;c") - alle anderen Ausgänge bleiben unverändert.
+
+<h3>Beispiele</h3>
+E1="a;b;c" führt zu A1="a", A2="b", A3="c"
+E1="a;b;c;" führt zu A1="a", A2="b", A3="c", A4=""
+E1="1;2;3;4;5;6;7;8;9;10;a;b;c" führt zu A1="1", A2="2"...A10="10", A11="a;b;c" (Restwert)
+
+
+<h2>Ein- und Ausgänge</h2>
+E1: Ein String &ne;[leer] triggert den Baustein
+E2: Trenn-Zeichenkette (oder einzelnes Zeichen) der einzelnen Teil-Strings (darf nicht [leer] sein)
+
+A1..A10: die ermittelten Teil-Strings 
+A11: verbleibender Rest-String, falls mehr als 10 Teil-Strings vorhanden sind

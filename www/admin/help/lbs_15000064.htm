@@ -1,0 +1,27 @@
+<lbs-titel>Differenz zum Vorgängerwert <span class='id'>15000064</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Differenz Vorgänger</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput"></td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Reset</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Modus</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein bildet die Differenz zwischen dem aktuellen Wert an E1 und dem vorherigen Wert an E1.
+
+Beim allerersten Start (bzw. nach einem Reset durch E2 oder Zurücksetzen der remanenten Variablen) existiert noch kein Vorgängerwert. Erst wenn ein neues gültiges Telegramm an E1 eintrifft, wird dieser Wert intern remanent gespeichert und beim nächsten Telegramm an E1 entsprechend abgezogen.
+
+Der Wert an E1 muss &ne;[leer] und nummerisch sein, ansonsten wird das Telegramm vollständig ignoriert.
+
+Wird E2 auf einen Wert &ne;0 gesetzt, wird der Baustein zurückgesetzt (d.h. der intern gespeicherte Vorgängerwert wird gelöscht). A1 wird dabei nicht verändert.
+
+Mit E3 kann optional ein Vergleicher aktiviert werden:
+<ul>
+	<li>0: Vergleicher ist deaktiviert</li>
+	<li>1: das Ergebnis muss &gt;0 sein, sonst wird A1 nicht verändert</li>
+	<li>2: das Ergebnis muss &gt;=0 sein, sonst wird A1 nicht verändert</li>
+	<li>3: das Ergebnis muss &lt;0 sein, sonst wird A1 nicht verändert</li>
+	<li>4: das Ergebnis muss &lt;=0 sein, sonst wird A1 nicht verändert</li>
+</ul>
+
+Hinweis:
+Auch bei aktiviertem Vergleicher wird der aktuelle Wert (E1) stets unabhängig vom Vergleicher-Ergebnis als Vorgängerwert gespeichert.
+
+
+E1: &ne;[leer] und nummerisch = Trigger
+E2: &ne;0 = Reset (s.o.)
+E3: 1..4=Vergleicher aktivieren (s.o.), 0=kein Vergleicher
+
+A1: Differenz von E1 und Vorgängerwert (sofern die o.g. Bedingungen erfüllt sind)

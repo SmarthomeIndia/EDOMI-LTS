@@ -1,0 +1,26 @@
+<lbs-titel>Prozess-Status: VISU <span class='id'>18000107</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Prozess-Status: VISU</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Online</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Queuegröße</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Aktualisierungen/s</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Elemente/s</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Trigger/s</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Seitenaufrufe/s</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Senden (kb/s)</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Empfangen (kb/s)</td><td class="app1_elOutputNum">A9&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">PROC-RAM</td><td class="app1_elOutputNum">A10&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">KO</td><td class="app1_elOutputNum">A11&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein gibt an den Ausgängen bei jedem Triggern (E1) die unten genannten Werte aus. Getriggert wird der Baustein über ein neues Telegramm &ne;[leer] an E1.
+
+<b>Anwendungsbeispiel:</b>
+An E1 kann z.B. das System-KO[5] (Systemzeit) angelegt werden, um sekündlich aktuelle Werte an den Ausgängen zu erhalten.
+Alternativ kann z.B. das System-KO[26] (Trigger: Minütlich) an E1 angelegt werden, zusätzlich kann ein Initialwert 1 angegeben werden - dies führt dazu, dass der Baustein beim Start (Initialwert) und anschließend zu jeder vollen Minute getriggert wird.
+
+Weitere Informationen können ggf. der Hilfe zur <link>Statusseite***0-0</link> entnommen werden.
+
+<b>Hinweis:</b>
+Wenn keine Visualisierungen verfügbar sind, erfolgt keine Reaktion an den Ausgängen.
+
+
+E1: jedes Telegramm &ne;[leer] triggert den Baustein
+
+A1: Websocket-Verbindungsstatus: 1=verbunden, 0=nicht verbunden
+A2: Anzahl der Visualisierungen, die aktuell auf allen Endgeräten angezeigt werden
+A3: Anzahl der Visubefehle in der Warteschlange (z.B. Sprachausgabe, Visualarm, etc.) über alle Visualisierungen und Accounts
+A4: Gesamtanzahl der Aktualisierungen pro Sekunde (unabhängig von der Anzahl der aktualisierten Visuelemente)
+A5: Gesamtanzahl der Aktualisierungen von Visuelementen pro Sekunde
+A6: Gesamtanzahl der aktuellen Trigger (z.B. Klick auf eine Schaltfläche)
+A7: Gesamtanzahl der Seitenaufrufe pro Sekunde
+A8: Gesamtdatenmenge pro Sekunde (kb), die vom Server an die Clients übermittelt wird
+A9: Gesamtdatenmenge pro Sekunde (kb), die von den Clients an den Server übermittelt wird
+A10: Speichernutzung des Prozesses in MB
+A11: Gesamtanzahl der auf Änderung überwachten Kommunikationsobjekte

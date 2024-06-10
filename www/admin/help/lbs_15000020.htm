@@ -1,0 +1,10 @@
+<lbs-titel>Schwellenwert <span class='id'>15000020</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Schwellenwert</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">untere Schwelle</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">obere Schwelle</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein vergleicht einen Ist-Wert (E1) mit zwei Soll-Werten (E2 und E3). Erreicht (bzw. über- oder unterschreitet) der Ist-Wert einen der Soll-Werte, wird A1 auf 1 bzw. 0 gesetzt.
+
+Wichtig: A1 wird bei jedem(!) Erreichen oder Über- bzw. Unterschreiten der Schwellenwerte gesetzt! Ggf. ist an A1 also ein "Send-By-Change"-Baustein einzusetzen.
+
+E1: Signal
+E2: untere Schwelle (ist E1 <= E2, wird A1=0 gesetzt)
+E3: obere Schwelle (ist E1 >= E3, wird A1=1 gesetzt)
+
+A1: 0=untere Schwelle erreicht, 1=obere Schwelle erreicht

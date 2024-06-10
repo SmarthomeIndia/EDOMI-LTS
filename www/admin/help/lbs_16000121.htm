@@ -1,0 +1,24 @@
+<lbs-titel>Wert-/Zeitdifferenz <span class='id'>16000121</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Wert-/Zeitdifferenz</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger/Stop</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">&Delta;Wert</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Messwert</td><td class="app1_elInputValue"></td><td class="app1_elOutput">&Delta;Zeit</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein berechnet die Differenz von nacheinander eintreffenden Werten, z.B. um die Differenz eines Zählerstandes in Abhängigkeit eines Ereignisses zu ermitteln.
+
+Ein Telegramm &ne;0 an E1 startet die Messung, bzw. startet die Messung neu:
+A1 und A2 werden auf 0 gesetzt. Der Wert an E2 wird als Referenzwert intern gespeichert (inklusive Zeitstempel).
+Jedes eintreffende Telegramm an E2 während einer Messung (E1&ne;0) führt zu einer Aktualisierung von A1 (Wertdifferenz) und A2 (Zeitdifferenz).
+
+Ein Telegramm =0 an E1 beendet die Messung:
+A1 bleibt unverändert, da eine Wertänderung an E2 während der Messung A1 bereits entsprechend gesetzt hat.
+A2 wird auf die gesamte Laufzeit der Messung gesetzt.
+A1 und A2 verhalten sich also wie SBC-Ausgänge (Send-By-Change).
+
+Hinweise:
+Telegramme =0 an E1 werden ignoriert, wenn zuvor keine Messung mit einem Telegramm &ne;0 an E1 gestartet wurde.
+Wird E2 nicht belegt bzw. nicht verändert, verhält sich der Baustein wie eine einfache Stoppuhr (A2 wird auf die Zeitdifferenz zwischen E1&ne;0 und E1=0 gesetzt).
+ 
+Achtung:
+Eine Aktualisierung von A1 und A2 erfolgt nur beim Starten und Stoppen einer Messung und bei eintreffenden Telegrammen an E2 während einer Messung. Es erfolgt <i>keine</i> zyklische Änderung von A1 und A2!
+ 
+ 
+E1: Starten (&ne;0) bzw. Stoppen (=0) einer Messung
+E2: Messwert (nummerisch), dessen Differenz berechnet werden soll (z.B. ein Zählerstand)
+A1: Messwert-Differenz (nummerisch): wird beim Start auf 0 gesetzt, dann bei jedem eintreffenden Telegramm an E2 auf die Wertdifferenz, beim Beenden der Messung erfolgt keine Änderung
+A2: Zeitdifferenz (Sekunden, FLOAT): wird beim Start auf 0 gesetzt, dann bei jedem eintreffenden Telegramm an E2 auf die Zeitdifferenz, beim Beenden der Messung auf die gesamte Zeitdifferenz der Messung

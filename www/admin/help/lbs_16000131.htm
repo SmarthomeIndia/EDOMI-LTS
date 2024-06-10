@@ -1,0 +1,27 @@
+<lbs-titel>Datum/Uhrzeit-Formatierung <span class='id'>16000131</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Datum/Uhrzeit-Formatierung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Format</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein wird durch ein neues Telegramm &ne;0 an E1 getriggert und setzt A1 auf die aktuellen Datum- und Zeitwerte mit einer individuellen Formatierung (E2).
+
+An E2 muss ein spezieller String angegeben werden, der eine individuell formatierte Ausgabe an A1 definiert (die Ausgabe selbst wird jedoch nur durch E1 getriggert). 
+
+Die nachfolgenden Variabeln werden in dem String an E2 entsprechend ersetzt:
+<ul>
+	<li><b>&lt;DATUM&gt;</b> : wird durch das aktuelle Datum in der Form "01.02.2020" ersetzt</li>
+	<li><b>&lt;WOCHENTAG&gt;</b> : wird durch den aktuelle Wochentag in der Form "Montag" ersetzt</li>
+	<li><b>&lt;TAG&gt;</b> : wird durch den aktuellen Tag in der Form "08" ersetzt</li>
+	<li><b>&lt;MONAT&gt;</b> : wird durch den aktuellen Monat in der Form "03" ersetzt</li>
+	<li><b>&lt;JAHR&gt;</b> : wird durch das aktuelle Jahr in der Form "2020" ersetzt</li>
+	<li><b>&lt;KW&gt;</b> : wird durch die aktuelle Kalenderwoche in der Form "07" ersetzt (nach ISO-8601: die Woche beginnt am Montag)</li>
+	<li><b>&lt;UHRZEIT&gt;</b> : wird durch die aktuelle Uhrzeit in der Form "12:21:03" ersetzt</li>
+	<li><b>&lt;STUNDE&gt;</b> : wird durch die aktuelle Stunde in der Form "03" ersetzt</li>
+	<li><b>&lt;MINUTE&gt;</b> : wird durch die aktuelle Stunde in der Form "02" ersetzt</li>
+	<li><b>&lt;SEKUNDE&gt;</b> : wird durch die aktuelle Stunde in der Form "01" ersetzt</li>
+</ul>
+
+Beispiel:
+Der Wert "Es ist &lt;WOCHENTAG&gt; der &lt;TAG&gt;." an E2 führt z.B. zur Ausgabe von "Es ist Freitag der 13." an A1.
+
+
+E1: &ne;0 = Trigger
+E2: &ne;[leer] = String zur Formatierung der Ausgabe an A1 (s.o.)
+
+A1: individuell formatierter String (nur wenn E2 &ne;[leer] ist)

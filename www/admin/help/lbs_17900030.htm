@@ -1,0 +1,73 @@
+<lbs-titel>PC-Steuerung <span class='id'>17900030</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">PC-Steuerung</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Betriebszustand</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Betriebszustand</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Bildschirm</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Bildschirm</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Neustart</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Zustandsänderung</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E4</td><td class="app1_elInput">PC: MAC;IP-Adresse</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">PC: SSH-Login;Passwort</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E6</td><td class="app1_elInput">EDOMI: NIC-Name</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E7</td><td class="app1_elInput">Überwachungsintervall (s)</td><td class="app1_elInputValue">30</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col3">&#x25B8;&nbsp;E8</td><td class="app1_elInput">Aktiviert</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein steuert und überwacht einen Linux-PC (getestet mit CentOS 6.5 und 7) über das Netzwerk. Auf dem PC muss lediglich ein SSH-Dienst aktiviert und ggf. die Möglichkeit zu einem Wake-On-LAN (WoL) gegeben sein.
+
+Der Baustein übermittelt die Befehle zur Steuerung und Statusabfrage ausschließlich per SSH. Zum Aufwecken des PCs per WoL wird ein Magic-Paket gesendet.
+
+Der Betriebszustand des PCs kann mittels E1 gesteuert werden:
+<ul>
+	<li>E1=0: der PC wird in den Ruhezustand versetzt</li>
+	<li>E1=1: der PC wird per Wake-On-LAN eingeschaltet</li>
+	<li>E1=-1: der PC wird heruntergefahren</li>
+	<li>E1=[leer]: der Betriebszustand des PCs wird nicht verändert</li>
+</ul>
+
+Mit E2 kann der Bildschirm des PCs gesteuert werden, sofern der PC eingeschaltet ist:
+<ul>
+	<li>E2=0: der Bildschirm wird ausgeschaltet</li>
+	<li>E2=1: der Bildschirm wird eingeschaltet</li>
+	<li>E2=[leer]: der Zustand des Bildschirms wird nicht verändert</li>
+</ul>
+
+Mit E3=1 wird der PC neu gestartet (reboot), jedoch nur wenn dieser eingeschaltet ist.
+
+Der Zustand des PCs wird zyklisch überwacht: Sofern keine Zustandsänderung mittels E1..E3 angefordert wird, wird der aktuelle Status des PCs mit dem an E7 festgelegten Interval abgefragt. Sobald mittels E1..E3 eine Zustandsänderung angefordert wird, verkürzt sich das Abfrageinterval auf 1 Sekunde. Eine angeforderte Zustandsänderung wird dabei automatisch wiederholt, bis der aktuelle Status der Anforderung entspricht. Sobald der aktuelle Status der Anforderung entspricht, wird das Intervall wieder auf den an E7 festgelegten Wert gesetzt.
+
+<b>Hinweis:</b>
+Generell überwacht der Baustein zyklisch den aktuellen Status des PCs. Wurde der PC z.B. heruntergefahren (E1=-1) und fährt anschließend (z.B. nach einem Stromausfall oder manuell gesteuert) wieder hoch, wird der PC erneut heruntergefahren.
+Ein Neustart (E3=1) wird jedoch nicht zyklisch überwacht, da es sich nicht um einen definierten Zustand handelt.
+
+
+<h2>Erforderliche Einstellungen</h2>
+An E4 wird die MAC-Adresse und die IP-Adresse des PCs erwartet (getrennt mit einem Semikolon, z.B. "xx:yy:xx:yy:xx:yy;192.168.0.1").
+
+An E5 wird der Benutzername und das Passwort für den SSH-Zugang des PCs erwartet (getrennt mit einem Semikolon, z.B. "root;123456").
+
+An E6 wird die Bezeichnung der Netzwerkschnittelle (NIC) des EDOMI-Servers für die WoL-Funktionalität benötigt (z.B. "eth0" oder "enp1s0"). Wenn E6=[leer] ist, versucht der Baustein den Namen der Standard-Netzwerkschnittstelle automatisch zu ermitteln.
+
+E7 legt das Überwachungsintervall (in Sekunden) für den normalen Betrieb des Bausteins fest: Der Baustein fragt den Status der PCs zyklisch in diesem Intervall ab.
+
+<b>Wichtig:</b>
+Änderungen an E4..E7 werden erst nach einem Neustart (E8) des Bausteins (bzw. von EDOMI) übernommen.
+
+
+<h2>Eingänge</h2>
+E1: 1=Einschalten (Wake-On-LAN), 0=Ruhezustand, -1=Herunterfahren (nur möglich wenn PC eingeschaltet ist)
+E2: 1=Bildschirm einschalten, 0=Bildschirm ausschalten (nur möglich wenn PC eingeschaltet ist)
+E3: 1=PC neustarten (nur möglich wenn PC eingeschaltet ist)
+E4..E7: (siehe oben)
+E8: Baustein aktivieren/deaktvieren: &ne;0=Baustein aktivieren, 0=Baustein deaktivieren
+
+
+<h2>Ausgänge</h2>
+A1: 1=PC ist eingeschaltet, 0=PC ist im Ruhezustand oder heruntergefahren (oder startet gerade neu)
+A2: 1=Bildschirm ist eingeschaltet, 0=Bildschirm ist ausgeschaltet
+A3: 1=der gewünschte Zustand stimmt (noch) nicht mit dem tätsächlichen Zustand überein, 0=der gewünschte Zustand wurde erreicht
+A4: 1=Baustein ist aktiviert und arbeitet, 0=Baustein ist deaktiviert, -1=Baustein arbeitet aufgrund eines Fehlers nicht
+
+<b>Hinweis:</b>
+Die Ausgänge werden nur bei einer Änderung gesetzt (SBC), jedoch auch bei jedem Start des Bausteins (E8) bzw. EDOMI.
+
+
+<h2>Wichtige Hinweise</h2>
+<ul>
+	<li>Der Baustein nutzt das Linux-Kommando "expect" zum Einloggen per SSH. "expect" wird bei einer <i>EDOMI-Neuinstalltion</i> ab Version 2.03 mitinstalliert. "expect" kann ggf. nachträglich installiert werden: <i>yum install expect</i></li>
+	<li>Vor der ersten Nutzung dieses Bausteins muss einmalig eine SSH-Session vom EDOMI-Server zum PC aufgebaut werden, um diverse notwendige Schlüssel zu generieren: <i>ssh &lt;PC-Login&gt;@&lt;PC-IP-Adresse&gt;</i></li>
+	<li>Der PC sollte i.d.R. aussschließlich mit diesem Baustein gesteuert werden, damit der Status stets auf dem neuesten Stand ist. Wird der PC z.B. lokal in den Standby versetzt, wird der Baustein dies u.U. erst nach dem an E7 festgelegten Interval bemerken.</li>
+	<li>Die Überwachung des Zustandes "Eingeschaltet" bzw. "Ausgeschaltet" erfolgt mittls einem "ping". Der PC sollte daher im eingeschalteten Zustand innerhalb von 3 Sekunden auf ein "ping" antworten (dies ist bei normaler Konfiguration der Fall).</li>
+</ul>
+
+
+<h3>Hilfreiche Linux-Befehle:</h3>
+<ul>
+	<li>Name der Netzwerkschnittstelle und MAC-Adresse herausfinden: "nmcli" oder "ifconfig -a"</li>
+</ul>

@@ -1,0 +1,38 @@
+<lbs-titel>Mediacenter (macOS) <span class='id'>17900001</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Mediacenter (macOS)</td></tr><tr><td class="app1_elInputNum col3">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Aktiviert</td><td class="app1_elInputValue">1</td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E2</td><td class="app1_elInput">MAC;IP-Adresse</td><td class="app1_elInputValue"></td><td class="app1_elOutput">System</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">System</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Airplay</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Airplay (System)</td><td class="app1_elInputValue"></td><td class="app1_elOutput">iTunes: Ein/Aus</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E5</td><td class="app1_elInput">iTunes: Ein/Aus</td><td class="app1_elInputValue"></td><td class="app1_elOutput">iTunes: Trackname</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E6</td><td class="app1_elInput">iTunes: Airplay</td><td class="app1_elInputValue"></td><td class="app1_elOutput">iTunes: Airplay</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E7</td><td class="app1_elInput">iTunes: Steuerung</td><td class="app1_elInputValue"></td><td class="app1_elOutput">iTunes: Status</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E8</td><td class="app1_elInput">iTunes: Playlist</td><td class="app1_elInputValue"></td><td class="app1_elOutput">iTunes: Playlist</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E9</td><td class="app1_elInput">eyeTV: Ein/Aus</td><td class="app1_elInputValue"></td><td class="app1_elOutput">eyeTV: Ein/Aus</td><td class="app1_elOutputNum">A9&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E10</td><td class="app1_elInput">eyeTV: Zapp</td><td class="app1_elInputValue"></td><td class="app1_elOutput">eyeTV: Kanalname</td><td class="app1_elOutputNum">A10&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E11</td><td class="app1_elInput">eyeTV: Kanal</td><td class="app1_elInputValue"></td><td class="app1_elOutput">eyeTV: Kanal</td><td class="app1_elOutputNum">A11&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E12</td><td class="app1_elInput">EDOMI: NIC-Name</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div><b>ACHTUNG: Diese Hilfe ist noch unvollständig!</b>
+
+Dieser Baustein steuert einen MacOS-Computer bzw. dessen Applikationen (iTunes und EyeTV).
+
+<b>Hinweise zur Einrichtung eines MacOS-Systems im Abschnitt [INFO] am Ende dieses Baustein-Quelltextes.</b>
+
+Sofern der Baustein aktiviert ist (E1&ne;0), wird der Host-Status zyklisch abgefragt.
+
+Über die Eingänge E3..E11 der Host bzw. iTunes und EyeTV gesteuert (Befehle). Die Befehle werden mit einer Rate von max. 2/s ausgeführt.
+
+E1: &ne;0=Baustein ist aktiviert, 0=Baustein ist deaktiviert
+E2: MAC-Adresse und IP-Adresse:Port des Computers (in der Form "xx:xx:xx:xx:xx:xx;192.168.0.1:8000"), ohne diese Angabe startet der Baustein nicht
+E3: Computer-Steuerung: 0=Ruhezustand, 1=Aufwecken, 2=Neustarten, 3=Runterfahren
+E4: Airplay: 0=aus, 1=EG, 2=OG
+E5: iTunes: 0=beenden, 1=starten
+E6: iTunes: Airplay: 0=aus, 1=EG, 2=OG
+E7: iTunes: Wiedergabesteuerung: 0=stop, 1=play, 2=pause, 3=skip+, 4=skip-
+E8: iTunes: Playlist-Auswahl: Name der abzuspielenden Playlist
+E9: eyeTV: 0=beenden, 1=starten
+E10: eyeTV: Zapping: 0=Kanal-, 1=Kanal+
+E11: eyeTV: Kanal-Auswahl: 1..&infin;=Kanal-Nummer
+E12: Name der Netzwerkschnittstelle des EDOMI-Servers, leer=automatisch ermitteln
+
+A1: letzter Status des Bausteins: 0=deaktiviert, 1=aktiviert, 2=Abfrage-Fehler, 3=Fehler beim Absetzen eines Befehls (A1 wird z.B. nach einem Fehler nicht zurückgesetzt, der letzte Zustand bleibt also stets erhalten)
+A2 (SBC): macOS-Status: 0=ausgeschaltet (nicht erreichbar), 1=eingeschaltet, 2=Neustart angefordert (Sollwert), 3=Shutdown angefordert (Sollwert)
+A3 (SBC): Airplay-Status (Sollwert): 0=aus, 1=EG, 2=OG
+A4 (SBC): iTunes: Status: 0=beendet, 1=gestartet
+A5 (SBC): iTunes: aktueller Trackname beim Abspielen
+A6 (SBC): iTunes: Airplay-Status (Sollwert): 0=aus, 1=EG, 2=OG
+A7 (SBC): iTunes: Wiedergabestatus: 0=stop, 1=play, 2=pause
+A8 (SBC): iTunes: aktueller Playlist-Name beim Abspielen
+A9 (SBC): eyeTV: Status: 0=beendet, 1=gestartet
+A10 (SBC): eyeTV: aktueller Kanal-Name
+A11 (SBC): eyeTV: aktuelle Kanal-Nummer
+
+Hinweis:
+SBC wird bei jedem Start des Bausteins (E1) zurückgesetzt.

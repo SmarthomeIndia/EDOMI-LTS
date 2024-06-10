@@ -1,0 +1,19 @@
+<lbs-titel>Ventil-Festsetzschutz/Leckagealarm <span class='id'>17900005</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Ventil-Festsetzschutz/Leckagealarm</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Leckagealarm</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Ventil</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Festsetzschutz</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Alarm</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Leckagealarm: Reset</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Festsetzschutz</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Festsetzschutz: Intervall (Tage)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Ventil: Verfahrzeit (s)</td><td class="app1_elInputValue">10</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein bewegt regelmäßig ein Motorventil (Festsetzschutz) und wertet zudem einen Leckagesensor aus (z.B. um die Hauptwasserleitung im Falle einer Leckage abzusperren).
+
+E4 gibt das Intervall (in Tagen) für den Festsetzschutz an. Sobald an E2 ein neues Telegramm &ne;0 eintrifft, wird der Festsetzschutz durchgeführt sofern das an E4 angegebene Intervall erreicht oder überschritten worden ist. 
+Der Baustein arbeitet <i>nicht</i> zyklisch, d.h. der Festsetzschutz wird ggf. nur durchgeführt wenn E2 entsprechend getriggert wird.
+Der Festsetzschutz schließt das Ventil (A1=0) und öffnet es unmittelbar danach wieder (A1=1). Die Verfahrzeit (E5) bestimmt dabei die Dauer der Öffnungs- bzw. Schließvorgangs.
+
+Sobald an E1 ein neues Telegramm &ne;0 eintrifft, wird dies als "Leckage" interpretiert: Das Ventil wird geschlossen (A1=0) und A2 (Alarm) wird auf 1 gesetzt. Der Festsetzschutz ist nun deaktiviert.
+Dieser Alarmzustand bleibt solange bestehen, bis ein neues Telegramm &ne;0 an E3 (Reset) eintrifft: Erst dann wird das Ventil wieder geöffnet und der Festsetzschutz freigegeben.
+
+E1: &ne;0 = Leckagealarm auslösen
+E2: &ne;0 = Festsetzschutz ggf. durchführen (sofern das Intervall an E4 erreicht/überschritten wurde)
+E3: &ne;0 = Leckagealarm zurücksetzen
+E4: Festsetzschutz-Intervall in Tagen
+E5: Verfahrzeit des Ventils für einen Öffnungs- bzw. Schließvorgang (in Sekunden)
+
+A1: 1 = Ventil öffnen, 0 = Ventil schließen
+A2: 1 = Leckagealarm, 0 = Lackagealarm wurde mittels E3 zurückgesetzt
+A3: 1 = Festsetzschutz wird gerade durchgeführt, 0 = Durchführung beendet (ggf. verfährt das Ventil aber noch)

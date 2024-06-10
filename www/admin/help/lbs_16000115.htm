@@ -1,0 +1,17 @@
+<lbs-titel>Watchdog <span class='id'>16000115</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Watchdog</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Dauer (s)</td><td class="app1_elInputValue">10</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Aktiviert</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein überwacht z.B. ein zyklisch eintreffendes Telegramm an E1. 
+
+Ein Telegramm &ne;0 an E1 startet den Baustein, bzw. startet den Baustein neu:
+Ein Timer beginnt abzulaufen und wird durch jedes weitere Telegramm &ne;0 an E1 neu gestartet. Der Ausgang A1 wird beim ersten(!) eintreffenden Telegramm &ne;0 an E1 auf 0 gesetzt.
+Während der Timer läuft und neue Telegramme &ne;0 an E1 eintreffen, wird A1 nicht verändert.
+Läuft der Timer vollständig ab (ohne das ein neues Telegramm &ne;0 an E1 eintrifft), wird A1=1 gesetzt. Trifft nun wieder ein neues Telegramm &ne;0 an E1 ein, wird der Baustein neu gestartet und A1=0 gesetzt.
+
+Sobald E3=1 gesetzt wird, ist der Baustein aktiviert. Ist E3=0, wird E1 ignoriert (der Baustein ist deaktiviert).
+Wird E3=0 gesetzt während der Baustein bereits arbeitet, wird der Baustein unmittelbar deaktiviert. A1 bleibt dann unverändert.
+
+
+E1: &ne;0 = Trigger, alle anderen Telegramme werden ignoriert und führen zum Ablauf des Timers. Sobald ein Telegramm &ne;0 eintrifft, wird der Timer neu gestartet.
+E2: Zeit in Sekunden
+E3: 1 = Baustein aktivieren, 0 = Baustein deaktivieren
+
+A1: Beim ersten(!) neuen Telegramm &ne;0 an E1 wird A1=0 gesetzt. Nach Ablauf der Zeit ohne ein neues Telegramm &ne;0 an E1 wird A1=1 gesetzt.

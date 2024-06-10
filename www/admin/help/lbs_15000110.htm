@@ -1,0 +1,23 @@
+<lbs-titel>Minimum/Maximum <span class='id'>15000110</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Minimum/Maximum</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Min</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Reset</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Max</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Min (Reset)</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Max (Reset)</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein ermittelt den Minimum- und Maximumwert von Telegrammen an E1.
+
+Jedes Telegramm &ne;[leer] an E1 triggert den Baustein und führt zu einem Vergleich mit dem Vorgängerwert:
+Ist der aktuelle Wert kleiner als der Vorgängerwert, wird A1 auf den aktuellen Wert gesetzt.
+Ist der aktuelle Wert größer als der Vorgängerwert, wird A2 auf den aktuellen Wert gesetzt.
+
+Ist noch kein Vorgängerwert vorhanden (z.B. beim ersten Triggern des Bausteins), werden A1 und A2 auf den aktuellen Wert an E1 gesetzt.
+
+Mit einem Telegramm &ne;0 an E2 wird der Baustein zurückgesetzt: A1 und A2 werden auf den aktuellen Wert an E1 gesetzt, die internen Vergleichswerte ebenso. Beim Zurücksetzen des Bausteins werden die aktuellen Minimum-/Maximum-Werte an A3 bzw. A4 ausgegeben, erst anschließend wird der Baustein zurückgesetzt. A3 bzw. A4 können z.B. verwendet werden, um die ermittelten Minimum-/Maximum-Werte in einem Datenarchiv zu archivieren.
+
+<h3>Anwendungsbeispiel</h3>
+Ermittlung der täglichen Min-/Max-Temperatur: E1 wird das Temperatur-KO zugewiesen, der Baustein wird mit Hilfe des System-KOs[20] an E2 täglich um Mitternacht zurückgesetzt. An A1 bzw. A2 liegen dann bei jeder Temperaturänderung die Min-/Max-Werte an, um Mitternacht werden A1 und A2 auf die aktuelle Temperatur gesetzt (Reset). Die Minimum-/Maximum-Werte des Vortags(!) werden bei einem Reset an A3 bzw. A4 ausgegeben und können z.B. in einem Datenarchiv archiviert werden.
+
+
+<h2>Ein- und Ausgänge</h2>
+E1: Jedes neue Telegramm &ne;[leer] triggert den Baustein und führt ggf. zu einer Ermittlung des Minimum/Maximum-Werts.
+E2: Ein Telegramm &ne;0 setzt den Baustein zurück, d.h. A1 und A2 (und die internen Vergleichswerte) werden auf den aktuellen Wert an E1 gesetzt.
+
+A1: Minimum-Wert (wird nur bei Änderung gesetzt)
+A2: Maximum-Wert (wird nur bei Änderung gesetzt)
+A3: Minimum-Wert zum Zeitpunkt eines Resets per E2
+A4: Maximum-Wert zum Zeitpunkt eines Resets per E2

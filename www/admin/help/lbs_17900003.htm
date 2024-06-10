@@ -1,0 +1,48 @@
+<lbs-titel>Bewässerung <span class='id'>17900003</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Bewässerung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Bewässern</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Ventil</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Manuell</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Bewässerungszeit</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Schwelle: Aus</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">Bewässerungsmenge</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Schwelle: Ein</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">min. Bewässerungszeit (Minuten)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E6</td><td class="app1_elInput">max. Bewässerungszeit (Minuten)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E7</td><td class="app1_elInput">min. Bewässerungsmenge (Liter)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E8</td><td class="app1_elInput">max. Bewässerungsmenge (Liter)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E9</td><td class="app1_elInput">Bodenfeuchte</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E10</td><td class="app1_elInput">Literimpuls</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein regelt z.B. die Gartenbewässerung über ein entsprechendes Ventil und einem Bodenfeuchtesensor.
+
+<h3>Bedingte Bewässerung (E1)</h3>
+Mit E1&ne;0 wird die Bewässung gestartet, sofern die Bodenfeuchte (E9) kleiner/gleich dem Ein-Schwellenwert (E4) ist und nicht bereits eine durch E2 getriggerte Bewässerung stattfindet (s.u.). Andernfalls wird das Telegramm ignoriert.
+
+Nachdem die Bewässerung erfolgreich gestartet wurde, kann diese mit E1=0 jederzeit beendet werden. Im Normalfall wird die Bewässerung jedoch automatisch beendet, sobald folgende Bedingungen erfüllt sind:
+<ul>
+	<li>die Mindest-Bewässerungzeit (E5) oder die Mindest-Bewässerungsmenge (E7) ist erreicht worden und die Bodenfeuchte (E9) ist größer/gleich dem Aus-Schwellenwert (E3)</li>
+	<li>die Maximal-Bewässerungzeit (E6) oder die Maximal-Bewässerungsmenge (E8) ist erreicht worden</li>
+</ul>
+
+Nach dem Beenden der Bewässerung wird A2 auf die Dauer der erfolgten Bewässerung gesetzt (Minuten), A3 wird ggf. auf die Menge der erfolgten Bewässerung gesetzt (Liter).
+Erst jetzt kann ggf. eine erneute Bewässung (E1/E2) getriggert werden.
+
+
+<h3>Erzwungene Bewässerung (E2)</h3>
+Mit E2&ne;0 wird die Bewässung zwangsweise gestartet (unabhängig von der Bodenfeuchte), sofern nicht bereits eine durch E1 getriggerte Bewässerung stattfindet (s.o.). Andernfalls wird das Telegramm ignoriert.
+Nachdem die erzwungene Bewässerung erfolgreich gestartet wurde, kann diese mit E2=0 jederzeit beendet werden. Die Bewässerung wird automatisch beendet, sobald die folgende Bedingung erfüllt ist:
+<ul>
+	<li>die Maximal-Bewässerungzeit (E6) oder die Maximal-Bewässerungsmenge (E8) ist erreicht worden</li>
+</ul>
+
+Nach dem Beenden der erzwungenen Bewässerung wird A2 auf die Dauer der erfolgten Bewässerung gesetzt (Minuten), A3 wird ggf. auf die Menge der erfolgten Bewässerung gesetzt (Liter).
+Erst jetzt kann ggf. eine erneute Bewässung (E1/E2) getriggert werden.
+
+
+<h3>Bodenfeuchte und Literimpuls</h3>
+An E9 wird ein analoger Bodenfeuchtesensor erwartet, der bei geringer Feuchtigkeit einen kleinen Wert ausgibt und bei hoher Feuchtigkeit einen großen Wert.
+An E10 wird ggf. (sofern die Mengenbeschränkungen benötigt werden) ein Literimpuls erwartet, d.h. bei jedem verbrauchten Liter muss an E10 eine 1 anliegen.
+
+
+<h3>Ein-/Ausgänge</h3>
+E1: &ne;0 = starten, 0 = beenden
+E2: &ne;0 = starten, 0 = beenden
+E3: Ausschalt-Schwelle für die Bodenfeuchte
+E4: Einschalt-Schwelle für die Bodenfeuchte
+E5: Mindest-Bewässerungszeit (0=deaktiviert)
+E6: Maximal-Bewässerungszeit (0=deaktiviert)
+E7: Mindest-Bewässerungsmenge (0=deaktiviert)
+E8: Maximal-Bewässerungsmenge (0=deaktiviert)
+E9: Bodenfeuchte
+E10: Literimpuls
+
+A1: Ventilsteuerung (1=öffnen, 0=schließen)
+A2: letzte Bewässerungsdauer (Minuten mit einer Nachkommastelle)
+A3: letzte Bewässerungsmenge	
+A4: aktueller Status: 0=keine Bewässerung, 1=bedingte Bewässerung (E1&ne;0), 2=manuelle Bewässerung (E2&ne;0)

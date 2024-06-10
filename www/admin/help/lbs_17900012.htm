@@ -1,0 +1,28 @@
+<lbs-titel>Pool: Pegelauswertung <span class='id'>17900012</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Pool: Pegelauswertung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Status: Pegel</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Pegel: zu hoch</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Pegel: normal</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Pegel: niedrig</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Pegel: zu niedrig</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein wertet einen (Pool-)Pegelstand aus, d.h. je nach Pegelstand wird A1 auf einen entsprechenden Wert gesetzt.
+
+An E1 wird der aktuelle Pegel erwartet, ein hoher Wert entspricht einem hohen Pegelstand. Der Baustein wird bei jedem neuen Telegramm &ne;[leer] an E1 getriggert.
+
+E2..E5 legen die jeweiligen Schwellenwerte fest:
+<ul>
+	<li>zu hoch (E2): dieser Schwellenwert definiert einen zu hohen Pegelstand, d.h. ein Pegel größer/gleich E2 sollte z.B. zu einem Abpumpen führen (A1=3)</li>
+	<li>normal (E3): dieser Schwellenwert definiert den normalen Pegelstand, d.h. je nach vorherigem Pegelstand (zu hoch bzw. zu niedrig) wird dieser Pegelstand angestrebt (A1=0)</li>
+	<li>niedrig (E4): dieser Schwellenwert definiert einen niedrigen (jedoch nicht <i>zu niedrigen</i>) Pegelstand, d.h. ein Pegel kleiner/gleich E4 sollte z.B. zu einem Nachfüllen führen (A1=2)</li>
+	<li>zu niedrig (E5): dieser Schwellenwert definiert einen zu niedrigen Pegelstand, d.h. ein Pegel kleiner/gleich E5 sollte z.B. zum Ausschalten der Umwälzpumpe (Trocklaufgefahr) und zu einem Nachfüllen führen (A1=1)</li>
+</ul>
+
+An A1 wird der entsprechende Status (bei Änderung) ausgegeben und kann mittels E4 des <link>LBS 17900010***lbs_17900010</link> direkt ausgewertet werden.
+
+Der letzte Status wird intern remanent beibehalten, so dass auch nach einem Neustart der letzte Zustand wiederhergestellt wird. A1 wird nach einem Neustart auf den entsprechenden Wert gesetzt, sofern der Baustein durch E1 getriggert wird.
+Ist der Pegel z.B. "zu niedrig", wird A1=1 gesetzt und es sollte solange Frischwasser nachgefüllt werden bis der Pegel größer/gleich E3 ist (A1=0). Erreicht der Pegel nun z.B. einen Stand zwischen E3 und E4, würde bei einem Neustart der Pegelstand im Normbereich liegen (A1=0). Durch das remanente Verhalten des LBS wird jedoch der letzte Zustand (A1=1) nach einem Neustart beibehalten, so dass das Nachfüllen fortgesetzt werden kann.
+
+E1: &ne;[leer] = aktueller Pegel
+E2..E5: Schwellenwerte (s.o.)
+
+A1: aktueller Status (SBC)
+<ul>
+	<li>0 = der Pegel ist im Normbereich (liegt also zwischen den Werten an E2 und E4), nach einer erfolgten Pegelanpassung (A1&ne;0) sollte der Pegel in Etwa dem Wert an E3 entsprechen</li>
+	<li>1 = der Pegel ist zu niedrig, d.h. ggf. sollte z.B. eine Umwälzpumpe (Pool) ausgeschaltet werden und Frischwasser nachgefüllt werden</li>
+	<li>2 = der Pegel ist niedrig, d.h. Frischwasser sollte nachgefüllt werden</li>
+	<li>3 = der Pegel ist zu hoch (z.B. durch Regen), d.h. es sollte überschüssiges Wasser abgepumpt werden</li>
+</ul>

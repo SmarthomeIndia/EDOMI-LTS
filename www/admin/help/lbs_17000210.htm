@@ -1,0 +1,155 @@
+<lbs-titel>Virtuelle Leuchte <span class='id'>17000210</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Virtuelle Leuchte</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Hauptschalter</td><td class="app1_elInputValue">1</td><td class="app1_elOutput">Lichtwert</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">A: Alarm</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">B: Manuell</td><td class="app1_elInputValue"></td><td class="app1_elOutput">A: Status</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E4</td><td class="app1_elInput">C: Sensor</td><td class="app1_elInputValue"></td><td class="app1_elOutput">B: Status</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E5</td><td class="app1_elInput">D: Sensor</td><td class="app1_elInputValue"></td><td class="app1_elOutput">C: Status</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E6</td><td class="app1_elInput">A: Aktiviert</td><td class="app1_elInputValue">1</td><td class="app1_elOutput">D: Status</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E7</td><td class="app1_elInput">B: Aktiviert</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E8</td><td class="app1_elInput">C: Aktiviert</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E9</td><td class="app1_elInput">D: Aktiviert</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E10</td><td class="app1_elInput">B/C/D: Aus</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E11</td><td class="app1_elInput">A: Lichtwert</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E12</td><td class="app1_elInput">B: Lichtwert</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E13</td><td class="app1_elInput">C: Lichtwert</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E14</td><td class="app1_elInput">D: Lichtwert</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E15</td><td class="app1_elInput">Sparmodus</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E16</td><td class="app1_elInput">Hell|Dunkel</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col3">&#x25B8;&nbsp;E17</td><td class="app1_elInput">Typ</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein kann auf vielfältige Weise eine Leuchte ansteuern.
+
+Der "Hauptschalter" (E1) hat Priorität vor allen Eingängen E2..E5 und arbeitet wie eine "Sicherung": Sobald E1 auf 0 gesetzt wird, wird A1 ggf. auf einen Lichtwert für "AUS" gesetzt (z.B. "0" oder "000000") und alle Telegramme an E2..E5 werden ignoriert (d.h. A1 bleibt dauerhaft "AUS"). Wird E1 auf 1 gesetzt, wird der ursprüngliche Zustand wiederhergestellt, d.h. alle Eingänge E2..E5 werden erneut verarbeitet und A1..A6 entsprechend gesetzt.
+
+Die Eingänge E2..E5 werden mit absteigender Priorität behandelt, d.h. E2 hat die höchste und E5 die niedrigste Priorität. Wird z.B. E2 auf einen Lichtwert für "EIN" gesetzt (z.B. ein Dimmwert von 255) werden E3..E5 dadurch übersteuert (ignoriert). Erst wenn an E2 ein Lichtwert für "AUS" anliegt (z.B. 0) werden E3..E5 wieder freigegeben.
+
+Grundsätzlich werden 2 Zustände an E2..E5 unterschieden: Ein Lichtwert für "EIN" und ein Lichtwert für "AUS" (bzw. 1/0).
+"EIN" führt stets dazu, dass alle nachfolgenden Eingänge E2..E5 blockiert werden, während "AUS" die nachfolgenden Eingänge wieder freigibt und für eine erneute Berechnung des Zustandes der Leuchte sorgt.
+"EIN" setzt A1 ggf. auf einen Lichtwert, der eine eingeschaltete Leuchte repräsentiert, während "AUS" das Gegenteil bewirkt (Leuchte wird ausgeschaltet). Der "AUS"-Wert wird stets generiert ("0" bzw. "000000") und kann nicht individuell definiert werden.
+
+An den Eingängen E2..E5 (A/B/C/D) wird entweder 0/1 (Aus/Ein) oder ein "Lichtwert" erwartet. Ein Lichtwert kann im einfachsten Fall 0/1 sein (Aus/Ein), je nach Typ (E17) jedoch auch z.B. ein HSV-Wert wie "A1B2C3".
+<ul>
+	<li>wenn an E11..E14 ein Lichtwert definiert ist, wird an E2..E5 eine 0 (Aus) bzw. 1 (Ein) erwartet (der Lichtwert an E11..E14 wird dann angewendet)</li>
+	<li>wenn E11..E14 [leer] ist, wird direkt an E2..E5 der gewünschte Lichtwert erwartet</li>
+</ul>
+
+Als "Lichtwert" kann zudem eine beliebige Zeichenfolge angegeben werden (an E2..E5 bzw. E11.E14), die mit "*" beginnt (z.B. "*EDOMI"): Dieser Zeichenfolge wird als "EIN" interpretiert und unverändert an A1 ausgegeben. Mit Hilfe z.B. einen nachgeschalteten Vergleichers kann diese Zeichenfolge ausgewertet werden und z.B. eine Sonderfunktion (RGB-Sequenz o.ä.) des Aktors auslösen.
+
+Wird E2..E5 auf den Wert 0 (Aus) gesetzt, wird die Leuchte nicht zwangsläufig ausgeschaltet: Der Gesamtzustand (E2..E5) wird erneut berechnet und je nach Status von E2..E5 wird die Leuchte auf den entsprechenden Wert gesetzt. 
+
+Ausschließlich E3 kann zudem auf den Wert -1 gesetzt werden: Dies entspricht einem Ausschalten, jedoch wird der Zustand <i>nicht</i> erneut berechnet: Die Leuchte bleibt solange ausgeschaltet, bis ein neues Telegramm an E1..E10 oder E15 eintrifft (oder E16 von 0 auf 1 wechselt, sofern ein Sparmodus aktiviert ist). E2 hat jedoch auch in diesem Fall Priorität!
+
+<b>Hinweis:</b>
+Dieser Baustein kann das Status-KO einer Leuchte <i>nicht</i> auswerten. Wenn die Leuchte zusätzlich über einen anderen Weg (ohne diesen Baustein) geschaltet wird, ist dem Baustein der aktuelle Zustand der Leuchte nicht bekannt - daher werden die Ausgänge A1..A6 u.U. nicht den tatsächlichen Zustand der Leuchte repräsentieren.
+
+
+<h3>Sparmodus</h3>
+Mit E15=1 wird der einfache Energiesparmodus aktiviert: 
+Bei Einbruch der Dunkelheit (E16=1) werden E2..E5 erneut berechnet und die Leuchte ggf. eingeschaltet.
+Bei Helligkeit (E16=0) wird die Leuchte ausgeschaltet und E2..E5 werden ignoriert. Bei erneutem Einbruch der Dunkelheit wird wieder der aktuelle Zustand E2..E5 ermittelt und die Leuchte ggf. eingeschaltet.
+
+Mit E15=2 wird der komplexe Energiesparmodus aktiviert: 
+Bei Einbruch der Dunkelheit (E16=1) werden E2/E4/E5 erneut berechnet und die Leuchte ggf. eingeschaltet. Der Zustand von E3 wird dabei hingegen ignoriert, erst ein <i>neues</i> Telegramm an E3 wird ggf. zu einer Statusänderung der Leuchte führen.
+Beispiel: Wurde die Leuchte mittels eines Tastsensors an E3 eingeschaltet (z.B. bei Dunkelheit), wird die Leuchte bei eintretender Helligkeit automatisch ausgeschaltet. Bei erneutem Einbruch der Dunkelheit (z.B. am nächsten Abend) wird E3 u.U. noch immer z.B. auf den Wert 1 gesetzt sein und die Leuchte würde somit eingeschaltet werden (siehe bei E15=1). Mit E15=2 wird genau das verhindert, da erst ein <i>neues</i> Telegramm an E3 bei Dunkelheit ausgewertet wird.
+	
+
+<h3>Zwangs-Ausschaltung</h3>
+Mit E10 kann die Leuchte zwangsweise und vorübergehend ausgeschaltet werden, jedoch werden nur die Eingänge E3..E5 (nicht E2) übersteuert:
+Mit E10=1 wird die Leuchte ausgeschaltet, sofern E2 die Leuchte nicht eingeschaltet hat.
+Mit E10=0 wird die Leuchte ggf. wieder eingeschaltet, sofern E3..E5 entsprechend gesetzt sind.
+	
+	
+<h3>Eingänge</h3>
+<ul>
+	<li>E1: Hauptschalter
+		<ul>
+			<li>0: die Leuchte wird ggf. dauerhaft ausgeschaltet, E2..E5 werden ignoriert</li>
+			<li>1: der aktuelle Zustand des Bausteins wird neuberechnet und die Leuchte ggf. eingeschaltet</li>
+		</ul>
+	</li>
+
+	<li>E2: Alarm (A)
+		<ul>
+			<li>Lichtwert "EIN" bzw. 1: setzt A1 ggf. auf den Lichtwert an E2 bzw. E11 und sperrt E3..E5</li>
+			<li>Lichtwert "AUS" bzw. 0: setzt A1 ggf. auf den Lichtwert für "AUS", gibt E3..E5 frei und berechnet den Zustand des Bausteins neu</li>
+		</ul>
+	</li>
+
+	<li>E3: Manuell (B)
+		<ul>
+			<li>Lichtwert "EIN" bzw. 1: setzt A1 ggf. auf den Lichtwert an E3 bzw. E12 und sperrt E4..E5</li>
+			<li>Lichtwert "AUS" bzw. 0: setzt A1 ggf. auf den Lichtwert für "AUS", gibt E4..E5 frei und berechnet den Zustand des Bausteins neu</li>
+			<li>-1: setzt A1 ggf. auf den Lichtwert für "AUS", gibt E4..E5 frei und berechnet jedoch den Zustand des Bausteins <i>nicht</i> neu</li>
+		</ul>
+	</li>
+
+	<li>E4: Sensor (C)
+		<ul>
+			<li>Lichtwert "EIN" bzw. 1: setzt A1 ggf. auf den Lichtwert an E4 bzw. E13 und sperrt E5</li>
+			<li>Lichtwert "AUS" bzw. 0: setzt A1 ggf. auf den Lichtwert für "AUS", gibt E5 frei und berechnet den Zustand des Bausteins neu</li>
+		</ul>
+	</li>
+
+	<li>E5: Sensor (D)
+		<ul>
+			<li>Lichtwert "EIN" bzw. 1: setzt A1 ggf. auf den Lichtwert an E5 bzw. E14</li>
+			<li>Lichtwert "AUS" bzw. 0: setzt A1 ggf. auf den Lichtwert für "AUS" und berechnet den Zustand des Bausteins neu</li>
+		</ul>
+	</li>
+
+	<li>E6..E9: Aktivierung von A..D
+		<ul>
+			<li>0: der entsprechende Kanal (A..D) ist deaktiviert und wird ignoriert</li>
+			<li>1: der entsprechende Kanal (A..D) ist aktiviert</li>
+			<li>Hinweis: Eine Änderung führt stets zur sofortigen Neuberechnung des Zustandes.</li>
+		</ul>
+	</li>
+
+	<li>E10: B/C/D Aus (Zwangs-Ausschaltung bzw. Übersteuerung der Eingänge E3..E5)
+		<ul>
+			<li>1: setzt A1 ggf. auf den Lichtwert für "AUS", sofern die Leuchte nicht durch E2 (Alarm) eingeschaltet ist</li>
+			<li>0: setzt A1 ggf. auf einen Lichtwert für "EIN", sofern B/C/D entsprechend gesetzt sind</li>
+		</ul>
+	</li>
+
+	<li>E11..E14: "EIN"-Lichtwert für A..D (optional)
+		<ul>
+			<li>&ne;[leer]: die Angabe wird als Lichtwert für "EIN" interpretiert und für E2..E5 wird kein Lichtwert, sondern 0 (Aus) bzw. 1 (Ein) erwartet</li>
+			<li>Hinweis: Der Lichtwert für "AUS" wird automatisch generiert.</li>
+			<li>Wichtig: Eine Änderung des Lichtwerts an E11..E14 wird erst beim nächsten Einschalten über A..D berücksichtigt.</li>
+		</ul>
+	</li>
+
+	<li>E15: Sparmodus
+		<ul>
+			<li>0: deaktiviert, d.h. A1 wird stets unabhängig von E16 (hell/dunkel) gesetzt</li>
+			<li>1: Bei Einbruch der Dunkelheit (E16=1) werden E2..E5 erneut berechnet und die Leuchte ggf. eingeschaltet. Bei Helligkeit (E16=0) wird die Leuchte ausgeschaltet und E2..E5 werden ignoriert. Bei erneutem Einbruch der Dunkelheit wird wieder der aktuelle Zustand E2..E5 ermittelt und die Leuchte ggf. eingeschaltet.</li>
+			<li>2: Wie zuvor, jedoch wird bei Einbruch der Dunkelheit E3 (Manuell) ignoriert. Erst ein <i>neues</i> Telegramm an E3 wird ggf. zu einer Statusänderung der Leuchte führen.</li>
+			<li>Wichtig: Der Energiesparmodus kann nur genutzt werden, wenn an E16 ein entsprechender Wert 0/1 für hell/dunkel anliegt!</li>
+		</ul>
+	</li>
+	
+	<li>E16: Helligkeit/Dunkelheit (Status z.B. eines Dämmerungssensors) 
+		<ul>
+			<li>0 bzw. [leer]: Hell (z.B. Tag)</li>
+			<li>1: Dunkel (z.B. Nacht)</li>
+			<li>Hinweis: Dieser Status wird für den Sparmodus (E15) benötigt.</li>
+		</ul>
+	</li>
+
+	<li>E17: Typ sämtlicher Lichtwerte bzw. der Leuchte (diese Angabe ist wichtig!)
+		<ul>
+			<li>0: Binär (1/0)</li>
+			<li>1: Dimmwert (0..255)</li>
+			<li>2: RGB-Wert (000000..FFFFFF)</li>
+			<li>3: HSV-Wert (000000..FFFFFF)</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h3>Ausgänge</h3>
+<ul>
+	<li>A1: Lichtwert: an diesem Ausgang wird der aktuelle Lichtwert zur Übergabe an ein Schalt-/Dimm-KO ausgegeben
+		<ul>
+			<li>Hinweis: A1 wird nur bei einer Änderung des Lichtwertes gesetzt.</li>
+		</ul>
+	</li>
+
+	<li>A2: Status: 0=der Lichtwert an A1 repräsentiert einen AUS-Wert, 1=der Lichtwert an A1 repräsentiert einen EIN-Wert
+		<ul>
+			<li>Hinweis: A2 wird bei <i>jeder</i> Änderung von A1 (also des Lichtwertes) gesetzt.</li>
+		</ul>
+	</li>
+
+	<li>A3..A6: Status A..D: diese Ausgänge werden in Abhängigkeit von A2 auf 0 oder 1 gesetzt (0=AUS, 1=EIN)
+		<ul>
+			<li>A3..A6 repräsentieren jeweils den Zustand genau des Kanals A..D, der für den aktuellen Status an A2 verantwortlich ist</li>
+			<li>daher kann stets maximal einer der Ausgänge A3..A6 den Wert 1 annehmen, da bedingt durch die Priorisierung stets nur ein Kanal A..D für den aktuellen Status an A2 verantwortlich sein kann</li>
+			<li>Hinweis: Die einzelnen Ausgänge A3..A6 werden nur bei einer Änderung des jeweiligen Zustands gesetzt.</li>
+			<li>Wichtig: Der Wert 0 an einem der Ausgänge A3..A6 bedeutet nicht zwangsläufig, dass ein AUS-Lichtwert an A1 anliegt - eine 0 bedeutet lediglich, dass der entsprechende Kanal nicht für einen EIN-Lichtwert verantwortlich ist. Nur wenn <i>alle</i> Ausgänge A3..A6 den Wert 0 haben, liegt an A1 ein AUS-Lichtwert an (bzw. A2 ist 0).</li>
+		</ul>
+	</li>
+</ul>

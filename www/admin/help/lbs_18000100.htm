@@ -1,0 +1,15 @@
+<lbs-titel>Systemauslastung <span class='id'>18000100</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Systemauslastung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">CPU</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">SBC</td><td class="app1_elInputValue">1</td><td class="app1_elOutput">Last</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">RAM</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">HDD</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein gibt an den Ausgängen bei jedem Triggern (E1) die unten genannten Werte aus. Getriggert wird der Baustein über ein neues Telegramm &ne;[leer] an E1.
+
+<b>Anwendungsbeispiel:</b>
+An E1 kann z.B. das System-KO[5] (Systemzeit) angelegt werden, um sekündlich aktuelle Werte an A1..A4 zu erhalten.
+Alternativ kann z.B. das System-KO[26] (Trigger: Minütlich) an E1 angelegt werden, zusätzlich kann ein Initialwert 1 angegeben werden - dies führt dazu, dass der Baustein beim Start (Initialwert) und anschließend zu jeder vollen Minute getriggert wird.
+
+
+E1: jedes Telegramm &ne;[leer] triggert den Baustein
+E2: SBC (Send by Change): legt für A1..A4 fest, ob der Ausgang nur bei einer Wertänderung gesetzt werden soll: 0=Ausgang immer setzen, 1=Ausgang nur bei Änderung setzen
+
+A1: CPU-Auslastung in Prozent (ggf. SBC)
+A2: Systemlast (Load) als FLOAT-Wert (ggf. SBC)
+A3: RAM-Auslastung in Prozent (ggf. SBC)
+A4: HDD-Auslastung in Prozent (ggf. SBC)

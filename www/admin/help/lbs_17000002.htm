@@ -1,0 +1,33 @@
+<lbs-titel>Torsteuerung <span class='id'>17000002</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Torsteuerung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Aktion</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Torsteuerung</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Status: Tor</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Schließvorgang sperren</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">Störung</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Dauer: Öffnen (s)</td><td class="app1_elInputValue">20</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Dauer: Schließen (s)</td><td class="app1_elInputValue">20</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein steuert z.B. einen Garagentorantrieb.
+
+Der Torantrieb muss über einen(!) Steuereingang verfügen, der das Tor nach dem Schema "Auf-Stop-Zu-Stop" verfahren lässt. 
+Erwartet wird zudem ein(!) (Reed-)Kontakt, der den Zustand des Tors an E2 repräsentiert (0=Tor geschlossen, &ne;0=Tor geöffnet).
+
+Getriggert wird der Baustein mit einem neuen Telegramm (0 oder 1) an E1. 
+
+Die (Mindest-)Laufzeiten für das Öffnen und Schließen des Tores sind an E4 bzw. E5 anzugeben. Während dieser Laufzeiten wird A2 (Status) entsprechend gesetzt. Nach Ablauf der Laufzeiten wird A2 stets auf den Status "offen" (1) oder "geschlossen" (0) gesetzt - ausschlaggebend ist hierbei der Status des Kontaktes an E2.
+Entspricht der Kontakt-Status (E2) nicht den Erwartungen (z.B. ist E2=0, das Tor sollte jedoch geöffnet werden), wird A3 auf 1 gesetzt ("Störung").
+
+Ist E3&ne;0 wird das Schließen des Tores verhindert werden (z.B. durch eine Lichtschranke), das Öffnen ist jedoch weiterhin möglich.
+
+<b>Hinweis:</b>
+Ein bereits <i>eingeleiteter</i> Schließvorgang wird durch E3 nicht(!) abgebrochen!
+
+<b>Wichtig:</b>
+A1 wird ausschließlich auf 1 gesetzt (niemals auf 0). In der Regel ist daher die Nachschaltung eines <link>Impuls/Trigger-LBS***lbs_16000110</link> erforderlich, dessen Ausgang schließlich das KO des Torantriebs nach dem Schema "Auf-Stop-Zu-Stop" triggert.
+
+<b>Achtung:</b>
+Prinzipbedingt kann dieser Baustein nicht ermitteln, in welchem Zustand sich der Torantrieb <i>tatsächlich</i> befindet. Daher wird auf Grundlage von E2 (Kontakt) und den Laufzeiten versucht, den aktuellen (logischen) Zustand zu ermitteln. Sofern der Torantrieb zusätzlich auf anderem Wege beeinflusst wird (z.B. Funksender oder Not-Stopp durch ein Hindernis), kann dies zu unerwarteten Ergebnissen führen.
+
+
+<h3>Ein- und Ausgänge</h3>
+E1: triggert den Baustein mit der gewünschten Aktion: 0=Schließen, 1=Öffnen
+E2: Türkontakt (z.B. Reed): &ne;0=Tor ist geöffnet, 0=Tor ist geschlossen
+E3: Sperren: &ne;0=Schließen verhindern, 0=Schließen erlauben
+E4: Laufzeit in Sekunden für den Öffnungsvorgang (muss mindestens(!) der tatsächlichen Laufzeit des Tores entsprechen)
+E5: Laufzeit in Sekunden für den Schließvorgang (muss mindestens(!) der tatsächlichen Laufzeit des Tores entsprechen)
+
+A1: 1=Tor Öffnen oder Schließen bzw. stoppen (Triggerausgang), A1 wird NIEMALS 0!
+A2: 0=Tor ist geschlossen, 1=Tor ist geöffnet (bzw. nicht geschlossen), -1=Tor öffnet gerade, -2=Tor schließt gerade
+A3: Störung: 1=Störung (s.o.)

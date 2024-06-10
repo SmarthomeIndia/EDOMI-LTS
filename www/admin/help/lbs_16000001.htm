@@ -1,0 +1,8 @@
+<lbs-titel>Entprellen <span class='id'>16000001</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Entprellen</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Dauer (ms)</td><td class="app1_elInputValue">500</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein entprellt ein Signal an E1.
+
+Jedes Telegramm &ne;[leer] an E1 triggert den Baustein. Der Wert an E1 wird unmittelbar an A1 ausgegeben, der Baustein ist anschließend jedoch für die Dauer an E2 gesperrt (währenddessen werden alle Telegramme an E1 ignoriert).
+
+E1: &ne;[leer] = Signal. Jedes weitere Telegramm während der Laufzeit wird ignoriert!
+E2: Entprellzeit (ms)
+A1: Wert von E1

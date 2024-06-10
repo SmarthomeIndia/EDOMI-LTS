@@ -1,0 +1,67 @@
+<lbs-titel>Präsenzstatus <span class='id'>17900006</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Präsenzstatus</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Aktivität</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Schlafen</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Coming</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Coming/Leaving</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Leaving</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Aktivität: Dauer (s)</td><td class="app1_elInputValue">1800</td><td class="app1_elOutput">Abbruch</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Leaving: Dauer (s)</td><td class="app1_elInputValue">30</td><td class="app1_elOutput">Leaved</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Schlafen</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Aufwachen</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein ermittelt einen "Präsenzstatus" und triggert ggf. ein "Coming home"- bzw. "Leaving home"-Ereignis. 
+
+Es werden ggf. folgende Präsenzzustände (A1) unterschieden:
+<ul>
+	<li>Anwesend und aktiv (A1=6): E1 kann z.B. durch Bewegungsmelder getriggert werden, um eine Aktivität zu registrieren</li>
+	<li>Anwesend aber inaktiv (A1=5): z.B. wenn ein Triggern von E1 (z.B. durch Bewegungsmelder) für eine gewisse Zeit (E4) ausbleibt</li>
+	<li>Schlafend (A1=4): mit E2&ne;0 wird der Schlafmodus (bei Anwesenheit) aktiviert</li>
+	<li>Abwesend (A1=-1/-2/-3): wird mit E3=1/2/3 aktiviert (es werden 3 Abwesenheits-Modi unterschieden, um z.B. bei einem Urlaub entsprechende Maßnahmen zu treffen)</li>
+	<li>"Gehend" (A1=1/2/3): wird eine Abwesenheit eingeleitet (s.o.), wird zunächst ein Timer gestartet (E5) - der Status "Abwesend" wird erst nach Ablauf des Timers gesetzt</li>
+</ul>
+
+A2..A5 repräsentieren Ereignisse, d.h. diese Ausgänge werden immer dann auf 1/2/3 gesetzt (niemals auf 0), wenn das entsprechende Ereignis getriggert wird:
+<ul>
+	<li>Coming (A2=1/2/3): wird getriggert, wenn <i>nach einer Abwesenheit</i> E3=0 ("Coming home") gesetzt wird (A2 wird je nach zuvor aktiviertem Abwesenheitsmodus auf 1, 2 oder 3 gesetzt)</li>
+	<li>Leaving (A3=1/2/3): wird getriggert, wenn <i>bei Anwesenheit</i> E3=1/2/3 ("Leaving home") gesetzt wird</li>
+	<li>Abbruch (A4=1/2/3): wird getriggert, wenn <i>bei Anwesenheit</i> E3=1/2/3 ("Leaving home") gesetzt wurde und noch vor Ablauf des internen Timers (E5) ein "Coming home" (E3=0) ausgelöst wird</li>
+	<li>Leaved (A5=1/2/3): wird getriggert, nachdem <i>bei Anwesenheit</i> E3=1/2/3 ("Leaving home") gesetzt wurde und der interne Timer (E5) abgelaufen ist</li>
+</ul>
+
+A6 (Schlafen) repräsentiert ein Ereignis, d.h. dieser Ausgang wird immer dann auf 1 gesetzt (niemals auf 0), wenn das entsprechende Ereignis getriggert wird:
+<ul>
+	<li>wenn <i>bei Anwesenheit oder während des Verlassens ("Gehend/Leaving")</i> E2=&ne;0 ("schlafen") gesetzt wird und zuvor E2=0 ("nicht schlafen") gesetzt war</li>
+	<li>bei Abwesenheit bleibt der Schlafmodus ggf. solange aktiviert, bis "Coming" aktiviert wird</li>
+	<li>Hinweis: bei Abwesenheit wird E2 ignoriert (der Schlafmodus kann nur bei Anwesenheit aktiviert oder deaktiviert werden)</li>
+</ul>
+
+A7 (Aufwachen) repräsentiert ein Ereignis, d.h. dieser Ausgang wird immer dann auf 1 gesetzt (niemals auf 0), wenn das entsprechende Ereignis getriggert wird:
+<ul>
+	<li>wenn <i>bei Anwesenheit oder während des Verlassens ("Gehend/Leaving")</i> E2=0 ("nicht schlafen") gesetzt wird und zuvor E2=&ne;0 ("schlafen") gesetzt war</li>
+	<li>wenn "Coming" aktiviert wird (nach dem vollständigem Verlassen) und zuvor E2=&ne;0 ("schlafen") gesetzt war (bei "Coming" wird also der Schlafmodus stets beendet)</li>
+	<li>Hinweis: bei Abwesenheit wird E2 ignoriert (der Schlafmodus kann nur bei Anwesenheit aktiviert oder deaktiviert werden)</li>
+</ul>
+
+
+<h3>Verhalten der Eingänge</h3>
+Solange E1&ne;0 ist, wird dies ggf. als Aktivität (A1=6) gewertet. Erst wenn E1=0 wird, beginnt der interne Timer abzulaufen (E4). Nach Ablauf des Timers wird A1=5 gesetzt.
+
+Bei der Aktivierung des Schlafmodus (E2&ne;0) wird A1=4 gesetzt (nur bei Anwesenheit möglich), E1 wird nun bis zu Deaktivierung (E2=0) ignoriert.
+Bei der Deaktivierung des Schlafmodus (nur bei Anwesenheit möglich) wird zunächst A1=6 (anwesend und aktiv) gesetzt.
+Bei Abwesenheit wird E2 ignoriert (der Schlafmodus kann nur bei Anwesenheit aktiviert oder deaktiviert werden).
+
+Beim Auslösung eines (gültigen, d.h. bei Abwesenheit) "Coming home"-Ereignisses (E3=0) wird zunächst A1=6 (anwesend und aktiv) gesetzt.
+
+
+<h3>Wichtige Hinweise</h3>
+<ul>
+	<li>Beim allerersten Start (bzw. nach dem Zurücksetzen der remanenten Variablen) wird von Anwesenheit ausgegangen (A1=4/5/6), bis ein entsprechender Eingang getriggert wird.</li>
+	<li>Bei einem Neustart bleibt der aktuelle Status <i>intern</i> erhalten, d.h. die Ausgänge werden <i>nicht</i> erneut gesetzt. A1 sollte daher ein remanentes KO befüllen.</li>
+	<li>An E2 sollte ein remanentes KO angelegt werden, damit der Schlafmodus ggf. nach einem Neutstart erhalten bleibt.</li>
+</ul>
+
+	
+<h3>Ein-/Ausgänge</h3>
+E1: &ne;0 = Aktivität (z.B. durch Bewegungsmelder), 0=keine Aktivität
+E2: &ne;0 = Schlafmodus, 0=normaler Modus	
+E3: 0=Coming Home, 1/2/3=Leaving Home 1/2/3
+E4: legt die Dauer der Aktivität bei fallender Flanke an E1 fest (in Sekunden)
+E5: legt die Dauer der Verzögerung (bis zur Auslösung von "Leaved") bei "Leaving Home" fest (in Sekunden)
+	
+A1: -1/-2/-3=abwesend ("Leaved"), 1/2/3="gehend" ("Leaving home"), 4=schlafend, 5=anwesend (inaktiv), 6=anwesend (aktiv)
+A2: 1/2/3="Coming Home"
+A3: 1/2/3="Leaving Home" (interner Timer wird gestartet)
+A4: 1/2/3="Leaving Home"-Abbruch (interner Timer wird abgebrochen)
+A5: 1/2/3="Leaved" (interner Timer ist abgelaufen)
+A6: 1=Schlafen (wenn zuvor nicht schlafend)
+A7: 1=Aufwachen (wenn zuvor schlafend)

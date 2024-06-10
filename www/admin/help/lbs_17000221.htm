@@ -1,0 +1,30 @@
+<lbs-titel>Alarmtrigger (Pause) <span class='id'>17000221</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Alarmtrigger (Pause)</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Alarm</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Pause</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Pause</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Dauer (s)</td><td class="app1_elInputValue">30</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Aktiviert</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Modus</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Ein Signal &ne;0 an E1 triggert einen Alarm an A1. Dies kann jedoch temporär unterdrückt werden, wenn an E2 ein Signal &ne;0 anliegt. Dann wird für die Pausendauer (E3) jedes Signal an E1 ignoriert.
+
+Jeder Alarm setzt A1 erneut auf 1. Der Ausgang A1 wird niemals wieder auf 0 gesetzt.
+
+Am Ausgang A2 liegt eine 1 an, wenn gerade eine Pause aktiv ist (z.B. zur Signalisierung per LED). Ist die Pause beendet, wird A2 wieder auf 0 gesetzt.
+
+Der Modus (E5) bestimmt das Verhalten des Eingangs E2:
+<ul>
+	<li>E5=0: Jedes Signal &ne;0 an E2 aktiviert die Pause für die Pausendauer (E3) erneut (der interne Timer wird neugestartet), ein Signal E2=0 wird stets ignoriert.</li>
+	<li>E5=1: Solange E2&ne;0 ist, wird die Pause <i>dauerhaft</i> aktiviert. Erst wenn anschließend ein Signal E2=0 eintrifft (fallende Flanke), wird die Pause für die Pausendauer (E3) aktiviert (der interne Timer wird gestartet).</li>
+</ul>
+
+<b>Wichtig:</b>
+Nach einer Alarmauslösung (A1=1) wird das Verhalten (Pausieren, etc.) des Bausteins unbeeindruckt fortgesetzt, d.h. eine Alarmauslösung bewirkt keine interne Zustandsänderung o.d.G. (eine Alarmauslösung ist kein Zustand, sondern ein Ereignis).
+
+Typischer Anwendungsfall:
+Reed-Kontakte an E1, BWMs im entsprechenden Raum an E2. Die BWMs pausieren dann den Baustein beim Öffnen eines Fensters von innen(!). Beim Öffnen von außen sprechen die BWMs hingegen nicht an (diese befinden sich im innern des Hauses) und der Alarm wird ausgelöst.
+
+E1: &ne;0 = Alarm auslösen (A1=1), falls der Baustein aktiv ist und nicht durch E2 pausiert wird
+E2: 0/&ne;0 = Pausieren (je nach Modus, s.o.)
+E3: Dauer des Pausierens in Sekunden
+E4: &ne;0 = Baustein wird aktiviert (A2 wird ggf. bereits beim Aktivieren aktualisiert), 0 = Baustein wird vollständig deaktiviert (A2 wird auf 0 gesetzt)
+E5: Modus für E2: 0 = Triggern, 1 = Flanke (s.o.)
+
+A1: wird bei Alarm auf 1 gesetzt (niemals jedoch auf 0)
+A2: 1 = Pausieren aktiv (eine Alarmauslösung ist nicht möglich), 0 = Pausieren inaktiv (eine Alarmauslösung ist möglich)
+
+<b>Hinweis:</b>
+A2 wird nur bei einer Änderung des internen Zustandes gesetzt (SBC).

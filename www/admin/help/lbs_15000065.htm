@@ -1,0 +1,27 @@
+<lbs-titel>Quantisierung <span class='id'>15000065</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Quantisierung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput"></td><td class="app1_elInputValue"></td><td class="app1_elOutput">Q</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Raster</td><td class="app1_elInputValue">1</td><td class="app1_elOutput">(Q)</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein quantisiert einen Wert an E1.
+
+E2 bestimmt die Schrittweite der Quantisierung. E2 muss stets &gt;0 sein, ansonsten werden die Ausgänge des Bausteins nicht verändert.
+
+Jedes neue Telegramm an E1 triggert den Baustein. Sofern an E1 ein nummerischer Wert anliegt, wird A1 auf den (nächstkleineren) quantisierten Wert gesetzt. A2 wird auf den Wert an E1 gesetzt, jedoch nur wenn der Wert an E1 dem quantisierten Wert entspricht (E1 muss also "ins Raster passen").
+
+Der Wert an E1 muss &ne;[leer] und nummerisch sein, ansonsten wird das Telegramm ignoriert.
+Der Wert an E2 muss &gt;0 sein, ansonsten arbeitet der Baustein nicht.
+
+
+Beispiel:
+Ein Wert an E1 soll in ein Raster mit der Schrittweite 5 quantisiert werden (E2=5).
+Wird E1=53 gesetzt, wird A1=50 gesetzt und A2 bleibt unverändert.
+Wird E1=55 gesetzt, wird A1=55 und A2=55 gesetzt.
+Wird E1=57 gesetzt, wird A1=55 gesetzt und A2 bleibt unverändert
+
+
+Hinweis:
+Der Wert 0 an E1 wird stets zur Ausgabe von 0 an A1 und A2 führen (sofern E2 &gt;0 ist).
+
+
+E1: &ne;[leer] und nummerisch = Trigger
+E2: &gt;0 = Schrittweite
+
+A1: wird bei jedem Trigger (E1) auf den quantisierten Wert gesetzt
+A2: wird bei jedem Trigger (E1) auf den quantisierten Wert gesetzt, sofern E1 restlos durch E2 teilbar ist

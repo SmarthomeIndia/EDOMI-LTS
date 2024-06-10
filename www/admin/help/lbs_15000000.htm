@@ -1,0 +1,26 @@
+<lbs-titel>Formelberechnung <span class='id'>15000000</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Formelberechnung</td></tr><tr><td class="app1_elInputNum col3">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Formel</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Ergebnis</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Modus</td><td class="app1_elInputValue">1</td><td class="app1_elOutput">Fehler</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">$x</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E4</td><td class="app1_elInput">$a</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E5</td><td class="app1_elInput">$b</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E6</td><td class="app1_elInput">$c</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E7</td><td class="app1_elInput">$d</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E8</td><td class="app1_elInput">$e</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein setzt Variablen bzw. Konstanten in eine beliebige mathematische Formel ein. Dabei ist eine gültige PHP-Syntax zu verwenden.
+
+An E1 wird eine gültige mathematische Formel (PHP) erwartet, z.B. "$a-$x+$b" (ohne ""). Sämtliche PHP-Funktionen stehen grundsätzlich zu Verfügung, daher ist mit größter Sorgfalt zu arbeiten (s.u.).
+Auch Bedingungen wie "(($x>=1)?1:0)" sind möglich.
+
+Der Baustein wird bei jeder Änderung an E1 bzw. E3..E8 getriggert und führt eine erneute Berechnung aus. Wird E1 [leer] belassen, wird keine Berechnung ausgeführt.
+Bei einem Fehler wie "$x/0" wird i.d.R. A1 auf [leer] gesetzt (A2 bleibt unverändert). Ein Fehler in der Formel an E1 führt i.d.R. dazu, dass A2 auf 1 gesetzt wird (z.B. E1=";").
+Ein syntaktischer Fehler an E1 wie z.B. "$x+blablabla()" führt je nach Modus (E2) zum Absturz(!) von EDOMI (s.u.).
+
+Wird E2 auf 0 gesetzt, arbeitet der Baustein direkt in der Logik-Engine. Eine fehlerhafte Formel an E1 kann daher EDOMI zu Absturz bringen! 
+Wird E2 hingegen auf 1 gesetzt, wird der Baustein in einem eigenen PHP-Prozess (EXEC) ausgeführt. Eine fehlerhafte Formel an E1 führt daher nicht zum Absturz von EDOMI, jedoch arbeitet der Baustein weniger performant.
+
+Empfehlung:
+Um Abstürze während der Entwicklung einer Formel zu vermeiden, kann E2 zunächst auf 1 gesetzt werden. Erst wenn die Berechnung stabil ausgeführt wird, kann E2 auf 0 gesetzt werden.
+
+Wichtig:
+Die Berechnung wird mittels der PHP-Funktion "eval()" ausgeführt, daher sind sämtliche Parameter mit größter Sorgfalt anzugeben. Eine Überprüfung der Angaben findet nicht(!) statt!
+
+
+E1: Formel, z.B. "($x+($a*2))*pow($b,2)"
+E2: Modus: 0=LBS (performanter), 1=EXEC (sicherer)
+E3..E8: Variablen $x bzw. $a..$e
+
+A1: Ergebnis der Berechnung oder [leer]
+A2: wird bei einem Fehler auf 1 gesetzt (aber niemals wieder auf 0)

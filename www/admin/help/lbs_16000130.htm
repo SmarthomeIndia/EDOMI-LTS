@@ -1,0 +1,24 @@
+<lbs-titel>Datum/Uhrzeit <span class='id'>16000130</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Datum/Uhrzeit</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Datum (DPT11)</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Zeit (DPT10)</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Datum</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Wochentag</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">WochentagID</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Kalenderwoche</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Tag</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Monat</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Jahr</td><td class="app1_elOutputNum">A9&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Uhrzeit</td><td class="app1_elOutputNum">A10&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Stunde</td><td class="app1_elOutputNum">A11&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Minute</td><td class="app1_elOutputNum">A12&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Sekunde</td><td class="app1_elOutputNum">A13&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Mikrosekunden</td><td class="app1_elOutputNum">A14&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein wird durch ein neues Telegramm &ne;0 an E1 getriggert und setzt die Ausgänge auf die aktuellen Datum- und Zeitwerte.
+
+An A1 wird das aktuelle Datum in einem internen Format ausgegeben und kann direkt auf eine DPT11-GA gegeben werden.
+
+An A2 wird die aktuelle Uhrzeit und der aktuelle Wochentag in einem internen Format ausgegeben und kann direkt auf eine DPT10-GA gegeben werden.
+
+
+E1: &ne;0 = Trigger
+
+A1: Datum im (internen) DPT11-Format (kann direkt auf eine DPT11-GA gegeben werden)
+A2: Tag.Uhrzeit im (internen) DPT10-Format (kann direkt auf eine DPT10-GA gegeben werden)
+A3: Datum (tt.mm.jjjj)
+A4: Wochentag im Klartext (z.B. Montag)
+A5: Wochentag-ID (1=Montag, 2=Dienstag, ..., 7=Sonntag)
+A6: Kalenderwoche (nach ISO-8601: die Woche beginnt am Montag)
+A7: Tag
+A8: Monat
+A9: Jahr
+A10: Uhrzeit (hh:mm:ss)
+A11: Stunde
+A12: Minute
+A13: Sekunde
+A14: Mikrosekunde (als Float)

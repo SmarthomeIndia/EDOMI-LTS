@@ -1,0 +1,68 @@
+<lbs-titel>Pool: Chlorierung <span class='id'>17900011</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Pool: Chlorierung</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Status: Chlorpumpe</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Status: Pegel</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Ist-Wert</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Status: Temperatur</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Soll-Wert</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Tank: Inhalt (ml)</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Tank: Inhalt</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Tank: Warnung (ml)</td><td class="app1_elInputValue">3000</td><td class="app1_elOutput">Tank: Warnung</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E6</td><td class="app1_elInput">Tank: Leer (ml)</td><td class="app1_elInputValue">500</td><td class="app1_elOutput">Tank: Leer</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E7</td><td class="app1_elInput">Chlorierung: Menge (ml/24h)</td><td class="app1_elInputValue">100</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E8</td><td class="app1_elInput">Chlorierung: Schwellenwert (%)</td><td class="app1_elInputValue">80</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E9</td><td class="app1_elInput">Chlorierung: Temperaturkompensation</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E10</td><td class="app1_elInput">Chlorierung: Pegelkompensation (ml/Pegeleinheit)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E11</td><td class="app1_elInput">Chlorpumpe (ml/Minute)</td><td class="app1_elInputValue">40</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E12</td><td class="app1_elInput">Chlorierung: Manueller Zuschlag (ml)</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein regelt die (Pool-)Chlorierung <i>ohne</i> den Einsatz einer entsprechenden Messsonde.
+
+Grundlage der Regelung ist die Annahme, dass eine bestimmte Menge zugefügten Chlors innerhalb von 24 Stunden "verbraucht" wird: E7 legt die Menge Chlor fest (ml), die innerhalb von 24 Stunden verbraucht wird. Diese Angabe hängt u.a. von dem Wasservolumen und dem eingesetzten Chlorprodukt ab.
+
+Sobald E1 auf einen Wert &ne;0 gesetzt wird, erfasst der Baustein dies als "Chlorzugabe": E1 sollte daher mit dem Status der Chlorpumpe verbunden sein, d.h. sobald die Chlorpumpe arbeitet sollte E1 &ne;0 gesetzt werden. E11 legt dabei fest, welche Menge Chlor die Chlorpumpe fördert (ml/Minute).
+
+Die aktuelle Menge des "unverbrauchten" Chlors im Wasser wird ständig berechnet (A2), d.h. der Baustein ist stets aktiv und kann nicht angehalten/deaktiviert werden.
+
+Sobald dieser Ist-Wert (A2) den Schwellenwert an E8 (prozentual, d.h. relativ zu E7) unterschreitet, wird A1 auf 1 gesetzt: Dies sollte zu einer Chlorzugabe führen, mittels E3 des <link>LBS 17900010***lbs_17900010</link> kann A1 direkt ausgewertet werden.  
+Dieser Umstand alleine führt jedoch <i>nicht</i> zu einer Erfassung der zugegebenen Chlormenge - dies erfolgt erst, wenn E1 auf einen Wert &ne;0 gesetzt wird (s.o.)!
+
+E8 legt den Schwellenwert zur Chlorierung fest: z.B. führt E8=80 dazu, dass der Ist-Wert kleiner als 80% des Soll-Wertes sein muss damit die Chlorierung startet.
+
+
+<h3>Temperaturkompensation</h3>
+Optional kann eine Temperaturkompensation (E9&ne;0) der Chlor-Soll-Menge aktiviert werden.
+Dabei wird der Soll-Wert (E7) linear an die Wassertemperatur (E3) angepasst. Der Soll-Wert (E7) bezieht sich dabei stets auf eine Referenztemperatur von 20 Grad, d.h. bei 20 Grad Wassertemperatur entspricht der Soll-Wert exakt der Vorgabe an E7.
+Pro Grad Abweichung der Wassertemperatur von diesen 20 Grad wird der Soll-Wert intern um den Wert an E9 erhöht bzw. erniedrigt. Ist z.B. E7=100 und E9=2, wird sich bei einer Wassertemperatur von 30 Grad ein Soll-Wert von 120 ergeben. Wird an E9 bzw. E3 kein Wert angegeben, wird keine Temperaturkompensation erfolgen.
+
+
+<h3>Pegelkompensation</h3>
+Optional kann eine Pegelkompensation (E10&ne;0) der Chlor-Soll-Menge aktiviert werden. An E2 wird dabei der aktuelle Pegelstand erwartet, ein hoher Wert entspricht einem hohen Pegelstand.
+Dabei wird der Soll-Wert (E7) entsprechend erhöht, wenn der Wasserpegel seit der letzten Chlorierung gestiegen ist: Der <i>geringste</i> Pegelstand wird fortlaufend intern gespeichert und bei der nächsten Chlorierung ausgewertet.
+Ist der (bei der Chlorierung aktuelle) Pegelstand höher als der bis dahin ermittelte geringste Pegelstand, wird der Soll-Wert entsprechend erhöht: E10 legt fest, um wieviel Milliliter der Soll-Wert pro Pegeleinheit (die Differenz aus dem geringsten Pegelstand und dem aktuellen Pegelstand) erhöht werden soll. 
+Sobald der Chlorierung erfolgt, wird der geringste Pegelstand intern zurückgesetzt (die zugeführte Wassermenge wurde zusätzlich chloriert).
+Somit ist sowohl bei einer geplanten Nachfüllung als auch z.B. bei Regen gewährleistet, dass der Soll-Wert und somit die Chlormenge entsprechend angepasst wird.
+
+
+<h3>Manuelle Chlorzugabe</h3>
+Bei Bedarf kann mittels E12&gt;0 <i>einmalig</i> eine beliebige Menge Chlor zugegeben werden. Wird E12 auf einen Wert &gt;0 gesetzt, wird dieser Chlormenge auf den Soll-Wert aufgeschlagen und somit bei der nächsten Chlorierung <i>einmalig</i> zugegeben.
+Nach einer erfolgten Chlorierung wird dieser Zuschlag intern wieder zurückgesetzt (mit E12=0 kann der Zuschlag bei Bedarf vorzeitig zurückgesetzt werden).
+
+
+<h3>Chlortank</h3>
+Der Baustein setzt voraus, dass eine bestimmte Menge Chlor zu Verfügung steht (Tank). Bei ersten Start muss daher E4 auf die verfügbare Chlormenge (ml) gesetzt werden.
+Bei jeder Chlorierung wird der Tankinhalt intern entsprechend der zugegebenen Menge verringert und an A4 ausgegeben.
+Unterschreitet der Tankinhalt den Wert an E5, wird A5 auf 1 gesetzt (andernfalls auf 0). Dies kann als Warnhinweis genutzt werden, um einen Tankwechsel vorzubereiten.
+Unterschreitet der Tankinhalt den Wert an E6, wird A6 auf 1 gesetzt (andernfalls auf 0) und die Chlorierung wird sofort beendet (bzw. nicht mehr gestartet), bis mittels E4 ein Tankwechsel signalisiert worden ist.
+
+
+<b>Wichtig:</b>
+Dieser Baustein verhält sich vollständig remanent, d.h. nach einem Neustart bleiben sämtliche Parameter und Werte erhalten.
+
+
+<h3>Ein- und Ausgänge</h3>
+E1: tatsächlicher Status der Chlorierung (i.d.R. Status-KO der Chlorpumpe), &ne;0 = Chlorierung erfolgt gerade
+E2: ggf. Pegelstand, erforderlich für Pegelkompensation (s.o.)
+E3: ggf. Wassertemperatur, erforderlich für Temperaturkompensation (s.o.)
+E4: &ne;0 = Tankinhalt zurücksetzen (s.o.)
+E5: Schwellenwert für Warnung bei geringem Tankinhalt (s.o.)
+E6: Schwellenwert für leeren Tank (s.o.)
+E7: Chlor-Soll-Wert in Milliliter pro 24 Stunden (s.o.)
+E8: Schwellenwert (prozentual bezogen auf den Soll-Wert) für erforderliche Chlorierung (s.o.)
+E9: Temperaturkompensation (s.o.), 0=deaktiviert
+E10: Pegelkompensation (s.o.), 0=deaktiviert
+E11: Leistung der Chlorpumpe in Millilitern pro Minute
+E12: manuelle Chlorzugabge in Millilitern (s.o.)
+
+A1: 0=keine Chlorierung erforderlich, 1=Chlorierung erforderlich
+A2: aktueller Ist-Wert (Chlor)
+A3: aktueller Soll-Wert (Chlor)
+A4: aktueller Chlortank-Inhalt (ml)
+A5: 1=Tankinhalt zu gering, 0=Tankinhalt ist noch ausreichend
+A6: 1=Tank ist leer, 0=Tank ist nicht leer
+
+<b>Hinweis:</b>
+Alle Ausgänge werden nur bei einer Änderung gesetzt (SBC).

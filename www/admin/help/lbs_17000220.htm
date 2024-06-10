@@ -1,0 +1,18 @@
+<lbs-titel>Alarmtrigger (Zähler) <span class='id'>17000220</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Alarmtrigger (Zähler)</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Alarm</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Anzahl</td><td class="app1_elInputValue">3</td><td class="app1_elOutput">Zähler</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Dauer (s)</td><td class="app1_elInputValue">10</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Aktiviert/Reset</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Ein Signal &ne;0 an E1 erhöht einen internen Zähler. Wird innerhalb der Zeitspanne (E3) die Triggeranzahl (E2) erreicht oder überschritten, wird Alarm ausgelöst (A1 wird auf 1 gesetzt) und der Zähler zurückgesetzt.
+Jeder Alarm setzt A1 erneut auf 1. Der Ausgang A1 wird erst bei einem Signal an E4 wieder auf 0 gesetzt.
+Am Ausgang A2 liegt der aktuelle Zählerstand an und kann z.B. zu Anzeigezwecken genutzt werden.
+
+Typischer Anwendungsfall:
+Einen oder mehrere Bewegungsmelder mit E1 verbinden. Der Vorteil gegenüber einer direkten Auswertung der BWMs ist, dass Fehlalarme vermieden werden können (da vereinzelte Auslösungen nicht direkt zu einem Alarm führen).
+
+Hinweis:
+Der Baustein überprüft NICHT, ob verschiedene(!) BWMs den Zähler erhöhen (es gibt schließlich nur einen Signal-Eingang E1). Wird also ein und derselbe BWM innerhalb der Zeitspanne oft genug getriggert, wird Alarm ausgelöst.
+
+E1: Signal 0/&ne;0: Ein Telegramm &ne;0 erhöht den Zähler, falls der Baustein aktiv ist
+E2: Triggeranzahl 1..oo: Anzahl der erforderlichen Trigger an E1, damit Alarm ausgelöst wird. Die Triggeranzahl muss innerhalb der Zeitspanne an E3 erreicht werden, sonst wird der interne Zähler wieder auf 0 gesetzt.
+E3: Dauer in Sekunden, bis der interne Zähler wieder auf 0 gesetzt wird
+E4: 0=Deaktiviert, 1=Aktiviert/Reset: wird im Normalfall mit dem Ausgang "Aktiv" der Alarmanlage verbunden. Bei JEDEM Telegramm wird der Alarm zurückgesetzt und der Zähler auf 0 gesetzt.
+
+A1: Alarmausgang 0/1: Wird bei Alarm auf 1 gesetzt (und wird erst beim nächsten Deaktivieren/Reset wieder auf 0 gesetzt). Jeder Alarm setzt A1 erneut auf 1, so dass ein nachfolgender Alarmtrigger-Eingang erneut getriggert wird.
+A2: Zählerstand 0..oo: Der aktuelle Stand des internen Zählers. Wird bei Alarm oder Deaktivierung/Reset wieder auf 0 gesetzt.

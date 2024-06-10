@@ -1,0 +1,8 @@
+<lbs-titel>Verzögerung <span class='id'>16000112</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Verzögerung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Dauer (ms)</td><td class="app1_elInputValue">500</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein verzögert ein neues Telegramm an E1 um den an E2 angegeben Zeitraum (Millisekunden).
+
+Wichtig: Trifft während der Verzögerung eines Telegramms ein weiteres Telegramm an E1 ein, startet der Baustein quasi neu. Das vorherige Telegramm wird verworfen!
+
+E1: jedes Telegramm &ne;[leer] triggert den Baustein
+E2: Verzögerung in Millisekunden (Änderungen an E2 werden während(!) einer laufenden Verzögerung ignoriert)
+A1: nach Ablauf der Verzögerungszeit wird E1 unverändert ausgegeben

@@ -1,0 +1,18 @@
+<lbs-titel>Prozess-Status: LOGIC <span class='id'>18000104</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Prozess-Status: LOGIC</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Queuegröße</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">LBS: getriggert</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">LBS: laufend</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">EXEC: Queuegröße</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">EXEC: laufend</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">PROC-RAM</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein gibt an den Ausgängen bei jedem Triggern (E1) die unten genannten Werte aus. Getriggert wird der Baustein über ein neues Telegramm &ne;[leer] an E1.
+
+<b>Anwendungsbeispiel:</b>
+An E1 kann z.B. das System-KO[5] (Systemzeit) angelegt werden, um sekündlich aktuelle Werte an den Ausgängen zu erhalten.
+Alternativ kann z.B. das System-KO[26] (Trigger: Minütlich) an E1 angelegt werden, zusätzlich kann ein Initialwert 1 angegeben werden - dies führt dazu, dass der Baustein beim Start (Initialwert) und anschließend zu jeder vollen Minute getriggert wird.
+
+Weitere Informationen können ggf. der Hilfe zur <link>Statusseite***0-0</link> entnommen werden.
+
+
+E1: jedes Telegramm &ne;[leer] triggert den Baustein
+
+A1: Anzahl der Logikbefehle (einschl. Visu, Zeitschaltuhren, Sequenzen, etc.) in der Warteschlange
+A2: Anzahl der aktuell getriggerten Logikbausteine
+A3: Anzahl der aktuell laufenden Logikbausteine
+A4: Anzahl der Einträge in der <link>EXEC-Queue***r-0-2</link> über alle Logikbausteine (unabhängig von der Anzahl der Eingänge)
+A5: Anzahl der Logikbausteine, deren EXEC-Script aktuell ausgeführt wird (Mehrfachausführungen werden nicht berücksichtigt)
+A6: Speichernutzung des Prozesses in MB

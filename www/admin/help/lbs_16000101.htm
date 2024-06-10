@@ -1,0 +1,15 @@
+<lbs-titel>Timer (stoppbar) <span class='id'>16000101</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Timer (stoppbar)</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger/Stop</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">0|1</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Dauer (s)</td><td class="app1_elInputValue">10</td><td class="app1_elOutput">Timeout</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">retriggerbar</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Aktiviert</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein bildet einen retriggerbaren Timer nach. Jedes neue Telegramm &ne;0 an E1 startet den Timer, bzw. startet ggf. den Timer neu (retriggern). 
+
+Wird der Timer gestartet, wird A1=1 gesetzt und nach Ablauf der Zeit an E2 wird A1=0 und A2=1 gesetzt. Ist E3=1, wird der Timer mit jedem neuen Telegramm &ne;0 an E1 neu gestartet - unabhängig davon, ob der Timer bereits "läuft" oder nicht.
+
+Trifft während der Laufzeit ein Telegramm =0 an E1 oder E4 ein, wird der Timer abgebrochen und A1 sowie A2 werden auf 0 gesetzt. 
+
+Mit E4 kann der Baustein aktiviert oder deaktiviert werden.
+
+E1: &ne;0 = Triggern (Timer starten), 0 = Timer stoppen (Abbruch) und A1=0 setzen
+E2: Zeit in Sekunden, bis der Timer abgelaufen ist
+E3: 1=Timer ist retriggerbar, 0=Timer ist nicht retriggerbar
+E4: 1=Timer ist aktiviert, 0=Timer ist deaktiviert (wird E4 während des "laufenden" Timers auf 0 gesetzt, wird abgebrochen und A1=0 gesetzt)
+A1: 1=Timer gestartet, 0=Timer abgelaufen oder abgebrochen (beim Retriggern wird A1 nicht(!) erneut auf 1 gesetzt)
+A2: 1=Timer ist erfolgreich abgelaufen, 0=Timer wurde zur Laufzeit gestoppt oder deaktiviert (beim Start des Timers wird A2 nicht verändert)

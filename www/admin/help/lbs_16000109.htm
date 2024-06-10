@@ -1,0 +1,17 @@
+<lbs-titel>Impuls/Trigger (präzise) <span class='id'>16000109</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Impuls/Trigger (präzise)</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue">0</td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Timer starten</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Dauer (ms)</td><td class="app1_elInputValue">500</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein generiert einen Impuls. Im Grunde verhält sich der Baustein wie ein einfacher Timer.
+
+Ein neues Telegramm &ne;0 an E1 startet den Baustein, A1 wird auf 1 gesetzt.
+Die Länge des Impulses ist zunächst "unendlich", d.h. A1 bleibt auf 1!
+
+Trifft nun ein neues Telegramm =0 an E1 ein wird der Baustein wieder gestoppt, A1 wird auf 0 gesetzt.
+Erst wenn ein neues Telegramm &ne;0 an E2(!) eintrifft während(!) E1&ne;0 ist, beginnt der interne Timer zu arbeiten und setzt A1 nach Ablauf der Zeit an E3 wieder auf 0.
+
+Beispiel:
+Ein virtuelles KO triggert E1. A1 setzt nun eine KNX-GA auf 1. Diese GA startet nun an E2 den Timer, sobald die GA physisch auf den Bus gesendet wurde.
+Die Impulsdauer ist somit wesentlich genauer, da die reale KNX-GA den Timer startet (andernfalls hängt die Impulsdauer wesentlich von der KNX-Queue etc. ab).
+
+E1: &ne;0 = Starten. Jedes weitere Telegramm während der Laufzeit wird ignoriert, sofern der Timer bereits läuft.
+E2: &ne;0 = Timer starten: Der Timer startet nur, wenn E1 zuvor ein neues Telegramm &ne;0 empfangen hat
+E3: Impulsdauer (ms!): 0/[leer]=keine (d.h.: A1 wird 1 und schnellstmöglich wieder auf 0 gesetzt)
+A1: Beim Start 1, nach Ablauf der Triggerzeit 0

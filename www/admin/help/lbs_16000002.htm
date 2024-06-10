@@ -1,0 +1,16 @@
+<lbs-titel>Ein-Verlängerung <span class='id'>16000002</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Ein-Verlängerung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Dauer (s)</td><td class="app1_elInputValue">10</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Reset</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein verlängert ein Telegramm &ne;0 an E1 um die Dauer an E2.
+
+Ein Telegramm &ne;0 an E1 triggert den Baustein, A1 wird auf 1 gesetzt. Jedes neue Telegramm &ne;0 an E1 wird nun ignoriert. Erst wenn ein Telegramm =0 an E1 eintrifft, wird der Timer (E2) gestartet.
+Trifft während des laufenden Timers ein neues Telegramm &ne;0 an E1 ein, wird der Timer gestoppt und A1 bleibt auf 1. Erst nach Ablauf des Timers (E1 muss =0 sein) wird A1 auf 0 gesetzt.
+
+Ein Telegramm &ne;0 an E3 setzt den Baustein zurück: Sofern A1=1 ist wird A1=0 gesetzt und ein laufender Timer ggf. abgebrochen. Anschließend wartet der Baustein erneut auf ein Telegramm &ne;0 an E1.
+
+Dieser Baustein kann z.B. verwendet werden, um das Signal eines Bewegungsmelders zu verlängern: Solange der BWM eine 1 sendet, bleibt A1 auf 1. Erst wenn das Signal auf 0 abfällt (fallende Flanke) wird der Timer gestartet und A1 wird nach Ablauf des Timers auf 0 gesetzt.
+
+
+E1: ein neues Telegramm &ne;0 triggert den Baustein, ein <i>anschließendes</i> Telegramm =0 startet den Timer
+E2: Dauer der Verlängerung in Sekunden
+E3: ein neues Telegramm &ne;0 setzt den Baustein zurück, A1 wird ggf. auf den Wert 0 gesetzt und der Timer ggf. abgebrochen
+
+A1: 1=Baustein wurde getriggert bzw. der Timer läuft, 0=Timer ist abgelaufen

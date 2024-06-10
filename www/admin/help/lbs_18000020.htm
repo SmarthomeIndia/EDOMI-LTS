@@ -1,0 +1,36 @@
+<lbs-titel>Datenarchiv: Statistikdaten <span class='id'>18000020</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Datenarchiv: Statistikdaten</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">AVG</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">DatenarchivID</td><td class="app1_elInputValue"></td><td class="app1_elOutput">MIN</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Modus</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">MAX</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">SUM</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">CNT</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Fehler</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein berechnet den Mittelwert, den Minimum-/Maximumwert, die Summe und die Anzahl der Einträge innerhalb eines Intervalls in einem Datenarchiv.
+
+E3 (Modus) definiert die Art des Intervalls: Es kann entweder eine bestimmte Anzahl von Einträgen bestimmt werden (E3=0) oder ein definierter Zeitraum in Sekunden/Minuten/Stunden/Tagen (E3=1..4).
+Das Intervall bezieht sich dabei stets auf das "Ende" des Datenarchivs, d.h. es wird vom aktuellsten Eintrag ausgegangen. Ale Referenzzeit für ein Zeitintervall (E3=1..4) wird stets das aktuelle Datum bzw. Uhrzeit verwendet.
+
+Die gewünschte Anzahl der Einträge bzw. die Anzahl der Zeitintervalle werden mit E1 bestimmt, jedes neue Telegramm &gt;0 an E1 triggert den Baustein.
+
+Sind keine Einträge im gewählten Intervall vorhanden wird A6=1 gesetzt (Fehler), A5 (Anzahl) wird auf 0 gesetzt und A1..A4 bleiben unverändert.
+
+
+E1: Ein neues Telegramm &gt;0 triggert den Baustein (je nach Modus bestimmt E1 die Anzahl der Einträge oder einen Zeitraum)
+
+E2: Auswahl der Datenarchiv-ID (wird in der Konfiguration angezeigt)
+
+E3: Modus: 
+<ul>
+	<li>0=E1 bestimmt die Anzahl der Einträge (ausgehend vom aktuellsten/letzten Eintrag)</li>
+	<li>1=E1 bestimmt den Zeitraum in Sekunden (die Referenzzeit ist die aktuelle Zeit)</li>
+	<li>2=E1 bestimmt den Zeitraum in Minuten (die Referenzzeit ist die aktuelle Zeit)</li>
+	<li>3=E1 bestimmt den Zeitraum in Stunden (die Referenzzeit ist die aktuelle Zeit)</li>
+	<li>4=E1 bestimmt den Zeitraum in Tagen (die Referenzzeit ist die aktuelle Zeit)</li>
+	<li>5=die Berechnung wird auf alle verfügbaren Einträge angewendet (der Wert an E1 ist unerheblich, muss jedoch &gt;0 sein)</li>
+</ul>
+
+A1: AVG (Mittelwert): Bei jedem Triggern des Bausteins wird hier ggf. der Mittelwert der Werte innerhalb des Intervalls ausgegeben.
+A2: MIN (Minimum): Bei jedem Triggern des Bausteins wird hier ggf. der kleinste Wert innerhalb des Intervalls ausgegeben.
+A3: MAX (Maximum): Bei jedem Triggern des Bausteins wird hier ggf. der größte Wert innerhalb des Intervalls ausgegeben.
+A4: SUM (Summe): Bei jedem Triggern des Bausteins wird hier ggf. die Summe der Werte innerhalb des Intervalls ausgegeben.
+A5: CNT (Anzahl): Bei jedem Triggern des Bausteins wird hier die Anzahl der Einträge innerhalb des Intervalls ausgegeben.
+
+A6: Fehler: Bei jedem Triggern des Bausteins wird A6 auf 0, im Fehlerfall auf 1 gesetzt: 
+<ul>
+	<li>0=kein Fehler</li>
+	<li>1=Fehler (Archiv nicht vorhanden, keine Einträge im gewählten Intervall vorhanden oder Parameter unvollständig bzw. fehlerhaft)</li>
+</ul>

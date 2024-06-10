@@ -1,0 +1,30 @@
+<lbs-titel>Denon Ceol N9 <span class='id'>17900000</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Denon Ceol N9</td></tr><tr><td class="app1_elInputNum col3">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Aktiviert</td><td class="app1_elInputValue">1</td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E2</td><td class="app1_elInput">IP-Adresse</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Info</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Ein/Aus</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Ein/Aus</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Quelle</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Quelle</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Lautstärke</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Lautstärke</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E6</td><td class="app1_elInput">Stumm</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Stumm</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E7</td><td class="app1_elInput">Favorit</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Favorit</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E8</td><td class="app1_elInput">Befehl</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Befehl</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E9</td><td class="app1_elInput">Trenner</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div><b>ACHTUNG: Diese Hilfe ist noch unvollständig!</b>
+
+Dieser Baustein ermöglich die Steuerung eines DENON CEOL N9 (ggf. auch ähnliche Typen).
+
+Sofern der Baustein aktiviert ist (E1&ne;0), wird der Status des Geräts zyklisch abgefragt (z.B. Betriebszustand, Lautstärke, etc.).
+
+Über die Eingänge E3..E8 können Paramter des Geräts festgelegt werden (Befehle). Die Befehle werden mit einer Rate von max. 2/s ausgeführt, um das Gerät nicht zu überlasten.
+
+E1: &ne;0=Baustein ist aktiviert, 0=Baustein ist deaktiviert
+E2: IP-Adresse des Geräts (in der Form 111.222.333.444), ohne diese Angabe startet der Baustein nicht
+E3: 1=Gerät einschalten, 0=Gerät ausschalten
+E4: Eingangsquelle des Geräts festlegen: 1=Internet Radio, 2=Analog-In, 3=Radio, 4=USB, 5=CD, 6=Digital-In1, 7=Digital-In2, 8=Server (z.B. Airplay, etc.), 9=Bluetooth
+E5: 0..60=Lautstärke des Geräts festlegen
+E6: 1=Stumm schalten, 0=Stummschaltung aufheben
+E7: 1..50=Favorit abrufen
+E8: eigenen Befehl absetzen (aus der Denon-API: /goform/formiPhoneAppDirect.xml?&lt;BEFEHL&gt;)
+E9: Zeilen-Trennzeichen für A2: 0="&lt;br&gt;", 1=";"
+
+A1: letzter Status des Bausteins: 0=deaktiviert, 1=aktiviert, 2=Abfrage-Fehler, 3=Fehler beim Absetzen eines Befehls (A1 wird z.B. nach einem Fehler nicht zurückgesetzt, der letzte Zustand bleibt also stets erhalten)
+A2 (SBC): Informationen über den aktuellen Zustands des Geräts: je nach Zustand entspricht dies z.B. dem Display-Inhalt, einzelne Zeilen werden je nach E9 mit "&lt;br&gt;" oder ";" separiert (z.B. "Zeile1;Zeile2;...")
+A3 (SBC): aktueller Betriebszustand des Geräts (1=Ein, 0=Aus)
+A4 (SBC): aktuelle Eingangsquelle des Geräts: 1=Internet Radio, 2=Analog-In, 3=Radio, 4=USB, 5=CD, 6=Digital-In1, 7=Digital-In2, 8=Server (z.B. Airplay, etc.), 9=Bluetooth
+A5 (SBC): aktuelle Lautstärke des Geräts: das Abfragen der aktuellen Lautstärke funktioniert leider nicht zuverlässig, daher wird A5 stets beim Setzen der Lautstärke (E5) auf den Wert von E5 gesetzt (und ggf. bei erfolgreichem Polling erneut gesetzt)
+A6 (SBC): aktueller Stummschaltung-Zustand (1=Stumm, 0=Aus)
+A7 (SBC): aktuell gewählter Favorit: das Abfragen des aktuellen Favoriten ist nicht möglich, daher wird A7 stets auf den Wert von E7 gesetzt
+A8: bei einem erfolgreich abgesetzten Befehl (E8) wird dieser Ausgangs auf den Wert von E8 gesetzt (der Befehl wird jedoch nicht auf seine Gültigkeit geprüft)
+
+Hinweis:
+SBC wird bei jedem Start des Bausteins (E1) zurückgesetzt.

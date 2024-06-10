@@ -1,0 +1,13 @@
+<lbs-titel>Zufallszahl <span class='id'>15000071</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Zufallszahl</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">von</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">bis</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Nachkommastellen</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein erzeugt eine (pseudo) Zufallszahl. Jedes neue Telegramm &ne;0 an E1 erzeugt eine neue Zufallszahl an A1.
+
+E2 und E3 bestimmten den Wertebereich der erzeugten Zufallszahl, E4 bestimmt die Anzahl der Nachkommastellen der erzeugten Zufallszahl.
+
+Beispiel: 
+Wenn E2=-10, E3=10 und E4=3 gesetzt sind, wird die Zufallszahl an A1 im Bereich von -10.000 bis 10.000 liegen.
+
+E1: &ne;0 = Trigger
+E2: untere Grenze des Wertebereichs, kann auch negativ sein (es sind nur ganze Zahlen erlaubt!)
+E3: obere Grenze des Wertebereichs (es sind nur ganze Zahlen erlaubt!)
+E4: Anzahl der Nachkommastellen (0=Ganzzahl)
+A1: erzeugte Zufallszahl

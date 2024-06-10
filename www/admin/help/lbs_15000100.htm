@@ -1,0 +1,22 @@
+<lbs-titel>Entropie (Unruhe) <span class='id'>15000100</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Entropie</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Intervall (s)</td><td class="app1_elInputValue">30</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Reduktion</td><td class="app1_elInputValue">1</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Reset</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein ermittelt ein Maß für die "Unruhe" (Entropie) eines Signals.
+
+Jedes neues Telegramm &gt;0 an E1 startet den Baustein, bzw. triggert den Baustein erneut.
+Der Wert an E1 gibt dabei die Gewichtung an: Je größer der Wert, desto "unruhiger" wird das Ergebnis sein.
+Nach Ablauf des Intervalls an E2 wird die Summe aller bislang aufgelaufenen Werte um E3 reduziert, d.h. das Ergebnis (A1) wird im Laufe der Zeit immer kleiner ("ruhiger").
+
+Erreicht das Ergebnis den Wert 0, wird der Baustein gestoppt (wird jedoch bei einem erneuten Trigger automatisch wieder gestartet).
+
+Während der Baustein arbeitet, kann über E4 ein Reset ausgelöst werden: Der Baustein stoppt unmittelbar und setzt das Ergbnis auf 0.
+
+Anwendungsbeispiel:
+Ein (oder mehrere) Bewegungsmelder triggert E1 bei jeder Bewegung und erhöht somit das Maß der Unruhe. Wird für einen definierten Zeitraum keine Bewegung mehr registriert, erreicht die "Unruhe" den Wert 0. Dies kann z.B. als "Abwesenheit" interpretiert werden.
+
+Hinweis:
+Mehrere Trigger (z.B. Bewegungsmelder) mit unterschiedlichen Gewichtungen können z.B. mit einem Baustein "Multiplikation" (Gewichtung) über einen Baustein "Klemme" mit E1 verbunden werden.
+
+E1: Jedes neue Telegramm &gt;0 triggert den LBS. Der Wert an E1 bestimmt zudem die Gewichtung.
+E2: Intervall (s): Nach Ablauf dieses Intervalls wird das Ergebnis ("Unruhe") um 1 reduziert
+E3: Dieser Wert wird zu jedem Intervall (E2) vom internen Zählerstand abgezogen
+E4: Ein neues Telegramm &ne;0 setzt den (laufenden) Baustein zurück (A1=0)
+A1: Ergebnis 0..oo als Maß der "Unruhe": Je größer der Wert, desto "unruhiger". Achtung: A1 wird nur bei Änderung gesetzt (SBC)!

@@ -1,0 +1,20 @@
+<lbs-titel>Mittelwert/Abweichung: &ne;&#91;leer&#93; 5-fach <span class='id'>15000010</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Mittelwert/Abweichung: &ne;&#91;leer&#93; 5-fach</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">A&ne;&#91;leer&#93;</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Mittelwert</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">B&ne;&#91;leer&#93;</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Abweichung</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E3</td><td class="app1_elInput">C&ne;&#91;leer&#93;</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E4</td><td class="app1_elInput">D&ne;&#91;leer&#93;</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E5</td><td class="app1_elInput">E&ne;&#91;leer&#93;</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein bildet den Mittelwert aus maximal 5 Werten (E1..E5), sobald <i>sämtliche</i> Werte an E1..E5 &ne;[leer] sind. Jedes neue Telegramm an E1..E5 triggert den Baustein.
+Zudem wird die mittlere absolute Abweichung vom Mittelwert an A2 ausgegeben.
+
+Wenn E1..E5 keine Zahlen sind, entspricht dies dem Wert 0.
+
+Eine Kaskadierung ist ohne Weiteres möglich, da A1/A2 nur gesetzt werden wenn die o.g. Bedingungen erfüllt sind.
+
+Wichtig:
+Nicht benötigte Eingänge müssen auf den Wert "*" gesetzt werden (Initialwert), da sonst die o.g. Bedingung niemals erfüllt sein wird.
+
+Beispiel:
+Dieser Baustein kann z.B. eingesetzt werden, um den Mittelwert verschiedener Temperatursensoren (die z.B. bei einem Initscan zu verschiedenen Zeitpunkten eintreffen) zu bilden und das Ergebnis erst dann auszugeben, wenn alle erforderlichen Werte eingelesen wurden.
+Mit Hilfe von A2 (Abweichung vom Mittelwert) kann z.B. festgestellt werden, ob die Temperatur eines Sensors ungewöhnlich hoch ist (im Vergleich zum Mittelwert) - dies könnte z.B. auf ein Feuer hinweisen.
+
+
+E1..E5: Wert A..E
+
+A1: Mittelwert aus A..E, sofern die o.g. Bedingungen erfüllt sind (ansonsten wird A1 nicht verändert)
+A2: mittlere absolute Abweichung vom Mittelwert aus A..E (sofern ein Mittelwert berechnet und ausgegeben wurde)

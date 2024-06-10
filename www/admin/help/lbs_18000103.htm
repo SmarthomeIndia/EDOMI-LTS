@@ -1,0 +1,25 @@
+<lbs-titel>Prozess-Status: KNX <span class='id'>18000103</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Prozess-Status: KNX</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Queuegröße</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">GAs: gesendet</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">GAs: empfangen</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Senderate</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Empfangsrate</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Fehler: unbekannte GAs</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Fehler: Senden/Empfangen</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Fehler: Verbindung</td><td class="app1_elOutputNum">A9&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">PROC-RAM</td><td class="app1_elOutputNum">A10&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein gibt an den Ausgängen bei jedem Triggern (E1) die unten genannten Werte aus. Getriggert wird der Baustein über ein neues Telegramm &ne;[leer] an E1.
+
+<b>Anwendungsbeispiel:</b>
+An E1 kann z.B. das System-KO[5] (Systemzeit) angelegt werden, um sekündlich aktuelle Werte an den Ausgängen zu erhalten.
+Alternativ kann z.B. das System-KO[26] (Trigger: Minütlich) an E1 angelegt werden, zusätzlich kann ein Initialwert 1 angegeben werden - dies führt dazu, dass der Baustein beim Start (Initialwert) und anschließend zu jeder vollen Minute getriggert wird.
+
+Weitere Informationen können ggf. der Hilfe zur <link>Statusseite***0-0</link> entnommen werden.
+
+<b>Hinweis:</b>
+Wenn das Modul <link>KNX-Gateway***a-1-1</link> nicht aktiviert ist, erfolgt keine Reaktion an den Ausgängen.
+
+
+E1: jedes Telegramm &ne;[leer] triggert den Baustein
+
+A1: Verbindungsstatus: 1=verbunden, 0=nicht verbunden
+A2: Anzahl der auf den KNX-Bus zu schreibenden Telegramme in der Warteschlange
+A3: Gesamtanzahl aller gesendeten Telegramme (EDOMI > KNX)
+A4: Gesamtanzahl aller empfangenen Telegramme (KNX > EDOMI)
+A5: aktuelle KNX-Senderate (EDOMI > KNX)
+A6: aktuelle KNX-Empfangsrate (KNX > EDOMI)
+A7: Gesamtanzahl aller unbekannten Gruppenadressen (GAs, die EDOMI nicht bekannt sind)
+A8: Gesamtanzahl aller Fehler beim Senden/Empfangen von Gruppenadressen
+A9: Anzahl der fehlgeschlagenen Verbindungsversuche zur KNX-Schnittstelle
+A10: Speichernutzung des Prozesses in MB

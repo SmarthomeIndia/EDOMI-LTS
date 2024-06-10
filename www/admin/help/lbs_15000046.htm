@@ -1,0 +1,13 @@
+<lbs-titel>Vorzeichen <span class='id'>15000046</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Vorzeichen</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput"></td><td class="app1_elInputValue"></td><td class="app1_elOutput">&gt;0</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">=0</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">&lt;0</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein setzt A1, A2 oder A3 in Abhängigkeit des Wertes an E1:
+
+<ul>
+	<li>ist der (numerische) Wert an E1 &gt;0, wird A1=1 gesetzt</li>
+	<li>ist der (numerische) Wert an E1 =0, wird A2=1 gesetzt</li>
+	<li>ist der (numerische) Wert an E1 &lt;0, wird A3=1 gesetzt</li>
+</ul>
+
+E1: jedes neue Telegramm &ne;[leer] triggert den Baustein
+A1: falls E1&gt;0 ist, wird dieser Ausgang auf 1 gesetzt
+A2: falls E1=0 ist, wird dieser Ausgang auf 1 gesetzt
+A3: falls E1&lt;0 ist, wird dieser Ausgang auf 1 gesetzt

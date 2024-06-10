@@ -1,0 +1,18 @@
+<lbs-titel>HSV-Einschalttelegramm <span class='id'>17000211</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">HSV-Einschalttelegramm</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">HSV</td><td class="app1_elInputValue"></td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Verzögerung (ms)</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein generiert ggf. einen modifierten HSV-Wert und gibt diesen unmittelbar aus, gefolgt von dem gewünschten HSV-Wert.
+
+Einige LED-Controller reagieren beim Einschalten mittels eines HSV-Wertes offenbar nicht wie erwartet, d.h. es wird nicht der korrekt Farbwert eingestellt. Erst wenn ein weiteres HSV-Telegramm (bei nunmehr eingeschalteter RGB-Leuchte) eintrifft, wird der Farbwert korrekt eingestellt.
+
+Der Baustein kompensiert dieses Fehlverhalten dadurch, dass bei einer steigenden Flanke an E1 (im Kontext des HSV-Wertes) zunächst ein geringfügig modifierter HSV-Wert ausgegeben wird und nach einer Verzögerung (E2) der eigentliche HSV-Wert (E1) ausgegeben wird. Dadurch wird der LED-Controller zunächst "eingeschaltet" (mit einem abweichenden Farbwert) und anschließend auf den gewünschten Farbwert eingestellt.
+Treffen in der Folge weitere HSV-Werte an E1 ein, werden diese unmittelbar an A1 ausgegeben (der LED-Controller ist ja bereits "eingeschaltet"). Erst wenn ein HSV-Wert mit einem V-Anteil "00" eintrifft (Aus), wird der Baustein zurückgesetzt und wartet erneut auf eine steigende Flanke.
+
+Treffen während der Verzögerung HSV-Werte an E1 ein, bleibt A1 stets unverändert. Erst nach Ablauf der Verzögerung wird der letzte (aktuellste) HSV-Wert (E1) an A1 ausgegeben.
+
+Hinweis:
+Der generierte HSV-Wert weicht stets geringfügig (Hue +/- 1) vom gewünschten HSV-Wert ab, da der LED-Controller auf gleiche Telegramme in Folge i.d.R. nicht reagiert. Dieser generierte HSV-Wert wird jedoch nur zum "Einschalten" des LED-Controllers genutzt - anschließend (nach der Verzögerung) wird der tatsächlich gewünschte HSV-Wert (E1) ausgegeben.
+
+
+E1: HSV-Wert (000000..FFFFFF)
+E2: Verzögerungszeit beim Einschalten (der zeitliche Abstand des generierten und des gewünschten HSV-Wertes): 0=schnellstmöglich, 1..oo=Millisekunden
+
+A1: HSV-Wert (000000..FFFFFF) zur direkten Ansteuerung des LED-Controllers

@@ -1,0 +1,23 @@
+<lbs-titel>Prozess-Status: DVR <span class='id'>18000108</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Prozess-Status: DVR</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Kameras</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Kameras: aufnehmend</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Bilder/h</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Fehler: Kameras</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">Fehler: Bilder</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">HDD</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td colspan="3" style="background:transparent;">&nbsp;</td><td class="app1_elOutput">PROC-RAM</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein gibt an den Ausgängen bei jedem Triggern (E1) die unten genannten Werte aus. Getriggert wird der Baustein über ein neues Telegramm &ne;[leer] an E1.
+
+<b>Anwendungsbeispiel:</b>
+An E1 kann z.B. das System-KO[5] (Systemzeit) angelegt werden, um sekündlich aktuelle Werte an den Ausgängen zu erhalten.
+Alternativ kann z.B. das System-KO[26] (Trigger: Minütlich) an E1 angelegt werden, zusätzlich kann ein Initialwert 1 angegeben werden - dies führt dazu, dass der Baustein beim Start (Initialwert) und anschließend zu jeder vollen Minute getriggert wird.
+
+Weitere Informationen können ggf. der Hilfe zur <link>Statusseite***0-0</link> entnommen werden.
+
+<b>Hinweis:</b>
+Wenn das Modul <link>Digitaler Videorekorder***a-1-5</link> (DVR) nicht aktiviert bzw. konfiguriert ist, erfolgt keine Reaktion an den Ausgängen.
+
+
+E1: jedes Telegramm &ne;[leer] triggert den Baustein
+
+A1: Status: 1=DVR ist aufnahmebereit, 0=keine Aufnahme möglich
+A2: Anzahl der zur Aufnahme verfügbaren Kameras
+A3: Anzahl der aktuell aufnehmenden Kameras
+A4: Anzahl der aufgenommenen Bilder innerhalb der aktuellen Stunde (seit Start)
+A5: Anzahl der Kameras, deren Aufnahme fehlgeschlagen ist (z.B. Verbindungsprobleme)
+A6: Gesamtanzahl aller fehlgeschlagenen Bild-Aufnahmen (seit Start)
+A7: aktuell genutzte Speicherkapazität (in %) des Aufnahme-Pfads
+A8: Speichernutzung des Prozesses in MB

@@ -1,0 +1,57 @@
+<lbs-titel>Türsteuerung <span class='id'>17000003</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Türsteuerung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Aktion</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Öffnen</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Status: Tür</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Aufschließen</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Status: Riegel</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Abschließen</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Dauer: Entriegeln+Öffnen (s)</td><td class="app1_elInputValue">5</td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Dauer: Entriegeln (s)</td><td class="app1_elInputValue">3</td><td class="app1_elOutput">Störung</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E6</td><td class="app1_elInput">Dauer: Verriegeln (s)</td><td class="app1_elInputValue">3</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein steuert ein Tür-Motorschloss.
+
+Erwartet wird zumindest ein (Reed-)Kontakt, der den Zustand des Türblatts repräsentiert (0=Tür geschlossen, &ne;0=Tür geöffnet).
+Optional kann an E3 ein Riegelkontakt anliegen, der den Zustand der Verriegelung des Schlossen repräsentiert (0=Schloss ist verriegelt, &ne;0=Schloss ist entriegelt).
+
+Hinweis:
+Wird kein Riegelkontakt verwendet, muss E3=[leer] sein. Der aktuelle Türstatus (s.u.) kann dann u.U. nicht eindeutig ermittelt werden.
+
+
+Getriggert wird der Baustein mit der gewünschten Aktion an E1. Der Baustein unterscheidet 3 Funktionen, die das Motorschloss umsetzen können sollte:
+<ul>
+	<li>E1=0: Abschließen (Schloss wird verriegelt)</li>
+	<li>E1=1: Aufschließen (Schloss wird entriegelt, die Falle bleibt aber ausgefahren)</li>
+	<li>E1=2: Öffnen (Schloss wird entriegelt, die Falle wird kurzfristig zur Türöffnung eingezogen)</li>
+</ul>
+
+Die gewünschte Aktion wird nur ausgeführt, wenn die entsprechenden Bedinungen erfüllt sind: z.B. muss die Tür geschlossen sein (E2=0), wenn das Schloss verriegelt werden soll (E1=0).
+
+Hinweis:
+Eine laufende Aktion kann <i>nicht</i> durch eine andere Aktion abgebrochen werden, sondern wird stets für die entsprechende Dauer (E4..E6) ausgeführt (oder vorzeitig beendet, wenn die entsprechenden Bedingungen bereits erfüllt sind).
+
+
+E4 legt die Dauer des Entriegelungs- und Öffnungsvorgangs (Motorschloss) fest. Anzugeben ist der größte Wert (die Dauer des Entriegelungsvorgangs zuzüglich des Öffnungsvorgang, also dem Einziehen der Falle).
+E5 legt die Dauer des Entriegelungsvorgangs (Motorschloss) fest. 
+E6 legt die Dauer des Verriegelungsvorgangs (Motorschloss) fest. 
+
+
+A1..A3 werden auf 1 gesetzt, wenn die entsprechende Aktion getriggert wird und die erforderlichen Bedingungen erfüllt sind. Das Motorschloss sollte dann die entsprechende Funktion ausführen.
+
+A4 repräsentiert zu jeder Zeit den aktuellen Status der Tür (bzw. des Schlosses) und wird nur bei einer Änderung gesetzt (SBC).
+Falls kein Riegelkontakt verwendet wird (E3=[leer]), kann der tatsächliche Status abweichenend sein, da der Zustand "Tür geschlossen und verriegelt oder entriegelt" nicht immer eindeutig bestimmbar ist (sicherheitshalber wird im Zweifel davon ausgegangen, dass die Tür entriegelt ist).
+Unabhängig von dem internen Status (der sich aus der Logik ergibt) wird zudem der tatsächliche Status (E2 und E3) mit ausgewertet. A4 repräsentiert also stets den tatsächlichen Status (sofern ein Riegelkontakt verwendet wird).
+
+Wichtig:
+Der Türstatus wird intern remanent verwaltet, d.h. nach einem Neustart wird A4 u.U. <i>nicht</i> gesetzt (SBC). Daher ist es erforderlich mit A4 ein remanentes KO zu befüllen, um auch nach einem Neustart den aktuellen Status beizubehalten (für weitere Logiken oder Visualisierungen).
+
+
+A5 wird ggf. auf 1 gesetzt (niemals jedoch auf 0 zurückgesetzt), falls eine Störung vorliegt:
+<ul>
+	<li>wenn beim Abschließen (E1=0) die Ausführungszeit (E6) erreicht ist und: der Riegel noch entriegelt ist (E3&ne;0) oder die Tür (wieder) geöffnet ist/wird (E2&ne;0)</li>
+	<li>wenn beim Aufschließen (E1=1) die Ausführungszeit (E5) erreicht ist und: der Riegel noch verriegelt ist (E3=0) oder die Tür geöffnet ist/wird (E2&ne;0)</li>
+	<li>wenn beim Öffnen (E1=2) die Ausführungszeit (E4) erreicht ist und: die Tür noch geschlossen ist (E2=0)</li>
+</ul>
+
+
+<h3>Ein- und Ausgänge</h3>
+E1: triggert den Baustein mit der gewünschten Aktion: 0=Abschließen, 1=Aufschließen, 2=Öffnen
+E2: Türkontakt (z.B. Reed): &ne;0=Türblatt ist geöffnet, 0=Türblatt ist geschlossen
+E3: Riegelkontakt (optional): &ne;0=Schloss ist entriegelt, 0=Schloss ist verriegelt, [leer]=kein Riegelkontakt vorhanden
+E4..E6: Verfahrzeiten des Motorschlosses (s.o.)
+
+A1: Motorschloss: 1=Entriegeln und Öffnen
+A2: Motorschloss: 1=Entriegeln
+A3: Motorschloss: 1=Verriegeln
+A4: Tür-/Schlossstatus (SBC): 0=geschlossen und verriegelt, 1=geschlossen und entriegelt, 2=geöffnet, -1=öffnet gerade, -2=verriegelt gerade, -3=entriegelt gerade
+A5: Störung: 1=Störung (s.o.)

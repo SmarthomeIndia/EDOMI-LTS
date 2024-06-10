@@ -1,0 +1,15 @@
+<lbs-titel>Vergleicher =&#91;Konstante&#93; 5-fach <span class='id'>15000039</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">=&#91;K1..5&#93;?</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput"></td><td class="app1_elInputValue"></td><td class="app1_elOutput">&ne;K1..5</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">K1</td><td class="app1_elInputValue"></td><td class="app1_elOutput">=K1</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">K2</td><td class="app1_elInputValue"></td><td class="app1_elOutput">=K2</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">K3</td><td class="app1_elInputValue"></td><td class="app1_elOutput">=K3</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E5</td><td class="app1_elInput">K4</td><td class="app1_elInputValue"></td><td class="app1_elOutput">=K4</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E6</td><td class="app1_elInput">K5</td><td class="app1_elInputValue"></td><td class="app1_elOutput">=K5</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr></table></div></div>Dieser Baustein vergleicht einen Wert an E1 mit den Konstanten K1..K5 (E2..E6). Getriggert wird der Baustein ausschließlich durch ein neues Telegramm &ne;[leer] an E1.
+
+Wenn der Wert an E1 einer der Konstanten K1..K5 entspricht, wird der entsprechende Ausgang A2..A6 auf 1 gesetzt, andernfalls auf 0.
+
+Entspricht der Wert an E1 <i>keiner</i> der Konstanten K1..K5, wird A1 auf den Wert von E1 gesetzt.
+
+Wird ein Eingang E2..E6 auf [leer] gesetzt, wird der entsprechende Eingang ignoriert (d.h. nicht zum Vergleich herangezogen)
+
+
+E1: ein neues Telegramm &ne;[leer] triggert den Baustein, der Wert an E1 wird mit den Konstanten K1..K5 verglichen
+E2..E6: &ne;[leer]: Vergleichswerte (Konstanten, d.h. eine Änderung von E2..E6 triggert den Baustein <i>nicht</i>)
+
+A1: wird auf den Wert an E1 gesetzt, wenn der Wert an E1 <i>keiner</i> der Konstanten K1..K5 entspricht
+A2..A6: wird auf 1 gesetzt, wenn der Wert an E1 einer der Konstanten K1..K5 entspricht (andernfalls auf 0, sofern der entsprechende Eingang E2..E6 nicht deaktiviert ist)

@@ -1,0 +1,187 @@
+<lbs-titel>Pool: Steuerung <span class='id'>17900010</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Pool: Steuerung</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Betriebsart</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">Status</td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Automatik: Filtern</td><td class="app1_elInputValue">0</td><td class="app1_elOutput">Ventilstellung</td><td class="app1_elOutputNum">A2&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Chlorierung</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Störung</td><td class="app1_elOutputNum">A3&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Pegelanpassung</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Pegelanpassung</td><td class="app1_elOutputNum">A4&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E5</td><td class="app1_elInput">Ventile: Verfahrzeit (s)</td><td class="app1_elInputValue">90</td><td class="app1_elOutput">Umwälzpumpe</td><td class="app1_elOutputNum">A5&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E6</td><td class="app1_elInput">Rückspülintervall (h)</td><td class="app1_elInputValue">50</td><td class="app1_elOutput">Chlorpumpe</td><td class="app1_elOutputNum">A6&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E7</td><td class="app1_elInput">Rückspüldauer: automatisch (s)</td><td class="app1_elInputValue">30</td><td class="app1_elOutput">Ventil: Jet/Drain</td><td class="app1_elOutputNum">A7&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E8</td><td class="app1_elInput">Rückspüldauer: saugen/manuell (s)</td><td class="app1_elInputValue">45</td><td class="app1_elOutput">Ventil: Filter/Backwash</td><td class="app1_elOutputNum">A8&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E9</td><td class="app1_elInput">Status: Umwälzpumpe</td><td class="app1_elInputValue"></td><td class="app1_elOutput">Zulaufventil</td><td class="app1_elOutputNum">A9&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E10</td><td class="app1_elInput">Status: Chlorpumpe</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E11</td><td class="app1_elInput">Ventilstatus: Jet</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E12</td><td class="app1_elInput">Ventilstatus: Drain</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E13</td><td class="app1_elInput">Ventilstatus: Filter</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E14</td><td class="app1_elInput">Ventilstatus: Backwash</td><td class="app1_elInputValue"></td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col2">&#x25B8;&nbsp;E15</td><td class="app1_elInput">Logging</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein steuert und überwacht eine entsprechend verfügbare und angepasste Technik eines Pools.
+
+Vorausgesetzt werden eine Sandfilteranlage und 4 Kugelventile mit Stellantrieben, dabei sind jeweils 2 Ventile elektrisch (oder mechanisch) alternierend miteinander verbunden (Jet+Drain, Filter+Backwash) und z.B. über einen Jalousien-Aktor ansteuerbar.
+Die Endschalter der Ventile müssen jeweils eine Rückmeldung (z.B. per Binäreingang) auf die Eingänge E23..E26 geben (1=offen, 0=geschlossen).
+Erwartet wird zudem eine (Schlauch)pumpe zur Chlorierung und eine Umwälzpumpe, zum Nachfüllen bei zu niedrigem Wasserstand wird ein Magnetventil (oder ähnliches) erwartet.
+
+Der LBS arbeitet nur, wenn E1&ne;0 ist. E1=0 führt stets dazu, dass sämtliche Maßnahmen beendet werden und die Ventile verfahren in eine "sichere" Position (z.B. "Filtern"), damit der Pool nicht leerlaufen kann (je nach Bauart wäre dies z.B. in der Rückspül-Stellung möglich).
+
+
+<h2>Betriebsarten</h2>
+Der Wert an E1 legt die gewünschte Betriebsart fest, ggf. werden beim Wechsel in einer Betriebsart die Ventile entsprechend verfahren.
+<ul>
+	<li>
+		0: "Aus"
+		<ul>
+			<li>der Baustein ist deaktiviert und muss ggf. über E1 in die gewünschten Betriebsart versetzt werden</li>
+			<li>die Ventile werden in einer sichere Stellung verfahren und alle Pumpen und das Zulaufventil werden abgeschaltet bzw. geschlossen</li>
+		</ul>
+	</li>
+	
+	<li>
+		1: "Automatik"
+		<ul>
+			<li>dies ist die normale Betriebsart, d.h. je nach Wert an E2 wird über den Skimmer gefiltert und ggf. wird der Pegel angepasst oder eine Chlorierung durchgeführt</li>
+			<li>der Baustein wartet in dieser Betriebsart auf entsprechende Ereignisse (E2..E4) und führt die erforderlichen Maßnahmen ggf. durch</li>
+			<li>E2 (0/1) sollte i.d.R. mittels einer Zeitschaltuhr regelmäßig getriggert werden um das Filtern zu starten (E2=1) bzw. zu beenden (E2=0)</li>
+			<li>E2=0: "Automatik-Standby" (das Filtern ist deaktiviert, der Baustein wartet auf E2=1) 
+			<li>E2=1: "Automatik-Filtern" (das Filtern ist aktiviert, der Baustein wartet auf E2=0) 
+			<li>Ventilstellung: "Skimmer&rarr;Filter&rarr;Jet"</li>
+		</ul>
+	</li>
+	
+	<li>
+		2: "Saugen"
+		<ul>
+			<li>in dieser Betriebsart wird der Pool i.d.R. manuell mittels eines Saugers gereinigt</li>
+			<li>das angesaugte Wasser wird durch den Sandfilter gepumpt und wieder in den Pool abgegeben (Jet)</li>
+			<li>beendet wird das Saugen i.d.R. durch einen Wechsel in die Betriebsart "Automatik" (E1=1) oder in eine beliebige andere Betriebsart</li>
+			<li>ggf. wird beim Beenden des Saugens automatisch eine Rückspülung eingeleitet (s.u.)</li>
+			<li>Ventilstellung: "Skimmer&rarr;Filter&rarr;Jet" (erwartet wird das Anschließen des Saugers an den Skimmer, d.h. die Ventilstellung entspricht der beim Filtern)</li>
+		</ul>
+	</li>
+	
+	<li>
+		3: "Saugen>Gulli"
+		<ul>
+			<li>in dieser Betriebsart wird der Pool i.d.R. manuell mittels eines Saugers gereinigt</li>
+			<li>das angesaugte Wasser wird am Sandfilter vorbei in den Gulli(!) gepumpt (z.B. um sehr feine Schmutzpartikel aus dem Pool zu entfernen)</li>
+			<li>beendet wird das Saugen i.d.R. durch einen Wechsel in die Betriebsart "Automatik" (E1=1) oder in eine beliebige andere Betriebsart</li>
+			<li>Ventilstellung: "Sauger&rarr;(Filter)&rarr;Drain" (der Sandfilter wird trotz der Ventilstellung "Filter" umgangen, sofern die Installation entsprechend ausgelegt ist)</li>
+		</ul>
+	</li>
+	
+	<li>
+		4: "Rückspülen"
+		<ul>
+			<li>in dieser Betriebsart wird der Sandfilter in umkehrter Flussrichtung durchströmt, um diesen zu reinigen</li>
+			<li>das angesaugte Wasser wird "rückwärts" durch den Sandfilter in den Gulli gepumpt</li>
+			<li>beendet wird das Rückspülen automatisch (E8) oder ggf. vorzeitig durch Wechsel in eine andere Betriebsart</li>
+			<li>Ventilstellung: "Sauger&rarr;Backwash&rarr;Drain"</li>
+		</ul>
+	</li>
+
+	<li>
+		5: "Filtern"
+		<ul>
+			<li>in dieser Betriebsart wird das Filtern unmittelbar und dauerhaft aktiviert (vgl. Betriebsart "Automatik-Filtern")</li>
+			<li>beendet wird das Filtern durch Wechsel in eine andere Betriebsart</li>
+			<li>beim Beenden des Filterns wird <i>keine</i> automatische Rückspülung eingeleitet</li>
+			<li>Ventilstellung: "Skimmer&rarr;Filter&rarr;Jet"</li>
+		</ul>
+	</li>
+
+	<li>
+		"Auffüllen": nur über die Pegelanpassung (E4) aktivierbar (s.u.)
+		<ul>
+			<li>in dieser Betriebsart werden sämtliche Maßnahmen umittelbar beendet und eine Auffüllung mit Frischwasser eingeleitet (A9=1)</li>
+			<li>ein Wechsel in eine andere Betriebsart mittels E1 ist in dieser Betriebsart nicht möglich (mit Ausnahme von "Aus"), da E4 nunmehr die Betriebsart festlegt (s.u.)</li>
+			<li>Ventilstellung: "Skimmer&rarr;Filter&rarr;Jet"</li>
+		</ul>
+	</li>
+
+	<li>
+		"Abpumpen": nur über die Pegelanpassung (E4) aktivierbar (s.u.)
+		<ul>
+			<li>in dieser Betriebsart werden sämtliche Maßnahmen umittelbar beendet und ein Abpumpen eingeleitet</li>
+			<li>ein Wechsel in eine andere Betriebsart mittels E1 ist in dieser Betriebsart nicht möglich (mit Ausnahme von "Aus"), da E4 nunmehr die Betriebsart festlegt (s.u.)</li>
+			<li>Ventilstellung: "Sauger&rarr;(Filter)&rarr;Drain"</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h3>Rückspülung</h3>
+Die Rückspülung des Sandfilters erfolgt ggf. automatisch beim Wechsel in die Betriebsart "Automatik-Standby" (E1=1 und E2=0), sofern die Betriebszeit der Umwälzpumpe seit der letzten Rückspülung den Sollwert (E6) erreicht hat.
+Beendet wird die Rückspülung automatisch nach der an E7 angegeben Dauer (auch bei einem manuellen Anstoßen der Rückspülung wird diese stets automatisch beendet, dann allerdings nach der Dauer an E8). Dabei wird stets in die Betriebsart "Automatik" gewechselt ("Standby" oder "Filtern", je nach Status von E2).
+
+Wird nach der Betriebsart "Saugen" (E1=2) <i>unmittelbar</i> in die Betriebsart "Automatik" gewechselt (E1=1) wird stets automatisch (für die Dauer an E8) rückgespült - unabhängig von E2. Erst nach der automatischen Beendigung des Rückspülens wird je nach E2 in die Betriebsart "Automatik-Standby" oder "Automatik-Filtern" gewechselt.
+
+
+<h3>Chlorierung</h3>
+Eine Chlorierung (Chlorpumpe wird eingeschaltet) erfolgt nur in der Betriebsart "Automatik-Filtern" (E1=1 und E2=1) und bei einer Chlorierungs-Anforderung (E3&ne;0). Eine Chlorierung erfolgt also nur, wenn die Umwälzpumpe läuft.
+Wird während der Chlorierung in eine andere Betriebsart als "Automatik-Filtern" gewechselt, läuft die Umwälzpumpe noch ca. 3 Sekunden lang nach. Dies soll verhindern, dass in der Rohrleitung konzentrierte Chlorlösung verbleibt.
+
+E3 kann z.B. mit Hilfe des <link>LBS 17900011***lbs_17900011</link> getriggert werden.
+
+
+<h3>Pegelanpassung</h3>
+Die Überwachung und Anpassung des Pegels erfolgt in allen Betriebsarten (mit Ausnahme von "Aus").
+
+An E4 wird ggf. die erforderliche Maßnahme erwartet:
+<ul>
+	<li>E4=0: keine Pegelanpassung erforderlich bzw. laufende Pegelanpassung beenden (Pegel ist im Normalbereich)</li>
+	<li>E4=1: der Pegel ist zu niedrig, es wird unmittelbar in die Betriebsart "Auffüllen" gewechselt (s.o.)</li>
+	<li>E4=2: der Pegel ist niedrig, das Zulaufventil wird geöffnet (A9=1) um Frischwasser nachzufüllen</li>
+	<li>E4=3: der Pegel ist zu hoch, es wird unmittelbar in die Betriebsart "Abpumpen" gewechselt (s.o.)</li>
+</ul>
+
+Falls in die Betriebsart "Auffüllen" (E4=1) oder "Abpumpen" (E4=3) gewechselt wurde, wird automatisch in die Betriebsart "Automatik" gewechselt sobald E4=0 bzw. E4=2 wird.
+
+E4 kann z.B. mit Hilfe des <link>LBS 17900012***lbs_17900012</link> getriggert werden.
+
+
+<h3>Wichtige Hinweise</h3>
+<ul>
+	<li>bei jedem Schaltvorgang von Umwälz- bzw. Chlorpumpe wird auf eine Statusrückmeldung an E9 bzw. E10 mit einem Timeout von 5 Sekunden gewartet (bleibt diese aus, wird in den Not-Aus-Modus gewechselt, s.u.)</li>
+	<li>ebenso wird bei jedem Verfahren der Ventile auf eine Statusrückmeldung an E11..E14 mit einem Timeout (E5) gewartet (bleibt diese aus bzw. entspricht der Ventilstatus nicht den Erwartungen, wird in den Not-Aus-Modus gewechselt, s.u.)</li>
+	<li>Die Schaltausgänge für die Pumpen und Ventile sind zur Sicherheit nicht in jeder Situation "SBC"-Ausgänge (nur bei Änderung), d.h. ggf. wird ein Ausgang mehrfach z.B. auf 0 gesetzt.</li>
+	<li>Falls ein interner Fehler auftritt oder z.B. die erwartete Rückmeldung der Ventile ausbleibt, wird stets in einen Not-Aus-Modus gewechselt (d.h. die Ventile werden in einer sichere Stellung verfahren und alle Pumpen und das Zulaufventil werden abgeschaltet bzw. geschlossen). Der Baustein wird dann deaktiviert und muss über E1 erneut in die gewünschten Betriebsart versetzt werden.</li>
+	<li>Wenn EDOMI beendet (bzw. neugestartet) wird, erfolgt ebenfalls ein Wechselt in den Not-Aus-Modus. Jedoch wird in diesem Fall nicht auf eine Rückmeldung der Ventile etc. gewartet.</li>
+</ul>
+
+<h2>Eingänge</h2>
+
+E1: Betriebsart (s.o.)
+E2: Filtern in der Betriebsart "Automatik": 1=Filtern, 0=nicht Filtern
+E3: Chlorierung (s.o.)
+E4: Pegelanpassung (s.o.)
+E5: Mindest-Verfahrzeit der Kugelventile (in Sekunden)
+E6: Intervall für das automatische Rückspülen (Betriebszeit der Umwälzpumpe in Stunden)
+E7: Dauer der automatischen Rückspülung (in Sekunden)
+E8: Dauer der manuellen Rückspülung bzw. der automatischen Rückspülung nach dem Saugen (in Sekunden)
+E9: Status der Umwälzpumpe: 1=Ein, 0=Aus
+E10: Status der Chlorpumpe: 1=Ein, 0=Aus
+E11..E14: Status der entsprechenden Ventile: 1=Offen, 0=Geschlossen
+E15: 1 = Protokollierung aktivieren (im Individual-Log "LBS17900010-&lt;Instanz-ID&gt;")
+
+
+<h2>Ausgänge</h2>
+A1: aktuelle Betriebsart bzw. Status
+<ul>
+	<li>-1=die Ventile verfahren gerade bzw. die Betriebsart wird gerade gewechselt</li>
+	<li>0="aus" bzw. Not-Aus</li>
+	<li>1="Automatik-Standby"</li>
+	<li>2="Automatik-Filtern"</li>
+	<li>3="Rückspülung" (automatisch oder manuell)</li>
+	<li>4="Saugen"</li>
+	<li>5="Saugen>Gulli"</li>
+	<li>6="Abpumpen" (Pegelanpassung)</li>
+	<li>7="Auffüllen" (Pegelanpassung)</li>
+	<li>8="Filtern" (manuell)</li>
+</ul>
+
+A2: aktuelle Ventilstellung (ggf. verzögert)
+<ul>
+	<li>0=unbekannt bzw. Ventile verfahren gerade</li>
+	<li>1=Automatik-Filtern, Automatik-Standby, Saugen, Filtern (manuell)</li>
+	<li>2=Saugen>Gulli, Abpumpen</li>
+	<li>3=Rückspülen</li>
+</ul>
+
+A3: bei einer Störung (z.B. Timeout beim Verfahren der Ventile) wird A3 auf 1 gesetzt, wenn die Störung behoben wird (z.B. durch erneutes Verfahren) wird A3 auf 0 gesetzt
+
+A4: ggf. Status der Pegelanpassung
+<ul>
+	<li>0=keine Pegelanpassung bzw. laufende Pegelanpassung wurde beendet</li>
+	<li>1=Betriebsart "Auffüllen" aktiv</li>
+	<li>2=Nachfüllung aktiv (das Zulaufventil ist geöffnet)</li>
+	<li>3=Betriebsart "Abpumpen" aktiv</li>
+</ul>
+
+A5: Steuerung der Umwälzpumpe: 1=Ein, 0=Aus
+A6: Steuerung der Chlorpumpe: 1=Ein, 0=Aus
+A7: Steuerung der Ventile "Jet" und "Drain": 0=Jet öffnen (und Drain schließen), 1=Drain öffnen (und Jet schließen)
+A8: Steuerung der Ventile "Filter" und "Backwash": 0=Filter öffnen (und Backwash schließen), 1=Backwash öffnen (und Filter schließen)
+A9: Steuerung des Zulaufventils: 1=Öffnen, 0=Schließen

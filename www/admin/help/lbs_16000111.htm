@@ -1,0 +1,15 @@
+<lbs-titel>Oszillator <span class='id'>16000111</span></lbs-titel>
+<div style='float:right; margin:0px 3px 10px 10px;'><div style="border-radius:3px; overflow:hidden; box-shadow:0 0 5px #404040;"><table border="0" cellspacing="0" cellpadding="1" class="app1_elContainer" style="position:relative; box-shadow:none; line-height:1; pointer-events:none;"><tr><td colspan="5" class="app1_elTitel">Oszillator</td></tr><tr><td class="app1_elInputNum col1">&#x25B8;&nbsp;E1</td><td class="app1_elInput">Trigger/Stop</td><td class="app1_elInputValue">0</td><td class="app1_elOutput"></td><td class="app1_elOutputNum">A1&nbsp;&#x25B8;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E2</td><td class="app1_elInput">Dauer 1 (ms)</td><td class="app1_elInputValue">500</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E3</td><td class="app1_elInput">Dauer 0 (ms)</td><td class="app1_elInputValue">500</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr><tr><td class="app1_elInputNum col0">&#x25B8;&nbsp;E4</td><td class="app1_elInput">Zyklen</td><td class="app1_elInputValue">0</td><td colspan="2" style="background:transparent;">&nbsp;</td></tr></table></div></div>Dieser Baustein setzt A1 abwechselnd auf 1 und 0.
+
+Ein neues Telegramm =1 an E1 startet den Baustein, ein neues Telegramm=0 stoppt den Baustein. Ein Zyklus beginnt immer mit A1=1, gefolgt von A1=0.
+E2 bestimmt die Dauer in ms für A1=1, E3 bestimmt die Dauer für A1=0. 
+
+Die Anzahl der Zyklen wird mit E4 definiert, E4=0 läßt den Baustein solange arbeiten, bis E1=0 wird. Ein Zyklus dauert E2+E3 Millisekunden.
+
+Wichtig: A1 wird beim Stoppen des Bausteins bzw. nach Ablauf der Zyklen immer(!) auf 0 gesetzt.
+
+E1: 1=Start, 0=Stop
+E2: Dauer für A1=1 (ms)
+E3: Dauer für A1=0 (ms)
+E4: Anzahl der Zyklen: 0=unendlich (bis E1=0 ist), 1..&infin;=Anzahl (1 Zyklus = E2+E3)
+A1: wechselt zwischen 1 und 0 (entspricht einem Zyklus). Beendet wird der Baustein immer mit A1=0 (auch wenn Zyklus-Anzahl "unendlich" ist)
