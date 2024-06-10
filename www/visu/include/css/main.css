@@ -1,0 +1,424 @@
+/* 
+*/ 
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+HTML
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+body {
+	position:absolute;
+	font-size:10px;
+	text-align:center;
+	color:#000000;	/*Default-FG-Farbe für Visuelemente (visu/main.css, shared/main.js, shared/config.php)*/
+	margin:0;
+	padding:0;
+	-webkit-user-select:none;
+	cursor:default;
+	
+	width:100%;
+	height:100%;
+
+	-webkit-font-smoothing:subpixel-antialiased;
+}
+
+/*
+Browserspezifische Touch-Gesten deaktivieren (Zoom, etc.)
+*/
+html {
+  touch-action:none;
+}
+
+/*
+Chrome: alle Scrollbalken ausblenden
+*/
+::-webkit-scrollbar {
+	width:0px;
+	background:transparent;
+}
+
+table {
+	table-layout:fixed;
+}
+
+.controlSelectboxTag { 			/*Selectbox-HTML-Tag (für Visuelemente)*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	color:inherit;
+	width:100%;
+	height:100%;
+	background:transparent;
+	margin:0;
+	padding:2px;
+	border:none;
+	outline:none;
+	-webkit-appearance:none;
+	box-sizing:border-box;
+	cursor:inherit;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Visu-Elemente
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.controlCheckbox {				/*Checkbox*/
+    display:flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+	width:100%;
+	height:100%;
+	font-family:inherit;
+	font-size:inherit;
+	color:inherit;
+	padding:0;
+	margin:0;
+	border:1px solid;
+	text-align:center;
+	border-radius:3px;
+	box-sizing:border-box;
+}
+
+.controlButton { 				/*Button*/
+    display:flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+	width:100%;
+	height:100%;
+	font-family:inherit;
+	font-size:inherit;
+	color:inherit;
+	padding:0;
+	margin:0;
+	border:2px solid;
+	text-align:center;
+	border-radius:3px;
+	box-sizing:border-box;
+}
+
+.controlInput { 				/*Input*/
+	display:inline-block;
+	width:100%;
+	height:100%;
+	font-family:inherit;
+	font-size:inherit;
+	color:currentColor;
+	padding:0;
+	margin:0;
+	outline:none;
+	border:1px solid;
+	box-shadow:none;
+	text-align:center;
+	background:transparent;
+	border-radius:3px;
+	box-sizing:border-box;
+	-webkit-appearance:none;
+}
+
+.controlSelectbox { 			/*Selectbox*/
+	display:inline-block;
+	width:100%;
+	height:100%;
+	font-family:inherit;
+	font-size:inherit;
+	color:inherit;
+	padding:0;
+	margin:0;
+	border:1px solid;
+	text-align:center;
+	border-radius:3px;
+	box-sizing:border-box;
+}
+
+.controlInputTagBlank { 		/*Input (neutral)*/
+	width:100%;
+	height:100%;
+	font-family:inherit;
+	font-size:inherit;
+	color:inherit;
+	text-align:inherit;
+	padding:0;
+	margin:0;
+	border:none;
+	border-radius:0px;
+	outline:none;
+	-webkit-appearance:none;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Fenster
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.appWindow {					/*Fenster-Container (sichtbare Maske Fullscreen, verhindert Klicks)*/
+	position:absolute;
+	z-index:0;
+	text-align:center;
+	overflow:hidden;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	display:block;
+	-webkit-animation: animWindowBackground 0.2s ease-in;
+	background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWNgYGDwAQAAUQBN1Cs0BQAAAABJRU5ErkJggg==");
+}
+
+.appWindowNormal {				/*Fenster und Popups*/
+	position:relative;
+	overflow:hidden;
+	display:inline-block;
+	text-align:left;
+	box-shadow:3px 10px 40px #303030;
+	-webkit-animation: animWindow 0.2s ease-in;
+	pointer-events:auto;
+}
+
+.appWindowLogin {				/*Login-Dialog*/
+	position:relative;
+	display:inline-block;
+	border-radius:3px;
+	padding:15px;
+	box-shadow:3px 10px 40px #303030;
+	color:#f0f0f0;
+	background:#343434;
+	-webkit-animation: animWindowConfirm 0.2s ease-in forwards;
+	text-align:left;
+}
+
+.loginButton {					/*Login-Dialog: Button-DIV*/
+	display:inline-block;
+	padding:5px;
+	text-align:center;
+	color:#000000;
+	background:-webkit-linear-gradient(top,#d9d9d9 0%,#f0f0f0 100%);
+	cursor:pointer;
+	margin:1px 1px 1px 0px;
+	line-height:15px;
+	border:1px solid #a0a0a0;
+	border-radius:3px;
+	min-width:62px;
+	height:27px;
+	box-sizing:border-box;
+}
+
+.loginButton:hover {			/*Login-Dialog: Button-DIV: Hover*/
+	background:#bebebe;
+}
+
+.loginSelect { 					/*Login-Dialog: Select*/
+	display:inline-block;
+	font-family:inherit;
+	width:100%;
+	color:#a0a0a0;
+	background:transparent;
+	margin:0;
+	padding:0;
+	border:none;
+	outline:none;
+	-webkit-appearance:none;
+	box-sizing:border-box;
+}
+
+.loginInput { 					/*Login-Dialog: Input*/
+	display:inline-block;
+	font-family:inherit;
+	border:1px solid #a0a0a0;
+	width:100px;
+	margin:1px 0px 5px 0px;
+	border-radius:3px;
+	color:#000000;
+	background:#ffffff;
+	height:18px;
+	padding:2px;
+	box-sizing:border-box;
+}
+
+.loginCheckbox {				/*Login-Dialog: Checkbox-DIV*/
+    display:flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+	width:80px;
+	height:27px;
+	font-family:inherit;
+	font-size:inherit;
+	margin:1px 1px 1px 0px;
+	border:1px solid;
+	text-align:center;
+	border-radius:3px;
+	box-sizing:border-box;
+	color:#ffffff;
+	cursor:pointer;
+}
+
+.visuWarning { 					/*Warnungen (CPU/RAM/...)*/
+	display:inline-block;
+	opacity:0.85;
+	margin:0 1px 0 1px;
+	border-radius:0 0 3px 3px;
+	padding:2px 5px 5px 5px;
+	color:#000000;
+	background:#ffc000;
+	box-shadow:0 0 3px 0 rgba(0,0,0,0.5);
+	pointer-events:none;
+}
+
+.visuPreview { 					/*Warnung: Visuaktivierung (Vorschau)*/
+	display:none;
+	position:absolute;
+	text-align:center;
+	overflow:hidden;
+	top:0;
+	left:0;
+	z-index:99999;
+	opacity:0.85;
+	margin:0 1px 0 0;
+	border-radius:0 0 3px 0;
+	padding:2px 5px 5px 5px;
+	color:#000000;
+	background:#ffff00;
+	box-shadow:0 0 3px 0 rgba(0,0,0,0.5);
+}
+
+.visuError { 					/*Fehler (vor dem Start)*/
+	display:inline-block;
+	opacity:0.85;
+	border-radius:0 0 3px 3px;
+	padding:2px 5px 5px 5px;
+	color:#ffffff;
+	background:#ff4000;
+	box-shadow:0 0 3px 0 rgba(0,0,0,0.5);
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Animationen
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.indicateLongclick {				/*LongClick-Indikator*/
+	position:absolute;
+	pointer-events:none;
+	z-index:99999;
+	display:none;
+	left:0;
+	top:0;
+	width:0;
+	height:0;
+	border-radius:100%;
+	border:3px solid transparent;
+	box-sizing:border-box;
+	-webkit-animation: animIndicateLongclick 1s 1 linear;
+}
+
+.connectAnim {					/*Warten auf Verbindung zum Server*/
+	position:absolute;
+	left:0px; top:0px;
+	width:180px;
+	height:180px;
+	line-height:180px;
+	font-size:30px;
+	border-radius:180px;
+	border-top:2px solid #292929;
+	border-bottom:2px solid #292929;
+	border-left:2px solid #e00000;
+	border-right:2px solid #e00000;
+	-webkit-animation: animSpin 5s infinite ease;
+}
+
+.reloadAnim {					/*Refresh: Kamera/Diagramm/etc.*/
+	position:absolute;
+	display:none;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:1px;
+	background:#80e000;
+	pointer-events:none;
+	-webkit-animation: animReload 1s infinite linear;
+}
+
+.busyAnim {						/*Refresh: Visu*/
+	position:absolute;
+	display:none;
+	z-index:99999;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:1px;
+	background:#80e000;
+	pointer-events:none;
+	-webkit-animation: animBusy 1s infinite linear;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Keyframes
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+@-webkit-keyframes animShake {
+	0% {-webkit-transform: translate(0px);}
+	20% {-webkit-transform: translate(-10px);}
+	40% {-webkit-transform: translate(10px);}
+	60% {-webkit-transform: translate(-10px);}
+	80% {-webkit-transform: translate(10px);}
+	100% {-webkit-transform: translate(0px);}
+}
+
+@-webkit-keyframes animWindow {
+	from {opacity:0; -webkit-transform: scale(0.75);}
+	to {opacity:1; -webkit-transform: scale(1);}
+}
+
+@-webkit-keyframes animWindowConfirm {
+	from {opacity:0; -webkit-transform: translateY(-100px);}
+	to {opacity:1; -webkit-transform: translateY(0px);}
+}
+
+@-webkit-keyframes animWindowBackground {
+	0% {opacity:0;}
+	100% {opacity:1;}
+}
+
+@-webkit-keyframes animIndicateLongclick {
+	0% {-webkit-transform: rotate(0deg) scale(1);}
+	100% {-webkit-transform: rotate(-360deg) scale(1);}
+}
+
+@-webkit-keyframes animSpin {
+	0% {-webkit-transform: rotate(0deg);}
+	10% {-webkit-transform: rotate(90deg);}
+	30% {-webkit-transform: rotate(180deg);}
+	40% {-webkit-transform: rotate(270deg);}
+	60% {-webkit-transform: rotate(360deg);}
+	100% {-webkit-transform: rotate(0deg);}
+}
+
+@-webkit-keyframes animReload {
+	from {background:transparent;}
+	to {background:#80e000;}
+}
+
+@-webkit-keyframes animBusy {
+	from {background:transparent;}
+	to {background:#80e000;}
+}
+
+@-webkit-keyframes animBlink {
+	0% {opacity:1;}
+	50% {opacity:1;}
+	51% {opacity:0;}
+	99% {opacity:0;}
+	100% {opacity:1;}
+}
