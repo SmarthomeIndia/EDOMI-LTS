@@ -1,0 +1,36 @@
+/* 
+*/ 
+.app104_stat1 {
+	position:absolute;
+	height:30px;
+	padding:0 2px 0 2px;
+	border-left:1px solid #a0a0a0;
+	color:#ffffff;
+}
+.app104_stat2 {
+	position:absolute;
+	height:15px;
+	padding:0 2px 0 2px;
+	border-left:1px solid #a0a0a0;
+	color:#ffffff;
+}
+.app104_event {
+	position:absolute;
+	height:5px;
+	border-left:1px solid rgb(255,255,0);
+	background:rgba(255,255,0,0.5);
+}
+
+.app104_modeA {
+	color:#ffffff; 
+	cursor:pointer;
+	border-bottom:1px solid transparent;
+}
+.app104_modeB {
+	color:#ffffff;
+	cursor:pointer;
+	border-bottom:1px solid #a0a0a0;
+	background:#303030;
+	box-shadow:0 -5px 5px -5px #000000 inset;
+}
+

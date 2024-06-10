@@ -1,0 +1,500 @@
+/* 
+*/ 
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Menüstruktur (z.B. app103, app1000)
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.columnMenu {					/*Linke Spalte: Menü*/
+	text-align:left;
+	overflow:auto;
+	border-right:1px solid #c0c0c0;
+	padding-right:5px;
+	width:100%;
+	box-sizing:border-box;
+}
+
+.columnMenuItem { 				/*Menü-Eintrag*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	text-align:left;
+	cursor:pointer;
+	width:100%;
+	white-space:nowrap;
+	padding:8px 0 8px 5px;
+	border-bottom:1px dotted #c0c0c0;
+	box-sizing:border-box;
+}
+
+.columnMenuItem:hover {			/*Menü-Eintrag: Hover*/
+	background:#e0e0e0;
+}
+
+.columnContent {				/*Rechte Spalte: Inhalt*/
+	line-height:1.2;	
+	text-align:left;
+	overflow:auto;
+	width:100%;
+	box-sizing:border-box;
+}
+
+.columnContentList { 			/*Container: Listeneintrag (z.B. Folder/Item)*/
+	display:block;
+	line-height:18px;
+	font-family:inherit;
+	font-size:inherit;
+	text-align:left;
+	white-space:nowrap;
+	color:#00a000;
+	background:#ffffff;
+	cursor:pointer;
+}
+
+.columnContentList:hover {		/*Container: Listeneintrag: Hover*/
+	background:#e0e0e0;
+}
+
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Allgemeine Controls
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.link {							/*Link-DIV*/
+	display:inline-block;
+	cursor:pointer;
+}
+
+.link:hover {					/*Link-DIV*/
+	text-decoration:underline;
+}
+
+.cmdUpload {					/*Upload-DIV*/
+    position:relative;
+    overflow:hidden;
+	font-family:inherit;
+	font-size:inherit;
+	/*ab hier wie cmdButton*/
+	display:inline-block;
+	padding:5px;
+	text-align:center;
+	color:#000000;
+	background:-webkit-linear-gradient(top,#d9d9d9 0%,#f0f0f0 100%);
+	cursor:pointer;
+	margin:1px 1px 1px 0px;
+	line-height:15px;
+	border:1px solid #c0c0c0;
+	border-radius:3px;
+	min-width:62px;
+	height:27px;
+	box-sizing:border-box;
+}
+.cmdUpload input {				/*Upload-DIV: Verstecktes Input-Tag*/
+    position:absolute;
+    top:0;
+    right:0;
+    margin:0;
+    padding:0;
+    font-size:30px;
+    cursor:pointer;
+    opacity:0;
+}
+
+.cmdUpload:hover {				/*Upload-DIV: Hover*/
+	background:#f0f0f0;
+}
+
+.cmdSliderTag {					/*Slider-Tag*/
+	display:inline-block;
+	padding:5px;
+	cursor:pointer;
+	margin:1px 1px 1px 0px;
+	box-sizing:border-box;
+}
+
+.cmdButton {					/*Button-DIV*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	padding:5px;
+	text-align:center;
+	color:#000000;
+	background:-webkit-linear-gradient(top,#d9d9d9 0%,#f0f0f0 100%);
+	cursor:pointer;
+	margin:1px 1px 1px 0px;
+	line-height:15px;
+	border:1px solid #c0c0c0;
+	border-radius:3px;
+	min-width:62px;
+	height:27px;
+	box-sizing:border-box;
+}
+.cmdButton:hover {				/*Button-DIV: Hover*/
+	background:#f0f0f0;
+}
+
+.cmdButtonL {					/*Button-DIV*/
+	border-radius:3px 0 0 3px;
+	border-right:none;
+	margin-right:0;
+}
+
+.cmdButtonM {					/*Button-DIV*/
+	border-radius:0;
+	border-right:none;
+	margin-right:0;
+}
+
+.cmdButtonR {					/*Button-DIV*/
+	border-radius:0 3px 3px 0;
+}
+
+.cmdButtonDisabled {			/*Button-DIV*/
+	color:#a0a0a0;
+	cursor:initial;
+}
+.cmdButtonDisabled:hover {		/*Button-DIV*/
+	background:-webkit-linear-gradient(top,#d9d9d9 0%,#f0f0f0 100%);
+}
+
+.cmdButtonSmall {				/*Kleiner Button*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	color:#000000; 
+	text-align:center;
+	background:-webkit-linear-gradient(top,#d9d9d9 0%,#f0f0f0 100%);
+	padding:1px 3px 1px 3px; 
+	border-radius:3px;
+	cursor:pointer;
+}
+.cmdButtonSmall:hover {			/*Kleiner Button: Hover*/
+	background:#f0f0f0;
+}
+
+.app0_cmdInput {				/*KO-Mon: Input*/
+	display:inline-block;
+	color:#ffffff;
+	font-family:inherit;
+	font-size:inherit;
+	height:18px;
+	background:#696969;
+	padding:0 3px 0 3px;
+	border-radius:3px;
+	border:1px solid #292929;
+	outline:none;
+	-webkit-appearance:none;
+	box-sizing:border-box;
+	vertical-align:middle;
+}
+
+.app0_cmdButton {				/*Statusseite: Button*/
+	display:inline-block;
+	color:#000000; 
+	font-family:inherit;
+	font-size:inherit;
+	height:18px;
+	text-align:center;
+	background:-webkit-linear-gradient(top,#797979 0%,#999999 100%);
+	padding:2px 3px 2px 3px;
+	border-radius:3px;
+	border:1px solid #292929;
+	cursor:pointer;
+	outline:none;
+	-webkit-appearance:none;
+	box-sizing:border-box;
+	vertical-align:middle;
+}
+
+.app0_cmdButton:hover {			/*KO-Mon: Button: Hover*/
+	background:#bebebe;
+}
+
+.controlEditInline { 			/*Editbox-Container (i.d.R. für inline-Formulare)*/
+	margin:0;
+	background:#f0f0e9;
+	padding:5px;
+	overflow:auto;
+}
+
+.colorPreview1 {				/*Farbvorschau (Miniatur) für statische Farben*/
+	display:inline-block; 
+	vertical-align:middle; 
+	width:10px; 
+	height:10px; 
+	border:1px solid #d0d0d0;
+}
+
+.colorPreview2 {				/*Farbvorschau (Miniatur) für dynamische Farben*/
+	display:inline-block; 
+	vertical-align:middle; 
+	width:10px; 
+	height:10px; 
+	border:1px solid #d0d0d0;
+	border-radius:10px;
+	background:-webkit-linear-gradient(left top,#ffffff 0%,#ffffff 50%,#606060 50%,#606060 100%);
+}
+
+.controlList { 					/*Listbox-Container*/
+	display:inline-block;
+	width:100%;
+	color:#000000;
+	background:#ffffff;
+	overflow:auto;
+	height:24px;
+	margin:0;
+	box-sizing:border-box;
+	border:1px solid #d9d9d9;
+	padding:2px;
+}
+
+.controlListItem { 				/*Listbox-Eintrag*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	text-align:left;
+	padding:3px 0 3px 0;
+	cursor:pointer;
+	color:#000000;
+	width:100%;
+	white-space:nowrap;
+	background:#ffffff;
+}
+
+.controlListItem:hover {		/*Listbox-Eintrag: Hover*/
+	background:#bebebe;
+}
+
+.varItem { 						/*Variable (z.B. bei Commands, Szenen-Inhalt, uvm.)*/
+	border:1px solid #f0f0f0;
+	border-bottom:1px solid #d9d9d9;
+	padding:0 1px 0 1px;
+	background:#f0f0f0;
+}
+
+.formTitel { 					/*Titel, z.B. Visuelement-Name*/
+	color:#343434;
+	font-size:13px;
+}
+
+.formSubTitel { 				/*Untertitel, z.B. ein Abschnitt */
+	color:#505049;
+	font-size:12px;
+	line-height:15px;
+	padding-top:15px;
+}
+
+.formSubTitel2 { 				/*kleiner Untertitel, z.B. ein Unterabschnitt */
+	color:#505049;
+	font-size:10px;
+	line-height:12px;
+	padding-top:12px;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Spezielle Controls
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.control1 { 					/*Input-Tag (text)*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	border:1px solid #d9d9d9;
+	padding:2px;
+	width:100px;
+	margin:1px 0px 5px 0px;
+	color:#000000;
+	background:#ffffff;
+	line-height:100%;
+	height:20px;
+	box-sizing:border-box;
+	-webkit-appearance:none;
+}
+
+.control5 { 					/*Checkbox*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	padding:3px;
+	margin:1px 0px 5px 0px;
+	color:#000000;
+	cursor:pointer;
+	text-align:center;
+	line-height:13px;
+	height:20px;
+	box-sizing:border-box;
+	border:1px solid #d9d9d9;
+}
+
+.control5small { 				/*Checkbox, klein*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	margin:0;
+	color:#000000;
+	cursor:pointer;
+	text-align:center;
+	line-height:9px;
+	width:20px;
+	height:15px;
+	padding:2px;
+	box-sizing:border-box;
+	border:1px solid #d9d9d9;
+}
+
+.control6 { 					/*Selectbox-DIV*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	border:1px solid #d9d9d9;
+	cursor:pointer;
+	text-align:left;
+	margin:1px 0px 5px 0px;
+	color:#000000;
+	background:#ffffff;
+	padding:0; /*wird in control6select gesetzt*/
+	line-height:100%;
+	height:20px;
+	box-sizing:border-box;
+}
+
+.control6select { 				/*Selectbox-HTML-Tag*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	font-family:inherit;
+	width:100%;
+	height:100%;
+	color:#000000;
+	background:transparent;
+	margin:0;
+	padding:2px;
+	border:none;
+	outline:none;
+	-webkit-appearance:none;
+	box-sizing:border-box;
+	cursor:pointer;
+}
+
+.control10 { 					/*Listenauswahl (z.B. KOs, Archive, Styles, ...)*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	background:#ffffff;
+	text-align:left;
+	margin:1px 0px 5px 0px;
+	cursor:pointer;
+	color:#000000;
+	min-width:100px;
+	white-space:nowrap;
+	overflow:hidden;
+	line-height:15px;
+	height:20px;
+	box-sizing:border-box;
+	vertical-align:bottom; /*für Chrome*/
+	border:1px solid #d9d9d9;
+	padding:2px;
+}
+
+.controlSlider {				/*Input Range (Slider)*/
+    height:5px;
+	border-radius:3px;  
+	background:#a0a0a0;
+    outline:none;
+	padding:0;
+	margin:0;
+	box-sizing:border-box;
+    -webkit-appearance:none;
+}
+
+.controlSlider::-webkit-slider-thumb {
+    width:14px;
+    height:14px;
+	border-radius:50%;
+	border:1px solid #a0a0a0;
+    background:#ffffff;
+    cursor:pointer;
+    -webkit-appearance:none;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Kontextmenü
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.contextMenu {					/*Kontextmenü-Container*/
+	position:absolute;
+	font-family:inherit;
+	font-size:inherit;
+	z-index:99998;
+	display:block;
+	border-radius:3px;
+	box-shadow:0px 3px 10px #505050;
+	background:#ffffff;
+	padding:5px;
+	color:#000000;
+	min-width:100px;
+	text-align:left;
+	cursor:pointer;
+	white-space:nowrap;
+	-webkit-animation: animContextMenu 0.2s ease-in forwards;
+}
+
+.contextMenuText {				/*Kontextmenü-Text (statisch)*/
+	padding:3px;
+	color:#696969;
+	font-family:inherit;
+	font-size:inherit;
+	text-align:left;
+}
+
+.contextMenuItem {				/*Kontextmenü-Eintrag*/
+	padding:3px;
+	font-family:inherit;
+	font-size:inherit;
+	text-align:left;
+	cursor:pointer;
+}
+
+.contextMenuItem:hover {		/*Kontextmenü-Eintrag: Hover*/
+	background:#505050;
+	color:#ffffff;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+App 1000
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.app1000_back {				/*Back-Button*/
+	display:inline-block;
+	color:#b0b0b0;
+}
+
+.app1000_back:hover {		/*Back-Button: Hover*/
+	color:#00a000;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Keyframes
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+@-webkit-keyframes animContextMenu {
+	from {opacity:0;}
+	to {opacity:1;}
+}
+

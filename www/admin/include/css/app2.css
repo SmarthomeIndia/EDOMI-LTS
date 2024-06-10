@@ -1,0 +1,91 @@
+/* 
+*/ 
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Arbeitsbereich
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.app2_pageContainer {			/*Arbeitsbereich-Container*/
+	position:absolute;
+	left:5px;
+	top:80px;
+	right:5px;
+	bottom:5px;
+	border-radius:3px;
+	overflow:hidden;
+}
+
+.app2_page {					/*Arbeitsbereich (zoombar)*/
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+	overflow:auto;
+	background:#808080;
+	-webkit-transform-origin: top left;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Diverses
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+
+.app2_element {					/*Visu-Element*/
+	cursor:pointer;
+}
+
+.app2_element:hover {			/*Visu-Element: Hover*/
+	-webkit-filter:contrast(0.5) brightness(1.5);
+}
+
+.app2_elementSelectRect {		/*Auswahl-Rahmen*/
+	z-index:999999999;
+	background:rgba(0,0,0,0.35);
+	-webkit-filter:invert(0.75);
+	pointer-events:none;
+}
+
+.app2_CrosshairX {				/*Fadenkreuz, waagerecht*/
+	z-index:999999999;
+	left:0px;
+	right:0;
+	background:rgba(0,0,0,0.35);
+	-webkit-filter:invert(0.75);
+}
+
+.app2_CrosshairY {				/*Fadenkreuz, senkrecht*/
+	z-index:999999999;
+	top:0px;
+	bottom:0;
+	background:rgba(0,0,0,0.35);
+	-webkit-filter:invert(0.75);
+}
+
+.app2_pseudoElement { 			/*Style für Beschriftung der [Pseudo-Visu-Elemente] (ZSU, AWS, Dimmer, etc.)*/
+	padding:2px;
+	border-radius:2px;
+	color:#000000;
+	background:#f0f000;
+	font-size:10px;
+	text-shadow:none;
+	text-decoration:none;
+	font-weight:normal;
+	font-style:normal;
+}
+
+.app2_elementMenu { 			/*Style für Beschriftung der Menüeinträge (controltyp)*/
+	padding:2px;
+	border-radius:2px;
+	color:#505050;
+	background:#f0f0f0;
+	font-size:10px;
+	text-shadow:none;
+	text-decoration:none;
+	font-weight:normal;
+	font-style:normal;
+}

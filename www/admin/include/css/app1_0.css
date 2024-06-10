@@ -1,0 +1,461 @@
+/* 
+*/ 
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Arbeitsbereich
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.app1_pageContainer {			/*Arbeitsbereich-Container*/
+	position:absolute;
+	left:5px;
+	top:80px;
+	right:5px;
+	bottom:5px;
+	border-radius:3px;
+	overflow:hidden;
+	background:#c0c0c0;
+	border:3px solid #c0c0c0;
+}
+
+.app1_page {					/*Arbeitsbereich (zoombar)*/
+	position:absolute;
+	left:0px;
+	top:0px;
+	/*
+	Default-Zoomfaktor ist 1, also 100%
+	*/
+	width:100%;
+	height:100%;
+	overflow:auto;
+	background:#c0c0c0;
+	-webkit-transform-origin: top left;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Diverses
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.app1_elementSelectRect {		/*Auswahl-Rahmen*/
+	z-index:999999999;
+	background:rgba(0,0,0,0.1);
+	pointer-events:none;
+}
+
+.app1_CrosshairX {				/*Fadenkreuz, waagerecht*/
+	z-index:999999999;
+	left:5px;
+	right:0;
+	background:#000000;
+	opacity:0.1;
+	border-width:1px;
+	border-style:solid;
+	border-color:#000000;
+}
+
+.app1_CrosshairY {				/*Fadenkreuz, senkrecht*/
+	z-index:999999999;
+	top:5px;
+	bottom:0;
+	background:#000000;
+	opacity:0.1;
+	border-width:1px;
+	border-style:solid;
+	border-color:#000000;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Logik-Bausteine: Allgemein
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+   
+.app1_elId {					/*LBS-ID im Titel*/
+	display:inline;
+	color:#909090;
+	padding-left:3px;
+	padding-right:3px;
+	vertical-align:top;
+}
+
+.app1_elHelp {					/*Hilfe-Link im Titel*/
+	display:inline;
+	color:#909090;
+	padding-left:3px;
+	padding-right:3px;
+	vertical-align:top;
+	border-left:1px dotted #a0a0a0;
+	cursor:pointer;
+}
+.app1_elHelp:hover {			/*Hilfe-Link: Hover*/
+	background:#000000;
+}
+
+.app1_elContainer {				/*LBS-Container*/
+	position:absolute;
+	background:#797979;
+	box-shadow:0 0 5px #404040;
+	cursor:pointer;	
+	border-radius:3px;
+	z-index:1;
+}
+
+.app1_elContainerLayer1 {		/*LBS-Container für Layer 1*/
+	position:absolute;
+	background:#797979;
+	cursor:pointer;
+	border-radius:3px;
+	z-index:1;
+}
+
+.app1_elDefault {				/*leere Zeile*/
+	height:12px;
+	border-bottom:1px solid transparent;
+}
+
+.app1_liveValue { 				/*Style für Live-Werte*/
+	padding-left:1px;
+	padding-right:1px;
+	border-radius:2px;
+	background:#e8e800;
+	color:#000000;
+}
+
+.app1_cellContent {				/*Container für Zellen-Inhalt (wegen Overflow)*/
+	font-size:10px;
+	line-height:12px;
+	height:12px;	/*### Zellenhöhe ist 15px: 12 + 1px Border + 2px cellSpacing*/
+}
+
+.app1_elTitel {					/*LBS-Titel*/
+	height:12px;
+	text-align:left;
+	overflow:hidden;
+	white-space:nowrap;
+	padding-left:3px;
+	color:#000000;
+	background:#ffffff;
+	border-bottom:1px solid #ffffff;
+}
+
+.app1_elTitel:hover {			/*LBS-Titel: Hover*/
+	-webkit-filter:contrast(0.5) brightness(1.5);
+}
+
+.app1_elInput {					/*Eingang: Name des Eingangs*/
+	height:12px;
+	text-align:left;
+	overflow:hidden;
+	white-space:nowrap;
+	color:#ffffff;
+	background:#303030;
+	border-bottom:1px solid #a0a0a0;
+}
+
+.app1_elInputKo {				/*Eingang: KO-Fahne*/
+	left:-52px;
+	line-height:14px;
+	font-size:10px;
+	margin-top:-1px;
+	width:60px;
+	height:14px;
+	border-radius:3px 0 0 3px;
+	text-align:right;
+	color:#000000;
+	background:#80ff00;
+}
+
+.app1_divKoTooltip {			/*Eingang: KO-Fahne: Tooltip*/
+	position:absolute;
+	z-index:1;
+	height:14px;
+	line-height:14px;
+	left:60px;
+	top:0px;
+	overflow:hidden;
+	white-space:nowrap;
+	text-align:left;
+	padding-left:2px;
+	padding-right:2px;
+	color:#000000;
+	background:#80ff00;
+	font-size:10px;
+}
+
+.app1_elInputPin {				/*Eingang: Verbindungs-Pin*/
+	width:6px;
+	height:6px;
+	border-radius:2px 0px 0px 2px;
+	background:#e0e0e0;
+}
+
+.app1_elInputNum { 				/*Eingang: Pfeil und Eingangs-ID*/
+	color:#a0a0a0;
+	padding-left:2px;
+	padding-right:2px;
+	width:1px;
+	background:#303030;
+	border-bottom:1px solid #a0a0a0;
+}
+.app1_elInputNum.col0 {			/*Eingang: Default*/
+	color:#a0a0a0;
+}
+.app1_elInputNum.col1 {			/*Eingang: Trigger*/
+	color:#80e000;
+}
+.app1_elInputNum.col2 {			/*Eingang: Option*/
+	color:#e0e000;
+}
+.app1_elInputNum.col3 {			/*Eingang: Important*/
+	color:#ff8000;
+}
+
+.app1_elInputValue {			/*Eingang: Fixwert/Livewert*/
+	width:30px;
+	min-width:30px;
+	max-width:30px;
+	left:10px;
+	height:12px;
+	overflow:hidden;
+	white-space:nowrap;
+	text-align:center;
+	color:#b0ff00;
+	background:#303030;
+	border-left:1px dotted #909090;
+	border-bottom:1px solid #a0a0a0;
+}
+
+.app1_divValueTooltip {			/*Eingang: Fixwert/Livewert: Tooltip*/
+	min-width:30px;
+	text-align:center;
+	z-index:1;
+	height:12px;
+	line-height:12px;
+	overflow:hidden;
+	white-space:nowrap;
+	color:#b0ff00;
+	background:#303030;
+	border:1px solid #303030;
+	font-size:10px;
+	margin-left:1px;
+}
+
+.app1_elOutput {				/*Ausgang*/
+	height:12px;
+	color:#ffffff;
+	text-align:right;
+	overflow:hidden;
+	white-space:nowrap;
+	padding-left:3px;
+	border-bottom:1px solid #a0a0a0;
+	width:1px;
+}
+
+.app1_elOutputPin {				/*Ausgang: Verbindungs-Pin*/
+	width:6px;
+	height:6px;
+	border-radius:0px 2px 2px 0px;
+	background:#e0e0e0;
+}
+
+.app1_elOutputNum { 			/*Ausgang: Pfeil und Ausgangs-ID*/
+	color:#d0d0d0;
+	padding-left:2px;
+	padding-right:2px;
+	width:1px;
+	text-align:right;
+	border-bottom:1px solid #a0a0a0;
+}
+
+.app1_divTitelInfo { 			/*Bemerkung (unterhalb des Bausteins)*/
+	display:table;
+	white-space:nowrap;
+	margin-top:3px;
+	width:100%;
+	min-height:5px;
+	text-align:left;
+	font-size:10px;
+	color:#3030ff;
+}
+
+.app1_divTitelInfo:hover { 		/*Bemerkung: Hover*/
+	background:#e0e0e0;
+}
+
+.app1_divTitelInfo2 { 			/*Bemerkung (neben dem Baustein)*/
+	display:table;
+	white-space:nowrap;
+	margin-top:-13px;
+	margin-left:calc(100% + 3px);
+	min-width:200px;
+	min-height:12px;
+	text-align:left;
+	font-size:10px;
+	color:#3030ff;
+}
+
+.app1_divTitelInfo2:hover { 		/*Bemerkung: Hover*/
+	background:#e0e0e0;
+}
+
+.app1_divTitelInfoEdit { 			/*Bemerkung und Textbox: Textarea*/
+	display:inline-block;
+	font-family:inherit;
+	width:100%;
+	min-height:30px;
+	height:100%;
+	color:#3030ff;
+	font-size:10px;
+	text-align:left;
+	margin:0;
+	box-sizing:border-box;
+	border:none; 
+	padding:0;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Logik-Bausteine: spezielle Styles für bestimmte Bausteine
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+/*
+Textbox
+---------------------------
+*/
+.app1_elTextboxContainer {		/*Textbox-Container*/
+	position:absolute;
+	background:#ffffff;
+	box-shadow:0 0 5px #404040;
+	cursor:pointer;
+	border-radius:3px;
+	z-index:1;
+}
+
+.app1_elTextboxContainerLayer1 {/*Textbox-Container für Layer 1*/
+	position:absolute;
+	background:#e0e0e0;
+	cursor:pointer;
+	border-radius:3px;
+	z-index:1;
+}
+
+.app1_elTextboxTitel {			/*Textbox-Titel*/
+	height:12px;
+	min-width:300px;
+	text-align:left;
+	overflow:hidden;
+	white-space:nowrap;
+	padding-left:3px;
+	color:#000000;
+	background:#ffffff;
+	border-bottom:1px solid #a0a0a0;
+}
+
+.app1_elTextboxTitel:hover {	/*Textbox-Titel: Hover*/
+	-webkit-filter:contrast(0.5) brightness(1.5);
+}
+
+.app1_divTextboxInfo { 			/*Textbox-Inhalt*/
+	position:relative;
+	min-height:100px;
+	text-align:left;
+	font-size:10px;
+	color:#3030ff;
+	padding:5px;
+	background:#ffffff;
+}
+
+.app1_divTextboxInfo:hover { 	/*Textbox-Inhalt: Hover*/
+	background:#d0d0d0;
+}
+
+
+/*
+Eingangsbox
+---------------------------
+*/
+.app1_elEingangsboxInput { 		/*leerer Eingang für Eingangsbox*/
+	min-width:200px;
+	max-width:200px;
+	height:12px;
+	color:#ffffff;
+	text-align:left;
+	overflow:hidden;
+	white-space:nowrap;
+	background:#303030;
+	border-bottom:1px solid #a0a0a0;
+}
+
+.app1_divEingangsboxTooltip {	/*KO-ID/-Name: Tooltip*/
+	min-width:30px;
+	text-align:center;
+	z-index:1;
+	height:12px;
+	line-height:12px;
+	overflow:hidden;
+	white-space:nowrap;
+	font-size:10px;
+	color:#000000;
+	background:#80ff00;
+	border:1px solid #80ff00;
+}
+
+.app1_elEingangsboxInputKo { 	/*Eingangsbox: KO-ID/-Name*/
+	min-width:200px;
+	max-width:200px;
+	height:12px;
+	color:#000000;
+	text-align:left;
+	overflow:hidden;
+	white-space:nowrap;
+	background:#80ff00;
+	border-bottom:1px solid #a0a0a0;
+}
+
+
+/*
+Ausgangsbox
+---------------------------
+*/
+.app1_elAusgangsboxOutput0 { 	/*Ausgang für Ausgangsbox: 0 Befehle*/
+	height:12px;
+	text-align:right;
+	overflow:hidden;
+	white-space:nowrap;
+	padding-left:3px;
+	padding-right:3px;
+	color:#ffffff;
+	border-bottom:1px solid #a0a0a0;
+	width:1px;
+}
+.app1_elAusgangsboxOutput1 { 	/*Ausgang für Ausgangsbox: 1..oo Befehle*/
+	height:12px;
+	text-align:right;
+	overflow:hidden;
+	white-space:nowrap;
+	padding-left:3px;
+	padding-right:3px;
+	color:#ffffff;
+	background:#ff4000;
+	border-bottom:1px solid #a0a0a0;
+	width:1px;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Keyframes
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+@-webkit-keyframes app1_animElementStatus {	/*Live-Werte: Laufende Bausteine hervorheben*/
+	0% {background:#ff8000;}
+	50% {background:#e8e800;}
+}
+

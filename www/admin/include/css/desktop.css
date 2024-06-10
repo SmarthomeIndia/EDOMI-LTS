@@ -1,0 +1,247 @@
+/* 
+*/ 
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Desktop
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.desktop {						/*Desktop*/
+	position:absolute;
+	z-index:0;
+	overflow:auto;
+	top:0px;
+	left:0px;
+	bottom:0px;
+	right:0px;
+	color:#ffffff;
+	display:block;
+	background:-webkit-radial-gradient(50% 50%,circle farthest-side, #fffff0 0%,#222220 150%);
+}
+
+.desktopLogo {					/*EDOMI-Logo*/
+	display:block;
+	position:absolute;
+	left:168px;
+	top:168px;
+	width:176px;
+	height:176px;
+	border-radius:100%;
+	border:2px solid #292929;
+	color:#aaaaa0;
+	cursor:pointer;
+	background:#343434;
+}
+.desktopLogo:hover {			/*EDOMI-Logo: Hover*/
+	background:#2f2f2f;
+}
+
+.desktopDisc {					/*Scheibe (verdeckt das Hauptmenü)*/
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:516px;
+	height:516px;
+	overflow:hidden;
+	border-radius:5px;
+	color:#aaaaa0;
+	box-shadow:0 0 25px 5px #1f1f1a;
+	background:#343434;
+	-webkit-transition:-webkit-transform 0.3s ease,opacity 0.3s ease,box-shadow 0.9s ease;
+}
+
+.desktopWidgets {				/*Widgets*/
+	display:none;
+	position:absolute;
+	left:0px;
+	top:50px;
+	width:516px;
+	height:416px;
+	white-space:nowrap;
+	background:#343434;
+	color:#ffffff;
+	line-height:11px;
+}
+
+.desktopWidgetBusy {			/*Widget wird geladen*/
+	display:inline-block;
+	width:16px;
+	height:16px;
+	border-radius:16px;
+	border-left:3px solid #80e000;
+	border-right:3px solid #80e000;
+	border-top:3px solid transparent;
+	border-bottom:3px solid transparent;
+	-webkit-animation: animDesktopBusy 0.5s infinite linear;
+}
+
+.desktopControlButton {			/*Content: Steuerbuttons*/
+	display:inline-block;
+	height:25px;
+	cursor:pointer;
+}
+
+.desktopControlButton:hover {	/*Content: Steuerbuttons: Hover*/
+	background:#343434;
+}
+
+.desktopStatus {				/*Content: Uhrzeit und Heartbeat-Animation*/
+	display:block;
+	width:152px;
+	font-size:12px;
+	height:24px;
+	line-height:24px;
+	border-left:1px solid #2f2f2a;
+	border-right:1px solid #2f2f2a;
+	border-bottom:1px solid #2f2f2a; 
+	overflow:hidden;
+	-webkit-animation: animDesktopStatus 0.5s 1 linear;
+}
+
+.desktopError {					/*Fehlermeldung neben dem Logo*/
+	display:none;
+	width:230px;
+	height:80px;
+	font-size:10px;
+	background:#292929;
+	border-radius:15px;
+}
+.desktopErrorLink {				/*Link-DIV: Fehler ausblenden*/
+	display:none;
+	color:#797970;
+	border-radius:2px;
+	cursor:pointer;
+}
+.desktopErrorLink:hover {		/*Link-DIV: Fehler ausblenden*/
+	color:#c0c0c0;
+	background:#797970;
+}
+
+.desktopIcon {					/*Desktop-Icons (Menü)*/
+	display:block;
+	width:208px;
+	height:75px;
+	line-height:75px;
+	margin:0;
+	padding:0;
+	color:#f9f9f0;
+	background:rgba(0,0,0,0.15);
+	cursor:pointer;
+}
+
+.desktopIcon:hover {			/*Desktop-Icons: Hover*/
+	color:#343434;
+	background:#e9e9e0;
+}
+
+.desktopButton {				/*Desktop-Button*/
+	display:inline-block;
+	overflow:hidden;
+	padding:5px;
+	text-align:center;
+	color:#595950;
+	cursor:pointer;
+	margin:1px 1px 1px 0px;
+	line-height:15px;
+	border:1px solid transparent;
+	border-radius:3px;
+	min-width:62px;
+	max-width:250px;
+	min-height:27px;
+	word-wrap:break-word;
+	box-sizing:border-box;
+}
+
+.desktopButton:hover {			/*Desktop-Button: Hover*/
+	color:#343434;
+	background:#e9e9e0;
+}
+
+.desktopNotesButton {			/*Notizen: Button*/
+	display:none;
+	position:absolute;
+	bottom:0;
+	width:50px;
+    margin:0 auto;
+    left:0;
+    right:0;
+	padding:2px 5px 0 5px;
+	border-radius:3px 3px 0 0;
+	background:#ffffff;
+	box-shadow:0 0 3px 2px rgba(0,0,0,0.25);
+	cursor:pointer;
+}
+
+.desktopNotes {					/*Notizen: Container*/
+	display:none;
+	position:absolute;
+	left:0;
+	bottom:0;
+	right:0;
+}
+
+.desktopNotesContent {			/*Notizen: Inhalt*/
+	display:block;
+	height:100%;
+	background:#f0f0e9;
+	overflow:hidden;
+	padding:2px;
+	border-top:1px solid #c0c0c0;
+	box-sizing:border-box;
+}
+
+.desktopNotesInput { 			/*Notizen: Textarea*/	
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	width:100%;
+	display:block;
+	font-family:inherit;
+	font-size:inherit;
+	border:1px solid #d9d9d9;
+	color:#000000;
+	background:#ffffff;
+	line-height:100%;
+	padding:5px;
+	box-sizing:border-box;
+	-webkit-appearance:none;
+	margin:0;
+	resize:none;
+}
+
+.desktopHelp {					/*Hilfe: Container*/
+	display:none;
+	position:absolute;
+	top:0;
+	right:0;
+	bottom:0;
+}
+
+.desktopHelpContent {			/*Hilfe: Inhalt*/
+	display:block;
+	height:100%;
+	overflow:hidden;
+	border-left:1px solid #c0c0c0;
+	text-align:left;
+	box-sizing:border-box;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Keyframes
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+@-webkit-keyframes animDesktopStatus {
+	0% {background:#343434;}
+	50% {background:#343434;}
+	51% {background:#1f1f1a;}
+	100% {background:#1f1f1a;}
+}
+
+@-webkit-keyframes animDesktopBusy {
+	from {-webkit-transform: rotate(0deg);}
+	to {-webkit-transform: rotate(360deg);}
+}

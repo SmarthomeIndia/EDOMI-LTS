@@ -1,0 +1,570 @@
+/* 
+*/ 
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+HTML
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+body {
+	text-align:center;
+	font-size:10px;
+	color:#000000;
+	background:#343434;
+	-webkit-user-select:none;
+	overflow:hidden;
+/*
+Safari: Verhindert, dass Text während einer Animation schlanker wirkt:
+*/
+	-webkit-font-smoothing:subpixel-antialiased;
+}
+
+table {
+	table-layout:fixed;
+}
+
+tr.trSpace > td {				/*fügt vor jedem TR eine weiße Linie ein*/
+  border-top:1px solid #ffffff;
+}
+
+hr {
+	height:1px;
+	margin-top:5px;
+	margin-bottom:5px;
+	padding:0;
+	border-style:none;
+	background:#a0a0a0;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Hilfe
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+ul {							/*für Hilfetexte*/
+	list-style-type:disc;
+/*	list-style-position:inside;*/
+	padding:0;
+	padding-left:10px;
+	margin:0;
+	margin-left:10px;
+}
+
+li {							/*für Hilfetexte*/
+	padding:0;
+	margin:0;
+}
+
+ul ul li {						/*für Hilfetexte, 2. Ebene*/
+	list-style-type:circle;
+	padding:0;
+	margin:0;
+}
+
+h1 {							/*für Hilfetexte*/
+	font-size:13px;
+	padding:0 0 5px 0;
+	margin:0;
+    border-bottom:1px solid #a0a0a0;
+}
+
+
+h2 {							/*für Hilfetexte*/
+	font-size:11px;
+	padding:3px 0 3px 0;
+	margin:0;
+	background:#f0f0e9;
+	border-bottom:1px dotted #a0a0a0;
+}
+
+h3 {							/*für Hilfetexte*/
+	font-size:11px;
+	padding:0 0 3px 0;
+	margin:0;
+	border-bottom:1px dotted #a0a0a0;
+}
+
+a {								/*für Hilfetexte*/
+	text-decoration:none;
+	cursor:pointer;
+	color:#0000e0;
+}
+
+a:hover {						/*für Hilfetexte*/
+	color:#ffffff;
+	background:#0000e0;
+}
+
+.cmdHelp {						/*Help-Button*/
+	display:inline-block;
+	float:right;
+	font-family:inherit;
+	text-align:center;
+	line-height:16px;
+	font-size:9px;
+	width:15px;
+	height:15px;
+	padding:0;
+	margin-right:5px;
+	border-radius:100%;
+	color:#ffffff;
+	background:#808080;
+	cursor:pointer;
+}
+.cmdHelp:before {				/*Help-Button*/
+	content:"?";
+}
+.cmdHelp:hover {				/*Help-Button*/
+	background:#bebebe;
+}
+
+.cmdClose {						/*Schliessen-Button*/
+	display:inline-block;
+	float:right;
+	font-family:inherit;
+	text-align:center;
+	line-height:16px;
+	font-size:9px;
+	width:15px;
+	height:15px;
+	padding:0;
+	margin:0;
+	border-radius:100%;
+	color:#ffffff;
+	background:#808080;
+	cursor:pointer;
+}
+.cmdClose:before {				/*Schliessen-Button*/
+	content:"\00d7";
+}
+.cmdClose:hover {				/*Schliessen-Button*/
+	background:#bebebe;
+}
+.cmdCloseDisabled {				/*Schliessen-Button*/
+	background:#bebebe;
+	cursor:initial;
+}
+
+.menuCatHelp { 					/*Menü-Kategorie*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	text-align:left;
+	width:100%;
+	white-space:nowrap;
+	padding:4px 0 4px 2px;
+	border-bottom:1px dotted #c0c0c0;
+	box-sizing:border-box;
+}
+.menuLinkHelp { 				/*Menü-Eintrag*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	text-align:left;
+	cursor:pointer;
+	width:100%;
+	white-space:nowrap;
+	padding:4px 0 4px 2px;
+	box-sizing:border-box;
+}
+.menuLinkHelp:hover {			/*Menü-Eintrag: Hover*/
+	background:#e0e0e0;
+}
+
+.linkHelp {						/*Help-Link*/
+	font-family:inherit;
+	font-size:inherit;
+	text-decoration:none;
+	cursor:pointer;
+	color:#0000e0;
+}
+
+.linkHelp:hover {				/*Help-Link: Hover*/
+	text-decoration:underline;
+}
+
+.tableHelp {					/*Help-Tabelle*/
+	table-layout:auto;
+	border-collapse:collapse;
+}
+
+.tableHelp tr td {
+	border:1px solid #c0c0c0;
+	padding:3px;
+	vertical-align:top;
+}
+
+.tableHelp tr:first-child {
+	background:#d0d0d0;
+}
+
+.inputHelp {					/*Beispiel-Eingabe*/
+	background:#e9e9e9;
+	font-family:EDOMIfontMono,Menlo,Courier,monospace;
+}
+
+.buttonHelp {					/*Button (funktionslos)*/
+	display:inline-block;
+	font-family:inherit;
+	font-size:inherit;
+	color:#000000; 
+	text-align:center;
+	background:#e9e9e9;
+	padding:1px 5px 1px 5px;
+	margin-right:3px;
+	border-radius:3px;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Apps/Fenster
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.busyContainer {				/*Container für busy-Animation*/
+	position:absolute;
+	z-index:9999999999;
+	top:0px; left:0px; bottom:0px; right:0px;
+	display:none;
+	background-color:transparent;
+	-webkit-animation: animBusyDelay 2s 1 linear forwards;
+}
+
+.appWindowContainer {			/*Container für alle Fenster*/
+	position:absolute;
+	z-index:0;
+	top:0px; left:0px; bottom:0px; right:0px;
+	display:none;
+}
+
+.appWindow {					/*Fenster-Container*/
+	position:absolute;
+	z-index:0;
+	overflow:auto;
+	top:0px; left:0px; bottom:0px; right:0px;
+	text-align:center;
+	font-size:10px;
+	color:#000000;
+	display:block;
+}
+
+.appWindowConfirm {				/*Fenster: Confirm-Dialog*/
+	position:relative;
+	top:0;
+	display:inline-block;
+	border-radius:0 0 3px 3px;
+	padding:15px;
+	box-shadow:3px 10px 40px #303030;
+	color:#f0f0f0;
+	background:#343434;
+	-webkit-animation: animWindowConfirm 0.2s ease-in forwards;
+	text-align:left;
+}
+
+.appWindowNormal {				/*Fenster: Dynamische Größe (die jeweilige App definiert die Größe)*/
+	position:relative;
+	display:inline-block;
+	border-radius:3px;
+	box-shadow:3px 10px 40px #303030;
+	background:-webkit-linear-gradient(top, #ffffff 0px,#f0f0e9 74px,#ffffff 74px);
+	background-repeat:no-repeat;
+	text-align:left;
+}
+
+.appWindowDrag {				/*Fenster: Dynamische Größe (die jeweilige App definiert die Größe), verschiebbar*/
+	position:relative;
+	display:inline-block;
+	border-radius:3px;
+	box-shadow:3px 10px 40px #303030;
+	background:-webkit-linear-gradient(top, #ffffff 0px,#f0f0e9 74px,#ffffff 74px);
+	background-repeat:no-repeat;
+	text-align:left;
+}
+
+.appWindowFullscreen {			/*Fenster: Fullscreen*/
+	position:absolute;
+	top:0px; left:0px; bottom:0px; right:0px;
+	background:-webkit-linear-gradient(top, #ffffff 0px,#f0f0e9 74px,#ffffff 74px);
+	background-repeat:no-repeat;
+	text-align:left;
+}
+
+.appWindowOverlay { 			/*app1000: Edit-Overlay als Container für Formulare*/
+	position:absolute;
+	display:none;
+	left:0px;
+	top:0px;
+	right:0px;
+	bottom:0px;
+	border-radius:3px;
+	background:-webkit-linear-gradient(top, #ffffff 0px,#f0f0e9 74px,#ffffff 74px,#ffffff 76px,#f0f0e9 76px,#f0f0e9 100%); /*einschl. Formular-BG*/
+	background-repeat:no-repeat;
+	text-align:left;
+	overflow:auto;
+}
+
+.appTitel {						/*Fenster: Titelleiste*/
+	position:relative;
+	overflow:hidden;
+	top:0px; left:0px; right:5px;
+	margin:0px 1px 10px;
+	padding:10px 5px 5px 5px;
+	height:15px;
+	font-size:13px;
+	font-weight:bold;
+	color:#343434;
+}
+
+.appTitelDrag {					/*Fenster: Titelleiste für verschiebbare Fenster*/
+	position:relative;
+	overflow:hidden;
+	top:0px; left:0px; right:5px;
+	margin:0px 1px 10px;
+	padding:10px 5px 5px 5px;
+	height:15px;
+	font-size:13px;
+	font-weight:bold;
+	color:#343434;
+	cursor:move;
+}
+
+.appMenu {						/*Fenster: Menüleiste*/
+	text-align:left;
+	padding:0 5px 0 5px;
+	margin-top:10px;
+	overflow:hidden;
+}
+
+.appContent {					/*Fenster: Content*/
+	margin-top:7px;
+	background:#f0f0e9;
+	padding:10px;
+	overflow:auto;
+	border-bottom-left-radius:3px;
+	border-bottom-right-radius:3px;
+}
+
+.appContentBlank {				/*Fenster: Content*/
+	margin-top:7px;
+	padding:5px;
+	overflow:auto;
+	border-bottom-left-radius:3px;
+	border-bottom-right-radius:3px;
+}
+
+.pbAnim {						/*Progress-Bar (universell): Dauer muss/kann per ...style.webkitAnimationDuration='5s' angepaßt werden*/
+	background:#80e000;
+	-webkit-animation: animProgressbar 1.0s 1 linear;
+	-webkit-animation-fill-mode: forwards;
+}
+
+.id {							/*allgemeine ID-Anzeige, z.B. "Visuseite (id)"*/
+	background:#909090;
+	color:#ffffff;
+	border-radius:6px;
+	padding-left:3px;
+	padding-right:3px;
+	vertical-align:top;
+}
+.idBig {							/*allgemeine ID-Anzeige (groß), z.B. "Visuseite (id)"*/
+	background:#909090;
+	color:#ffffff;
+	border-radius:8px;
+	padding-left:4px;
+	padding-right:4px;
+	font-size:13px;
+	vertical-align:top;
+/*
+	Achtung: fontsize sollte zur Class "formTitel" passen
+*/
+}
+.idGa1 {						/*ID-Anzeige: KNX-GA*/
+	background:#209020;
+	color:#ffffff;
+	padding-left:2px;
+	padding-right:2px;
+}
+.idGa2 {						/*ID-Anzeige: internes KO*/
+	background:#606060;
+	color:#ffffff;
+	padding-left:2px;
+	padding-right:2px;
+}
+
+.busyAnim {						/*Busy (grüner Warte-Kringel)*/
+	position:relative;
+	width:40px;
+	height:40px;
+	border-radius:40px;
+	border-left:6px solid #80e000;
+	border-right:6px solid #80e000;
+	border-top:5px solid transparent;
+	border-bottom:5px solid transparent;
+	-webkit-animation: animBusy 1s infinite ease-in-out;
+}
+
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Server-Status/Info für app0.php (Statistik-Widget)
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.serverInfo {					/*Statistik: Zelle (normal)*/
+	color:#ffffff;
+	padding:2px;
+}
+
+.serverInfo1 {					/*Statistik: Zelle (Warnung)*/
+	color:#ff0000;
+	padding:2px;
+}
+
+.serverInfo2 {					/*Statistik: Zelle (Hinweis)*/
+	color:#f0e000;
+	padding:2px;
+}
+
+.serverStatus00 {				/*Grau: Prozess läuft nicht, ist aber deaktiviert*/
+	display:inline-block;
+	margin-bottom:1px;
+	padding:2px 0 2px 0;
+	text-align:center;
+	color:#343434;
+	background:#a0a0a0;
+	min-width:35px;
+	width:100%;
+	border-radius:2px;
+	box-sizing:border-box;
+}
+
+.serverStatus0 {				/*Rot: Prozess läuft nicht*/
+	display:inline-block;
+	margin-bottom:1px;
+	padding:2px 0 2px 0;
+	text-align:center;
+	color:#343434;
+	background:#ff0000;
+	min-width:35px;
+	width:100%;
+	border-radius:2px;
+	box-sizing:border-box;
+}
+
+.serverStatus1 {				/*Gelb: Prozess läuft, arbeitet aber nicht*/
+	display:inline-block;
+	margin-bottom:1px;
+	padding:2px 0 2px 0;
+	text-align:center;
+	color:#343434;
+	background:#f0e000;
+	min-width:35px;
+	width:100%;
+	border-radius:2px;
+	box-sizing:border-box;
+}
+
+.serverStatus2 {				/*Grün: Prozess läuft und arbeitet*/
+	display:inline-block;
+	margin-bottom:1px;
+	padding:2px 0 2px 0;
+	text-align:center;
+	color:#343434;
+	background:#20e000;
+	min-width:35px;
+	width:100%;
+	border-radius:2px;
+	box-sizing:border-box;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Spezielle Labels
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.labelBorder {					/*z.B. für Rahmenfarbe, Eckenradius, ...*/
+	display:inline-block; 
+	width:0.5em; 
+	height:0.5em; 
+	border:2px solid #b0b0b0;
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------
+Keyframes
+-------------------------------------------------------------------------------------------------------------------------------
+*/
+
+@-webkit-keyframes animFlash {
+	0% {-webkit-transform: translateY(0px);}
+	30% {-webkit-transform: translateY(-5px);}
+	60% {-webkit-transform: translateY(0px);}
+	80% {-webkit-transform: translateY(-3px);}
+	100% {-webkit-transform: translateY(0px);}
+}
+
+@-webkit-keyframes animShake {
+	0% {-webkit-transform: translate(0px);}
+	20% {-webkit-transform: translate(-10px);}
+	40% {-webkit-transform: translate(10px);}
+	60% {-webkit-transform: translate(-10px);}
+	80% {-webkit-transform: translate(10px);}
+	100% {-webkit-transform: translate(0px);}
+}
+
+@-webkit-keyframes animWindow {
+	from {opacity:0; -webkit-transform: scale(0.75);}
+	to {opacity:1; -webkit-transform: scale(1);}
+}
+
+@-webkit-keyframes animWindowConfirm {
+	from {opacity:0; -webkit-transform: translateY(-100px);}
+	to {opacity:1; -webkit-transform: translateY(0px);}
+}
+
+@-webkit-keyframes animProgressbar {
+	0% {-webkit-transform: scaleX(1);}
+	100% {-webkit-transform: scaleX(0);}
+}
+
+@-webkit-keyframes animBusy {
+	0% {-webkit-transform: rotate(0deg);}
+	100% {-webkit-transform: rotate(360deg);}
+}
+
+@-webkit-keyframes animBusyDelay {
+	0% {background:transparent;}
+	90% {background:transparent;}
+	100% {background:rgba(0,0,0,0.3);}
+}
+
+@-webkit-keyframes animDesktopButtonRestart {
+	0% {background:initial;}
+	1% {background:#e00000;}
+	50% {background:#e00000;}
+	51% {background:initial;}
+	100% {background:initial;}
+}
+
+@-webkit-keyframes animDesktopButtonStart {
+	0% {background:initial;}
+	1% {background:#80e000;}
+	50% {background:#80e000;}
+	51% {background:initial;}
+	100% {background:initial;}
+}
+
+@-webkit-keyframes animDesktopButtonPause {
+	0% {background:initial;}
+	1% {background:#e0e000;}
+	50% {background:#e0e000;}
+	51% {background:initial;}
+	100% {background:initial;}
+}
