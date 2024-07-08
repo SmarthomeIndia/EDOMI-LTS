@@ -1,9 +1,9 @@
 ###[DEF]###
-[name		=	]
+[name        =    ]
 
-[e#1		=	]
+[e#1        =    ]
 
-[a#1		=	]
+[a#1        =    ]
 ###[/DEF]###
 
 
@@ -14,13 +14,15 @@ Vorlage: Standard-LBS
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-	
-		//eigener Code...
-		
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+
+        //eigener Code...
+
+    }
 }
+
 ?>
 ###[/LBS]###
 

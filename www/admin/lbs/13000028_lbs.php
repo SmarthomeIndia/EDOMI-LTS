@@ -1,13 +1,13 @@
 ###[DEF]###
-[name		=Auswahlschalter]
+[name        =Auswahlschalter]
 
-[e#1 TRIGGER=Trigger  	]
-[e#2 	=Initial-Status	]
+[e#1 TRIGGER=Trigger    ]
+[e#2    =Initial-Status    ]
 
-[a#1		=Status	]
-[a#2		=Flanke	]
+[a#1        =Status    ]
+[a#2        =Flanke    ]
 
-[v#1		=		]
+[v#1        =        ]
 ###[/DEF]###
 
 
@@ -26,7 +26,7 @@ Wird nun E1 auf "0" gesetzt, wird A2 auf den Wert "1/0" gesetzt. Wird nun E1 auf
 
 
 Beim Start von EDOMI ist der interne Statuswert =[leer], d.h. jeder Trigger &ne;[leer] an E1 führt zu einer entsprechenden Reaktion des Bausteins.
-An E2 kann bei Bedarf ein Statuswert angelegt werden: Dieser Statuswert wird beim Start von EDOMI vom Baustein einmalig(!) übernommen. Die Ausgänge werden dabei nicht(!) verändert, der Statuswert wird lediglich intern als Vergleichswert abgelegt. 
+An E2 kann bei Bedarf ein Statuswert angelegt werden: Dieser Statuswert wird beim Start von EDOMI vom Baustein einmalig(!) übernommen. Die Ausgänge werden dabei nicht(!) verändert, der Statuswert wird lediglich intern als Vergleichswert abgelegt.
 Beispielsweise kann an E2 ein remanentes KO angelegt werden, das zugleich über A1 stets auf den aktuellen Status gesetzt wird. Bei einem Neustart von EDOMI wird dieser Statuswert dann intern übernommen.
 
 
@@ -39,29 +39,31 @@ A2: Flanken-Status (s.o.)
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		if ((!isEmpty($E[1]['value'])) && $E[1]['refresh']==1) {
-			$V1=logic_getVar($id,1);
+        if ((!isEmpty($E[1]['value'])) && $E[1]['refresh'] == 1) {
+            $V1 = logic_getVar($id, 1);
 
-			if ((string)$E[1]['value']!==(string)$V1) {
-				logic_setOutput($id,1,$E[1]['value']);
-				logic_setOutput($id,2,((isEmpty($V1))?'?':$V1).'/'.$E[1]['value']);			
-				logic_setVar($id,1,$E[1]['value']);
-			}
-		}
+            if ((string)$E[1]['value'] !== (string)$V1) {
+                logic_setOutput($id, 1, $E[1]['value']);
+                logic_setOutput($id, 2, ((isEmpty($V1)) ? '?' : $V1) . '/' . $E[1]['value']);
+                logic_setVar($id, 1, $E[1]['value']);
+            }
+        }
 
-		//Status intern beim Start setzen (z.B. durch remanentes KO)
-		if ((!isEmpty($E[2]['value'])) && $E[2]['refresh']==1) {
-			$V1=logic_getVar($id,1);
-			if (isEmpty($V1)) {
-				logic_setVar($id,1,$E[2]['value']);
-			}
-		}
+        //Status intern beim Start setzen (z.B. durch remanentes KO)
+        if ((!isEmpty($E[2]['value'])) && $E[2]['refresh'] == 1) {
+            $V1 = logic_getVar($id, 1);
+            if (isEmpty($V1)) {
+                logic_setVar($id, 1, $E[2]['value']);
+            }
+        }
 
-	}
+    }
 }
+
 ?>
 ###[/LBS]###
 

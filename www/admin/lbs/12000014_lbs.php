@@ -1,9 +1,9 @@
 ###[DEF]###
-[name		=Ausgangsbox: Vergleichswert=&#91;leer&#93;	]
-[titel		=Ausgangsbox			]
+[name        =Ausgangsbox: Vergleichswert=&#91;leer&#93;    ]
+[titel        =Ausgangsbox            ]
 
-[e#1 TRIGGER=Trigger			]
-[e#2		=Vergleichswert					]
+[e#1 TRIGGER=Trigger            ]
+[e#2        =Vergleichswert                    ]
 ###[/DEF]###
 
 
@@ -19,13 +19,15 @@ E2: Vergleichswert: die Befehle werden nur ausgeführt, wenn der Vergleichswert 
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if (!isEmpty($E[1]['value']) && $E[1]['refresh']==1 && isEmpty($E[2]['value'])) {
-			mainLogicExecuteCmdList($id,$E[1]['value']);
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if (!isEmpty($E[1]['value']) && $E[1]['refresh'] == 1 && isEmpty($E[2]['value'])) {
+            mainLogicExecuteCmdList($id, $E[1]['value']);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

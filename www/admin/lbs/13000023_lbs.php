@@ -1,24 +1,24 @@
 ###[DEF]###
-[name		=Triggerfolge 5-fach	]
-[titel		=Triggerfolge			]
+[name        =Triggerfolge 5-fach    ]
+[titel        =Triggerfolge            ]
 
-[e#1 TRIGGER		=A 								]
-[e#2				=Wartezeit bis B (s) 	#init=0	]
-[e#3 TRIGGER		=B								]
-[e#4				=Wartezeit bis C (s) 	#init=0	]
-[e#5 TRIGGER		=C								]
-[e#6				=Wartezeit bis D (s) 	#init=0	]
-[e#7 TRIGGER		=D								]
-[e#8				=Wartezeit bis E (s) 	#init=0	]
-[e#9 TRIGGER		=E								]
-[e#10 TRIGGER		=Stoppbar				#init=0	]
+[e#1 TRIGGER        =A                                ]
+[e#2                =Wartezeit bis B (s)    #init=0    ]
+[e#3 TRIGGER        =B                                ]
+[e#4                =Wartezeit bis C (s)    #init=0    ]
+[e#5 TRIGGER        =C                                ]
+[e#6                =Wartezeit bis D (s)    #init=0    ]
+[e#7 TRIGGER        =D                                ]
+[e#8                =Wartezeit bis E (s)    #init=0    ]
+[e#9 TRIGGER        =E                                ]
+[e#10 TRIGGER        =Stoppbar                #init=0    ]
 
-[a#1		=Start		]
-[a#2		=Erfolg		]
-[a#3		=Abbruch	]
+[a#1        =Start        ]
+[a#2        =Erfolg        ]
+[a#3        =Abbruch    ]
 
-[v#1		=0						]
-[v#2		=0						]
+[v#1        =0                        ]
+[v#2        =0                        ]
 ###[/DEF]###
 
 
@@ -58,70 +58,84 @@ A3: wird bei jedem Start des Bausteins auf 0 gesetzt. Bei einem Timeout/Abbruch 
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
-		if (logic_getState($id)==0) {
-			//Start
-			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-				$V[1]=0;
-				$V=LB_LBSID_nextTrigger($id,$E,$V);
-				if ($V[1]>0) {
-					logic_setOutput($id,1,1);
-					logic_setOutput($id,2,0);
-					logic_setOutput($id,3,0);
-				}
-			}
-				
-		} else {
-			//Stop
-			if ($E[1]['value']==0 && $E[1]['refresh']==1 && $E[10]['value']!=0) {
-				logic_setOutput($id,1,0);
-				logic_setOutput($id,3,1);
-				logic_setState($id,0);
-				return;
-			}
+function LB_LBSID($id)
+{
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
+        if (logic_getState($id) == 0) {
+            //Start
+            if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+                $V[1] = 0;
+                $V = LB_LBSID_nextTrigger($id, $E, $V);
+                if ($V[1] > 0) {
+                    logic_setOutput($id, 1, 1);
+                    logic_setOutput($id, 2, 0);
+                    logic_setOutput($id, 3, 0);
+                }
+            }
 
-			//Timeout: Abbruch
-			if (getMicrotime()>=$V[2]) {
-				logic_setOutput($id,1,0);
-				logic_setOutput($id,3,1);
-				logic_setState($id,0);
+        } else {
+            //Stop
+            if ($E[1]['value'] == 0 && $E[1]['refresh'] == 1 && $E[10]['value'] != 0) {
+                logic_setOutput($id, 1, 0);
+                logic_setOutput($id, 3, 1);
+                logic_setState($id, 0);
+                return;
+            }
 
-			//auf Trigger B..E warten (und nächsten Trigger B..E aktivieren)
-			} else {	
-				if ($V[1]==1 && $E[3]['value']!=0 && $E[3]['refresh']==1) {$V=LB_LBSID_nextTrigger($id,$E,$V);}
-				else if ($V[1]==2 && $E[5]['value']!=0 && $E[5]['refresh']==1) {$V=LB_LBSID_nextTrigger($id,$E,$V);}
-				else if ($V[1]==3 && $E[7]['value']!=0 && $E[7]['refresh']==1) {$V=LB_LBSID_nextTrigger($id,$E,$V);}
-				else if ($V[1]==4 && $E[9]['value']!=0 && $E[9]['refresh']==1) {$V=LB_LBSID_nextTrigger($id,$E,$V);}
+            //Timeout: Abbruch
+            if (getMicrotime() >= $V[2]) {
+                logic_setOutput($id, 1, 0);
+                logic_setOutput($id, 3, 1);
+                logic_setState($id, 0);
 
-				//keinen nächsten Trigger gefunden => Erfolg
-				if ($V[1]==0) {
-					logic_setOutput($id,1,0);
-					logic_setOutput($id,2,1);
-				}
-			}
-		}
-	}
+                //auf Trigger B..E warten (und nächsten Trigger B..E aktivieren)
+            } else {
+                if ($V[1] == 1 && $E[3]['value'] != 0 && $E[3]['refresh'] == 1) {
+                    $V = LB_LBSID_nextTrigger($id, $E, $V);
+                } else if ($V[1] == 2 && $E[5]['value'] != 0 && $E[5]['refresh'] == 1) {
+                    $V = LB_LBSID_nextTrigger($id, $E, $V);
+                } else if ($V[1] == 3 && $E[7]['value'] != 0 && $E[7]['refresh'] == 1) {
+                    $V = LB_LBSID_nextTrigger($id, $E, $V);
+                } else if ($V[1] == 4 && $E[9]['value'] != 0 && $E[9]['refresh'] == 1) {
+                    $V = LB_LBSID_nextTrigger($id, $E, $V);
+                }
+
+                //keinen nächsten Trigger gefunden => Erfolg
+                if ($V[1] == 0) {
+                    logic_setOutput($id, 1, 0);
+                    logic_setOutput($id, 2, 1);
+                }
+            }
+        }
+    }
 }
 
-function LB_LBSID_nextTrigger($id,$E,$V) {
-	if ($V[1]<1 && $E[2]['value']>0) {$V[1]=1;}
-	else if ($V[1]<2 && $E[4]['value']>0) {$V[1]=2;}
-	else if ($V[1]<3 && $E[6]['value']>0) {$V[1]=3;}
-	else if ($V[1]<4 && $E[8]['value']>0) {$V[1]=4;}
-	else {$V[1]=0;}
-	logic_setVar($id,1,$V[1]);
+function LB_LBSID_nextTrigger($id, $E, $V)
+{
+    if ($V[1] < 1 && $E[2]['value'] > 0) {
+        $V[1] = 1;
+    } else if ($V[1] < 2 && $E[4]['value'] > 0) {
+        $V[1] = 2;
+    } else if ($V[1] < 3 && $E[6]['value'] > 0) {
+        $V[1] = 3;
+    } else if ($V[1] < 4 && $E[8]['value'] > 0) {
+        $V[1] = 4;
+    } else {
+        $V[1] = 0;
+    }
+    logic_setVar($id, 1, $V[1]);
 
-	if ($V[1]>0) {
-		$V[2]=getMicrotime()+$E[$V[1]*2]['value'];
-		logic_setVar($id,2,$V[2]);
-		logic_setState($id,1,$E[$V[1]*2]['value']*1000);			
-	} else {
-		logic_setState($id,0);
-	}
+    if ($V[1] > 0) {
+        $V[2] = getMicrotime() + $E[$V[1] * 2]['value'];
+        logic_setVar($id, 2, $V[2]);
+        logic_setState($id, 1, $E[$V[1] * 2]['value'] * 1000);
+    } else {
+        logic_setState($id, 0);
+    }
 
-	return $V;
+    return $V;
 }
+
 ?>
 ###[/LBS]###
 

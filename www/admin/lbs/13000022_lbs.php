@@ -1,10 +1,10 @@
 ###[DEF]###
-[name		=Wertauslöser			]
+[name        =Wertauslöser            ]
 
-[e#1 TRIGGER=Trigger 				]
-[e#2		=Wert					]
+[e#1 TRIGGER=Trigger                ]
+[e#2        =Wert                    ]
 
-[a#1		=			]
+[a#1        =            ]
 ###[/DEF]###
 
 
@@ -24,13 +24,15 @@ A1: Wert von E2
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-			logic_setOutput($id,1,$E[2]['value']);
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+            logic_setOutput($id, 1, $E[2]['value']);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

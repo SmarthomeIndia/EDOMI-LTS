@@ -1,18 +1,18 @@
 ###[DEF]###
-[name		=ODER-Gatter 8-fach	]
-[titel		=ODER				]
+[name        =ODER-Gatter 8-fach    ]
+[titel        =ODER                ]
 
-[e#1 TRIGGER=#init=0				]
-[e#2 TRIGGER=#init=0				]
-[e#3 TRIGGER=#init=0				]
-[e#4 TRIGGER=#init=0				]
-[e#5 TRIGGER=#init=0				]
-[e#6 TRIGGER=#init=0				]
-[e#7 TRIGGER=#init=0				]
-[e#8 TRIGGER=#init=0				]
+[e#1 TRIGGER=#init=0                ]
+[e#2 TRIGGER=#init=0                ]
+[e#3 TRIGGER=#init=0                ]
+[e#4 TRIGGER=#init=0                ]
+[e#5 TRIGGER=#init=0                ]
+[e#6 TRIGGER=#init=0                ]
+[e#7 TRIGGER=#init=0                ]
+[e#8 TRIGGER=#init=0                ]
 
-[a#1		=					]
-[a#2		=+					]
+[a#1        =                    ]
+[a#2        =+                    ]
 ###[/DEF]###
 
 
@@ -32,16 +32,18 @@ A2: Anzahl der Eingänge &ne;0 (0..8)
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		$tmp=0;
-		for ($t=1;$t<=8;$t++) {
-			$tmp+=(($E[$t]['value']!=0)?1:0);
-		}
-		logic_setOutput($id,1,(($tmp>0)?1:0));
-		logic_setOutput($id,2,$tmp);
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        $tmp = 0;
+        for ($t = 1; $t <= 8; $t++) {
+            $tmp += (($E[$t]['value'] != 0) ? 1 : 0);
+        }
+        logic_setOutput($id, 1, (($tmp > 0) ? 1 : 0));
+        logic_setOutput($id, 2, $tmp);
+    }
 }
+
 ?>
 ###[/LBS]###
 

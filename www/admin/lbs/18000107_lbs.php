@@ -1,19 +1,19 @@
 ###[DEF]###
-[name		=Prozess-Status: VISU	]
+[name        =Prozess-Status: VISU    ]
 
-[e#1 TRIGGER=Trigger 			]
+[e#1 TRIGGER=Trigger            ]
 
-[a#1		=Status						]
-[a#2		=Online						]
-[a#3		=Queuegröße					]
-[a#4		=Aktualisierungen/s			]
-[a#5		=Elemente/s					]
-[a#6		=Trigger/s					]
-[a#7		=Seitenaufrufe/s			]
-[a#8		=Senden (kb/s)				]
-[a#9		=Empfangen (kb/s)			]
-[a#10		=PROC-RAM					]
-[a#11		=KO							]
+[a#1        =Status                        ]
+[a#2        =Online                        ]
+[a#3        =Queuegröße                    ]
+[a#4        =Aktualisierungen/s            ]
+[a#5        =Elemente/s                    ]
+[a#6        =Trigger/s                    ]
+[a#7        =Seitenaufrufe/s            ]
+[a#8        =Senden (kb/s)                ]
+[a#9        =Empfangen (kb/s)            ]
+[a#10        =PROC-RAM                    ]
+[a#11        =KO                            ]
 ###[/DEF]###
 
 
@@ -24,7 +24,8 @@ Dieser Baustein gibt an den Ausgängen bei jedem Triggern (E1) die unten genannt
 An E1 kann z.B. das System-KO[5] (Systemzeit) angelegt werden, um sekündlich aktuelle Werte an den Ausgängen zu erhalten.
 Alternativ kann z.B. das System-KO[26] (Trigger: Minütlich) an E1 angelegt werden, zusätzlich kann ein Initialwert 1 angegeben werden - dies führt dazu, dass der Baustein beim Start (Initialwert) und anschließend zu jeder vollen Minute getriggert wird.
 
-Weitere Informationen können ggf. der Hilfe zur <link>Statusseite***0-0</link> entnommen werden.
+Weitere Informationen können ggf. der Hilfe zur
+<link>Statusseite***0-0</link> entnommen werden.
 
 <b>Hinweis:</b>
 Wenn keine Visualisierungen verfügbar sind, erfolgt keine Reaktion an den Ausgängen.
@@ -48,28 +49,30 @@ A11: Gesamtanzahl der auf Änderung überwachten Kommunikationsobjekte
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if (!isEmpty($E[1]['value']) && $E[1]['refresh']==1) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if (!isEmpty($E[1]['value']) && $E[1]['refresh'] == 1) {
 
-			$r=procStatus_getData(7);
-			if (!isEmpty($r[0])) {
-				logic_setOutput($id,1,$r[0]);
-				logic_setOutput($id,2,$r[1]);
-				logic_setOutput($id,3,$r[8]);
-				logic_setOutput($id,4,$r[2]);
-				logic_setOutput($id,5,$r[3]);
-				logic_setOutput($id,6,$r[4]);
-				logic_setOutput($id,7,$r[5]);
-				logic_setOutput($id,8,round($r[6]/1024,2));
-				logic_setOutput($id,9,round($r[7]/1024,2));
-				logic_setOutput($id,10,$r[20]);
-				logic_setOutput($id,11,$r[9]);
-			}
-	
-		}			
-	}
+            $r = procStatus_getData(7);
+            if (!isEmpty($r[0])) {
+                logic_setOutput($id, 1, $r[0]);
+                logic_setOutput($id, 2, $r[1]);
+                logic_setOutput($id, 3, $r[8]);
+                logic_setOutput($id, 4, $r[2]);
+                logic_setOutput($id, 5, $r[3]);
+                logic_setOutput($id, 6, $r[4]);
+                logic_setOutput($id, 7, $r[5]);
+                logic_setOutput($id, 8, round($r[6] / 1024, 2));
+                logic_setOutput($id, 9, round($r[7] / 1024, 2));
+                logic_setOutput($id, 10, $r[20]);
+                logic_setOutput($id, 11, $r[9]);
+            }
+
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

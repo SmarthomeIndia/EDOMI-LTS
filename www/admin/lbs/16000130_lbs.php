@@ -1,22 +1,22 @@
 ###[DEF]###
-[name		=Datum/Uhrzeit			]
+[name        =Datum/Uhrzeit            ]
 
-[e#1 TRIGGER	=Trigger 			]
+[e#1 TRIGGER    =Trigger            ]
 
-[a#1		=Datum (DPT11)	]
-[a#2		=Zeit (DPT10)	]
-[a#3		=Datum			]
-[a#4		=Wochentag		]
-[a#5		=WochentagID	]
-[a#6		=Kalenderwoche	]
-[a#7		=Tag			]
-[a#8		=Monat			]
-[a#9		=Jahr			]
-[a#10		=Uhrzeit		]
-[a#11		=Stunde			]
-[a#12		=Minute			]
-[a#13		=Sekunde		]
-[a#14		=Mikrosekunden	]
+[a#1        =Datum (DPT11)    ]
+[a#2        =Zeit (DPT10)    ]
+[a#3        =Datum            ]
+[a#4        =Wochentag        ]
+[a#5        =WochentagID    ]
+[a#6        =Kalenderwoche    ]
+[a#7        =Tag            ]
+[a#8        =Monat            ]
+[a#9        =Jahr            ]
+[a#10        =Uhrzeit        ]
+[a#11        =Stunde            ]
+[a#12        =Minute            ]
+[a#13        =Sekunde        ]
+[a#14        =Mikrosekunden    ]
 ###[/DEF]###
 
 
@@ -49,29 +49,31 @@ A14: Mikrosekunde (als Float)
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-			global $global_weekdays;
-			$t=microtime(true);
-			
-			logic_setOutput($id,1,date("Y-m-d",$t));	//internes Format für DPT11
-			logic_setOutput($id,2,date("N.H:i:s",$t));	//internes Format für DPT10
-			logic_setOutput($id,3,date("d.m.Y",$t));
-			logic_setOutput($id,4,$global_weekdays[date("N",$t)-1]);
-			logic_setOutput($id,5,date("N",$t));
-			logic_setOutput($id,6,date("W",$t));
-			logic_setOutput($id,7,date("d",$t));
-			logic_setOutput($id,8,date("m",$t));
-			logic_setOutput($id,9,date("Y",$t));
-			logic_setOutput($id,10,date("H:i:s",$t));
-			logic_setOutput($id,11,date("H",$t));
-			logic_setOutput($id,12,date("i",$t));
-			logic_setOutput($id,13,date("s",$t));
-			logic_setOutput($id,14,strval($t-floor($t)));
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+            global $global_weekdays;
+            $t = microtime(true);
+
+            logic_setOutput($id, 1, date("Y-m-d", $t));    //internes Format für DPT11
+            logic_setOutput($id, 2, date("N.H:i:s", $t));    //internes Format für DPT10
+            logic_setOutput($id, 3, date("d.m.Y", $t));
+            logic_setOutput($id, 4, $global_weekdays[date("N", $t) - 1]);
+            logic_setOutput($id, 5, date("N", $t));
+            logic_setOutput($id, 6, date("W", $t));
+            logic_setOutput($id, 7, date("d", $t));
+            logic_setOutput($id, 8, date("m", $t));
+            logic_setOutput($id, 9, date("Y", $t));
+            logic_setOutput($id, 10, date("H:i:s", $t));
+            logic_setOutput($id, 11, date("H", $t));
+            logic_setOutput($id, 12, date("i", $t));
+            logic_setOutput($id, 13, date("s", $t));
+            logic_setOutput($id, 14, strval($t - floor($t)));
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

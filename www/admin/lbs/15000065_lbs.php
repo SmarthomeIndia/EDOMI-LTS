@@ -1,11 +1,11 @@
 ###[DEF]###
-[name		=Quantisierung						]
+[name        =Quantisierung                        ]
 
-[e#1 TRIGGER	=						]
-[e#2 			=Raster #init=1			]
+[e#1 TRIGGER    =                        ]
+[e#2            =Raster #init=1            ]
 
-[a#1			=Q						]
-[a#2			=(Q)					]
+[a#1            =Q                        ]
+[a#2            =(Q)                    ]
 ###[/DEF]###
 
 
@@ -42,19 +42,21 @@ A2: wird bei jedem Trigger (E1) auf den quantisierten Wert gesetzt, sofern E1 re
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		if ($E[1]['refresh']==1 && !isEmpty($E[1]['value']) && is_numeric($E[1]['value']) && $E[2]['value']>0) {
-			$tmp=intval(strval($E[1]['value']/$E[2]['value']))*$E[2]['value'];
-			logic_setOutput($id,1,$tmp);		
-			if ((string)$tmp===(string)$E[1]['value']) {
-				logic_setOutput($id,2,$E[1]['value']);		
-			}
-		}
-		
-	}
+        if ($E[1]['refresh'] == 1 && !isEmpty($E[1]['value']) && is_numeric($E[1]['value']) && $E[2]['value'] > 0) {
+            $tmp = intval(strval($E[1]['value'] / $E[2]['value'])) * $E[2]['value'];
+            logic_setOutput($id, 1, $tmp);
+            if ((string)$tmp === (string)$E[1]['value']) {
+                logic_setOutput($id, 2, $E[1]['value']);
+            }
+        }
+
+    }
 }
+
 ?>
 ###[/LBS]###
 

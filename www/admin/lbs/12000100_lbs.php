@@ -1,8 +1,8 @@
 ###[DEF]###
-[name		=KO-Initialisierung			]
+[name        =KO-Initialisierung            ]
 
-[e#1 TRIGGER=Trigger					]
-[e#2		=KO &harr;	 				]
+[e#1 TRIGGER=Trigger                    ]
+[e#2        =KO &harr;                    ]
 ###[/DEF]###
 
 
@@ -27,13 +27,15 @@ E2: KO: dieses Kommunikationsobjekt wird auf den Wert an E1 gesetzt, sofern das 
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if (!isEmpty($E[1]['value']) && $E[1]['refresh']==1 && isEmpty($E[2]['value'])) {
-			logic_setInputKoValue($id,2,$E[1]['value']);
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if (!isEmpty($E[1]['value']) && $E[1]['refresh'] == 1 && isEmpty($E[2]['value'])) {
+            logic_setInputKoValue($id, 2, $E[1]['value']);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

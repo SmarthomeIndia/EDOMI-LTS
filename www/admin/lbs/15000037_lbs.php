@@ -1,14 +1,14 @@
 ###[DEF]###
-[name		=Vergleicher =&#91;Liste&#93;	]
-[titel		==&#91;Liste&#93;?				]
+[name        =Vergleicher =&#91;Liste&#93;    ]
+[titel        ==&#91;Liste&#93;?                ]
 
-[e#1 TRIGGER= 						]
-[e#2 		=Wertliste 1			]
-[e#3 		=Wertliste 0			]
+[e#1 TRIGGER=                        ]
+[e#2        =Wertliste 1            ]
+[e#3        =Wertliste 0            ]
 
-[a#1		=1/0					]
-[a#2		=1						]
-[a#3		=0						]
+[a#1        =1/0                    ]
+[a#2        =1                        ]
+[a#3        =0                        ]
 ###[/DEF]###
 
 
@@ -37,24 +37,26 @@ A3: Filter 0: wie A1, jedoch wird A3 ausschließlich auf 0 gesetzt (wenn A1=0 ge
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1) {
-			
-			$tmp=explode(';',$E[2]['value']);
-			if (in_array($E[1]['value'],$tmp,true)) {
-				logic_setOutput($id,1,1);
-				logic_setOutput($id,2,1);
-			} else {
-				$tmp=explode(';',$E[3]['value']);
-				if (in_array($E[1]['value'],$tmp,true)) {
-					logic_setOutput($id,1,0);
-					logic_setOutput($id,3,0);
-				}
-			}
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1) {
+
+            $tmp = explode(';', $E[2]['value']);
+            if (in_array($E[1]['value'], $tmp, true)) {
+                logic_setOutput($id, 1, 1);
+                logic_setOutput($id, 2, 1);
+            } else {
+                $tmp = explode(';', $E[3]['value']);
+                if (in_array($E[1]['value'], $tmp, true)) {
+                    logic_setOutput($id, 1, 0);
+                    logic_setOutput($id, 3, 0);
+                }
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

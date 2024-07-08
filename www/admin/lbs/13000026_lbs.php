@@ -1,25 +1,25 @@
 ###[DEF]###
-[name		=Schaltfolge 1..10-fach	]
-[titel		=Schaltfolge			]
+[name        =Schaltfolge 1..10-fach    ]
+[titel        =Schaltfolge            ]
 
-[e#1 trigger=Trigger 			]
-[e#2 	=Ausgänge 1..10 #init=1  ]
-[e#3 	=Wert Aus #init=0		]
-[e#4 	=Wert Ein #init=1		]
-[e#5		=Reset &ne;0			]
+[e#1 trigger=Trigger            ]
+[e#2    =Ausgänge 1..10 #init=1  ]
+[e#3    =Wert Aus #init=0        ]
+[e#4    =Wert Ein #init=1        ]
+[e#5        =Reset &ne;0            ]
 
-[a#1		=		]
-[a#2		=		]
-[a#3		=		]
-[a#4		=		]
-[a#5		=		]
-[a#6		=		]
-[a#7		=		]
-[a#8		=		]
-[a#9		=		]
-[a#10		=		]
+[a#1        =        ]
+[a#2        =        ]
+[a#3        =        ]
+[a#4        =        ]
+[a#5        =        ]
+[a#6        =        ]
+[a#7        =        ]
+[a#8        =        ]
+[a#9        =        ]
+[a#10        =        ]
 
-[v#1		=0		]
+[v#1        =0        ]
 ###[/DEF]###
 
 
@@ -61,38 +61,54 @@ A1..A10: Ausgänge (wechseln zwischen Wert an E3 und Wert an E4)
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		if ($E[1]['value']!=0 && $E[1]['refresh']==1 && $E[2]['value']>=1 && $E[2]['value']<=10) {
-			$V1=logic_getVar($id,1);
+        if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1 && $E[2]['value'] >= 1 && $E[2]['value'] <= 10) {
+            $V1 = logic_getVar($id, 1);
 
-			if ($E[2]['value']==1) {
-				//Sonderfall: Nur A1 toggeln
-				if ($V1==0) {
-					$V1=1;
-					if (!isEmpty($E[4]['value'])) {logic_setOutput($id,1,$E[4]['value']);}
-				} else {
-					$V1=0;
-					if (!isEmpty($E[3]['value'])) {logic_setOutput($id,1,$E[3]['value']);}
-				}
-			} else {
-				if ($V1>0 && !isEmpty($E[3]['value'])) {logic_setOutput($id,$V1,$E[3]['value']);}
-				if ($V1<$E[2]['value']) {$V1++;} else {$V1=1;}
-				if (!isEmpty($E[4]['value'])) {logic_setOutput($id,$V1,$E[4]['value']);}
-			}
+            if ($E[2]['value'] == 1) {
+                //Sonderfall: Nur A1 toggeln
+                if ($V1 == 0) {
+                    $V1 = 1;
+                    if (!isEmpty($E[4]['value'])) {
+                        logic_setOutput($id, 1, $E[4]['value']);
+                    }
+                } else {
+                    $V1 = 0;
+                    if (!isEmpty($E[3]['value'])) {
+                        logic_setOutput($id, 1, $E[3]['value']);
+                    }
+                }
+            } else {
+                if ($V1 > 0 && !isEmpty($E[3]['value'])) {
+                    logic_setOutput($id, $V1, $E[3]['value']);
+                }
+                if ($V1 < $E[2]['value']) {
+                    $V1++;
+                } else {
+                    $V1 = 1;
+                }
+                if (!isEmpty($E[4]['value'])) {
+                    logic_setOutput($id, $V1, $E[4]['value']);
+                }
+            }
 
-			logic_setVar($id,1,$V1);
-		}
+            logic_setVar($id, 1, $V1);
+        }
 
-		//Reset
-		if ($E[5]['value']!=0 && $E[5]['refresh']==1) {
-			$V1=logic_getVar($id,1);
-			if ($V1>0 && !isEmpty($E[3]['value'])) {logic_setOutput($id,$V1,$E[3]['value']);}
-			logic_setVar($id,1,0);
-		}
-	}
+        //Reset
+        if ($E[5]['value'] != 0 && $E[5]['refresh'] == 1) {
+            $V1 = logic_getVar($id, 1);
+            if ($V1 > 0 && !isEmpty($E[3]['value'])) {
+                logic_setOutput($id, $V1, $E[3]['value']);
+            }
+            logic_setVar($id, 1, 0);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

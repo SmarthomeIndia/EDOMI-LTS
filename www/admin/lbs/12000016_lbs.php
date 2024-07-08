@@ -1,10 +1,10 @@
 ###[DEF]###
-[name		=Ausgangsbox: Vergleicher mit Sperre]
-[titel		=Ausgangsbox			]
+[name        =Ausgangsbox: Vergleicher mit Sperre]
+[titel        =Ausgangsbox            ]
 
-[e#1 TRIGGER=Trigger				]
-[e#2		=Vergleichswert			]
-[e#3		=Entsperrt #init=1		]
+[e#1 TRIGGER=Trigger                ]
+[e#2        =Vergleichswert            ]
+[e#3        =Entsperrt #init=1        ]
 ###[/DEF]###
 
 
@@ -24,13 +24,15 @@ E3: entsperrt (&ne;0) oder sperrt (0) den Baustein
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if (!isEmpty($E[1]['value']) && $E[1]['refresh']==1 && $E[3]['value']!=0 && $E[1]['value']==$E[2]['value']) {
-			mainLogicExecuteCmdList($id,$E[1]['value']);
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if (!isEmpty($E[1]['value']) && $E[1]['refresh'] == 1 && $E[3]['value'] != 0 && $E[1]['value'] == $E[2]['value']) {
+            mainLogicExecuteCmdList($id, $E[1]['value']);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

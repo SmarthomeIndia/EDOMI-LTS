@@ -1,30 +1,30 @@
 ###[DEF]###
-[name		=Ein-/Ausgangsmatrix 10-fach]
-[titel		=Ein-/Ausgangsmatrix		]
+[name        =Ein-/Ausgangsmatrix 10-fach]
+[titel        =Ein-/Ausgangsmatrix        ]
 
-[e#1 TRIGGER=				]
-[e#2 TRIGGER=				]
-[e#3 TRIGGER=				]
-[e#4 TRIGGER=				]
-[e#5 TRIGGER=				]
-[e#6 TRIGGER=				]
-[e#7 TRIGGER=				]
-[e#8 TRIGGER=				]
-[e#9 TRIGGER=				]
-[e#10 TRIGGER=				]
-[e#11		=Eingang 				]
-[e#12		=Ausgang				]
+[e#1 TRIGGER=                ]
+[e#2 TRIGGER=                ]
+[e#3 TRIGGER=                ]
+[e#4 TRIGGER=                ]
+[e#5 TRIGGER=                ]
+[e#6 TRIGGER=                ]
+[e#7 TRIGGER=                ]
+[e#8 TRIGGER=                ]
+[e#9 TRIGGER=                ]
+[e#10 TRIGGER=                ]
+[e#11        =Eingang                ]
+[e#12        =Ausgang                ]
 
-[a#1		=			]
-[a#2		=			]
-[a#3		=			]
-[a#4		=			]
-[a#5		= 			]
-[a#6		=			]
-[a#7		=			]
-[a#8		=			]
-[a#9		=			]
-[a#10		=			]
+[a#1        =            ]
+[a#2        =            ]
+[a#3        =            ]
+[a#4        =            ]
+[a#5        =            ]
+[a#6        =            ]
+[a#7        =            ]
+[a#8        =            ]
+[a#9        =            ]
+[a#10        =            ]
 ###[/DEF]###
 
 
@@ -45,17 +45,19 @@ A1..A10: Wird auf den Wert des gewählten Eingangs gesetzt
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		$E[11]['value']=intVal($E[11]['value']);
-		$E[12]['value']=intVal($E[12]['value']);
-		if ($E[11]['value']>=1 && $E[11]['value']<=10 && $E[12]['value']>=1 && $E[12]['value']<=10) {
-			if (!isEmpty($E[$E[11]['value']]['value']) && $E[$E[11]['value']]['refresh']==1) {
-				logic_setOutput($id,$E[12]['value'],$E[$E[11]['value']]['value']);
-			}
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        $E[11]['value'] = intVal($E[11]['value']);
+        $E[12]['value'] = intVal($E[12]['value']);
+        if ($E[11]['value'] >= 1 && $E[11]['value'] <= 10 && $E[12]['value'] >= 1 && $E[12]['value'] <= 10) {
+            if (!isEmpty($E[$E[11]['value']]['value']) && $E[$E[11]['value']]['refresh'] == 1) {
+                logic_setOutput($id, $E[12]['value'], $E[$E[11]['value']]['value']);
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

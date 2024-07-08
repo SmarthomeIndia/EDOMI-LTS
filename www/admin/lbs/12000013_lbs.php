@@ -1,8 +1,8 @@
 ###[DEF]###
-[name		=Ausgangsbox: Telegramm	]
-[titel		=Ausgangsbox			]
+[name        =Ausgangsbox: Telegramm    ]
+[titel        =Ausgangsbox            ]
 
-[e#1 TRIGGER=Telegramm				]
+[e#1 TRIGGER=Telegramm                ]
 ###[/DEF]###
 
 
@@ -17,19 +17,22 @@ E1: jedes(!) Telegramm (auch "leere" Telegramme) triggert den Baustein und führ
 Dieser Baustein ist für gewöhnliche Logiken nicht(!) geeignet, da die meisten Logikbausteine leere Telegramme ignorieren und somit nicht an den Ausgängen bereitstellen. Daher ist dieser Baustein ausschließlich für spezielle Community-Logikbausteine einsetzbar.
 
 <b>Hinweis:</b>
-Die Darstellung dieser Ausgangsbox kann in der <link>Basis-Konfiguration***a-1</link> modifiziert werden (z.B. kann diese Ausgangsbox auf Wunsch einzeilig dargestellt werden). In der Vorschau werden diese Darstellungsoptionen jedoch ignoriert.
+Die Darstellung dieser Ausgangsbox kann in der
+<link>Basis-Konfiguration***a-1</link> modifiziert werden (z.B. kann diese Ausgangsbox auf Wunsch einzeilig dargestellt werden). In der Vorschau werden diese Darstellungsoptionen jedoch ignoriert.
 ###[/HELP]###
 
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1) {
-			mainLogicExecuteCmdList($id,$E[1]['value']);
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1) {
+            mainLogicExecuteCmdList($id, $E[1]['value']);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

@@ -1,12 +1,12 @@
 ###[DEF]###
-[name		=Verzögerung			]
+[name        =Verzögerung            ]
 
-[e#1 TRIGGER=Trigger 			]
-[e#2		=Dauer (ms) #init=500	]
+[e#1 TRIGGER=Trigger            ]
+[e#2        =Dauer (ms) #init=500    ]
 
-[a#1		=			]
+[a#1        =            ]
 
-[v#1		=500					]
+[v#1        =500                    ]
 ###[/DEF]###
 
 
@@ -23,25 +23,27 @@ A1: nach Ablauf der Verzögerungszeit wird E1 unverändert ausgegeben
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		if (!isEmpty($E[1]['value']) && $E[1]['refresh']==1) {
-			logic_setVar($id,1,(getMicrotime()+($E[2]['value']/1000)));
-			logic_setState($id,1,$E[2]['value']);
-		}
+        if (!isEmpty($E[1]['value']) && $E[1]['refresh'] == 1) {
+            logic_setVar($id, 1, (getMicrotime() + ($E[2]['value'] / 1000)));
+            logic_setState($id, 1, $E[2]['value']);
+        }
 
-		if (logic_getState($id)==1) {
+        if (logic_getState($id) == 1) {
 
-			if (getMicrotime()>=logic_getVar($id,1)) { //Zeit abgelaufen?
-				logic_setOutput($id,1,$E[1]['value']);
-				logic_setState($id,0);
-			}
+            if (getMicrotime() >= logic_getVar($id, 1)) { //Zeit abgelaufen?
+                logic_setOutput($id, 1, $E[1]['value']);
+                logic_setState($id, 0);
+            }
 
-		}
+        }
 
-	}
+    }
 }
+
 ?>
 ###[/LBS]###
 

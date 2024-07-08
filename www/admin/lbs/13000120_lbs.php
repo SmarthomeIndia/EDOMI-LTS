@@ -1,17 +1,17 @@
 ###[DEF]###
-[name		=Zähler					]
+[name        =Zähler                    ]
 
-[e#1 TRIGGER=+1  #init=0			]
-[e#2 TRIGGER=-1 #init=0				]
-[e#3		=Reset #init=0			]
-[e#4		=Reset-Stand #init=0	]
-[e#5		=Aktiviert #init=1		]
-[e#6		=Abrufen #init=0		]
+[e#1 TRIGGER=+1  #init=0            ]
+[e#2 TRIGGER=-1 #init=0                ]
+[e#3        =Reset #init=0            ]
+[e#4        =Reset-Stand #init=0    ]
+[e#5        =Aktiviert #init=1        ]
+[e#6        =Abrufen #init=0        ]
 
-[a#1		=						]
-[a#2		=Reset					]
+[a#1        =                        ]
+[a#2        =Reset                    ]
 
-[v#1 REMANENT=0						]
+[v#1 REMANENT=0                        ]
 ###[/DEF]###
 
 
@@ -40,46 +40,50 @@ A2: Zählerstand bei einem Reset (wird auf den aktuellen Zählerstand gesetzt, w
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
+function LB_LBSID($id)
+{
 
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		if ($E[5]['value']!=0) {
+        if ($E[5]['value'] != 0) {
 
-			$output=false;
+            $output = false;
 
-			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-				$V[1]++;
-				logic_setVar($id,1,$V[1]);
-				$output=true;
-			}
-			if ($E[2]['value']!=0 && $E[2]['refresh']==1) {
-				$V[1]--;
-				logic_setVar($id,1,$V[1]);
-				$output=true;
-			}
-			
-			if ($E[3]['value']!=0 && $E[3]['refresh']==1) {
-				logic_setOutput($id,2,$V[1]);
-				$V[1]=$E[4]['value'];
-				if (isEmpty($V[1]) || !is_numeric($V[1])) {$V[1]=0;}
-				logic_setVar($id,1,$V[1]);
-				$output=true;
-			}
+            if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+                $V[1]++;
+                logic_setVar($id, 1, $V[1]);
+                $output = true;
+            }
+            if ($E[2]['value'] != 0 && $E[2]['refresh'] == 1) {
+                $V[1]--;
+                logic_setVar($id, 1, $V[1]);
+                $output = true;
+            }
 
-			if ($E[6]['value']!=0 && $E[6]['refresh']==1) {
-				$output=true;
-			}
-			
-			if ($output) {
-				logic_setOutput($id,1,$V[1]);
-			}
+            if ($E[3]['value'] != 0 && $E[3]['refresh'] == 1) {
+                logic_setOutput($id, 2, $V[1]);
+                $V[1] = $E[4]['value'];
+                if (isEmpty($V[1]) || !is_numeric($V[1])) {
+                    $V[1] = 0;
+                }
+                logic_setVar($id, 1, $V[1]);
+                $output = true;
+            }
 
-		}
+            if ($E[6]['value'] != 0 && $E[6]['refresh'] == 1) {
+                $output = true;
+            }
 
-	}
+            if ($output) {
+                logic_setOutput($id, 1, $V[1]);
+            }
+
+        }
+
+    }
 
 }
+
 ?>
 ###[/LBS]###
 

@@ -1,16 +1,16 @@
 ###[DEF]###
-[name		=Eingangsbox 4-fach		]
-[titel		=Eingangsbox			]
+[name        =Eingangsbox 4-fach        ]
+[titel        =Eingangsbox            ]
 
-[e#1		=					]
-[e#2		=					]
-[e#3		=					]
-[e#4		=					]
+[e#1        =                    ]
+[e#2        =                    ]
+[e#3        =                    ]
+[e#4        =                    ]
 
-[a#1		=					]
-[a#2		=					]
-[a#3		=					]
-[a#4		=					]
+[a#1        =                    ]
+[a#2        =                    ]
+[a#3        =                    ]
+[a#4        =                    ]
 ###[/DEF]###
 
 
@@ -32,14 +32,24 @@ A1..A4: stellt den KO-Wert des entsprechenden Eingangs bereit
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1) {logic_setOutput($id,1,$E[1]['value']);}
-		if ($E[2]['refresh']==1) {logic_setOutput($id,2,$E[2]['value']);}
-		if ($E[3]['refresh']==1) {logic_setOutput($id,3,$E[3]['value']);}
-		if ($E[4]['refresh']==1) {logic_setOutput($id,4,$E[4]['value']);}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1) {
+            logic_setOutput($id, 1, $E[1]['value']);
+        }
+        if ($E[2]['refresh'] == 1) {
+            logic_setOutput($id, 2, $E[2]['value']);
+        }
+        if ($E[3]['refresh'] == 1) {
+            logic_setOutput($id, 3, $E[3]['value']);
+        }
+        if ($E[4]['refresh'] == 1) {
+            logic_setOutput($id, 4, $E[4]['value']);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

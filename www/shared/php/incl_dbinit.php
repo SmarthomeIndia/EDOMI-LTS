@@ -1,7 +1,14 @@
 <?
-/* 
-*/ 
-?><? ?><? function init_DB_Admin() { sql_call("CREATE DATABASE IF NOT EXISTS edomiAdmin"); if (!sql_dbExists('edomiAdmin')) {return false;} sql_call("DROP TABLE IF EXISTS edomiAdmin.project"); $r=sql_call("CREATE TABLE edomiAdmin.project (
+/*
+*/
+?><? ?><? function init_DB_Admin()
+{
+    sql_call("CREATE DATABASE IF NOT EXISTS edomiAdmin");
+    if (!sql_dbExists('edomiAdmin')) {
+        return false;
+    }
+    sql_call("DROP TABLE IF EXISTS edomiAdmin.project");
+    $r = sql_call("CREATE TABLE edomiAdmin.project (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		name VARCHAR(200) DEFAULT NULL,
 		createdate datetime DEFAULT NULL,
@@ -11,7 +18,12 @@
 		live TINYINT UNSIGNED DEFAULT 0,
 		PRIMARY KEY (id)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} sql_call("DROP TABLE IF EXISTS edomiAdmin.user"); $r=sql_call("CREATE TABLE edomiAdmin.user (
+	");
+    if (!$r) {
+        return false;
+    }
+    sql_call("DROP TABLE IF EXISTS edomiAdmin.user");
+    $r = sql_call("CREATE TABLE edomiAdmin.user (
 		id BIGINT UNSIGNED DEFAULT NULL,
 		typ TINYINT UNSIGNED DEFAULT NULL,
 		login VARCHAR(30) DEFAULT NULL,
@@ -25,20 +37,46 @@
 		KEY (typ),
 		KEY (sid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("INSERT INTO edomiAdmin.user (id,typ,login,pass) VALUES
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("INSERT INTO edomiAdmin.user (id,typ,login,pass) VALUES
 		(1,0,'admin','admin'),
 		(2,1,'status','status'),
 		(3,10,'remote','remote')
-	"); if (!$r) {return false;} return true; } function init_DB_Project() { sql_call("DROP DATABASE IF EXISTS edomiProject"); sql_call("CREATE DATABASE edomiProject"); if (!sql_dbExists('edomiProject')) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editProjectInfo (
+	");
+    if (!$r) {
+        return false;
+    }
+    return true;
+}
+
+function init_DB_Project()
+{
+    sql_call("DROP DATABASE IF EXISTS edomiProject");
+    sql_call("CREATE DATABASE edomiProject");
+    if (!sql_dbExists('edomiProject')) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editProjectInfo (
 		id BIGINT UNSIGNED DEFAULT NULL,
 		edomiversion VARCHAR(30) DEFAULT NULL,
 		projectversion VARCHAR(30) DEFAULT NULL,
 		text VARCHAR(10000) DEFAULT NULL,
 		KEY (id)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("INSERT INTO edomiProject.editProjectInfo (id,edomiversion) VALUES
-		(1,'".global_version."')
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editRoot (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("INSERT INTO edomiProject.editProjectInfo (id,edomiversion) VALUES
+		(1,'" . global_version . "')
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editRoot (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		allow TINYINT UNSIGNED DEFAULT NULL,
 		path VARCHAR(10000) DEFAULT NULL,
@@ -59,7 +97,11 @@
 		KEY (linkid),
 		KEY (tmp)
 		) ENGINE=MyISAM AUTO_INCREMENT=1000 DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editChart (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editChart (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -77,7 +119,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editChartList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editChartList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		archivkoid BIGINT UNSIGNED DEFAULT 0,
@@ -112,7 +158,11 @@
 		KEY (targetid),
 		KEY (sort)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editEmail (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editEmail (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -123,7 +173,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editHttpKo (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editHttpKo (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -133,7 +187,11 @@
 		KEY (name),
 		KEY (gaid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editPhoneBook (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editPhoneBook (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -145,7 +203,11 @@
 		KEY (phone1),
 		KEY (phone2)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editPhoneCall (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editPhoneCall (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -161,7 +223,11 @@
 		KEY (phoneid1),
 		KEY (phoneid2)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivPhone (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivPhone (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -171,7 +237,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivPhoneData (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivPhoneData (
 		datetime datetime DEFAULT NULL,
 		ms int(11) DEFAULT NULL,
 		targetid BIGINT UNSIGNED DEFAULT 0,
@@ -186,7 +256,11 @@
 		KEY (status),
 		KEY (typ)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAws (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAws (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -200,7 +274,11 @@
 		KEY (playpointer),
 		KEY (gaid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAwsList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAwsList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		gaid BIGINT UNSIGNED DEFAULT NULL,
@@ -212,7 +290,11 @@
 		KEY (gaid),
 		KEY (gaid2)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAwsData (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAwsData (
 		timestamp BIGINT UNSIGNED DEFAULT NULL,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		gaid BIGINT UNSIGNED DEFAULT NULL,
@@ -221,7 +303,11 @@
 		KEY (targetid),
 		KEY (gaid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editTimer (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editTimer (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -232,7 +318,11 @@
 		KEY (name),
 		KEY (gaid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editTimerData (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editTimerData (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		fixed TINYINT UNSIGNED NOT NULL DEFAULT 0,
@@ -272,7 +362,11 @@
 		KEY (d5),
 		KEY (d6)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editTimerMacroList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editTimerMacroList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT NULL,
 		timerid BIGINT UNSIGNED DEFAULT NULL,
@@ -282,7 +376,11 @@
 		KEY (timerid),
 		KEY (sort)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAgenda (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAgenda (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -293,7 +391,11 @@
 		KEY (name),
 		KEY (gaid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAgendaData (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAgendaData (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		name VARCHAR(100) DEFAULT NULL,
@@ -315,7 +417,11 @@
 		KEY (step),
 		KEY (unit)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAgendaMacroList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editAgendaMacroList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT NULL,
 		agendaid BIGINT UNSIGNED DEFAULT NULL,
@@ -325,7 +431,11 @@
 		KEY (agendaid),
 		KEY (sort)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editSequence (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editSequence (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -337,7 +447,11 @@
 		KEY (name),
 		KEY (playpointer)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editSequenceCmdList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editSequenceCmdList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		cmd TINYINT UNSIGNED DEFAULT NULL,
@@ -358,7 +472,11 @@
 		KEY (cmdvalue2),
 		KEY (sort)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editMacro (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editMacro (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -366,7 +484,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editMacroCmdList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editMacroCmdList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		cmd TINYINT UNSIGNED DEFAULT NULL,
@@ -384,7 +506,11 @@
 		KEY (cmdvalue1),
 		KEY (cmdvalue2)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editIp (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editIp (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -400,7 +526,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editIr (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editIr (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -410,7 +540,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivMsg (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivMsg (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -421,7 +555,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivMsgData (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivMsgData (
 		datetime datetime DEFAULT NULL,
 		ms int(11) DEFAULT NULL,
 		targetid BIGINT UNSIGNED DEFAULT 0,
@@ -430,7 +568,11 @@
 		KEY (datetime,ms),
 		KEY (targetid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivKo (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivKo (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -447,7 +589,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivKoData (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivKoData (
 		datetime datetime DEFAULT NULL,
 		ms int(11) DEFAULT NULL,
 		targetid BIGINT UNSIGNED DEFAULT 0,
@@ -455,7 +601,11 @@
 		KEY (datetime,ms),
 		KEY (targetid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editCam (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editCam (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		cachets BIGINT UNSIGNED DEFAULT NULL,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
@@ -471,7 +621,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivCam (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivCam (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		camid BIGINT UNSIGNED DEFAULT NULL,
@@ -484,7 +638,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivCamData (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editArchivCamData (
 		datetime datetime DEFAULT NULL,
 		ms int(11) DEFAULT NULL,
 		targetid BIGINT UNSIGNED DEFAULT 0,
@@ -493,7 +651,11 @@
 		KEY (targetid),
 		KEY (camid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editCamView (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editCamView (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -514,7 +676,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editScene (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editScene (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -522,7 +688,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editSceneList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editSceneList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		gaid BIGINT UNSIGNED DEFAULT NULL,
@@ -533,7 +703,11 @@
 		KEY (targetid),
 		KEY (valuegaid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editKo (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editKo (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		name VARCHAR(100) DEFAULT NULL,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
@@ -562,7 +736,11 @@
 		KEY (gatyp),
 		KEY (remanent)
 		) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisu (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisu (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -580,7 +758,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuUser (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuUser (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		login VARCHAR(30) DEFAULT NULL,
@@ -604,7 +786,11 @@
 		KEY (gaid2),
 		KEY (gaid3)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuUserList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuUserList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT NULL,
 		visuid BIGINT UNSIGNED DEFAULT NULL,
@@ -626,7 +812,11 @@
 		KEY (online),
 		KEY (sid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuPage (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuPage (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		visuid BIGINT UNSIGNED DEFAULT NULL,
@@ -654,7 +844,11 @@
 		KEY (name),
 		KEY (visuid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuElementDesignDef (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuElementDesignDef (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -714,7 +908,11 @@
 		KEY (s1),
 		KEY (s2)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuElement (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuElement (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		controltyp BIGINT UNSIGNED DEFAULT NULL,
 		dynstylemode INT UNSIGNED DEFAULT 0,
@@ -774,7 +972,11 @@
 		KEY (tmp),
 		KEY (tmp2)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuElementDef (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuElementDef (
 		id BIGINT UNSIGNED NOT NULL,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -843,7 +1045,11 @@
 		KEY (id),
 		KEY (errcount)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuElementDesign (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuElementDesign (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED NOT NULL,
 		defid BIGINT UNSIGNED DEFAULT NULL,
@@ -903,7 +1109,11 @@
 		KEY (s1),
 		KEY (s2)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuCmdList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuCmdList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		cmd TINYINT UNSIGNED DEFAULT NULL,
@@ -921,7 +1131,11 @@
 		KEY (cmdvalue1),
 		KEY (cmdvalue2)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuBGcol (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuBGcol (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -930,7 +1144,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuFGcol (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuFGcol (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -939,7 +1157,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuAnim (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuAnim (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -952,7 +1174,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuImg (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuImg (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -964,7 +1190,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuSnd (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuSnd (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -973,7 +1203,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuFont (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuFont (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -986,7 +1220,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuFormat (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editVisuFormat (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(200) DEFAULT NULL,
@@ -997,7 +1235,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementDef (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementDef (
 		id BIGINT UNSIGNED NOT NULL,
 		name VARCHAR(100) DEFAULT NULL,
 		title VARCHAR(100) DEFAULT NULL,
@@ -1012,7 +1254,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementDefIn (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementDefIn (
 		targetid BIGINT UNSIGNED DEFAULT NULL,
 		id BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
@@ -1021,14 +1267,22 @@
 		KEY (targetid),
 		KEY (id)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementDefOut (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementDefOut (
 		targetid BIGINT UNSIGNED DEFAULT NULL,
 		id BIGINT UNSIGNED DEFAULT NULL,
 		name VARCHAR(100) DEFAULT NULL,
 		KEY (targetid),
 		KEY (id)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementDefVar (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementDefVar (
 		targetid BIGINT UNSIGNED DEFAULT NULL,
 		id BIGINT UNSIGNED DEFAULT NULL,
 		value VARCHAR(10000) DEFAULT NULL,
@@ -1036,7 +1290,11 @@
 		KEY (targetid),
 		KEY (id)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicPage (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicPage (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		folderid BIGINT UNSIGNED DEFAULT NULL,
 		pagestatus TINYINT UNSIGNED DEFAULT 0,
@@ -1046,7 +1304,11 @@
 		KEY (folderid),
 		KEY (name)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicCmdList (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicCmdList (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		targetid BIGINT UNSIGNED DEFAULT 0,
 		cmd TINYINT UNSIGNED DEFAULT NULL,
@@ -1064,7 +1326,11 @@
 		KEY (cmdvalue1),
 		KEY (cmdvalue2)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicLink (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicLink (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		elementid BIGINT UNSIGNED NOT NULL,
 		eingang SMALLINT UNSIGNED NOT NULL,
@@ -1079,7 +1345,11 @@
 		KEY (linkid),
 		KEY (refresh)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElement (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElement (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		functionid BIGINT UNSIGNED NOT NULL,
 		pageid BIGINT UNSIGNED DEFAULT NULL,
@@ -1090,7 +1360,11 @@
 		PRIMARY KEY (id),
 		KEY (functionid)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementVar (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("CREATE TABLE IF NOT EXISTS edomiProject.editLogicElementVar (
 		elementid BIGINT UNSIGNED NOT NULL,
 		varid SMALLINT UNSIGNED NOT NULL,
 		value VARCHAR(10000) DEFAULT NULL,
@@ -1099,7 +1373,11 @@
 		KEY (varid),
 		KEY (remanent)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("INSERT INTO edomiProject.editRoot (id,allow,path,rootid,parentid,name,namedb,link,linkid,sortcolumns,sortid) VALUES
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("INSERT INTO edomiProject.editRoot (id,allow,path,rootid,parentid,name,namedb,link,linkid,sortcolumns,sortid) VALUES
 		(10,	0,		'/', 		10,0, 		'Logik', NULL, 0, NULL,NULL,0),
 		(11,	94,		'/10/',		11,10, 		'Logikseiten', 'editLogicPage', 0, NULL,'id/ID,name/Name',1),
 		(12,	8,		'/10/',		12,10, 		'Logikbausteine', 'editLogicElementDef', 0, NULL,'id/ID,name/Name',1),
@@ -1155,7 +1433,11 @@
 		(163,	8,		'/20/160/', 163,160,	'Archive',			 	'editVisuElementDef', 0, NULL,NULL,0),
 		(164,	8,		'/20/160/', 164,160,	'Sonstige', 			'editVisuElementDef', 0, NULL,NULL,0),
 		(170,	90,		'/20/160/', 170,160,	'Eigene Visuelemente', 	'editVisuElementDef', 0, NULL,NULL,0)
-	"); if (!$r) {return false;} $r=sql_call("INSERT INTO edomiProject.editKo (id,name,folderid,ga,gatyp,valuetyp,value,defaultvalue,initscan,initsend,requestable,remanent,vmin,vmax,vstep,vlist) VALUES
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("INSERT INTO edomiProject.editKo (id,name,folderid,ga,gatyp,valuetyp,value,defaultvalue,initscan,initsend,requestable,remanent,vmin,vmax,vstep,vlist) VALUES
 		(1, 'Version', 33, '1', 2, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL),
 		(2, 'Systemstart', 33, '2', 2, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL),
 		(3, 'Server-IP', 33, '3', 2, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL),
@@ -1181,20 +1463,47 @@
 		(24, 'Trigger: Zehnminütlich --:(00/10/20/.../50):00', 33, '24', 2, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL),
 		(25, 'Trigger: Fünfminütlich --:(00/05/10/15/../55):00', 33, '25', 2, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL),
 		(26, 'Trigger: Minütlich --:(00/01/02/03/../59):00', 33, '26', 2, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL)
-	"); if (!$r) {return false;} $r=sql_call("INSERT INTO edomiProject.editEmail (id,folderid,name,mailaddr,subject,body) VALUES
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("INSERT INTO edomiProject.editEmail (id,folderid,name,mailaddr,subject,body) VALUES
 		(1, 122, 'Warnung: Unerwarteter Reboot', '', 'WARNUNG: EDOMI', 'EDOMI wurde unerwartet rebooted! Die Ursache könnte ein Stromausfall oder ein Absturz gewesen sein. Bitte Log-Dateien überprüfen!'),
 		(2, 122, 'Warnung: CPU/RAM/HDD', '', 'WARNUNG: EDOMI', 'Probleme bei CPU-Last, RAM- oder HDD-Kapazität erkannt! Bitte schnellstens überprüfen.')
-	"); if (!$r) {return false;} return true; } function init_DB_Live() { sql_call("CREATE DATABASE IF NOT EXISTS edomiLive"); if (!sql_dbExists('edomiLive')) {return false;} sql_call("DROP TABLE IF EXISTS edomiLive.RAMsysInfo"); $r=sql_call("CREATE TABLE edomiLive.RAMsysInfo (
+	");
+    if (!$r) {
+        return false;
+    }
+    return true;
+}
+
+function init_DB_Live()
+{
+    sql_call("CREATE DATABASE IF NOT EXISTS edomiLive");
+    if (!sql_dbExists('edomiLive')) {
+        return false;
+    }
+    sql_call("DROP TABLE IF EXISTS edomiLive.RAMsysInfo");
+    $r = sql_call("CREATE TABLE edomiLive.RAMsysInfo (
 		id INT UNSIGNED NOT NULL,
 		value INT NOT NULL,
 		KEY (id)
 		) ENGINE=MEMORY DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("INSERT INTO edomiLive.RAMsysInfo (id,value) VALUES
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("INSERT INTO edomiLive.RAMsysInfo (id,value) VALUES
 		(1,0),
 		(2,0),
 		(3,0),
 		(4,0)
-	"); if (!$r) {return false;} sql_call("DROP TABLE IF EXISTS edomiLive.RAMsysProc"); $r=sql_call("CREATE TABLE edomiLive.RAMsysProc (
+	");
+    if (!$r) {
+        return false;
+    }
+    sql_call("DROP TABLE IF EXISTS edomiLive.RAMsysProc");
+    $r = sql_call("CREATE TABLE edomiLive.RAMsysProc (
 		id INT UNSIGNED NOT NULL,
 		s0 VARCHAR(20) DEFAULT NULL,
 		s1 VARCHAR(20) DEFAULT NULL,
@@ -1219,7 +1528,16 @@
 		s20 VARCHAR(20) DEFAULT NULL,
 		KEY (id)
 		) ENGINE=MEMORY DEFAULT CHARSET=latin1
-	"); if (!$r) {return false;} $r=sql_call("INSERT INTO edomiLive.RAMsysProc (id) VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9)"); if (!$r) {return false;} sql_call("DROP TABLE IF EXISTS edomiLive.RAMlivemon"); $r=sql_call("CREATE TABLE edomiLive.RAMlivemon (
+	");
+    if (!$r) {
+        return false;
+    }
+    $r = sql_call("INSERT INTO edomiLive.RAMsysProc (id) VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9)");
+    if (!$r) {
+        return false;
+    }
+    sql_call("DROP TABLE IF EXISTS edomiLive.RAMlivemon");
+    $r = sql_call("CREATE TABLE edomiLive.RAMlivemon (
 			ts VARCHAR(20) DEFAULT NULL,
 			datetime datetime DEFAULT NULL,
 			ms int(11) DEFAULT NULL,
@@ -1232,7 +1550,24 @@
 			gavalue varchar(200) DEFAULT NULL,
 			KEY (ts),
 			KEY (datetime)
-			) ENGINE=MEMORY DEFAULT CHARSET=latin1"); if (!$r) {return false;} $tmp=global_koMonMaxCount; if ($tmp<1) {$tmp=1;} else if ($tmp>1000) {$tmp=1000;} for ($t=0;$t<$tmp;$t++) { $r=sql_call("INSERT INTO edomiLive.RAMlivemon (ts) VALUES ('00000000000000000000')"); } if (!$r) {return false;} sql_call("DROP TABLE IF EXISTS edomiLive.logicExecQueue"); $r=sql_call("CREATE TABLE edomiLive.logicExecQueue (
+			) ENGINE=MEMORY DEFAULT CHARSET=latin1");
+    if (!$r) {
+        return false;
+    }
+    $tmp = global_koMonMaxCount;
+    if ($tmp < 1) {
+        $tmp = 1;
+    } else if ($tmp > 1000) {
+        $tmp = 1000;
+    }
+    for ($t = 0; $t < $tmp; $t++) {
+        $r = sql_call("INSERT INTO edomiLive.RAMlivemon (ts) VALUES ('00000000000000000000')");
+    }
+    if (!$r) {
+        return false;
+    }
+    sql_call("DROP TABLE IF EXISTS edomiLive.logicExecQueue");
+    $r = sql_call("CREATE TABLE edomiLive.logicExecQueue (
 			ts VARCHAR(20) DEFAULT NULL,
 			elementid BIGINT UNSIGNED DEFAULT NULL,
 			inputid SMALLINT UNSIGNED NOT NULL,
@@ -1241,4 +1576,9 @@
 			KEY (ts),
 			KEY (elementid),
 			KEY (inputid)
-			) ENGINE=MyISAM DEFAULT CHARSET=latin1"); if (!$r) {return false;} return true; } ?>
+			) ENGINE=MyISAM DEFAULT CHARSET=latin1");
+    if (!$r) {
+        return false;
+    }
+    return true;
+} ?>
