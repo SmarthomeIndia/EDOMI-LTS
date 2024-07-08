@@ -1,14 +1,14 @@
 ###[DEF]###
-[name			=	Ein-Verlängerung]
+[name            =    Ein-Verlängerung]
 
-[e#1	TRIGGER	=	Trigger										] 
-[e#2	OPTION	=	Dauer (s)				#init=10			]
-[e#3	TRIGGER	=	Reset										]
+[e#1    TRIGGER    =    Trigger                                        ]
+[e#2    OPTION    =    Dauer (s)                #init=10            ]
+[e#3    TRIGGER    =    Reset                                        ]
 
-[a#1			=	]
+[a#1            =    ]
 
-[v#1			=0						]
-[v#2			=0						]
+[v#1            =0                        ]
+[v#2            =0                        ]
 ###[/DEF]###
 
 
@@ -33,41 +33,43 @@ A1: 1=Baustein wurde getriggert bzw. der Timer läuft, 0=Timer ist abgelaufen
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+function LB_LBSID($id)
+{
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		if ($E[1]['refresh']==1 && $E[1]['value']!=0) {
-			if ($V[1]!=1) {
-				$V[1]=1;
-				logic_setVar($id,1,$V[1]);
-				logic_setOutput($id,1,1);
-			}
-			logic_setState($id,0);
+        if ($E[1]['refresh'] == 1 && $E[1]['value'] != 0) {
+            if ($V[1] != 1) {
+                $V[1] = 1;
+                logic_setVar($id, 1, $V[1]);
+                logic_setOutput($id, 1, 1);
+            }
+            logic_setState($id, 0);
 
-		} else if ($E[1]['refresh']==1 && $E[1]['value']==0 && $V[1]==1) {
-			$V[2]=getMicrotime()+$E[2]['value'];
-			logic_setVar($id,2,$V[2]);
-			logic_setState($id,1,$E[2]['value']*1000);
-		}
+        } else if ($E[1]['refresh'] == 1 && $E[1]['value'] == 0 && $V[1] == 1) {
+            $V[2] = getMicrotime() + $E[2]['value'];
+            logic_setVar($id, 2, $V[2]);
+            logic_setState($id, 1, $E[2]['value'] * 1000);
+        }
 
-		if ($E[3]['refresh']==1 && $E[3]['value']!=0) {
-			if ($V[1]!=0) {
-				logic_setOutput($id,1,0);
-			}
-			$V[1]=0;
-			logic_setVar($id,1,$V[1]);
-			logic_setState($id,0);
-		}
+        if ($E[3]['refresh'] == 1 && $E[3]['value'] != 0) {
+            if ($V[1] != 0) {
+                logic_setOutput($id, 1, 0);
+            }
+            $V[1] = 0;
+            logic_setVar($id, 1, $V[1]);
+            logic_setState($id, 0);
+        }
 
-		if (logic_getState($id)==1 && $V[1]==1 && getMicrotime()>=$V[2]) {
-			$V[1]=0;
-			logic_setVar($id,1,$V[1]);
-			logic_setOutput($id,1,0);
-			logic_setState($id,0);
-		}
+        if (logic_getState($id) == 1 && $V[1] == 1 && getMicrotime() >= $V[2]) {
+            $V[1] = 0;
+            logic_setVar($id, 1, $V[1]);
+            logic_setOutput($id, 1, 0);
+            logic_setState($id, 0);
+        }
 
-	}
+    }
 }
+
 ?>
 ###[/LBS]###
 

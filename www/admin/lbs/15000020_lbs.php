@@ -1,11 +1,11 @@
 ###[DEF]###
-[name		=Schwellenwert			]
+[name        =Schwellenwert            ]
 
-[e#1 TRIGGER=Trigger				]
-[e#2		=untere Schwelle		]
-[e#3		=obere Schwelle			]
+[e#1 TRIGGER=Trigger                ]
+[e#2        =untere Schwelle        ]
+[e#3        =obere Schwelle            ]
 
-[a#1		=					]
+[a#1        =                    ]
 ###[/DEF]###
 
 
@@ -24,21 +24,23 @@ A1: 0=untere Schwelle erreicht, 1=obere Schwelle erreicht
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1 || $E[2]['refresh']==1 || $E[3]['refresh']==1) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1 || $E[2]['refresh'] == 1 || $E[3]['refresh'] == 1) {
 
-			if (is_numeric($E[1]['value']) && is_numeric($E[2]['value']) && $E[1]['value']<=$E[2]['value'] && $E[1]['refresh']==1) {
-				logic_setOutput($id,1,0);
-			}
+            if (is_numeric($E[1]['value']) && is_numeric($E[2]['value']) && $E[1]['value'] <= $E[2]['value'] && $E[1]['refresh'] == 1) {
+                logic_setOutput($id, 1, 0);
+            }
 
-			if (is_numeric($E[1]['value']) && is_numeric($E[3]['value']) && $E[1]['value']>=$E[3]['value'] && $E[1]['refresh']==1) {
-				logic_setOutput($id,1,1);
-			}
+            if (is_numeric($E[1]['value']) && is_numeric($E[3]['value']) && $E[1]['value'] >= $E[3]['value'] && $E[1]['refresh'] == 1) {
+                logic_setOutput($id, 1, 1);
+            }
 
-		}
-	}
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

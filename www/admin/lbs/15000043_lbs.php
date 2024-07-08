@@ -1,11 +1,11 @@
 ###[DEF]###
-[name		=Vergleicher A&lt;B		]
-[titel		=A&lt;B?				]
+[name        =Vergleicher A&lt;B        ]
+[titel        =A&lt;B?                ]
 
-[e#1 TRIGGER=A 				]
-[e#2 TRIGGER=B 				]
+[e#1 TRIGGER=A                ]
+[e#2 TRIGGER=B                ]
 
-[a#1		=					]
+[a#1        =                    ]
 ###[/DEF]###
 
 
@@ -20,17 +20,19 @@ A1: Wenn E1 (A) &lt; E2 (B) ist, wird A1=1 gesetzt. Andernfalls wird A1=0 gesetz
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1 || $E[2]['refresh']==1) {
-			if ($E[1]['value']<$E[2]['value']) {
-				logic_setOutput($id,1,1);
-			} else {
-				logic_setOutput($id,1,0);
-			}
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1 || $E[2]['refresh'] == 1) {
+            if ($E[1]['value'] < $E[2]['value']) {
+                logic_setOutput($id, 1, 1);
+            } else {
+                logic_setOutput($id, 1, 0);
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

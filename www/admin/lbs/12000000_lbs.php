@@ -1,5 +1,5 @@
 ###[DEF]###
-[name		=Textbox		]
+[name        =Textbox        ]
 ###[/DEF]###
 
 
@@ -12,8 +12,10 @@ Die Textbox wird in Abhängigkeit ihres Inhalts skaliert, es sind maximal 10.000
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
+function LB_LBSID($id)
+{
 }
+
 ?>
 ###[/LBS]###
 

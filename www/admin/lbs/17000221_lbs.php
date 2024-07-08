@@ -1,18 +1,18 @@
 ###[DEF]###
-[name		=Alarmtrigger (Pause)	]
+[name        =Alarmtrigger (Pause)    ]
 
-[e#1 TRIGGER=Trigger				]
-[e#2 TRIGGER=Pause					]
-[e#3		=Dauer (s)#init=30]
-[e#4		=Aktiviert				]
-[e#5 OPTION	=Modus	#init=0			]
+[e#1 TRIGGER=Trigger                ]
+[e#2 TRIGGER=Pause                    ]
+[e#3        =Dauer (s)#init=30]
+[e#4        =Aktiviert                ]
+[e#5 OPTION    =Modus    #init=0            ]
 
-[a#1		=Alarm			 		]
-[a#2		=Pause		 			]
+[a#1        =Alarm                    ]
+[a#2        =Pause                    ]
 
-[v#1		=0						] Pausentimer
-[v#2		=0						] Flankendetektion
-[v#3		=-1						] Pause aktiv? (und SBC für A2)
+[v#1        =0                        ] Pausentimer
+[v#2        =0                        ] Flankendetektion
+[v#3        =-1                        ] Pause aktiv? (und SBC für A2)
 ###[/DEF]###
 
 
@@ -25,8 +25,12 @@ Am Ausgang A2 liegt eine 1 an, wenn gerade eine Pause aktiv ist (z.B. zur Signal
 
 Der Modus (E5) bestimmt das Verhalten des Eingangs E2:
 <ul>
-	<li>E5=0: Jedes Signal &ne;0 an E2 aktiviert die Pause für die Pausendauer (E3) erneut (der interne Timer wird neugestartet), ein Signal E2=0 wird stets ignoriert.</li>
-	<li>E5=1: Solange E2&ne;0 ist, wird die Pause <i>dauerhaft</i> aktiviert. Erst wenn anschließend ein Signal E2=0 eintrifft (fallende Flanke), wird die Pause für die Pausendauer (E3) aktiviert (der interne Timer wird gestartet).</li>
+    <li>E5=0: Jedes Signal &ne;0 an E2 aktiviert die Pause für die Pausendauer (E3) erneut (der interne Timer wird neugestartet), ein Signal E2=0 wird stets
+        ignoriert.
+    </li>
+    <li>E5=1: Solange E2&ne;0 ist, wird die Pause <i>dauerhaft</i> aktiviert. Erst wenn anschließend ein Signal E2=0 eintrifft (fallende Flanke), wird die Pause
+        für die Pausendauer (E3) aktiviert (der interne Timer wird gestartet).
+    </li>
 </ul>
 
 <b>Wichtig:</b>
@@ -52,131 +56,150 @@ A2 wird nur bei einer Änderung des internen Zustandes gesetzt (SBC).
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
+function LB_LBSID($id)
+{
 
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		if ($E[4]['refresh']==1) {
+        if ($E[4]['refresh'] == 1) {
 
-			//aktivieren?
-			if ($E[4]['value']!=0) {
+            //aktivieren?
+            if ($E[4]['value'] != 0) {
 
-				//Pause während des Aktivierens schon aktiv
-				if ($E[2]['value']!=0) {
+                //Pause während des Aktivierens schon aktiv
+                if ($E[2]['value'] != 0) {
 
-					if ($E[5]['value']==0) {
-						//Pausieren und Timer starten
-						if ($V[3]!=1) {logic_setOutput($id,2,1);}
+                    if ($E[5]['value'] == 0) {
+                        //Pausieren und Timer starten
+                        if ($V[3] != 1) {
+                            logic_setOutput($id, 2, 1);
+                        }
 
-						$V[1]=getMicrotime()+$E[3]['value'];
-						$V[2]=1;
-						$V[3]=1;
-						logic_setVar($id,1,$V[1]);
-						logic_setVar($id,2,$V[2]);
-						logic_setVar($id,3,$V[3]);
-						logic_setState($id,1,$E[3]['value']*1000);
+                        $V[1] = getMicrotime() + $E[3]['value'];
+                        $V[2] = 1;
+                        $V[3] = 1;
+                        logic_setVar($id, 1, $V[1]);
+                        logic_setVar($id, 2, $V[2]);
+                        logic_setVar($id, 3, $V[3]);
+                        logic_setState($id, 1, $E[3]['value'] * 1000);
 
-					} else {
-						//Pausieren, aber Timer noch nicht starten
-						if ($V[3]!=1) {logic_setOutput($id,2,1);}
+                    } else {
+                        //Pausieren, aber Timer noch nicht starten
+                        if ($V[3] != 1) {
+                            logic_setOutput($id, 2, 1);
+                        }
 
-						$V[2]=1;
-						$V[3]=1;
-						logic_setVar($id,2,$V[2]);
-						logic_setVar($id,3,$V[3]);
-						logic_setState($id,0);
-					}
+                        $V[2] = 1;
+                        $V[3] = 1;
+                        logic_setVar($id, 2, $V[2]);
+                        logic_setVar($id, 3, $V[3]);
+                        logic_setState($id, 0);
+                    }
 
-				//Pause während des Aktivierens nicht aktiv
-				} else {
-					if ($V[3]!=0) {logic_setOutput($id,2,0);}
+                    //Pause während des Aktivierens nicht aktiv
+                } else {
+                    if ($V[3] != 0) {
+                        logic_setOutput($id, 2, 0);
+                    }
 
-					$V[2]=0;
-					$V[3]=0;
-					logic_setVar($id,2,$V[2]);
-					logic_setVar($id,3,$V[3]);
-					logic_setState($id,0);
-				}
+                    $V[2] = 0;
+                    $V[3] = 0;
+                    logic_setVar($id, 2, $V[2]);
+                    logic_setVar($id, 3, $V[3]);
+                    logic_setState($id, 0);
+                }
 
-			//deaktivieren
-			} else {
-				if ($V[3]!=0) {logic_setOutput($id,2,0);}
+                //deaktivieren
+            } else {
+                if ($V[3] != 0) {
+                    logic_setOutput($id, 2, 0);
+                }
 
-				$V[2]=0;
-				$V[3]=0;
-				logic_setVar($id,2,$V[2]);
-				logic_setVar($id,3,$V[3]);
-				logic_setState($id,0);
-			}
-		}
-		
-		
-		
-		//aktiviert?
-		if ($E[4]['value']!=0) {
-
-			if ($E[5]['value']==0) {
-				//Pause retriggern
-				if ($E[2]['refresh']==1 && $E[2]['value']!=0) {
-					if ($V[3]!=1) {logic_setOutput($id,2,1);}
-
-					$V[1]=getMicrotime()+$E[3]['value'];
-					$V[2]=1;
-					$V[3]=1;
-					logic_setVar($id,1,$V[1]);
-					logic_setVar($id,2,$V[2]);
-					logic_setVar($id,3,$V[3]);
-					logic_setState($id,1,$E[3]['value']*1000);
-				}
-
-			} else {
-				//steigende Flanke: Pausieren, aber Timer nicht starten
-				if ($E[2]['refresh']==1 && $E[2]['value']!=0 && $V[2]==0) {
-					if ($V[3]!=1) {logic_setOutput($id,2,1);}
-
-					$V[2]=1;
-					$V[3]=1;
-					logic_setVar($id,2,$V[2]);
-					logic_setVar($id,3,$V[3]);
-					logic_setState($id,0);
-
-				//fallende Flanke: Pausieren und Timer starten
-				} else if ($E[2]['refresh']==1 && $E[2]['value']==0 && $V[2]==1) {
-					if ($V[3]!=1) {logic_setOutput($id,2,1);}
-
-					$V[1]=getMicrotime()+$E[3]['value'];
-					$V[2]=0;
-					$V[3]=1;
-					logic_setVar($id,1,$V[1]);
-					logic_setVar($id,2,$V[2]);
-					logic_setVar($id,3,$V[3]);
-					logic_setState($id,1,$E[3]['value']*1000);
-				}
-			}
+                $V[2] = 0;
+                $V[3] = 0;
+                logic_setVar($id, 2, $V[2]);
+                logic_setVar($id, 3, $V[3]);
+                logic_setState($id, 0);
+            }
+        }
 
 
-			//Pausenzeit abgelaufen?
-			if (logic_getState($id)==1) {
-				if (getMicrotime()>=$V[1]) {
-					if ($V[3]!=0) {logic_setOutput($id,2,0);}
+        //aktiviert?
+        if ($E[4]['value'] != 0) {
 
-					$V[2]=0;
-					$V[3]=0;
-					logic_setVar($id,2,$V[2]);
-					logic_setVar($id,3,$V[3]);
-					logic_setState($id,0);
-				}
-			}
+            if ($E[5]['value'] == 0) {
+                //Pause retriggern
+                if ($E[2]['refresh'] == 1 && $E[2]['value'] != 0) {
+                    if ($V[3] != 1) {
+                        logic_setOutput($id, 2, 1);
+                    }
 
-			//Alarm?
-			if ($V[3]==0 && $E[1]['refresh']==1 && $E[1]['value']!=0) {
-				logic_setOutput($id,1,1);
-				if ($V[3]!=0) {logic_setOutput($id,2,0);}
-				logic_setState($id,0);
-			}
-		}		
-	}
+                    $V[1] = getMicrotime() + $E[3]['value'];
+                    $V[2] = 1;
+                    $V[3] = 1;
+                    logic_setVar($id, 1, $V[1]);
+                    logic_setVar($id, 2, $V[2]);
+                    logic_setVar($id, 3, $V[3]);
+                    logic_setState($id, 1, $E[3]['value'] * 1000);
+                }
+
+            } else {
+                //steigende Flanke: Pausieren, aber Timer nicht starten
+                if ($E[2]['refresh'] == 1 && $E[2]['value'] != 0 && $V[2] == 0) {
+                    if ($V[3] != 1) {
+                        logic_setOutput($id, 2, 1);
+                    }
+
+                    $V[2] = 1;
+                    $V[3] = 1;
+                    logic_setVar($id, 2, $V[2]);
+                    logic_setVar($id, 3, $V[3]);
+                    logic_setState($id, 0);
+
+                    //fallende Flanke: Pausieren und Timer starten
+                } else if ($E[2]['refresh'] == 1 && $E[2]['value'] == 0 && $V[2] == 1) {
+                    if ($V[3] != 1) {
+                        logic_setOutput($id, 2, 1);
+                    }
+
+                    $V[1] = getMicrotime() + $E[3]['value'];
+                    $V[2] = 0;
+                    $V[3] = 1;
+                    logic_setVar($id, 1, $V[1]);
+                    logic_setVar($id, 2, $V[2]);
+                    logic_setVar($id, 3, $V[3]);
+                    logic_setState($id, 1, $E[3]['value'] * 1000);
+                }
+            }
+
+
+            //Pausenzeit abgelaufen?
+            if (logic_getState($id) == 1) {
+                if (getMicrotime() >= $V[1]) {
+                    if ($V[3] != 0) {
+                        logic_setOutput($id, 2, 0);
+                    }
+
+                    $V[2] = 0;
+                    $V[3] = 0;
+                    logic_setVar($id, 2, $V[2]);
+                    logic_setVar($id, 3, $V[3]);
+                    logic_setState($id, 0);
+                }
+            }
+
+            //Alarm?
+            if ($V[3] == 0 && $E[1]['refresh'] == 1 && $E[1]['value'] != 0) {
+                logic_setOutput($id, 1, 1);
+                if ($V[3] != 0) {
+                    logic_setOutput($id, 2, 0);
+                }
+                logic_setState($id, 0);
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

@@ -1,13 +1,13 @@
 ###[DEF]###
-[name		=Kurz/Lang				]
+[name        =Kurz/Lang                ]
 
-[e#1 TRIGGER=Trigger	 				]
-[e#2		=Dauer: lang (ms) #init=500	]
+[e#1 TRIGGER=Trigger                    ]
+[e#2        =Dauer: lang (ms) #init=500    ]
 
-[a#1		=kurz				]
-[a#2		=lang				]
+[a#1        =kurz                ]
+[a#2        =lang                ]
 
-[v#1		=500					]
+[v#1        =500                    ]
 ###[/DEF]###
 
 
@@ -26,32 +26,34 @@ A2: 1=Langes Signal
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+function LB_LBSID($id)
+{
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		//Triggern oder Retriggern
-		if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-			$V[1]=getMicrotime()+($E[2]['value']/1000);
-			logic_setVar($id,1,$V[1]);
-			logic_setState($id,1,$E[2]['value']); 
-		}
+        //Triggern oder Retriggern
+        if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+            $V[1] = getMicrotime() + ($E[2]['value'] / 1000);
+            logic_setVar($id, 1, $V[1]);
+            logic_setState($id, 1, $E[2]['value']);
+        }
 
-		if (logic_getState($id)==1) {
+        if (logic_getState($id) == 1) {
 
-			if ($E[1]['value']==0 && $E[1]['refresh']==1 && getMicrotime()<$V[1]) { //Zeit ist noch nicht abgelaufen => kurz
-				logic_setOutput($id,1,1);
-				logic_setState($id,0);
-			} else {
-				if (getMicrotime()>=$V[1]) { //Zeit ist abgelaufen => lang (E1 ist egal, Zeit ist rum)
-					logic_setOutput($id,2,1);
-					logic_setState($id,0);
-				}
-			}
+            if ($E[1]['value'] == 0 && $E[1]['refresh'] == 1 && getMicrotime() < $V[1]) { //Zeit ist noch nicht abgelaufen => kurz
+                logic_setOutput($id, 1, 1);
+                logic_setState($id, 0);
+            } else {
+                if (getMicrotime() >= $V[1]) { //Zeit ist abgelaufen => lang (E1 ist egal, Zeit ist rum)
+                    logic_setOutput($id, 2, 1);
+                    logic_setState($id, 0);
+                }
+            }
 
-		}
+        }
 
-	}
+    }
 }
+
 ?>
 ###[/LBS]###
 

@@ -1,9 +1,9 @@
 ###[DEF]###
-[name		=Requestauslöser		]
+[name        =Requestauslöser        ]
 
-[e#1 TRIGGER=GA					]
+[e#1 TRIGGER=GA                    ]
 
-[a#1		=			]
+[a#1        =            ]
 ###[/DEF]###
 
 
@@ -20,13 +20,15 @@ A1: bei einem eintreffenden Read-Request an die GA (E1) wird dieser Ausgang auf 
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-			logic_setOutput($id,1,1);
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+            logic_setOutput($id, 1, 1);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

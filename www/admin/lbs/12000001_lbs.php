@@ -1,12 +1,12 @@
 ###[DEF]###
-[name		=Eingangsbox 2-fach		]
-[titel		=Eingangsbox			]
+[name        =Eingangsbox 2-fach        ]
+[titel        =Eingangsbox            ]
 
-[e#1		=					]
-[e#2		=					]
+[e#1        =                    ]
+[e#2        =                    ]
 
-[a#1		=					]
-[a#2		=					]
+[a#1        =                    ]
+[a#2        =                    ]
 ###[/DEF]###
 
 
@@ -28,12 +28,18 @@ A1..A2: stellt den KO-Wert des entsprechenden Eingangs bereit
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1) {logic_setOutput($id,1,$E[1]['value']);}
-		if ($E[2]['refresh']==1) {logic_setOutput($id,2,$E[2]['value']);}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1) {
+            logic_setOutput($id, 1, $E[1]['value']);
+        }
+        if ($E[2]['refresh'] == 1) {
+            logic_setOutput($id, 2, $E[2]['value']);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

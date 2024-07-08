@@ -1,9 +1,9 @@
 ###[DEF]###
-[name		=	]
+[name        =    ]
 
-[e#1		= 	]
+[e#1        =    ]
 
-[a#1		=	]
+[a#1        =    ]
 ###[/DEF]###
 
 
@@ -14,23 +14,25 @@ Vorlage: LBS mit EXEC-Script
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-	
-		//eigener Code...
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		//bei Bedarf das EXEC-Script starten:
-		//logic_callExec(LBSID,$id);
-		
-	}
+        //eigener Code...
+
+        //bei Bedarf das EXEC-Script starten:
+        //logic_callExec(LBSID,$id);
+
+    }
 }
+
 ?>
 ###[/LBS]###
 
 
 ###[EXEC]###
 <?
-require(dirname(__FILE__)."/../../../../main/include/php/incl_lbsexec.php");
+require(dirname(__FILE__) . "/../../../../main/include/php/incl_lbsexec.php");
 
 //bei Bedarf kann hier die maximale Ausführungszeit des Scripts angepasst werden (Default: 30 Sekunden)
 //Beispiele:

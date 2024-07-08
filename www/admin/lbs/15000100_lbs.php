@@ -1,17 +1,17 @@
 ###[DEF]###
-[name		=Entropie (Unruhe)		]
-[titel		=Entropie				]
+[name        =Entropie (Unruhe)        ]
+[titel        =Entropie                ]
 
-[e#1 TRIGGER=Trigger			]
-[e#2		=Intervall (s) #init=30	]
-[e#3		=Reduktion #init=1		]
-[e#4		=Reset 					]
+[e#1 TRIGGER=Trigger            ]
+[e#2        =Intervall (s) #init=30    ]
+[e#3        =Reduktion #init=1        ]
+[e#4        =Reset                    ]
 
-[a#1		=				]
+[a#1        =                ]
 
-[v#1		=0						]	Timer
-[v#2		=0						]	Zählerstand
-[v#3		=0						]	SBC
+[v#1        =0                        ]    Timer
+[v#2        =0                        ]    Zählerstand
+[v#3        =0                        ]    SBC
 ###[/DEF]###
 
 
@@ -42,48 +42,54 @@ A1: Ergebnis 0..oo als Maß der "Unruhe": Je größer der Wert, desto "unruhiger
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+function LB_LBSID($id)
+{
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		if ($E[1]['value']>0 && $E[1]['refresh']==1) {
-			$V[2]+=$E[1]['value'];
-			if ($V[2]!=$V[3]) {logic_setOutput($id,1,$V[2]);}
-			$V[3]=$V[2];
+        if ($E[1]['value'] > 0 && $E[1]['refresh'] == 1) {
+            $V[2] += $E[1]['value'];
+            if ($V[2] != $V[3]) {
+                logic_setOutput($id, 1, $V[2]);
+            }
+            $V[3] = $V[2];
 
-			if (logic_getState($id)==0) {
-				$V[1]=getMicrotime()+$E[2]['value'];
-				logic_setState($id,1,$E[2]['value']*1000);
-			}
-		}
+            if (logic_getState($id) == 0) {
+                $V[1] = getMicrotime() + $E[2]['value'];
+                logic_setState($id, 1, $E[2]['value'] * 1000);
+            }
+        }
 
-		if (logic_getState($id)!=0) {
+        if (logic_getState($id) != 0) {
 
-			if ($E[4]['value']!=0 && $E[4]['refresh']==1) {
-				$V[1]=0;
-				$V[2]=0;
-			}
+            if ($E[4]['value'] != 0 && $E[4]['refresh'] == 1) {
+                $V[1] = 0;
+                $V[2] = 0;
+            }
 
-			if (getMicrotime()>=$V[1]) {
-				$V[1]=getMicrotime()+$E[2]['value'];
-				$V[2]-=$E[3]['value'];
-				if ($V[2]>0) {
-					logic_setState($id,1,$E[2]['value']*1000);
-				} else {
-					$V[2]=0;
-					logic_setState($id,0);
-				}
-				if ($V[2]!=$V[3]) {logic_setOutput($id,1,$V[2]);}
-				$V[3]=$V[2];
-			}
+            if (getMicrotime() >= $V[1]) {
+                $V[1] = getMicrotime() + $E[2]['value'];
+                $V[2] -= $E[3]['value'];
+                if ($V[2] > 0) {
+                    logic_setState($id, 1, $E[2]['value'] * 1000);
+                } else {
+                    $V[2] = 0;
+                    logic_setState($id, 0);
+                }
+                if ($V[2] != $V[3]) {
+                    logic_setOutput($id, 1, $V[2]);
+                }
+                $V[3] = $V[2];
+            }
 
-			logic_setVar($id,1,$V[1]);
-			logic_setVar($id,2,$V[2]);
-			logic_setVar($id,3,$V[3]);
-			
-		}
-		
-	}
+            logic_setVar($id, 1, $V[1]);
+            logic_setVar($id, 2, $V[2]);
+            logic_setVar($id, 3, $V[3]);
+
+        }
+
+    }
 }
+
 ?>
 ###[/LBS]###
 

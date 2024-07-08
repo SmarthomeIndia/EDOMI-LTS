@@ -1,19 +1,20 @@
 ###[DEF]###
-[name		=Mittelwert/Abweichung: &ne;&#91;leer&#93; 5-fach			]
+[name        =Mittelwert/Abweichung: &ne;&#91;leer&#93; 5-fach            ]
 
-[e#1 TRIGGER=A&ne;&#91;leer&#93;				]
-[e#2 TRIGGER=B&ne;&#91;leer&#93;				]
-[e#3 TRIGGER=C&ne;&#91;leer&#93;				]
-[e#4 TRIGGER=D&ne;&#91;leer&#93;				]
-[e#5 TRIGGER=E&ne;&#91;leer&#93;				]
+[e#1 TRIGGER=A&ne;&#91;leer&#93;                ]
+[e#2 TRIGGER=B&ne;&#91;leer&#93;                ]
+[e#3 TRIGGER=C&ne;&#91;leer&#93;                ]
+[e#4 TRIGGER=D&ne;&#91;leer&#93;                ]
+[e#5 TRIGGER=E&ne;&#91;leer&#93;                ]
 
-[a#1		=Mittelwert					]
-[a#2		=Abweichung					]
+[a#1        =Mittelwert                    ]
+[a#2        =Abweichung                    ]
 ###[/DEF]###
 
 
 ###[HELP]###
-Dieser Baustein bildet den Mittelwert aus maximal 5 Werten (E1..E5), sobald <i>sämtliche</i> Werte an E1..E5 &ne;[leer] sind. Jedes neue Telegramm an E1..E5 triggert den Baustein.
+Dieser Baustein bildet den Mittelwert aus maximal 5 Werten (E1..E5), sobald
+<i>sämtliche</i> Werte an E1..E5 &ne;[leer] sind. Jedes neue Telegramm an E1..E5 triggert den Baustein.
 Zudem wird die mittlere absolute Abweichung vom Mittelwert an A2 ausgegeben.
 
 Wenn E1..E5 keine Zahlen sind, entspricht dies dem Wert 0.
@@ -37,32 +38,36 @@ A2: mittlere absolute Abweichung vom Mittelwert aus A..E (sofern ein Mittelwert 
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		$ok=0;	
-		$anz=0;	
-		$tmp=0;
-		for ($t=1;$t<=5;$t++) {
-			if (!isEmpty($E[$t]['value'])) {
-				$ok++;
-				if ($E[$t]['value']!='*') {
-					$anz++;
-					$tmp+=$E[$t]['value'];
-				}
-			}
-		}
-		
-		if ($ok==5) {
-			$avg=$tmp/$anz;
-			$avg2=0;
-			for ($t=1;$t<=5;$t++) {
-				if (!isEmpty($E[$t]['value']) && $E[$t]['value']!='*') {$avg2+=abs($E[$t]['value']-$avg);}
-			}
-			logic_setOutput($id,1,$avg);
-			logic_setOutput($id,2,$avg2/$anz);
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        $ok = 0;
+        $anz = 0;
+        $tmp = 0;
+        for ($t = 1; $t <= 5; $t++) {
+            if (!isEmpty($E[$t]['value'])) {
+                $ok++;
+                if ($E[$t]['value'] != '*') {
+                    $anz++;
+                    $tmp += $E[$t]['value'];
+                }
+            }
+        }
+
+        if ($ok == 5) {
+            $avg = $tmp / $anz;
+            $avg2 = 0;
+            for ($t = 1; $t <= 5; $t++) {
+                if (!isEmpty($E[$t]['value']) && $E[$t]['value'] != '*') {
+                    $avg2 += abs($E[$t]['value'] - $avg);
+                }
+            }
+            logic_setOutput($id, 1, $avg);
+            logic_setOutput($id, 2, $avg2 / $anz);
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

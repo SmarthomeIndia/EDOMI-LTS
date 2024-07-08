@@ -1,11 +1,11 @@
 ###[DEF]###
-[name		=Division A/Konstante			]
-[titel		=A/K					]
+[name        =Division A/Konstante            ]
+[titel        =A/K                    ]
 
-[e#1 TRIGGER=A 				]
-[e#2 		=K 		]
+[e#1 TRIGGER=A                ]
+[e#2        =K        ]
 
-[a#1		=					]
+[a#1        =                    ]
 ###[/DEF]###
 
 
@@ -24,21 +24,27 @@ A1: E1 / E2 (A/K)
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1) {
 
-			$A=$E[1]['value'];
-			if (!is_numeric($A)) {$A=0;}
-			$B=$E[2]['value'];
-			if (!is_numeric($B)) {$B=0;}
+            $A = $E[1]['value'];
+            if (!is_numeric($A)) {
+                $A = 0;
+            }
+            $B = $E[2]['value'];
+            if (!is_numeric($B)) {
+                $B = 0;
+            }
 
-			if ($B!=0) {
-				logic_setOutput($id,1,($A/$B));
-			}
-		}
-	}
+            if ($B != 0) {
+                logic_setOutput($id, 1, ($A / $B));
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

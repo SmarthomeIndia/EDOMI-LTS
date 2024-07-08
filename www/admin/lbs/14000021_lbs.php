@@ -1,13 +1,13 @@
 ###[DEF]###
-[name		=UND-Gatter 4-fach		]
-[titel		=UND					]
+[name        =UND-Gatter 4-fach        ]
+[titel        =UND                    ]
 
-[e#1 TRIGGER=#init=0				]
-[e#2 TRIGGER=#init=0				]
-[e#3 TRIGGER=#init=0				]
-[e#4 TRIGGER=#init=0				]
+[e#1 TRIGGER=#init=0                ]
+[e#2 TRIGGER=#init=0                ]
+[e#3 TRIGGER=#init=0                ]
+[e#4 TRIGGER=#init=0                ]
 
-[a#1		=					]
+[a#1        =                    ]
 ###[/DEF]###
 
 
@@ -23,17 +23,19 @@ A1: Ergebnis der UND-Verknüpfung (0 oder 1)
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1 || $E[2]['refresh']==1 || $E[3]['refresh']==1 || $E[4]['refresh']==1) {
-			if (($E[1]['value']!=0) && ($E[2]['value']!=0) && ($E[3]['value']!=0) && ($E[4]['value']!=0)) {
-				logic_setOutput($id,1,1);
-			} else {
-				logic_setOutput($id,1,0);
-			}
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1 || $E[2]['refresh'] == 1 || $E[3]['refresh'] == 1 || $E[4]['refresh'] == 1) {
+            if (($E[1]['value'] != 0) && ($E[2]['value'] != 0) && ($E[3]['value'] != 0) && ($E[4]['value'] != 0)) {
+                logic_setOutput($id, 1, 1);
+            } else {
+                logic_setOutput($id, 1, 0);
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

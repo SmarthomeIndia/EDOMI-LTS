@@ -1,9 +1,9 @@
 ###[DEF]###
-[name		=Inverter	]
+[name        =Inverter    ]
 
-[e#1 TRIGGER=				]
+[e#1 TRIGGER=                ]
 
-[a#1		=				]
+[a#1        =                ]
 ###[/DEF]###
 
 
@@ -18,19 +18,21 @@ A1: invertierter Wert
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1) {
-			if (!isEmpty($E[1]['value'])) {
-				if ($E[1]['value']!=0) {
-					logic_setOutput($id,1,0);
-				} else {
-					logic_setOutput($id,1,1);
-				}
-			}
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1) {
+            if (!isEmpty($E[1]['value'])) {
+                if ($E[1]['value'] != 0) {
+                    logic_setOutput($id, 1, 0);
+                } else {
+                    logic_setOutput($id, 1, 1);
+                }
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

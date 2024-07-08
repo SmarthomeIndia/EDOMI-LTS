@@ -1,14 +1,14 @@
 ###[DEF]###
-[name		=Impuls/Trigger (präzise)	]
+[name        =Impuls/Trigger (präzise)    ]
 
-[e#1 TRIGGER=Trigger #init=0		]
-[e#2		=Timer starten #init=0	]
-[e#3		=Dauer (ms) #init=500	]
+[e#1 TRIGGER=Trigger #init=0        ]
+[e#2        =Timer starten #init=0    ]
+[e#3        =Dauer (ms) #init=500    ]
 
-[a#1		=					]
+[a#1        =                    ]
 
-[v#1		=500					]
-[v#2		=0						]
+[v#1        =500                    ]
+[v#2        =0                        ]
 ###[/DEF]###
 
 
@@ -34,41 +34,45 @@ A1: Beim Start 1, nach Ablauf der Triggerzeit 0
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		if (logic_getState($id)==0) {
+        if (logic_getState($id) == 0) {
 
-			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {											//Ausgang =1 setzen (E1!=0)
-				logic_setVar($id,2,1);
-				logic_setOutput($id,1,1);
-			} else {
-				if (logic_getVar($id,2)==1 && $E[1]['value']==0 && $E[1]['refresh']==1) {		//Ausgang =0 setzen (Abbruch durch E1=0)
-					logic_setVar($id,2,0);
-					logic_setOutput($id,1,0);
-				} else {
-					if (logic_getVar($id,2)==1 && $E[2]['value']!=0 && $E[2]['refresh']==1) {	//Timer starten (E2!=0)
-						logic_setVar($id,2,0);
-						if ($E[3]['value']<=0) {$E[3]['value']=0;}
-						logic_setVar($id,1,(getMicrotime()+($E[3]['value']/1000)));
-						logic_setState($id,1,$E[3]['value']);
-					}
-				}
-			}
-			
-		} else {
+            if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {                                            //Ausgang =1 setzen (E1!=0)
+                logic_setVar($id, 2, 1);
+                logic_setOutput($id, 1, 1);
+            } else {
+                if (logic_getVar($id, 2) == 1 && $E[1]['value'] == 0 && $E[1]['refresh'] == 1) {        //Ausgang =0 setzen (Abbruch durch E1=0)
+                    logic_setVar($id, 2, 0);
+                    logic_setOutput($id, 1, 0);
+                } else {
+                    if (logic_getVar($id, 2) == 1 && $E[2]['value'] != 0 && $E[2]['refresh'] == 1) {    //Timer starten (E2!=0)
+                        logic_setVar($id, 2, 0);
+                        if ($E[3]['value'] <= 0) {
+                            $E[3]['value'] = 0;
+                        }
+                        logic_setVar($id, 1, (getMicrotime() + ($E[3]['value'] / 1000)));
+                        logic_setState($id, 1, $E[3]['value']);
+                    }
+                }
+            }
 
-			if (getMicrotime()>=logic_getVar($id,1)) {										//Timer abgelaufen
-				logic_setVar($id,2,0);
-				logic_setOutput($id,1,0);
-				logic_setState($id,0);
-			}
+        } else {
 
-		}
+            if (getMicrotime() >= logic_getVar($id, 1)) {                                        //Timer abgelaufen
+                logic_setVar($id, 2, 0);
+                logic_setOutput($id, 1, 0);
+                logic_setState($id, 0);
+            }
 
-	}
+        }
+
+    }
 
 }
+
 ?>
 ###[/LBS]###
 

@@ -1,12 +1,12 @@
 ###[DEF]###
-[name		=Impuls/Trigger			]
+[name        =Impuls/Trigger            ]
 
-[e#1 TRIGGER=Trigger  #init=0	]
-[e#2		=Dauer (ms) #init=500	]
+[e#1 TRIGGER=Trigger  #init=0    ]
+[e#2        =Dauer (ms) #init=500    ]
 
-[a#1		=					]
+[a#1        =                    ]
 
-[v#1		=500					]
+[v#1        =500                    ]
 ###[/DEF]###
 
 
@@ -21,30 +21,34 @@ A1: Beim Start 1, nach Ablauf der Triggerzeit 0
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		if (logic_getState($id)==0) {
-		
-			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-				if ($E[2]['value']<=0) {$E[2]['value']=0;}
-				logic_setVar($id,1,(getMicrotime()+($E[2]['value']/1000)));
-				logic_setOutput($id,1,1);
-				logic_setState($id,1,$E[2]['value']);
-			}
-			
-		} else {
-		
-			if (getMicrotime()>=logic_getVar($id,1)) {
-				logic_setOutput($id,1,0);
-				logic_setState($id,0);
-			}
-			
-		}
+        if (logic_getState($id) == 0) {
 
-	}
+            if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+                if ($E[2]['value'] <= 0) {
+                    $E[2]['value'] = 0;
+                }
+                logic_setVar($id, 1, (getMicrotime() + ($E[2]['value'] / 1000)));
+                logic_setOutput($id, 1, 1);
+                logic_setState($id, 1, $E[2]['value']);
+            }
+
+        } else {
+
+            if (getMicrotime() >= logic_getVar($id, 1)) {
+                logic_setOutput($id, 1, 0);
+                logic_setState($id, 0);
+            }
+
+        }
+
+    }
 
 }
+
 ?>
 ###[/LBS]###
 

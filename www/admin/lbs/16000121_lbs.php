@@ -1,14 +1,14 @@
 ###[DEF]###
-[name		=Wert-/Zeitdifferenz		]
+[name        =Wert-/Zeitdifferenz        ]
 
-[e#1 TRIGGER=Trigger/Stop #init=0		]
-[e#2		=Messwert				]
+[e#1 TRIGGER=Trigger/Stop #init=0        ]
+[e#2        =Messwert                ]
 
-[a#1		=&Delta;Wert					]
-[a#2		=&Delta;Zeit					]
+[a#1        =&Delta;Wert                    ]
+[a#2        =&Delta;Zeit                    ]
 
-[v#1		=						]
-[v#2		=						]
+[v#1        =                        ]
+[v#2        =                        ]
 ###[/DEF]###
 
 
@@ -27,11 +27,12 @@ A1 und A2 verhalten sich also wie SBC-Ausgänge (Send-By-Change).
 Hinweise:
 Telegramme =0 an E1 werden ignoriert, wenn zuvor keine Messung mit einem Telegramm &ne;0 an E1 gestartet wurde.
 Wird E2 nicht belegt bzw. nicht verändert, verhält sich der Baustein wie eine einfache Stoppuhr (A2 wird auf die Zeitdifferenz zwischen E1&ne;0 und E1=0 gesetzt).
- 
+
 Achtung:
-Eine Aktualisierung von A1 und A2 erfolgt nur beim Starten und Stoppen einer Messung und bei eintreffenden Telegrammen an E2 während einer Messung. Es erfolgt <i>keine</i> zyklische Änderung von A1 und A2!
- 
- 
+Eine Aktualisierung von A1 und A2 erfolgt nur beim Starten und Stoppen einer Messung und bei eintreffenden Telegrammen an E2 während einer Messung. Es erfolgt
+<i>keine</i> zyklische Änderung von A1 und A2!
+
+
 E1: Starten (&ne;0) bzw. Stoppen (=0) einer Messung
 E2: Messwert (nummerisch), dessen Differenz berechnet werden soll (z.B. ein Zählerstand)
 A1: Messwert-Differenz (nummerisch): wird beim Start auf 0 gesetzt, dann bei jedem eintreffenden Telegramm an E2 auf die Wertdifferenz, beim Beenden der Messung erfolgt keine Änderung
@@ -41,38 +42,40 @@ A2: Zeitdifferenz (Sekunden, FLOAT): wird beim Start auf 0 gesetzt, dann bei jed
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
+function LB_LBSID($id)
+{
 
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		//Differenzen ausgeben
-		if (!isEmpty($V[2]) && $E[2]['refresh']==1) {
-			logic_setOutput($id,1,$E[2]['value']-$V[1]);
-			logic_setOutput($id,2,getMicrotime()-$V[2]);
-		}
+        //Differenzen ausgeben
+        if (!isEmpty($V[2]) && $E[2]['refresh'] == 1) {
+            logic_setOutput($id, 1, $E[2]['value'] - $V[1]);
+            logic_setOutput($id, 2, getMicrotime() - $V[2]);
+        }
 
-		if ($E[1]['refresh']==1) {
-			if ($E[1]['value']==0) {
-				//Stop
-				if (!isEmpty($V[2])) {
-					logic_setVar($id,2,null);
-					logic_setOutput($id,2,getMicrotime()-$V[2]);
-				} else {
-					//### ignorieren bzw. resetten
-				}
+        if ($E[1]['refresh'] == 1) {
+            if ($E[1]['value'] == 0) {
+                //Stop
+                if (!isEmpty($V[2])) {
+                    logic_setVar($id, 2, null);
+                    logic_setOutput($id, 2, getMicrotime() - $V[2]);
+                } else {
+                    //### ignorieren bzw. resetten
+                }
 
-			} else {
-				//Start
-				logic_setVar($id,1,$E[2]['value']);
-				logic_setVar($id,2,getMicrotime());
-				logic_setOutput($id,1,0);
-				logic_setOutput($id,2,0);
-			}
-		}
+            } else {
+                //Start
+                logic_setVar($id, 1, $E[2]['value']);
+                logic_setVar($id, 2, getMicrotime());
+                logic_setOutput($id, 1, 0);
+                logic_setOutput($id, 2, 0);
+            }
+        }
 
-	}
+    }
 
 }
+
 ?>
 ###[/LBS]###
 

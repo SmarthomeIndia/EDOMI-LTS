@@ -1,13 +1,13 @@
 ###[DEF]###
-[name		= HSV-Einschalttelegramm		]
+[name        = HSV-Einschalttelegramm        ]
 
-[e#1 TRIGGER= HSV							]
-[e#2 OPTION	= Verzögerung (ms)	#init=0		]
+[e#1 TRIGGER= HSV                            ]
+[e#2 OPTION    = Verzögerung (ms)    #init=0        ]
 
-[a#1		=								]
+[a#1        =                                ]
 
-[v#1		=						]
-[v#2		=						]
+[v#1        =                        ]
+[v#2        =                        ]
 ###[/DEF]###
 
 
@@ -34,47 +34,54 @@ A1: HSV-Wert (000000..FFFFFF) zur direkten Ansteuerung des LED-Controllers
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
-		if (logic_getState($id)==0) {
-			if ($E[1]['refresh']==1) {
-				if (LB_LBSID_isOnValue($E[1]['value'])) {
-					if ($V[1]==0 || isEmpty($V[1])) {
-					
-						//Dummy-HSV-Wert: Hue modifizieren (+1)
-						$tmp=hexdec(substr($E[1]['value'],0,2));
-						$tmp=(($tmp>0)?$tmp-1:$tmp+1);
-						$tmp=sprintf('%02X',$tmp).substr($E[1]['value'],2,2).substr($E[1]['value'],4,2);
-						logic_setOutput($id,1,$tmp);	//Dummy-Wert
+function LB_LBSID($id)
+{
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
+        if (logic_getState($id) == 0) {
+            if ($E[1]['refresh'] == 1) {
+                if (LB_LBSID_isOnValue($E[1]['value'])) {
+                    if ($V[1] == 0 || isEmpty($V[1])) {
 
-						logic_setVar($id,1,1);
-						logic_setVar($id,2,(getMicrotime()+($E[2]['value']/1000)));
-						logic_setState($id,1,$E[2]['value']); 
+                        //Dummy-HSV-Wert: Hue modifizieren (+1)
+                        $tmp = hexdec(substr($E[1]['value'], 0, 2));
+                        $tmp = (($tmp > 0) ? $tmp - 1 : $tmp + 1);
+                        $tmp = sprintf('%02X', $tmp) . substr($E[1]['value'], 2, 2) . substr($E[1]['value'], 4, 2);
+                        logic_setOutput($id, 1, $tmp);    //Dummy-Wert
 
-					} else {
-						logic_setOutput($id,1,$E[1]['value']);	//E1-Wert
-					}
+                        logic_setVar($id, 1, 1);
+                        logic_setVar($id, 2, (getMicrotime() + ($E[2]['value'] / 1000)));
+                        logic_setState($id, 1, $E[2]['value']);
 
-				} else {
-					logic_setVar($id,1,0);
-					logic_setOutput($id,1,$E[1]['value']);		//AUS (E1-Wert)
-				}
-			}
+                    } else {
+                        logic_setOutput($id, 1, $E[1]['value']);    //E1-Wert
+                    }
 
-		} else {
-			if (getMicrotime()>=$V[2]) {
-				logic_setOutput($id,1,$E[1]['value']);			//E1-Wert
-				logic_setState($id,0);
-				if (!LB_LBSID_isOnValue($E[1]['value'])) {logic_setVar($id,1,0);}
-			}
-		}
-	}
+                } else {
+                    logic_setVar($id, 1, 0);
+                    logic_setOutput($id, 1, $E[1]['value']);        //AUS (E1-Wert)
+                }
+            }
+
+        } else {
+            if (getMicrotime() >= $V[2]) {
+                logic_setOutput($id, 1, $E[1]['value']);            //E1-Wert
+                logic_setState($id, 0);
+                if (!LB_LBSID_isOnValue($E[1]['value'])) {
+                    logic_setVar($id, 1, 0);
+                }
+            }
+        }
+    }
 }
 
-function LB_LBSID_isOnValue($value) {
-	if (strlen($value)==6 && hexdec(substr($value,4,2))>0) {return true;}
-	return false;
+function LB_LBSID_isOnValue($value)
+{
+    if (strlen($value) == 6 && hexdec(substr($value, 4, 2)) > 0) {
+        return true;
+    }
+    return false;
 }
+
 ?>
 ###[/LBS]###
 

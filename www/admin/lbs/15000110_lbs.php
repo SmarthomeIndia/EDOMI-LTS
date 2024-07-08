@@ -1,16 +1,16 @@
 ###[DEF]###
-[name		=Minimum/Maximum		]
+[name        =Minimum/Maximum        ]
 
 [e#1 TRIGGER=Trigger ]
-[e#2		=Reset 			]
+[e#2        =Reset            ]
 
-[a#1		=Min					]
-[a#2		=Max					]
-[a#3		=Min (Reset)			]
-[a#4		=Max (Reset)			]
+[a#1        =Min                    ]
+[a#2        =Max                    ]
+[a#3        =Min (Reset)            ]
+[a#4        =Max (Reset)            ]
 
-[v#1		=						]	Min
-[v#2		=						]	Max
+[v#1        =                        ]    Min
+[v#2        =                        ]    Max
 ###[/DEF]###
 
 
@@ -42,34 +42,36 @@ A4: Maximum-Wert zum Zeitpunkt eines Resets per E2
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+function LB_LBSID($id)
+{
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		if ($E[2]['value']!=0 && $E[2]['refresh']==1) {					//Reset
-			logic_setOutput($id,3,$V[1]);
-			logic_setOutput($id,4,$V[2]);
-			$V[1]=$E[1]['value'];
-			$V[2]=$E[1]['value'];
-			logic_setVar($id,1,$V[1]);
-			logic_setVar($id,2,$V[2]);
-			logic_setOutput($id,1,$V[1]);
-			logic_setOutput($id,2,$V[2]);
+        if ($E[2]['value'] != 0 && $E[2]['refresh'] == 1) {                    //Reset
+            logic_setOutput($id, 3, $V[1]);
+            logic_setOutput($id, 4, $V[2]);
+            $V[1] = $E[1]['value'];
+            $V[2] = $E[1]['value'];
+            logic_setVar($id, 1, $V[1]);
+            logic_setVar($id, 2, $V[2]);
+            logic_setOutput($id, 1, $V[1]);
+            logic_setOutput($id, 2, $V[2]);
 
-		} else if (!isEmpty($E[1]['value']) && $E[1]['refresh']==1) {	//Min/Max
-			if (isEmpty($V[1]) || $E[1]['value']<$V[1]) {
-				$V[1]=$E[1]['value'];
-				logic_setVar($id,1,$V[1]);
-				logic_setOutput($id,1,$V[1]);
-			}
-			if (isEmpty($V[2]) || $E[1]['value']>$V[2]) {
-				$V[2]=$E[1]['value'];
-				logic_setVar($id,2,$V[2]);
-				logic_setOutput($id,2,$V[2]);
-			}
-		}
-		
-	}
+        } else if (!isEmpty($E[1]['value']) && $E[1]['refresh'] == 1) {    //Min/Max
+            if (isEmpty($V[1]) || $E[1]['value'] < $V[1]) {
+                $V[1] = $E[1]['value'];
+                logic_setVar($id, 1, $V[1]);
+                logic_setOutput($id, 1, $V[1]);
+            }
+            if (isEmpty($V[2]) || $E[1]['value'] > $V[2]) {
+                $V[2] = $E[1]['value'];
+                logic_setVar($id, 2, $V[2]);
+                logic_setOutput($id, 2, $V[2]);
+            }
+        }
+
+    }
 }
+
 ?>
 ###[/LBS]###
 

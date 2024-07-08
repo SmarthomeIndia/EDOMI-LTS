@@ -1,20 +1,20 @@
 ###[DEF]###
-[name		=Vergleicher =&#91;Konstante&#93; 5-fach		]
-[titel		==&#91;K1..5&#93;?				]
+[name        =Vergleicher =&#91;Konstante&#93; 5-fach        ]
+[titel        ==&#91;K1..5&#93;?                ]
 
-[e#1 TRIGGER= 					]
-[e#2 		=K1 				]
-[e#3 		=K2 				]
-[e#4 		=K3 				]
-[e#5 		=K4 				]
-[e#6 		=K5 				]
+[e#1 TRIGGER=                    ]
+[e#2        =K1                ]
+[e#3        =K2                ]
+[e#4        =K3                ]
+[e#5        =K4                ]
+[e#6        =K5                ]
 
-[a#1		=&ne;K1..5			]
-[a#2		==K1				]
-[a#3		==K2				]
-[a#4		==K3				]
-[a#5		==K4				]
-[a#6		==K5				]
+[a#1        =&ne;K1..5            ]
+[a#2        ==K1                ]
+[a#3        ==K2                ]
+[a#4        ==K3                ]
+[a#5        ==K4                ]
+[a#6        ==K5                ]
 ###[/DEF]###
 
 
@@ -38,24 +38,26 @@ A2..A6: wird auf 1 gesetzt, wenn der Wert an E1 einer der Konstanten K1..K5 ents
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1 && !isEmpty($E[1]['value'])) {
-			$tmp=false;
-			for ($t=2;$t<7;$t++) {
-				if ($E[1]['value']==$E[$t]['value'] && !isEmpty($E[$t]['value'])) {
-					$tmp=true;
-					logic_setOutput($id,$t,1);
-				} else if (!isEmpty($E[$t]['value'])) {
-					logic_setOutput($id,$t,0);
-				}
-			}		
-			if (!$tmp) {
-				logic_setOutput($id,1,$E[1]['value']);
-			}
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1 && !isEmpty($E[1]['value'])) {
+            $tmp = false;
+            for ($t = 2; $t < 7; $t++) {
+                if ($E[1]['value'] == $E[$t]['value'] && !isEmpty($E[$t]['value'])) {
+                    $tmp = true;
+                    logic_setOutput($id, $t, 1);
+                } else if (!isEmpty($E[$t]['value'])) {
+                    logic_setOutput($id, $t, 0);
+                }
+            }
+            if (!$tmp) {
+                logic_setOutput($id, 1, $E[1]['value']);
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

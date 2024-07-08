@@ -1,13 +1,13 @@
 ###[DEF]###
-[name		=Zeitdifferenz			]
+[name        =Zeitdifferenz            ]
 
-[e#1 TRIGGER=						]
+[e#1 TRIGGER=                        ]
 
-[a#1		=&Delta;T				]
-[a#2		=AVG					]
+[a#1        =&Delta;T                ]
+[a#2        =AVG                    ]
 
-[v#1		=						]
-[v#2		=						]
+[v#1        =                        ]
+[v#2        =                        ]
 ###[/DEF]###
 
 
@@ -24,31 +24,33 @@ A2: durchschnittliche Zeitdifferenz (Sekunden, FLOAT)
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
+function LB_LBSID($id)
+{
 
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		if ($E[1]['refresh']==1 && !isEmpty($E[1]['value'])) {
-			if (!isEmpty($V[1])) {
-				$tmp=getMicrotime()-$V[1];
-				logic_setOutput($id,1,$tmp);
+        if ($E[1]['refresh'] == 1 && !isEmpty($E[1]['value'])) {
+            if (!isEmpty($V[1])) {
+                $tmp = getMicrotime() - $V[1];
+                logic_setOutput($id, 1, $tmp);
 
-				if (isEmpty($V[2])) {
-					$V[2]=$tmp;
-				} else {
-					$V[2]=($V[2]+$tmp)/2;
-				}
-				logic_setVar($id,2,$V[2]);
-				logic_setOutput($id,2,$V[2]);
-			}
-			
-			$V[1]=getMicrotime();
-			logic_setVar($id,1,$V[1]);
-		}
+                if (isEmpty($V[2])) {
+                    $V[2] = $tmp;
+                } else {
+                    $V[2] = ($V[2] + $tmp) / 2;
+                }
+                logic_setVar($id, 2, $V[2]);
+                logic_setOutput($id, 2, $V[2]);
+            }
 
-	}
+            $V[1] = getMicrotime();
+            logic_setVar($id, 1, $V[1]);
+        }
+
+    }
 
 }
+
 ?>
 ###[/LBS]###
 

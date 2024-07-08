@@ -1,9 +1,9 @@
 ###[DEF]###
-[name		=Filter: 0&#x25B8;0, &ne;0&#x25B8;1	]
+[name        =Filter: 0&#x25B8;0, &ne;0&#x25B8;1    ]
 
-[e#1 TRIGGER=				]
+[e#1 TRIGGER=                ]
 
-[a#1		=					]
+[a#1        =                    ]
 ###[/DEF]###
 
 
@@ -20,17 +20,19 @@ A1: gefiltertes Signal (s.o.)
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-		if ($E[1]['refresh']==1) {
-			if ($E[1]['value']!=0) {
-				logic_setOutput($id,1,1);
-			} else {
-				logic_setOutput($id,1,0);
-			}
-		}
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+        if ($E[1]['refresh'] == 1) {
+            if ($E[1]['value'] != 0) {
+                logic_setOutput($id, 1, 1);
+            } else {
+                logic_setOutput($id, 1, 0);
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 

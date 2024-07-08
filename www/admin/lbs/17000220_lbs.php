@@ -1,16 +1,16 @@
 ###[DEF]###
-[name		=Alarmtrigger (Zähler)	]
+[name        =Alarmtrigger (Zähler)    ]
 
-[e#1 TRIGGER=Trigger			 	]
-[e#2		=Anzahl 	#init=3	]
-[e#3		=Dauer (s) #init=10]
-[e#4		=Aktiviert/Reset	#init=0	]
+[e#1 TRIGGER=Trigger                ]
+[e#2        =Anzahl    #init=3    ]
+[e#3        =Dauer (s) #init=10]
+[e#4        =Aktiviert/Reset    #init=0    ]
 
-[a#1		=Alarm		 			]
-[a#2		=Zähler 				]
+[a#1        =Alarm                    ]
+[a#2        =Zähler                ]
 
-[v#1		=0						] (Zähler)
-[v#2		=0						] (Timer)
+[v#1        =0                        ] (Zähler)
+[v#2        =0                        ] (Timer)
 ###[/DEF]###
 
 
@@ -37,52 +37,54 @@ A2: Zählerstand 0..oo: Der aktuelle Stand des internen Zählers. Wird bei Alarm
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
+function LB_LBSID($id)
+{
 
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		if ($E[4]['refresh']==1) { //BS wurde Aktiviert/Deaktiviert oder Resettet
-			logic_setOutput($id,1,0);
-			logic_setOutput($id,2,0);
-			logic_setVar($id,1,0);
-			logic_setState($id,0);
-		}
+        if ($E[4]['refresh'] == 1) { //BS wurde Aktiviert/Deaktiviert oder Resettet
+            logic_setOutput($id, 1, 0);
+            logic_setOutput($id, 2, 0);
+            logic_setVar($id, 1, 0);
+            logic_setState($id, 0);
+        }
 
-		if ($E[4]['value']==1) { //Aktiviert?
+        if ($E[4]['value'] == 1) { //Aktiviert?
 
-			//Zähler erhöhen
-			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-				$V[1]++;
-				$V[2]=getMicrotime()+$E[3]['value'];
-				logic_setVar($id,1,$V[1]);
-				logic_setVar($id,2,$V[2]);
-				logic_setOutput($id,2,$V[1]); 	//Zählerstand ausgeben
-				logic_setState($id,1,$E[3]['value']*1000);
-			}
+            //Zähler erhöhen
+            if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+                $V[1]++;
+                $V[2] = getMicrotime() + $E[3]['value'];
+                logic_setVar($id, 1, $V[1]);
+                logic_setVar($id, 2, $V[2]);
+                logic_setOutput($id, 2, $V[1]);    //Zählerstand ausgeben
+                logic_setState($id, 1, $E[3]['value'] * 1000);
+            }
 
-			//Alarm? (Triggeranzahl erreicht?)
-			if ($V[1]>=$E[2]['value']) {
-				logic_setOutput($id,1,1);
-				logic_setVar($id,1,0); 		//Zähler auf 0
-				logic_setOutput($id,2,0); 		//Zählerstand ausgeben
-				logic_setState($id,0);
-			}
+            //Alarm? (Triggeranzahl erreicht?)
+            if ($V[1] >= $E[2]['value']) {
+                logic_setOutput($id, 1, 1);
+                logic_setVar($id, 1, 0);        //Zähler auf 0
+                logic_setOutput($id, 2, 0);        //Zählerstand ausgeben
+                logic_setState($id, 0);
+            }
 
-			if (logic_getState($id)==1) {
-				//Zeitspanne erreicht?
-				if (getMicrotime()>=$V[2]) { 		//Zeit abgelaufen?
-					logic_setVar($id,1,0); 	//Zähler auf 0
-					logic_setOutput($id,2,0); 	//Zählerstand ausgeben
-					logic_setState($id,0);
-				}
+            if (logic_getState($id) == 1) {
+                //Zeitspanne erreicht?
+                if (getMicrotime() >= $V[2]) {        //Zeit abgelaufen?
+                    logic_setVar($id, 1, 0);    //Zähler auf 0
+                    logic_setOutput($id, 2, 0);    //Zählerstand ausgeben
+                    logic_setState($id, 0);
+                }
 
-			}
+            }
 
 
-		}
+        }
 
-	}
+    }
 }
+
 ?>
 ###[/LBS]###
 

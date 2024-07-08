@@ -1,18 +1,18 @@
 ###[DEF]###
-[name		=Watchdog					]
+[name        =Watchdog                    ]
 
-[e#1 TRIGGER	=Trigger 				]
-[e#2			=Dauer (s) #init=10		]
-[e#3 			=Aktiviert #init=1		]
+[e#1 TRIGGER    =Trigger                ]
+[e#2            =Dauer (s) #init=10        ]
+[e#3            =Aktiviert #init=1        ]
 
-[a#1		=							]
+[a#1        =                            ]
 
-[v#1		=10							]
+[v#1        =10                            ]
 ###[/DEF]###
 
 
 ###[HELP]###
-Dieser Baustein überwacht z.B. ein zyklisch eintreffendes Telegramm an E1. 
+Dieser Baustein überwacht z.B. ein zyklisch eintreffendes Telegramm an E1.
 
 Ein Telegramm &ne;0 an E1 startet den Baustein, bzw. startet den Baustein neu:
 Ein Timer beginnt abzulaufen und wird durch jedes weitere Telegramm &ne;0 an E1 neu gestartet. Der Ausgang A1 wird beim ersten(!) eintreffenden Telegramm &ne;0 an E1 auf 0 gesetzt.
@@ -33,39 +33,41 @@ A1: Beim ersten(!) neuen Telegramm &ne;0 an E1 wird A1=0 gesetzt. Nach Ablauf de
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		if (logic_getState($id)==0) {
+        if (logic_getState($id) == 0) {
 
-			if ($E[3]['value']==1) {
-				if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-					logic_setVar($id,1,(getMicrotime()+$E[2]['value']));
-					logic_setOutput($id,1,0); //Neustart: A1=0
-					logic_setState($id,1,$E[2]['value']*1000);
-				}
-			}
+            if ($E[3]['value'] == 1) {
+                if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+                    logic_setVar($id, 1, (getMicrotime() + $E[2]['value']));
+                    logic_setOutput($id, 1, 0); //Neustart: A1=0
+                    logic_setState($id, 1, $E[2]['value'] * 1000);
+                }
+            }
 
-		} else {
+        } else {
 
-			//Retriggern
-			if ($E[3]['value']==1 && $E[1]['value']!=0 && $E[1]['refresh']==1) {
-				logic_setVar($id,1,(getMicrotime()+$E[2]['value']));
-				logic_setState($id,1,$E[2]['value']*1000);
-			}
+            //Retriggern
+            if ($E[3]['value'] == 1 && $E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+                logic_setVar($id, 1, (getMicrotime() + $E[2]['value']));
+                logic_setState($id, 1, $E[2]['value'] * 1000);
+            }
 
-			if ($E[3]['value']==0 || getMicrotime()>=logic_getVar($id,1)) {
-				if ($E[3]['value']!=0) {
-					logic_setOutput($id,1,1);
-				}
-				logic_setState($id,0);
-			}
+            if ($E[3]['value'] == 0 || getMicrotime() >= logic_getVar($id, 1)) {
+                if ($E[3]['value'] != 0) {
+                    logic_setOutput($id, 1, 1);
+                }
+                logic_setState($id, 0);
+            }
 
-		}
+        }
 
-	}
+    }
 
 }
+
 ?>
 ###[/LBS]###
 

@@ -1,18 +1,18 @@
 ###[DEF]###
-[name		=FlipFlop				]
+[name        =FlipFlop                ]
 
-[e#1 TRIGGER=Trigger				]
-[e#2		=Reset					]
+[e#1 TRIGGER=Trigger                ]
+[e#2        =Reset                    ]
 
-[a#1		=0|E<sub>1</sub>		]
-[a#2		=0|1					]
+[a#1        =0|E<sub>1</sub>        ]
+[a#2        =0|1                    ]
 
-[v#1		=0						]
+[v#1        =0                        ]
 ###[/DEF]###
 
 
 ###[HELP]###
-Dieser Baustein bildet ein FlipFlop nach. 
+Dieser Baustein bildet ein FlipFlop nach.
 
 Ein neues Telegramm &ne;0 an E1 triggert das FlipFlop, A1 wird auf den Wert an E1 gesetzt und A2 wird =1 gesetzt. Treffen nun weitere Telegramme an E1 ein, werden diese ignoriert.
 Erst wenn ein neues Telegramm &ne;0 an E2 eintrifft, wird das FlipFlop zurückgesetzt: A1 und A2 werden =0 gesetzt.
@@ -26,27 +26,29 @@ A2: bei getriggertem FlipFlop wird A2=1 gesetzt, bei einem Reset (E2) wird A2=0 
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		if (logic_getVar($id,1)==0) {
-			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-				//triggern
-				logic_setOutput($id,1,$E[1]['value']);
-				logic_setOutput($id,2,1);
-				logic_setVar($id,1,1);
-			}
-		} else {
-			if ($E[2]['value']!=0 && $E[2]['refresh']==1) {
-				//Reset
-				logic_setOutput($id,1,0);
-				logic_setOutput($id,2,0);
-				logic_setVar($id,1,0);
-			}
-		}
+        if (logic_getVar($id, 1) == 0) {
+            if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+                //triggern
+                logic_setOutput($id, 1, $E[1]['value']);
+                logic_setOutput($id, 2, 1);
+                logic_setVar($id, 1, 1);
+            }
+        } else {
+            if ($E[2]['value'] != 0 && $E[2]['refresh'] == 1) {
+                //Reset
+                logic_setOutput($id, 1, 0);
+                logic_setOutput($id, 2, 0);
+                logic_setVar($id, 1, 0);
+            }
+        }
 
-	}
+    }
 }
+
 ?>
 ###[/LBS]###
 

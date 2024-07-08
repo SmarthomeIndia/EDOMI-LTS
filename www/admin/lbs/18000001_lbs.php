@@ -1,23 +1,23 @@
 ###[DEF]###
-[name		=Strings verbinden 10-fach		]
-[titel		=Strings verbinden				]
+[name        =Strings verbinden 10-fach        ]
+[titel        =Strings verbinden                ]
 
-[e#1 TRIGGER	=	]
-[e#2 TRIGGER	= 	]
-[e#3 TRIGGER	= 	]
-[e#4 TRIGGER	=	]
-[e#5 TRIGGER	= 	]
-[e#6 TRIGGER	= 	]
-[e#7 TRIGGER	= 	]
-[e#8 TRIGGER	=	]
-[e#9 TRIGGER	=	]
-[e#10 TRIGGER	=	]
-[e#11 TRIGGER	=(Trigger) #init=0			]
-[e#12 			=Modus 	 #init=0				]
-[e#13 			=Separator						]
+[e#1 TRIGGER    =    ]
+[e#2 TRIGGER    =    ]
+[e#3 TRIGGER    =    ]
+[e#4 TRIGGER    =    ]
+[e#5 TRIGGER    =    ]
+[e#6 TRIGGER    =    ]
+[e#7 TRIGGER    =    ]
+[e#8 TRIGGER    =    ]
+[e#9 TRIGGER    =    ]
+[e#10 TRIGGER    =    ]
+[e#11 TRIGGER    =(Trigger) #init=0            ]
+[e#12            =Modus     #init=0                ]
+[e#13            =Separator                        ]
 
-[a#1		=String		]
-[a#2		=Trigger	]
+[a#1        =String        ]
+[a#2        =Trigger    ]
 ###[/DEF]###
 
 
@@ -40,37 +40,43 @@ A2: Trigger: wird auf 1 (Modus=0) bzw. E11 (Modus=1) gesetzt sobald A1 auf einen
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
-	
-		$trigger=false;
-		if ($E[12]['value']==0) {
-			for ($t=1;$t<=10;$t++) {
-				if (!isEmpty($E[$t]['value']) && $E[$t]['refresh']==1) {
-					$trigger=true;
-					break;
-				}
-			}
-		} else if ($E[11]['value']!=0 && $E[11]['refresh']==1) {
-			$trigger=true;
-		}
-		
-		if ($trigger) {
-			$n='';
-			for ($t=1;$t<=10;$t++) {
-				if (!isEmpty($E[$t]['value'])) {$n.=$E[$t]['value'].$E[13]['value'];}
-			}
-			if (!isEmpty($E[13]['value'])) {$n=rtrim($n,$E[13]['value']);}
-			logic_setOutput($id,1,$n);
-			if ($E[12]['value']==0) {
-				logic_setOutput($id,2,1);
-			} else {
-				logic_setOutput($id,2,$E[11]['value']);
-			}
-		}
-		
-	}
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
+
+        $trigger = false;
+        if ($E[12]['value'] == 0) {
+            for ($t = 1; $t <= 10; $t++) {
+                if (!isEmpty($E[$t]['value']) && $E[$t]['refresh'] == 1) {
+                    $trigger = true;
+                    break;
+                }
+            }
+        } else if ($E[11]['value'] != 0 && $E[11]['refresh'] == 1) {
+            $trigger = true;
+        }
+
+        if ($trigger) {
+            $n = '';
+            for ($t = 1; $t <= 10; $t++) {
+                if (!isEmpty($E[$t]['value'])) {
+                    $n .= $E[$t]['value'] . $E[13]['value'];
+                }
+            }
+            if (!isEmpty($E[13]['value'])) {
+                $n = rtrim($n, $E[13]['value']);
+            }
+            logic_setOutput($id, 1, $n);
+            if ($E[12]['value'] == 0) {
+                logic_setOutput($id, 2, 1);
+            } else {
+                logic_setOutput($id, 2, $E[11]['value']);
+            }
+        }
+
+    }
 }
+
 ?>
 ###[/LBS]###
 

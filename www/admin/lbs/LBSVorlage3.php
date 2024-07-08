@@ -1,7 +1,7 @@
 ###[DEF]###
-[name		=	]
+[name        =    ]
 
-[e#1		= Autostart #init=1]
+[e#1        = Autostart #init=1]
 ###[/DEF]###
 
 
@@ -15,25 +15,27 @@ Das EXEC-Script wird dann einmalig gestartet und läuft in einer Schleife solang
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if ($E=logic_getInputs($id)) {
+function LB_LBSID($id)
+{
+    if ($E = logic_getInputs($id)) {
 
-		if (logic_getStateExec($id)==0) {	//EXEC-Script läuft noch nicht
-			logic_callExec(LBSID,$id);		//Exec-Script starten
-			
-		} else {							//EXEC-Script wird bereits ausgeführt
-			//...
-		}
+        if (logic_getStateExec($id) == 0) {    //EXEC-Script läuft noch nicht
+            logic_callExec(LBSID, $id);        //Exec-Script starten
 
-	}
+        } else {                            //EXEC-Script wird bereits ausgeführt
+            //...
+        }
+
+    }
 }
+
 ?>
 ###[/LBS]###
 
 
 ###[EXEC]###
 <?
-require(dirname(__FILE__)."/../../../../main/include/php/incl_lbsexec.php");
+require(dirname(__FILE__) . "/../../../../main/include/php/incl_lbsexec.php");
 
 set_time_limit(0);
 
@@ -44,12 +46,12 @@ sql_connect();
 //-------------------------------
 //eigener Code...
 
-while(logic_getEdomiState()==1) {	//Hauptschleife (wird beim Beenden oder Neustart von EDOMI verlassen)
-							//Wichtig: logic_getEdomiState() sorgt zudem dafür, dass die Datenbank-Verbindung aufrechterhalten wird!
+while (logic_getEdomiState() == 1) {    //Hauptschleife (wird beim Beenden oder Neustart von EDOMI verlassen)
+    //Wichtig: logic_getEdomiState() sorgt zudem dafür, dass die Datenbank-Verbindung aufrechterhalten wird!
 
-	//eigener Code...
+    //eigener Code...
 
-	usleep(1000*10);		//CPU-Last verteilen (die Länge der Pause sollte je nach Bedarf angepasst werden - je länger, desto ressourcenschonender)
+    usleep(1000 * 10);        //CPU-Last verteilen (die Länge der Pause sollte je nach Bedarf angepasst werden - je länger, desto ressourcenschonender)
 }
 
 //-------------------------------

@@ -1,15 +1,15 @@
 ###[DEF]###
-[name		=Restzeit-Timer			]
+[name        =Restzeit-Timer            ]
 
-[e#1 TRIGGER=Trigger 				]
-[e#2		=Dauer (s) #init=10		]
+[e#1 TRIGGER=Trigger                ]
+[e#2        =Dauer (s) #init=10        ]
 
-[a#1		=0|1					]
-[a#2		=Restzeit (s)			]
-[a#3		=Restzeit (%)			]
+[a#1        =0|1                    ]
+[a#2        =Restzeit (s)            ]
+[a#3        =Restzeit (%)            ]
 
-[v#1		=						]
-[v#2		=						]
+[v#1        =                        ]
+[v#2        =                        ]
 ###[/DEF]###
 
 
@@ -39,44 +39,46 @@ A3: wie A2, die Restzeit wird jedoch in Prozent ausgegeben (ganzzahlig)
 
 ###[LBS]###
 <?
-function LB_LBSID($id) {
-	if (($E=logic_getInputs($id)) && ($V=logic_getVars($id))) {
+function LB_LBSID($id)
+{
+    if (($E = logic_getInputs($id)) && ($V = logic_getVars($id))) {
 
-		$tmp=getMicrotime();
+        $tmp = getMicrotime();
 
-		if (logic_getState($id)==0) {
-			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-				logic_setVar($id,1,($tmp+$E[2]['value']));
-				logic_setVar($id,2,$E[2]['value']);
-				logic_setOutput($id,1,1);
-				logic_setOutput($id,2,$E[2]['value']);
-				logic_setOutput($id,3,100);
-				logic_setState($id,1,1000,true);		//1-Sekunden-Takt als kleinsten gemeinsamen Nenner (Timer und Restzeit)
-			}
+        if (logic_getState($id) == 0) {
+            if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+                logic_setVar($id, 1, ($tmp + $E[2]['value']));
+                logic_setVar($id, 2, $E[2]['value']);
+                logic_setOutput($id, 1, 1);
+                logic_setOutput($id, 2, $E[2]['value']);
+                logic_setOutput($id, 3, 100);
+                logic_setState($id, 1, 1000, true);        //1-Sekunden-Takt als kleinsten gemeinsamen Nenner (Timer und Restzeit)
+            }
 
-		} else {
-			//Retriggern
-			if ($E[1]['value']!=0 && $E[1]['refresh']==1) {
-				logic_setVar($id,1,($tmp+$E[2]['value']));
-				logic_setVar($id,2,$E[2]['value']);
-				logic_setOutput($id,1,1);
-				logic_setOutput($id,2,$E[2]['value']);
-				logic_setOutput($id,3,100);
+        } else {
+            //Retriggern
+            if ($E[1]['value'] != 0 && $E[1]['refresh'] == 1) {
+                logic_setVar($id, 1, ($tmp + $E[2]['value']));
+                logic_setVar($id, 2, $E[2]['value']);
+                logic_setOutput($id, 1, 1);
+                logic_setOutput($id, 2, $E[2]['value']);
+                logic_setOutput($id, 3, 100);
 
-			} else {
-				if ($tmp>=$V[1]) {
-					logic_setOutput($id,1,0);
-					logic_setOutput($id,2,0);
-					logic_setOutput($id,3,0);
-					logic_setState($id,0);
-				} else {
-					logic_setOutput($id,2,round($V[1]-$tmp));
-					logic_setOutput($id,3,round(($V[1]-$tmp)/$V[2]*100));
-				}
-			}
-		}
-	}
+            } else {
+                if ($tmp >= $V[1]) {
+                    logic_setOutput($id, 1, 0);
+                    logic_setOutput($id, 2, 0);
+                    logic_setOutput($id, 3, 0);
+                    logic_setState($id, 0);
+                } else {
+                    logic_setOutput($id, 2, round($V[1] - $tmp));
+                    logic_setOutput($id, 3, round(($V[1] - $tmp) / $V[2] * 100));
+                }
+            }
+        }
+    }
 }
+
 ?>
 ###[/LBS]###
 
