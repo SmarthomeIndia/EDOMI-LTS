@@ -1,0 +1,100 @@
+name: "Fehlermeldung"
+description: "Einen Fehler melden."
+title: "[Bug]: "
+labels: [
+  "bug",
+  "triage"
+]
+assignees:
+  - "starwarsfan"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vielen Dank, dass Du Dir die Zeit nimmst, um einen Fehler zu melden!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: "Was ist passiert?"
+      description: "Bitte beschreibe möglichst genau, wie es zum Fehler resp. Fehlverhalten kommt:"
+      placeholder: "Tell us what you see!"
+      value: |
+        1. Gehe zu '...'
+        2. Klicke auf '....'
+        3. Nach unten blättern bis zu '....'
+        4. Fehlverhalten/Fehlermeldung
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: "Was sollte normalerweise passieren?"
+      description: "Bitte beschreibe möglichst genau, welches Verhalten Du erwartest:"
+      placeholder: "Tell us what you see!"
+      value: "..."
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: "Welche Edomi-Version verwendest Du?"
+      options:
+        - "2.03 (Default)"
+        - "2.02"
+        - "2.01"
+        - "2.00"
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: operatingsystem
+    attributes:
+      label: Betriebssystem
+      description: "Welches Betriebssystem verwendest Du?"
+      options:
+        - "Rocky Linux 7 (native)"
+        - "Rocky Linux 7 (Docker)"
+        - "Rocky Linux 7 (LXC / ProxMox)"
+        - "CentOS 7"
+        - "CentOS 6"
+        - "other"
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: "In welchem Browser tritt das Problem auf?"
+      multiple: true
+      options:
+        - "Chrome"
+        - "Safari"
+        - "Microsoft Edge"
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Relevante Log-Ausgaben"
+      description: "Bitte hier den relevanten Log-Inhalt einfügen. Dieser wird automatisch als Code formatiert:"
+      render: shell
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots"
+      description: "Sofern vorhanden, hier bitte Screenshots einfügen:"
+  - type: input
+    id: contact
+    attributes:
+      label: "Kontakt-Details"
+      description: "Wie können wir Dich für weitere Details erreichen?"
+      placeholder: "ex. email@example.com"
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Code of Conduct"
+      description: "By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/somethi-ng/playground/blob/main/CODE_OF_CONDUCT.md)."
+      options:
+        - label: "I agree to follow this project's Code of Conduct"
+          required: true

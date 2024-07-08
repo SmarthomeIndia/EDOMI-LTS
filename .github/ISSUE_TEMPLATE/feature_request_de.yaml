@@ -1,0 +1,63 @@
+name: "Funktionalität vorschlagen"
+description: "Neue Funktionalität vorschlagen."
+title: "[Feature]: "
+labels: [
+  "enhancement",
+  "triage"
+]
+assignees:
+  - "starwarsfan"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke dass Du Dir die Zeit für den Vorschlag einer neuen Funktionalität nimmst!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: "Bezieht sich der Vorschlag auf ein konkretes Problem?"
+      description: "Bitte beschreiben:"
+      placeholder: "Tell us what you see!"
+      value: |
+        Es ist immer frustrierend, wenn man [...]
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-solution
+    attributes:
+      label: "Beschreibung der neuen Funktionlität"
+      description: "Eine klare Beschreibung, welche Funktionalität gewünscht wird:"
+      placeholder: "Tell us what you see!"
+      value: "..."
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Mögliche Alternativen"
+      description: "Eine klare Beschreibung, welche Alternativen es gibt:"
+      placeholder: "Tell us what you see!"
+      value: "..."
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "Zusätzliche Informationen"
+      description: "Weiterer Kontext u/o Screenshots bitte hier einfügen:"
+  - type: input
+    id: contact
+    attributes:
+      label: "Kontakt-Details"
+      description: "Wie können wir Dich für weitere Details erreichen?"
+      placeholder: "ex. email@example.com"
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Code of Conduct"
+      description: "By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/somethi-ng/playground/blob/main/CODE_OF_CONDUCT.md)."
+      options:
+        - label: "I agree to follow this project's Code of Conduct"
+          required: true
