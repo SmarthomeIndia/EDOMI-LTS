@@ -227,6 +227,9 @@ function verifyGaValue($value, $valueTyp, $min, $max, $step, $dec, $csv)
     if ($valueTyp == 16) {
         return $value;
     }
+    if ($valueTyp == 17) {
+        return $value;
+    }
     if ($valueTyp == 232) {
         $value = sprintf('%06s', dechex(hexdec($value)));
         return $value;

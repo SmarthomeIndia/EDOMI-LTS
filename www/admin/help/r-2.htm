@@ -113,6 +113,12 @@ Interne KOs sollten i.d.R. vom Typ "Variant" sein, KNX-GAs müssen einen zur KNX
 		<td>14 ASCII-Zeichen</td>
 		<td>Hinweis: Es sind nur ASCII-Zeichen ohne Steuerzeichen (mit Ausnahme von TAB, CR und LF) erlaubt.</td>
 	</tr>
+    <tr>
+        <td>DPT 17</td>
+        <td>1 Byte, Integer</td>
+        <td>0..63</td>
+        <td>Hinweis: KNX unterstützt maximal 64 Szenen.</td>
+    </tr>
 	<tr>
 		<td>DPT 232</td>
 		<td>3 Byte, 3x Integer (Hex-String)</td>
@@ -138,7 +144,7 @@ Interne KOs sollten i.d.R. vom Typ "Variant" sein, KNX-GAs müssen einen zur KNX
 				<li>DPT5 senden: "00,00"=0, "00,01"=1, "00,FF"=255</li>
 				<li>DPT16 senden: "00,41,42,43,44,45,46,47,48,49,4a,4b,4c,4d,4e"=ABCDEFGHIJKLMN</li>
 			</ul>
-			
+
 			<b>Achtung:</b>
 			Das Senden von fehlerhaften Rohdaten auf den KNX-Bus kann zu massiven Problemen führen! Die Daten werden vor dem Senden <i>nicht</i> überprüft!
 		</td>

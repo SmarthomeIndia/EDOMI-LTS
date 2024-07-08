@@ -843,6 +843,13 @@ class procKnx
         if ($valueTyp == 16) {
             return str_replace(chr(0), '', $this->chars($raw, 2, 14));
         }
+        if ($valueTyp == 17) {
+            $b2 = $this->byte($raw, 2);
+            // Mask the last 6 bits
+            // See https://www.knx.org/wAssets/docs/downloads/Certification/Interworking-Datapoint-types/03_07_02-Datapoint-Types-v02.02.01-AS.pdf
+            // Section "3.18 Datapoint Type Scene Number"
+            return ($b2 & 0x3f);
+        }
         if ($valueTyp == 232) {
             $n = ($this->byte($raw, 2) * 256 * 256) + ($this->byte($raw, 3) * 256) + $this->byte($raw, 4);
             return sprintf("%06X", $n);
@@ -974,6 +981,13 @@ class procKnx
         if ($valueTyp == 16) {
             $r1 = substr($value . str_repeat(chr(0), 14), 0, 14);
             return chr($sendTyp) . $r1;
+        }
+        if ($valueTyp == 17) {
+            // Mask the last 6 bits
+            // See https://www.knx.org/wAssets/docs/downloads/Certification/Interworking-Datapoint-types/03_07_02-Datapoint-Types-v02.02.01-AS.pdf
+            // Section "3.18 Datapoint Type Scene Number"
+            $r1 = intval($value & 0x3F) - 1;
+            return chr($sendTyp) . chr($r1 & 0x3f);
         }
         if ($valueTyp == 232) {
             $r1 = hexdec(substr($value, 0, 2));
