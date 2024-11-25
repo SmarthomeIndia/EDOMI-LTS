@@ -1,9 +1,4 @@
 <?
-/* 
-*/
-?>
-
-<?
 require(dirname(__FILE__) . "/../../www/shared/php/config.php");
 require(MAIN_PATH . "/www/shared/php/base.php");
 require(MAIN_PATH . "/www/shared/php/incl_dbinit.php");
@@ -79,7 +74,7 @@ class procKnx
         if ($this->procTrigger[0]) {
             $this->procControl = procStatus_getControl(3);
             if ($this->procControl == 1) {
-                writeToLog(3, true, 'Prozess KNX beenden...');
+                writeToLog(3, true, 'Stopping KNX process...');
             } else {
                 return true;
             }
@@ -206,21 +201,21 @@ class procKnx
             }
             if ($this->connectionstate == 1) {
                 if (getMicrotime() >= ($this->cE_description_response_timeout + global_knxOpenTimeout)) {
-                    $this->trace(true, 'CE > | DESCRIPTION_REQUEST / Timeout nach ' . global_knxOpenTimeout . 's / ErrMsg: no DESCRIPTION_RESPONSE received from router');
+                    $this->trace(true, 'CE > | DESCRIPTION_REQUEST / Timeout after ' . global_knxOpenTimeout . 's / ErrMsg: no DESCRIPTION_RESPONSE received from router');
                     $this->reconnect = true;
                     $this->procData[7]++;
                 }
             }
             if ($this->connectionstate == 7) {
                 if (getMicrotime() >= ($this->cE_connect_response_timeout + global_knxOpenTimeout)) {
-                    $this->trace(true, 'CE > | CONNECT_REQUEST / Timeout nach ' . global_knxOpenTimeout . 's / ErrMsg: no CONNECT_RESPONSE received from router');
+                    $this->trace(true, 'CE > | CONNECT_REQUEST / Timeout after ' . global_knxOpenTimeout . 's / ErrMsg: no CONNECT_RESPONSE received from router');
                     $this->reconnect = true;
                     $this->procData[7]++;
                 }
             }
             if ($this->connectionstate == 15 && $this->cE_connectionstate_requested) {
                 if (getMicrotime() >= ($this->cE_connectionstate_response_timeout + global_knxHeartbeatTimeout)) {
-                    $this->trace(true, 'CE > | CONNECTIONSTATE_REQUEST / Timeout nach ' . global_knxHeartbeatTimeout . 's / ErrMsg: no CONNECTIONSTATE_RESPONSE received from router');
+                    $this->trace(true, 'CE > | CONNECTIONSTATE_REQUEST / Timeout after ' . global_knxHeartbeatTimeout . 's / ErrMsg: no CONNECTIONSTATE_RESPONSE received from router');
                     $this->reconnect = true;
                     $this->procData[7]++;
                 }
@@ -228,10 +223,10 @@ class procKnx
             if ($this->connectionstate == 15 && (!$this->dE_tunneling_ack)) {
                 if (getMicrotime() >= ($this->dE_tunneling_ack_timeout + global_knxWriteTimeout)) {
                     if (!$this->dE_tunneling_request_repeat) {
-                        $this->trace(true, 'DE > | TUNNELING_ACK / Timeout nach ' . global_knxWriteTimeout . 's / ErrMsg: no TUNNELING_ACK received from router / repeat');
+                        $this->trace(true, 'DE > | TUNNELING_ACK / Timeout after ' . global_knxWriteTimeout . 's / ErrMsg: no TUNNELING_ACK received from router / repeat');
                         $this->dE_tunneling_request_repeat = true;
                     } else {
-                        $this->trace(true, 'DE > | TUNNELING_ACK / Timeout nach ' . global_knxWriteTimeout . 's / ErrMsg: no TUNNELING_ACK received from router / drop');
+                        $this->trace(true, 'DE > | TUNNELING_ACK / Timeout after ' . global_knxWriteTimeout . 's / ErrMsg: no TUNNELING_ACK received from router / drop');
                         $this->dE_tunneling_request_repeat = false;
                         $this->dE_tunneling_ack = true;
                     }
@@ -308,11 +303,11 @@ class procKnx
 
     private function CONTROL_DESCRIPTION_RESPONSE($response)
     {
-        writeToLog(3, true, 'KNX-Schnittstelle: Name: ' . trim(str_replace(chr(0), ' ', $this->chars($response, 31, 30))) . ' / PA: ' . $this->rawToPA($this->chars($response, 11, 2)) . ' / MAC: ' . $this->bytesToHex($this->chars($response, 25, 6)));
+        writeToLog(3, true, 'KNX-Interface: Name: ' . trim(str_replace(chr(0), ' ', $this->chars($response, 31, 30))) . ' / PA: ' . $this->rawToPA($this->chars($response, 11, 2)) . ' / MAC: ' . $this->bytesToHex($this->chars($response, 25, 6)));
         if ($this->byte($response, 10) == 0x00) {
             $this->trace(false, 'CE < | DESCRIPTION_RESPONSE / Status: Ok / Name: ' . trim(str_replace(chr(0), ' ', $this->chars($response, 31, 30))) . ' / PA: ' . $this->rawToPA($this->chars($response, 11, 2)) . ' / MAC: ' . $this->bytesToHex($this->chars($response, 25, 6)) . ' / Raw: ' . $this->bytesToHex($response));
         } else {
-            $this->trace(true, 'CE < | DESCRIPTION_RESPONSE / Status: Gerät ist im Programmiermodus! / Name: ' . trim(str_replace(chr(0), ' ', $this->chars($response, 31, 30))) . ' / PA: ' . $this->rawToPA($this->chars($response, 11, 2)) . ' / MAC: ' . $this->bytesToHex($this->chars($response, 25, 6)) . ' / Raw: ' . $this->bytesToHex($response));
+            $this->trace(true, 'CE < | DESCRIPTION_RESPONSE / Status: device does have activated programming mode! / Name: ' . trim(str_replace(chr(0), ' ', $this->chars($response, 31, 30))) . ' / PA: ' . $this->rawToPA($this->chars($response, 11, 2)) . ' / MAC: ' . $this->bytesToHex($this->chars($response, 25, 6)) . ' / Raw: ' . $this->bytesToHex($response));
         }
         $this->connectionstate |= 2;
     }
@@ -528,7 +523,7 @@ class procKnx
                     $ACK = false;
                     $INC = false;
                     if (global_knxLogSeqErr) {
-                        $this->trace(true, 'DE < | TUNNELING_REQUEST / Hinweis: SequenceCounter does not fit (noACK): current value=' . $receiveRtg . ', expected value=' . $this->dE_tunneling_request_seqCounter_receive . ' / Raw: ' . $this->bytesToHex($response));
+                        $this->trace(true, 'DE < | TUNNELING_REQUEST / Info: SequenceCounter does not fit (noACK): current value=' . $receiveRtg . ', expected value=' . $this->dE_tunneling_request_seqCounter_receive . ' / Raw: ' . $this->bytesToHex($response));
                         $this->procData[6]++;
                     }
                     if (global_knxReconnectOnSeqErr) {
@@ -577,7 +572,7 @@ class procKnx
 
     private function DATA_UNKNOWN($response)
     {
-        $this->trace(true, 'DE < | UNKNOWN / Unbekannter CRD: ' . dechex($this->word($response, 3)) . 'h / Raw: ' . $this->bytesToHex($response));
+        $this->trace(true, 'DE < | UNKNOWN / unknown CRD: ' . dechex($this->word($response, 3)) . 'h / Raw: ' . $this->bytesToHex($response));
     }
 
     private function send_DESCRIPTION_REQUEST()
@@ -633,11 +628,11 @@ class procKnx
             $cmd .= '1100' . 'BCE0' . $this->bytesToHex($paRaw) . $this->bytesToHex($gaRaw);
             $cmd .= $this->bytesToHex(chr($sizeData)) . '00' . $this->bytesToHex($data);
             if ($mode == 0) {
-                $this->trace(false, 'DE > | TUNNELING_REQUEST:L_Data.req / Typ: Read / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' / Prio: ' . $prio . ' / Raw: ' . $cmd);
+                $this->trace(false, 'DE > | TUNNELING_REQUEST:L_Data.req / Type: Read / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' / Prio: ' . $prio . ' / Raw: ' . $cmd);
             } else if ($mode == 1) {
-                $this->trace(false, 'DE > | TUNNELING_REQUEST:L_Data.req / Typ: Response / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' = ' . $gaValue . ' / Prio: ' . $prio . ' / Raw: ' . $cmd);
+                $this->trace(false, 'DE > | TUNNELING_REQUEST:L_Data.req / Type: Response / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' = ' . $gaValue . ' / Prio: ' . $prio . ' / Raw: ' . $cmd);
             } else if ($mode == 2) {
-                $this->trace(false, 'DE > | TUNNELING_REQUEST:L_Data.req / Typ: Write / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' = ' . $gaValue . ' / Prio: ' . $prio . ' / Raw: ' . $cmd);
+                $this->trace(false, 'DE > | TUNNELING_REQUEST:L_Data.req / Type: Write / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' = ' . $gaValue . ' / Prio: ' . $prio . ' / Raw: ' . $cmd);
             }
             $this->dE_tunneling_request_data = $this->hexToBytes($cmd);
             $this->dE_sendCmd($this->dE_tunneling_request_data);
@@ -645,11 +640,11 @@ class procKnx
             $this->dE_tunneling_ack_timeout = getMicrotime();
         } else {
             if ($mode == 0) {
-                $this->trace(true, 'DE > | TUNNELING_REQUEST:L_Data.req / Typ: Read / ErrMsg: PA, GA or Payload invalid / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' / Prio: ' . $prio);
+                $this->trace(true, 'DE > | TUNNELING_REQUEST:L_Data.req / Type: Read / ErrMsg: PA, GA or Payload invalid / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' / Prio: ' . $prio);
             } else if ($mode == 1) {
-                $this->trace(true, 'DE > | TUNNELING_REQUEST:L_Data.req / Typ: Response / ErrMsg: PA, GA or Payload invalid / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' = ' . $gaValue . ' / Prio: ' . $prio);
+                $this->trace(true, 'DE > | TUNNELING_REQUEST:L_Data.req / Type: Response / ErrMsg: PA, GA or Payload invalid / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' = ' . $gaValue . ' / Prio: ' . $prio);
             } else if ($mode == 2) {
-                $this->trace(true, 'DE > | TUNNELING_REQUEST:L_Data.req / Typ: Write / ErrMsg: PA, GA or Payload invalid / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' = ' . $gaValue . ' / Prio: ' . $prio);
+                $this->trace(true, 'DE > | TUNNELING_REQUEST:L_Data.req / Type: Write / ErrMsg: PA, GA or Payload invalid / SeqCounter: ' . $this->dE_tunneling_request_seqCounter_send . ' / PA: ' . $this->cE_tunnelPA . ' / GA: ' . $ga . ' = ' . $gaValue . ' / Prio: ' . $prio);
             }
             $this->dE_tunneling_request_data = false;
         }
