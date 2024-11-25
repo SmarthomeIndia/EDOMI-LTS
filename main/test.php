@@ -1,7 +1,5 @@
-<?
-/* 
-*/ 
-?><? require(dirname(__FILE__)."/../www/shared/php/config.php"); require(MAIN_PATH."/www/shared/php/base.php");
+<? 
+require(dirname(__FILE__)."/../www/shared/php/config.php"); require(MAIN_PATH."/www/shared/php/base.php");
 require(MAIN_PATH."/www/shared/php/incl_dbinit.php"); require(MAIN_PATH."/www/shared/php/incl_camera.php");
 require(MAIN_PATH."/main/include/php/config.php"); require(MAIN_PATH."/main/include/php/base.php");
 require(MAIN_PATH."/main/include/php/incl_log.php"); require(MAIN_PATH."/main/include/php/incl_ga.php");
@@ -1345,4 +1343,5 @@ private function isAssocArray($arr)
     return ($arr!==array_keys($arr)); 
 } 
 } 
-sql_disconnect(); ?>
+sql_disconnect(); 
+?>
