@@ -162,7 +162,7 @@ install_onCentos7 () {
 	echo -e "\033[32m>>> Packete installieren (Teil 1)\033[39m"
 	rpm -Uvh centos7x/rpm1/*.rpm
 
-	yum-config-manager --enable remi-php72
+	yum-config-manager --enable remi-php85
 
 	# -------------------------------
 	echo -e "\033[32m>>> Packete installieren (Teil 2)\033[39m"
@@ -288,14 +288,15 @@ install_onCentos7_download () {
 	# mySQL/MariaDB installieren
 	yum -y install mariadb-server
 
-	# PHP 7.2 installieren
+	# PHP 8.5 installieren
 	yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 	yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 	yum -y install yum-utils
-	yum-config-manager --enable remi-php72
+	yum-config-manager --enable remi-php85
 	yum -y install php
-	yum -y install php-mysql
+	yum -y install php-mysqlnd
 	yum -y install php-soap
+	yum -y install php-mbstring
 
 	# expect installieren
 	yum -y install expect
