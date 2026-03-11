@@ -420,7 +420,7 @@ Die folgenden Dateien sind (z.B. im Ordner "$HOME") zu erstellen:
 				if ($arg2=='') {$arg2='null';}
 				if ($arg3=='') {$arg3='null';}
 				$r=shell_exec('osascript remote.scpt '.$arg1.' '.$arg2.' '.$arg3);
-				echo utf8_decode($r);
+				echo mb_convert_encoding($r,'ISO-8859-1','UTF-8');
 			}
 
 		
