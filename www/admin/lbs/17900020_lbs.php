@@ -413,6 +413,7 @@ class LB_LBSID_wiegand {
 	private $selectLast=array(false,false,false,false);
 	private $prgMode;
 	private $deviceNames;
+	private $functionNames;
 	private $niceOk;
 	private $niceDeniedKnown;
 	private $niceDeniedUnknown;
