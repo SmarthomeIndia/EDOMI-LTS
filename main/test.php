@@ -37,6 +37,8 @@ class class_exchange {
     private $exportItems=array(); 
     private $sysFolders=array(); 
     private $exportTree=array(); 
+    private $importData=array();
+    private $import_errors=array();
     private $dbMeta=array( 
         'editRoot' => array('folders',1000), 
         'editLogicPage' => array('logicPages',1), 
