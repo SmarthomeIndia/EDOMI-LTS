@@ -551,7 +551,7 @@ class procKnx
             $this->trace(false, 'DE < | TUNNELING_ACK / SeqCounter: ' . $this->byte($response, 9) . ' (' . $this->dE_tunneling_request_seqCounter_send . ') / Raw: ' . $this->bytesToHex($response));
             $this->dE_tunneling_ack = true;
             $this->dE_tunneling_request_repeat = false;
-            $this->dE_tunneling_request_seqCounter_send = ($this->dE_tunneling_request_seqCounter_send + 1) & 0xff;
+            $this->dE_tunneling_request_seqCounter_send = ($this->byte($response, 9) + 1) & 0xff;
             $this->procData[3]++;
         } else {
             $errMsg = '(unknown)';
