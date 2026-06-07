@@ -302,7 +302,7 @@ class procMain
         if (writeToLog(1, sql_call("INSERT INTO edomiLive.RAMlogicLink SELECT * FROM edomiLive.logicLink"), 'Database: fill edomiLive.RAMlogicLink ', 'FATALERROR') === false) {
             return 13;
         }
-        if (writeToLog(1, sql_call("ALTER TABLE edomiLive.RAMlogicLink ADD KEY (functionid), ADD KEY (eingang), ADD KEY (init), ADD KEY (ausgang), ADD KEY (value)"), 'Database: create index edomiLive.RAMlogicLink ', 'FATALERROR') === false) {
+        if (writeToLog(1, sql_call("ALTER TABLE edomiLive.RAMlogicLink ADD KEY (functionid), ADD KEY (eingang), ADD KEY (init), ADD KEY (ausgang), ADD KEY (value), ADD INDEX idx_refresh_ei (refresh, elementid, functionid)") , 'Datenbank: edomiLive.RAMlogicLink Index erstellen', 'FATALERROR') === false) {
             return 13;
         }
         writeToLog(1, sql_call("DROP TABLE IF EXISTS edomiLive.RAMlogicCmdList"), 'Database: delete edomiLive.RAMlogicCmdList ');
